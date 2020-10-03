@@ -1,6 +1,8 @@
 local gamestate = {
     stack = {},
-    timeline = {}
+    timeline = {},
+    flags = {},
+    time = 0
 }
 lfs = love.filesystem
 lume = require "lib.lume"
@@ -87,11 +89,17 @@ function gamestate.draw()
 end
 
 function gamestate.update()
+    -- advance time, this always happens...
+    gamestate.time = gamestate.time + 1
+
     return gamestate.current().update()
 end
 
 function gamestate.load()
     -- universal setup
+
+    -- time is 0 now
+    gamestate.time = 0
 
     -- load timeline
     local timelineLines = lfs.lines("assets/timeline/timeline.csv")
@@ -99,6 +107,26 @@ function gamestate.load()
 
     -- initialize specific state
     return gamestate.current().load()
+end
+
+function gamestate.setFlag(flag)
+    if not gamestate.flags[flag] then
+        gamestate.flags[flag] = true
+    end
+end
+
+function gamestate.clearFlag(flag) 
+    if gamestate.flags[flag] then
+        gamestate.flags[flag] = nil
+    end
+end
+
+function gamestate.hasFlag(flag)
+    if gamestate.flags[flag] then
+        return true
+    end
+
+    return false
 end
 
 return gamestate
