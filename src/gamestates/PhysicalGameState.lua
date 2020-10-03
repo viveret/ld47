@@ -14,7 +14,7 @@ function M:draw()
     -- TimedGameState.draw(self)
 
     if self.gamestate ~= nil then
-        self.gamestate.graphics.drawObjectFit(self.background, 0, 0)
+        self.gamestate.graphics.drawObject(self.background, 0, 0)
         self.gamestate.player.draw()
     end
 
