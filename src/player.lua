@@ -3,7 +3,7 @@ M.__index = M
 
 local animation = require "src.animation"
 
-function M.new(world, gfx, x, y)
+function M.new(world, spritesheet, x, y)
     local self = setmetatable({
         x = x,
         y = y,
@@ -19,18 +19,29 @@ function M.new(world, gfx, x, y)
     self.body:setMass(self.body:getMass() * 20)
     self.shape = lp.newRectangleShape(self.w, self.h)
     self.fixture = lp.newFixture(self.body, self.shape)
-    self.idleAnimation = animation.new(gfx.Player, 0, 3, 0, 1)
+    
+    self.animations = {
+        idle = animation.new(spritesheet, 0, 3, 0, 1),
+        down = animation.new(spritesheet, 3, 6, 0, 1),
+        up = animation.new(spritesheet, 9, 6, 0, 1),
+        right = animation.new(spritesheet, 15, 6, 0, 1),
+        left = animation.new(spritesheet, 15, 6, 0, 1, true)
+    }
 	return self
 end
 
 function M:draw()
+    if self.activeAnimation == nil then
+        self:setActiveAnimation(self.animations.idle)
+    end
+
     lg.push()
     --lg.scale(1 / 64, 1 / 64)
     if self.positionIsCenter then
-        self.idleAnimation:draw(self.body:getX() - self.w / 2, self.body:getY() - self.h / 2)
+        self.activeAnimation:draw(self.body:getX() - self.w / 2, self.body:getY() - self.h / 2)
         --lg.rectangle("fill", self.body:getX(), self.body:getY(), self.w, self.h)
     else
-        self.idleAnimation:draw(self.body:getX(), self.body:getY())
+        self.activeAnimation:draw(self.body:getX(), self.body:getY())
         --lg.rectangle("fill", self.body:getX(), self.body:getY(), self.w, self.h)
     end
     lg.pop()
@@ -41,15 +52,19 @@ function M:update(dt)
 
     if lk.isDown('w') then
         vy = -1
+        self:setActiveAnimation(self.animations.up, dt)
     end
     if lk.isDown('a') then
         vx = -1
+        self:setActiveAnimation(self.animations.left, dt)
     end
     if lk.isDown('s') then
         vy = 1
+        self:setActiveAnimation(self.animations.down, dt)
     end
     if lk.isDown('d') then
         vx = 1
+        self:setActiveAnimation(self.animations.right, dt)
     end
 
     if vx ~= 0 then
@@ -67,11 +82,19 @@ function M:update(dt)
     if self.body:getX() < 0 then
         vx = abs(vx)
     end
+
+    -- todo: also check for ongoing movement
+    if vx == 0 and vy == 0 then
+        self:setActiveAnimation(self.animations.idle, dt)
+    end
     --self.body:setLinearVelocity(vx, vy)
     --self.body:applyLinearImpulse(vx, vy)
+end
 
-
-    self.idleAnimation:update(dt)
+function M:setActiveAnimation(animation, dt)
+    dt = dt or 0
+    self.activeAnimation = animation
+    self.activeAnimation:update(dt)
 end
 
 return M

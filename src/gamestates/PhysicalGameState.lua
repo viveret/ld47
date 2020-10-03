@@ -39,7 +39,7 @@ end
 
 function M:load(x, y)
     TimedGameState.load(self)
-    self.player = player.new(self.world, self.gamestate.graphics, x, y)
+    self.player = player.new(self.world, self.gamestate.graphics.Player, x, y)
     self:pushCamera(Camera.new(self.player.body))
 end
 
