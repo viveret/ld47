@@ -18,7 +18,7 @@ function M:draw()
 
     if self.gamestate ~= nil then
         self.gamestate.graphics.drawObject(self.background, 0, 0)
-        self.player:draw(self.gamestate.graphics)
+        self.player:draw()
     end
 
     lg.print("You are in " .. self.name, 0, 0)
@@ -32,7 +32,7 @@ end
 
 function M:load(x, y)
     TimedGameState.load(self)
-    self.player = player.new(self.world, x, y)
+    self.player = player.new(self.world, self.gamestate.graphics, x, y)
 end
 
 function M.save()
