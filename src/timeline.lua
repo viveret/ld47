@@ -10,11 +10,7 @@ local M = { }
 -- timeline is a table of "scene name" -> "timeline"
 --
 -- timeline is a sequence of entries
---   { time: <long ticks>, flags: <table of names>, action: <object> }
---
--- 
--- different objects are ...
---   todo
+--   { time: <long ticks>, flags: <table of names>, action: <see parseAction> }
 --
 -- file is a CSV, format is
 --   Scene,Time,Flags,Action
