@@ -14,7 +14,6 @@ lume = require "lib.lume"
 local audio = require "src.audio"
 local timeline = require "src.timeline"
 local graphics = require "src.graphics"
-local player = require "src.player"
 
 function donothing()
 end
@@ -119,9 +118,6 @@ function gamestate.load()
     -- universal setup
     gamestate.graphics = graphics.load()
     gamestate.audio = audio.load()
-    
-    local world = lp.newWorld(0, 0, true)
-    gamestate.player = player.load(world)
 
     -- time is 0 now
     gamestate.time = 0
