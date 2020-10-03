@@ -53,7 +53,6 @@ function M:update(dt)
     if lk.isDown('w') then
         vy = -1
         self:setActiveAnimation(self.animations.up, dt)
-<<<<<<< HEAD
     end
     if lk.isDown('a') then
         vx = -1
@@ -86,31 +85,6 @@ function M:update(dt)
 
     -- todo: also check for ongoing movement
     if vx == 0 and vy == 0 then
-=======
-    elseif lk.isDown('a') then
-        if self.body:getX() > 0 then
-            self.body:applyLinearImpulse(-50, 0)
-        else
-            self.body:setLinearVelocity(0, 0)
-        end
-        self:setActiveAnimation(self.animations.left, dt)
-    elseif lk.isDown('s') then
-        if self.body:getY() < lg.getHeight() - 64 then
-            self.body:applyLinearImpulse(0, 50)
-        else
-            self.body:setLinearVelocity(0, 0)
-        end
-        self:setActiveAnimation(self.animations.down, dt)
-    elseif lk.isDown('d') then
-        if self.body:getX() < lg.getWidth() - 64 then
-            self.body:applyLinearImpulse(50, 0)
-        else
-            self.body:setLinearVelocity(0, 0)
-        end
-        self:setActiveAnimation(self.animations.right, dt)
-    else
-        self.body:setLinearVelocity(0, 0)
->>>>>>> player: wire left/right animations
         self:setActiveAnimation(self.animations.idle, dt)
     end
     --self.body:setLinearVelocity(vx, vy)
