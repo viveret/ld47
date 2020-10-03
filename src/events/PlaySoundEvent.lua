@@ -1,11 +1,14 @@
 local M = {}
 
-function M:new(path) 
-	return { path = path, fireOn = fireOn }
+function M.fireOn(self, gs)
+	local toPlay = gs.audio[self.name]
+    love.audio.play(toPlay)
 end
 
-function fireOn(self, gs)
-    love.audio.play(self.path)
+function M.new(name) 
+	local ret = { type = "PlaySoundEvent", name = name, fireOn = M.fireOn }
+
+	return ret
 end
 
 return M

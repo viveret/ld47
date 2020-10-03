@@ -1,11 +1,11 @@
 local M = {}
 
-function M:new(name, toX, toY) 
-	return { name = name, toX = x, toY = y, fireOn = fireOn }
+function M.fireOn(self, gs) 
+	-- todo
 end
 
-function fireOn(self, gs) 
-	-- todo
+function M.new(name, toX, toY) 
+	return { type="ActorMoveEvent", name = name, toX = x, toY = y, fireOn = M.fireOn }
 end
 
 return M

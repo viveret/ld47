@@ -2,7 +2,7 @@ local M = {}
 
 function M.load()
     return {
-        -- ping = love.audio.newSource( "ping.wav", 'static' )
+        mirror = love.audio.newSource( "assets/audio/mirror.mp3", 'static' )
     }
 end
 

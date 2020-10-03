@@ -3,6 +3,8 @@ Home,200,Hello,Move|Bob|200|200
 Home,300,Hello|Second Loop,Speak|Bob|Hello world
 Home,400,Hello,Despawn|Bob
 Home,500,,RoomText|It is possible for Bob to have been here
-Home,600,,PlaySound|assets/audio/boop.wav
 Overworld,1000,,RoomText|This happened on trigger!!!
+Overworld,1200,,PlaySound|mirror
+Overworld,1201,,ToggleFlag|HearMirror
 Overworld,1500,,RoomText|...And then this superceded it...
+Overworld,1501,,ToggleFlag|HearMirror
