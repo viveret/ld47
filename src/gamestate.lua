@@ -99,7 +99,12 @@ function gamestate.replace(newGamestate)
 end
 
 function gamestate.draw()
-    return gamestate.current().draw()
+    gamestate.current().draw()
+
+    if gamestate.roomText ~= nil then
+        love.graphics.print(gamestate.roomText, _renderWidth / 2, _renderHeight / 2)
+    end
+
 end
 
 function gamestate.update()
@@ -155,7 +160,11 @@ function gamestate.hasFlag(flag)
 end
 
 function gamestate.fire(ev)
-    return ev.fireOn(gamestate.current())
+    return ev.fireOn(ev, gamestate)
+end
+
+function gamestate.showRoomText(text)
+    gamestate.roomText = text
 end
 
 return gamestate

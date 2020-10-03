@@ -3,7 +3,7 @@ local ActorMoveEvent = require "src.events.ActorMoveEvent"
 local ActorDespawnEvent = require "src.events.ActorDespawnEvent"
 local ActorSpeakEvent = require "src.events.ActorSpeakEvent"
 local PlaySoundEvent = require "src.events.PlaySoundEvent"
-local RoomTextEvent = require "src.events.PlaySoundEvent"
+local RoomTextEvent = require "src.events.RoomTextEvent"
 
 local M = { }
 
@@ -102,7 +102,7 @@ function parseAction(raw)
 	elseif type == "RoomText" then
 		local text = parts[2]
 
-		return RoomTextEvent:new(text)
+		return RoomTextEvent.new(text)
 	else 
 		error("Unexpected type:"..type)
 	end 
@@ -144,13 +144,17 @@ function M.nextEvent(timeline, currentTime)
 	local row = nil
 
 	for ix, entry in ipairs(timeline) do
-		local stillValid = currentTime <= entry.time
+		local stillValid = currentTime < entry.time
 
 		if stillValid then
 			if row == nil or row.time > entry.time then
 				row = entry
 			end 
 		end
+	end
+
+	if row == nil then
+		return nil
 	end
 
 	local ret = { time = row.time, action = row.action }

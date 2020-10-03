@@ -1,11 +1,13 @@
 local M = {}
 
-function M:new(text) 
-	return { text = text }
+function M.new(text) 
+	local ret = { type = "RoomTextEvent", text = text, fireOn = fireOn }
+
+	return ret
 end
 
-function M.fireOn(self, gs)
-    gs.showSubtitle(self.text)
+function fireOn(self, gs)
+    gs.showRoomText(self.text)
 end
 
 return M
