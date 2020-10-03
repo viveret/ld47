@@ -14,6 +14,7 @@ lume.extend(_G, math)
 
 gamestate = require "src.gamestate"
 StartNewGameState = require "src.gamestates.StartNewGameState"
+OverworldGameState = require "src.gamestates.OverworldGameState"
 
 function love.draw()
     _renderWidth, _renderHeight = love.graphics.getDimensions()
@@ -25,9 +26,5 @@ end
 function love.load()
     love.window.setMode(_renderWidth, _renderHeight, { resizable = true })
     
-    if gamestate.savesFolderExists() then
-        gamestate.push(StartNewGameState)
-    else
-        gamestate.load()
-    end
+    gamestate.load()
 end

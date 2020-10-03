@@ -8,7 +8,8 @@ lfs = love.filesystem
 lume = require "lib.lume"
 
 require "src.timeline"
-require "src.graphics"
+graphics = require "src.graphics"
+audio = require "src.audio"
 
 function donothing()
 end
@@ -78,11 +79,23 @@ function gamestate.current()
 end
 
 function gamestate.push(newGamestate)
-    table.insert(gamestate.stack, newGamestate)
+    if newGamestate ~= nil then
+        table.insert(gamestate.stack, newGamestate)
+    else
+        error('newGamestate must not be nil')
+    end
 end
 
 function gamestate.pop()
     table.remove(gamestate.stack)
+end
+
+function gamestate.replace(newGamestate)
+    if newGamestate ~= nil then
+        gamestate.stack[-1] = newGamestate
+    else
+        error('newGamestate must not be nil')
+    end
 end
 
 function gamestate.draw()
@@ -98,7 +111,8 @@ end
 
 function gamestate.load()
     -- universal setup
-    graphics.load()
+    gamestate.graphics = graphics.load()
+    gamestate.audio = audio.load()
 
     -- time is 0 now
     gamestate.time = 0
@@ -108,7 +122,14 @@ function gamestate.load()
     gamestate.timeline = Timeline_load(timelineLines)
 
     -- initialize specific state
-    return gamestate.current().load()
+    if gamestate.savesFolderExists() then
+        --gamestate.push(StartNewGameState)
+        gamestate.push(OverworldGameState)
+    else
+        gamestate.push(StartNewGameState)
+    end
+
+    return gamestate.current().load(gamestate)
 end
 
 function gamestate.setFlag(flag)

@@ -7,7 +7,7 @@ end
 function M.update()
 end
 
-function M.load()
+function M.load(gamestate)
 end
 
 function M.save()

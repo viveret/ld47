@@ -1,7 +1,11 @@
 local M = {}
 
 function M.load()
-    love.graphics.setDefaultFilter(love.graphics.linear, love.graphics.linear)
+    lg.setDefaultFilter('linear', 'linear')
+
+    return {
+        Overworld = lg.newImage("assets/images/world/Overworld.png")
+    }
 end
 
 return M
