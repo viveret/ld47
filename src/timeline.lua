@@ -4,6 +4,7 @@ local ActorDespawnEvent = require "src.events.ActorDespawnEvent"
 local ActorSpeakEvent = require "src.events.ActorSpeakEvent"
 local PlaySoundEvent = require "src.events.PlaySoundEvent"
 local RoomTextEvent = require "src.events.RoomTextEvent"
+local ToggleFlagEvent = require "src.events.ToggleFlagEvent"
 
 local M = { }
 
@@ -62,6 +63,8 @@ end
 --   1. Path to sound file  
 -- RoomText
 --   1. Text
+-- ToggleFlag
+--   1. FlagName
 function parseAction(raw)
 	local parts = {}
 	for part in string.gmatch(raw, "[^\\|]+") do
@@ -75,30 +78,34 @@ function parseAction(raw)
 		local x = tonumber(parts[3])
 		local y = tonumber(parts[4])
 
-		return ActorSpawnEvent:new(name, x, y)
+		return ActorSpawnEvent.new(name, x, y)
 	elseif type == "Move" then
 		local name = parts[2]
 		local toX = tonumber(parts[3])
 		local toY = tonumber(parts[4])
 
-		return ActorMoveEvent:new(name, toX, toY)
+		return ActorMoveEvent.new(name, toX, toY)
 	elseif type == "Despawn" then
 		local name = parts[2]
 
-		return ActorDespawnEvent:new(name)
+		return ActorDespawnEvent.new(name)
 	elseif type == "Speak" then
 		local name = parts[2]
 		local text = parts[3]
 
-		return ActorSpeakEvent:new(name, text)
+		return ActorSpeakEvent.new(name, text)
 	elseif type == "PlaySound" then
 		local path = parts[2]
 
-		return PlaySoundEvent:new(path)
+		return PlaySoundEvent.new(path)
 	elseif type == "RoomText" then
 		local text = parts[2]
 
 		return RoomTextEvent.new(text)
+	elseif type == "ToggleFlag" then
+		local flagName = parts[2]
+
+		return ToggleFlagEvent.new(flagName)
 	else 
 		error("Unexpected type:"..type)
 	end 
