@@ -26,8 +26,9 @@ function M:update(dt)
     self.gamestate.player.update(dt)
 end
 
-function M:load()
+function M:load(x, y)
     TimedGameState.load(self)
+    self.gamestate.player.setPosition
 end
 
 function M.save()

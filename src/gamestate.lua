@@ -2,7 +2,11 @@ local gamestate = {
     stack = {},
     timeline = {},
     flags = {},
-    time = 0
+    time = 0,
+    states = {
+        StartNewGame = require "src.gamestates.StartNewGameState",
+        OverworldGame = require "src.gamestates.OverworldGameState"
+    }
 }
 lfs = love.filesystem
 lume = require "lib.lume"
@@ -111,9 +115,6 @@ function gamestate.update(dt)
     return gamestate.current():update(dt)
 end
 
-StartNewGameState = require "src.gamestates.StartNewGameState"
-OverworldGameState = require "src.gamestates.OverworldGameState"
-
 function gamestate.load()
     -- universal setup
     gamestate.graphics = graphics.load()
@@ -134,12 +135,10 @@ function gamestate.load()
 
     -- initialize specific state
     if gamestate.savesFolderExists() then
-        gamestate.push(OverworldGameState.new(gamestate))
+        gamestate.warpTo('OverworldGame,0,0,x')
     else
-        gamestate.push(OverworldGameState.new(gamestate))
+        gamestate.warpTo('OverworldGame,0,0,x')
     end
-
-    gamestate.current():load()
 end
 
 function gamestate.setFlag(flag)
@@ -168,6 +167,13 @@ end
 
 function gamestate.showRoomText(text)
     gamestate.roomText = text
+end
+
+function gamestate.warpTo(path)
+    local scene, x, y, etc = path:match("^%s*(.-),%s*(.-),%s*(.-),%s*(.-)$")
+    local stateType = gamestate.states[scene]
+    gamestate.push(stateType.new(gamestate))
+    gamestate.current():load(x, y)
 end
 
 return gamestate
