@@ -7,9 +7,9 @@ local gamestate = {
 lfs = love.filesystem
 lume = require "lib.lume"
 
-require "src.timeline"
-graphics = require "src.graphics"
-audio = require "src.audio"
+local audio = require "src.audio"
+local timeline = require "src.timeline"
+local graphics = require "src.graphics"
 
 function donothing()
 end
@@ -117,13 +117,15 @@ function gamestate.load()
     -- time is 0 now
     gamestate.time = 0
 
+    -- no flags currently set
+    gamestate.flags = {}
+
     -- load timeline
     local timelineLines = lfs.lines("assets/timeline/timeline.csv")
-    gamestate.timeline = Timeline_load(timelineLines)
+    gamestate.timeline = timeline.load(timelineLines)
 
     -- initialize specific state
     if gamestate.savesFolderExists() then
-        --gamestate.push(StartNewGameState)
         gamestate.push(OverworldGameState)
     else
         gamestate.push(StartNewGameState)

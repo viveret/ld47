@@ -1,3 +1,6 @@
-Home,110,Hello|SecondLoop,Something something something something
-Home,120,Hello,Something something something something
-School,0,,Something something something something, then things happen!
+Home,100,Hello,Spawn|Bob|10|100
+Home,200,Hello,Move|Bob|200|200
+Home,300,Hello|Second Loop,Speak|Bob|Hello world
+Home,400,Hello,Despawn|Bob
+Home,500,,RoomText|It is possible for Bob to have been here
+Home,600,,PlaySound|assets/audio/boop.wav

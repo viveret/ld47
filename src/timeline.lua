@@ -1,3 +1,12 @@
+local ActorSpawnEvent = require "src.events.ActorSpawnEvent"
+local ActorMoveEvent = require "src.events.ActorMoveEvent"
+local ActorDespawnEvent = require "src.events.ActorDespawnEvent"
+local ActorSpeakEvent = require "src.events.ActorSpeakEvent"
+local PlaySoundEvent = require "src.events.PlaySoundEvent"
+local RoomTextEvent = require "src.events.PlaySoundEvent"
+
+local M = { }
+
 -- timeline is a table of "scene name" -> "timeline"
 --
 -- timeline is a sequence of entries
@@ -12,12 +21,13 @@
 --
 -- a row might look like
 --   Home,110,Hello|SecondLoop,Something something something something
-function Timeline_load(lines) 
+function M.load(lines) 
 	local data = {}
 	for line in lines do
-    	local scene, timeRaw, flagsRaw, actionRaw = line:match("^%s*(.-),%s*(.-),%s*(.-),%s*(.-)$")
 
-		local action = Timeline_parseAction(actionRaw)
+    	local scene, timeRaw, flagsRaw, actionRaw = line:match("^%s*(.-),%s*(.-),%s*(.-),%s*(.-)$")
+		
+		local action = parseAction(actionRaw)
 		local time = tonumber(timeRaw)
 		local flags = {}
 		for flag in flagsRaw:gmatch("([^\\|]+):?") do 
@@ -30,9 +40,72 @@ function Timeline_load(lines)
 	return data
 end
 
--- todo
-function Timeline_parseAction(raw)
-	return { actionType = "foo" }
+-- Kinds of actions
+--   actor spawns
+--   actor moves somewhere
+--   actor despawns
+--   actor speak
+--   room text
+-- 
+-- format is <type>|<parameter #1>|<parameter #2> ...
+--
+-- Spawn
+--   1. Name
+--   2. X
+--   3. Y
+-- Move
+--   1. Name
+--   2. ToX
+--   3. ToY
+-- Despawn
+--   1. Name
+-- Speak
+--   1. Name
+--   2. Text
+-- Sound
+--   1. Path to sound file  
+-- RoomText
+--   1. Text
+function parseAction(raw)
+	local parts = {}
+	for part in string.gmatch(raw, "[^\\|]+") do
+		table.insert(parts, part)
+	end
+
+	local type = parts[1];
+
+	if type == "Spawn" then
+		local name = parts[2]
+		local x = tonumber(parts[3])
+		local y = tonumber(parts[4])
+
+		return ActorSpawnEvent:new(name, x, y)
+	elseif type == "Move" then
+		local name = parts[2]
+		local toX = tonumber(parts[3])
+		local toY = tonumber(parts[4])
+
+		return ActorMoveEvent:new(name, toX, toY)
+	elseif type == "Despawn" then
+		local name = parts[2]
+
+		return ActorDespawnEvent:new(name)
+	elseif type == "Speak" then
+		local name = parts[2]
+		local text = parts[3]
+
+		return ActorSpeakEvent:new(name, text)
+	elseif type == "PlaySound" then
+		local path = parts[2]
+
+		return PlaySoundEvent:new(path)
+	elseif type == "RoomText" then
+		local text = parts[2]
+
+		return RoomTextEvent:new(text)
+	else 
+		error("Unexpected type:"..type)
+	end 
 end
 
 -- get a subset of the timeline that applies:
@@ -41,7 +114,7 @@ end
 --   if the given flags are set
 --
 -- returns a new Timeline
-function Timeline_lookup(timeline, scene, atTime, flags)
+function M.lookup(timeline, scene, atTime, flags)
 	local ret = {}
 	for ix, entry in ipairs(timeline) do
 		local isValid = entry.scene == scene and atTime <= entry.time
@@ -67,7 +140,7 @@ function Timeline_lookup(timeline, scene, atTime, flags)
 end
 
 -- gets the next event that is scheduled to happen
-function Timeline_nextEvent(timeline, currentTime)
+function M.nextEvent(timeline, currentTime)
 	local row = nil
 
 	for ix, entry in ipairs(timeline) do
@@ -84,3 +157,5 @@ function Timeline_nextEvent(timeline, currentTime)
 
 	return ret
 end
+
+return M

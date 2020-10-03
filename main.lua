@@ -26,5 +26,5 @@ end
 function love.load()
     love.window.setMode(_renderWidth, _renderHeight, { resizable = true })
     
-    gamestate.load()
+	gamestate.load()
 end
