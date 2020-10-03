@@ -63,8 +63,6 @@ function Timeline_lookup(timeline, scene, atTime, flags)
 		end
 	end
 
-	setmetatable(ret, Timeline)
-
 	return ret
 end
 
