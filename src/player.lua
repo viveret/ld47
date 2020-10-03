@@ -52,19 +52,19 @@ function M:update(dt)
 
     if lk.isDown('w') then
         vy = -1
-        self:setActiveAnimation(self.animations.up, dt)
+        self.activeAnimation = self.animations.up
     end
     if lk.isDown('a') then
         vx = -1
-        self:setActiveAnimation(self.animations.left, dt)
+        self.activeAnimation = self.animations.left
     end
     if lk.isDown('s') then
         vy = 1
-        self:setActiveAnimation(self.animations.down, dt)
+        self.activeAnimation = self.animations.down
     end
     if lk.isDown('d') then
         vx = 1
-        self:setActiveAnimation(self.animations.right, dt)
+        self.activeAnimation = self.animations.right
     end
 
     if vx ~= 0 then
@@ -83,18 +83,14 @@ function M:update(dt)
         vx = abs(vx)
     end
 
-    -- todo: also check for ongoing movement
-    if vx == 0 and vy == 0 then
-        self:setActiveAnimation(self.animations.idle, dt)
+    local currentVx, currentVy = self.body:getLinearVelocity()
+    if currentVx == 0 and currentVy == 0 then
+        self.activeAnimation = self.animations.idle
     end
+
+    self.activeAnimation:update(dt)
     --self.body:setLinearVelocity(vx, vy)
     --self.body:applyLinearImpulse(vx, vy)
-end
-
-function M:setActiveAnimation(animation, dt)
-    dt = dt or 0
-    self.activeAnimation = animation
-    self.activeAnimation:update(dt)
 end
 
 return M
