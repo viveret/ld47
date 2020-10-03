@@ -13,7 +13,11 @@ lume = require "lib.lume"
 kuey = require "lib.kuey"
 lume.extend(_G, math)
 
+Camera = require "src.Camera"
+TimedGameState = require "src.gamestates.TimedGameState"
 gamestate = require "src.gamestate"
+timeline = require "src.timeline"
+player = require "src.player"
 
 function love.draw()
     _renderWidth, _renderHeight = love.graphics.getDimensions()

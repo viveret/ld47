@@ -9,8 +9,9 @@ function M.load()
     }, M)
 end
 
-function M.drawObject(img, x, y)
-    lg.draw(img, x, y)
+function M.drawObject(img, x, y, w, h)
+    local iw, ih = img:getDimensions()
+    lg.draw(img, x, y, 0, w / iw, h / ih)
 end
 
 return M
