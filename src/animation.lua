@@ -1,6 +1,8 @@
 local M = {}
 M.__index = M
 
+local frameSize = 64;
+
 function M.new(img, firstFrameIndex, frameCount, currentTime, duration, flipHorizontal)
     local self = setmetatable({
         spritesheet = img,
@@ -11,8 +13,8 @@ function M.new(img, firstFrameIndex, frameCount, currentTime, duration, flipHori
     }, M)
 
     for f = 0, frameCount - 1 do
-        y = 64 * (firstFrameIndex + f)
-        table.insert(self.quads, lg.newQuad(0, y, 64, 64, img:getDimensions()))
+        y = frameSize * (firstFrameIndex + f)
+        table.insert(self.quads, lg.newQuad(0, y, frameSize, frameSize, img:getDimensions()))
     end
 
     return self
@@ -28,7 +30,7 @@ function M:draw(x, y)
         lg.draw(self.spritesheet, self.quads[spriteIdx], x, y, 0, 1 / 16, 1 / 16)
 =======
     if self.flipHorizontal then
-        lg.draw(self.spritesheet, self.quads[spriteIdx], x, y, 0, -1, 1, 64, 0)
+        lg.draw(self.spritesheet, self.quads[spriteIdx], x, y, 0, -1, 1, frameSize, 0)
     else
         lg.draw(self.spritesheet, self.quads[spriteIdx], x, y)
 >>>>>>> player: wire left/right animations
