@@ -25,7 +25,7 @@ function M:draw(gfx)
     local animation = {}
     animation.quads = {}
 
-    for f = 0, 3 do
+    for f = 0, 2 do
         y = 64 * f
         table.insert(animation.quads, lg.newQuad(0, y, 64, 64, gfx.Player:getDimensions()))
     end
