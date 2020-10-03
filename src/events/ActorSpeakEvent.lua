@@ -1,10 +1,10 @@
 local M = {}
 
 function M:new(name, text) 
-	return { name = name, text = text }
+	return { name = name, text = text, fireOn = fireOn }
 end
 
-function M.fireOn(self, gs)
+function fireOn(self, gs)
     -- todo
 end
 
