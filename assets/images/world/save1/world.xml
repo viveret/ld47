@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<world>
+  <terrain>
+    <part name="dirt" id="9" x="0" y="-1" z="0" w="128" h="1" l="128" />
+  </terrain>
+  <ais>
+    <ai />
+  </ais>
+  <objects>
+    <object />
+  </objects>
+  <items>
+    <item />
+  </items>
+</world>

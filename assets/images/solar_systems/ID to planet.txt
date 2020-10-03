@@ -1,0 +1,8 @@
+0: Earth
+1: moon
+2: mars
+3: mercury
+4: sun
+5: ice
+6: mnm
+7: candy
