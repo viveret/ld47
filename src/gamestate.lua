@@ -1,5 +1,6 @@
 local gamestate = {
-    stack = {}
+    stack = {},
+    timeline = {}
 }
 lfs = love.filesystem
 lume = require "lib.lume"
@@ -15,6 +16,11 @@ _empty = {
 
 function gamestate.load(name)
     randomseed(os.time())
+
+    -- load timeline
+    local timelineLines = lfs.lines("assets/timeline/timeline.csv")
+    gamestate.timeline = Timeline_load(timelineLines)
+
     --[[
     local Encoded = Kuey.encode("Love is life!", "love2d") -- Encode the string with "love2d" as key
     print(Encoded)                                         -- Show the encoded string

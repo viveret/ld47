@@ -12,9 +12,9 @@
 --
 -- a row might look like
 --   Home,110,Hello|SecondLoop,Something something something something
-function Timeline_load(path) 
+function Timeline_load(lines) 
 	local data = {}
-	for line in io.lines(path) do
+	for line in lines do
     	local scene, timeRaw, flagsRaw, actionRaw = line:match("^%s*(.-),%s*(.-),%s*(.-),%s*(.-)$")
 
 		local action = Timeline_parseAction(actionRaw)
