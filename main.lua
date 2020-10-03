@@ -13,6 +13,7 @@ kuey = require "lib.kuey"
 lume.extend(_G, math)
 
 gamestate = require "src.gamestate"
+StartNewGameState = require "src.gamestates.StartNewGameState"
 
 function love.draw()
     _renderWidth, _renderHeight = love.graphics.getDimensions()
@@ -24,5 +25,10 @@ function love.update()
 end
 function love.load()
     love.window.setMode(_renderWidth, _renderHeight, { resizable = true })
-    gamestate.load()
+    
+    if gamestate.savesFolderExists() then
+        gamestate.push(StartNewGameState)
+    else
+        gamestate.load()
+    end
 end

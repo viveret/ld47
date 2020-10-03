@@ -71,6 +71,14 @@ function gamestate.current()
     end
 end
 
+function gamestate.push(newGamestate)
+    table.insert(gamestate.stack, newGamestate)
+end
+
+function gamestate.pop()
+    table.remove(gamestate.stack)
+end
+
 function gamestate.draw()
     return gamestate.current().draw()
 end
