@@ -5,6 +5,8 @@ local gamestate = {
 lfs = love.filesystem
 lume = require "lib.lume"
 
+require "src.timeline"
+
 function donothing()
 end
 
@@ -16,11 +18,6 @@ _empty = {
 
 function gamestate.load(name)
     randomseed(os.time())
-
-    -- load timeline
-    local timelineLines = lfs.lines("assets/timeline/timeline.csv")
-    gamestate.timeline = Timeline_load(timelineLines)
-
     --[[
     local Encoded = Kuey.encode("Love is life!", "love2d") -- Encode the string with "love2d" as key
     print(Encoded)                                         -- Show the encoded string
@@ -94,9 +91,14 @@ function gamestate.update()
 end
 
 function gamestate.load()
+    -- universal setup
+
+    -- load timeline
+    local timelineLines = lfs.lines("assets/timeline/timeline.csv")
+    gamestate.timeline = Timeline_load(timelineLines)
+
+    -- initialize specific state
     return gamestate.current().load()
 end
-
-
 
 return gamestate
