@@ -21,10 +21,17 @@ end
 function M:draw(x, y)
     local spriteIdx = math.floor(self.currentTime / self.duration * #self.quads) + 1
 
+<<<<<<< HEAD
     if flipHorizontal then
         lg.draw(self.spritesheet, self.quads[spriteIdx], x, y, 0, -1 / 16, 1 / 16, 4, 0)
     else
         lg.draw(self.spritesheet, self.quads[spriteIdx], x, y, 0, 1 / 16, 1 / 16)
+=======
+    if self.flipHorizontal then
+        lg.draw(self.spritesheet, self.quads[spriteIdx], x, y, 0, -1, 1, 64, 0)
+    else
+        lg.draw(self.spritesheet, self.quads[spriteIdx], x, y)
+>>>>>>> player: wire left/right animations
     end
 end
 
