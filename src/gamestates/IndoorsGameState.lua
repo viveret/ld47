@@ -5,7 +5,7 @@ M.__index = M
 local timeline = require "src.timeline"
 
 function M.new(gamestate)
-    local self = setmetatable(PhysicalGameState.new(gamestate, 'Overworld', gamestate.graphics.Overworld), M)
+    local self = setmetatable(PhysicalGameState.new(gamestate, 'Indoors', gamestate.graphics.Overworld), M)
 	-- self.field = field
 	return self
 end
