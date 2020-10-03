@@ -1,6 +1,10 @@
 local M = {}
 
-function M.fireOn(self, gs)
+function M:new(path) 
+	return { path = path, fireOn = fireOn }
+end
+
+function fireOn(self, gs)
     love.audio.play(self.path)
 end
 

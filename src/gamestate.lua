@@ -7,8 +7,10 @@ local gamestate = {
 lfs = love.filesystem
 lume = require "lib.lume"
 
-require "src.timeline"
-require "src.graphics"
+local audio = require "src.audio"
+local timeline = require "src.timeline"
+local graphics = require "src.graphics"
+local player = require "src.player"
 
 function donothing()
 end
@@ -78,15 +80,32 @@ function gamestate.current()
 end
 
 function gamestate.push(newGamestate)
-    table.insert(gamestate.stack, newGamestate)
+    if newGamestate ~= nil then
+        table.insert(gamestate.stack, newGamestate)
+    else
+        error('newGamestate must not be nil')
+    end
 end
 
 function gamestate.pop()
     table.remove(gamestate.stack)
 end
 
+function gamestate.replace(newGamestate)
+    if newGamestate ~= nil then
+        gamestate.stack[-1] = newGamestate
+    else
+        error('newGamestate must not be nil')
+    end
+end
+
 function gamestate.draw()
-    return gamestate.current().draw()
+    gamestate.current().draw()
+
+    if gamestate.roomText ~= nil then
+        love.graphics.print(gamestate.roomText, _renderWidth / 2, _renderHeight / 2)
+    end
+
 end
 
 function gamestate.update()
@@ -98,17 +117,28 @@ end
 
 function gamestate.load()
     -- universal setup
-    graphics.load()
+    gamestate.graphics = graphics.load()
+    gamestate.audio = audio.load()
+    gamestate.player = player.load()
 
     -- time is 0 now
     gamestate.time = 0
 
+    -- no flags currently set
+    gamestate.flags = {}
+
     -- load timeline
     local timelineLines = lfs.lines("assets/timeline/timeline.csv")
-    gamestate.timeline = Timeline_load(timelineLines)
+    gamestate.timeline = timeline.load(timelineLines)
 
     -- initialize specific state
-    return gamestate.current().load()
+    if gamestate.savesFolderExists() then
+        gamestate.push(OverworldGameState)
+    else
+        gamestate.push(StartNewGameState)
+    end
+
+    return gamestate.current().load(gamestate)
 end
 
 function gamestate.setFlag(flag)
@@ -132,7 +162,11 @@ function gamestate.hasFlag(flag)
 end
 
 function gamestate.fire(ev)
-    return ev.fireOn(gamestate.current())
+    return ev.fireOn(ev, gamestate)
+end
+
+function gamestate.showRoomText(text)
+    gamestate.roomText = text
 end
 
 return gamestate

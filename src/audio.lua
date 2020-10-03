@@ -1,7 +1,9 @@
 local M = {}
 
 function M.load()
-    M.ping = love.audio.newSource( "ping.wav", type )
+    return {
+        -- ping = love.audio.newSource( "ping.wav", 'static' )
+    }
 end
 
 
