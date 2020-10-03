@@ -14,8 +14,8 @@ function M:draw()
     PhysicalGameState.draw(self)
 end
 
-function M:update()
-    PhysicalGameState.update(self)
+function M:update(dt)
+    PhysicalGameState.update(self, dt)
 end
 
 function M:load()

@@ -21,9 +21,9 @@ function M:draw()
     lg.print("You are in " .. self.name, 0, 0)
 end
 
-function M:update()
+function M:update(dt)
     TimedGameState.update(self)
-    self.gamestate.player.update()
+    self.gamestate.player.update(dt)
 end
 
 function M:load()

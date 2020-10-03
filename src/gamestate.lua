@@ -107,8 +107,8 @@ function gamestate.draw()
     end
 end
 
-function gamestate.update()
-    return gamestate.current():update()
+function gamestate.update(dt)
+    return gamestate.current():update(dt)
 end
 
 StartNewGameState = require "src.gamestates.StartNewGameState"
@@ -118,7 +118,9 @@ function gamestate.load()
     -- universal setup
     gamestate.graphics = graphics.load()
     gamestate.audio = audio.load()
-    gamestate.player = player.load()
+    
+    local world = lp.newWorld(0, 0, true)
+    gamestate.player = player.load(world)
 
     -- time is 0 now
     gamestate.time = 0
