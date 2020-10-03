@@ -15,14 +15,32 @@ function M.new(world)
     self.body = lp.newBody(world, self.x, self.y, "dynamic")
     self.shape = lp.newRectangleShape(64, 64)
     self.fixture = lp.newFixture(self.body, self.shape)
+    self.time = 0
+    self.duration = 1
 	return self
 end
 
-function M:draw()
-    lg.rectangle("fill", self.body:getX(), self.body:getY(), 64, 64)
+function M:draw(gfx)
+    
+    local animation = {}
+    animation.quads = {}
+
+    for f = 0, 3 do
+        y = 64 * f
+        table.insert(animation.quads, lg.newQuad(0, y, 64, 64, gfx.Player:getDimensions()))
+    end
+
+    local sprite = math.floor(self.time / self.duration * #animation.quads) + 1
+    lg.draw(gfx.Player, animation.quads[sprite], self.body:getX(), self.body:getY())
+
 end
 
 function M:update(dt)
+    self.time = self.time + dt
+    if self.time >= self.duration then
+        self.time = self.time - self.duration
+    end
+
     if lk.isDown('w') then
         if self.body:getY() > 0 then
             self.body:applyLinearImpulse(0, -50)

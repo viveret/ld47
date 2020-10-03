@@ -18,7 +18,7 @@ function M:draw()
 
     if self.gamestate ~= nil then
         self.gamestate.graphics.drawObject(self.background, 0, 0)
-        self.player:draw()
+        self.player:draw(self.gamestate.graphics)
     end
 
     lg.print("You are in " .. self.name, 0, 0)
