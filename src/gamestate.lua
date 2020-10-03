@@ -8,6 +8,7 @@ lfs = love.filesystem
 lume = require "lib.lume"
 
 require "src.timeline"
+require "src.graphics"
 
 function donothing()
 end
@@ -97,6 +98,7 @@ end
 
 function gamestate.load()
     -- universal setup
+    graphics.load()
 
     -- time is 0 now
     gamestate.time = 0
@@ -127,6 +129,10 @@ function gamestate.hasFlag(flag)
     end
 
     return false
+end
+
+function gamestate.fire(ev)
+    return ev.fireOn(gamestate.current())
 end
 
 return gamestate

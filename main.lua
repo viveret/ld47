@@ -18,7 +18,6 @@ StartNewGameState = require "src.gamestates.StartNewGameState"
 function love.draw()
     _renderWidth, _renderHeight = love.graphics.getDimensions()
     gamestate.draw()
-    love.graphics.print("Hello " .. OS .. "!", _renderWidth / 2, _renderHeight / 2)
 end
 function love.update()
     gamestate.update()
