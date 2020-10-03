@@ -7,10 +7,13 @@ function M.draw()
 
     if M.gamestate ~= nil then
         M.gamestate.graphics.drawObject(M.gamestate.graphics.Overworld, 0, 0)
+        M.gamestate.player.draw()
     end
 end
 
 function M.update()
+    M.gamestate.player.update()
+
     -- check to see if something is ready to happen
     local time = M.gamestate.time
     local nextEvent = M.nextEvent
