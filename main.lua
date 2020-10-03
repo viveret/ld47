@@ -13,8 +13,6 @@ kuey = require "lib.kuey"
 lume.extend(_G, math)
 
 gamestate = require "src.gamestate"
-StartNewGameState = require "src.gamestates.StartNewGameState"
-OverworldGameState = require "src.gamestates.OverworldGameState"
 
 function love.draw()
     _renderWidth, _renderHeight = love.graphics.getDimensions()

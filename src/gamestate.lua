@@ -100,20 +100,19 @@ function gamestate.replace(newGamestate)
 end
 
 function gamestate.draw()
-    gamestate.current().draw()
+    gamestate.current():draw()
 
     if gamestate.roomText ~= nil then
         love.graphics.print(gamestate.roomText, _renderWidth / 2, _renderHeight / 2)
     end
-
 end
 
 function gamestate.update()
-    -- advance time, this always happens...
-    gamestate.time = gamestate.time + 1
-
-    return gamestate.current().update()
+    return gamestate.current():update()
 end
+
+StartNewGameState = require "src.gamestates.StartNewGameState"
+OverworldGameState = require "src.gamestates.OverworldGameState"
 
 function gamestate.load()
     -- universal setup
@@ -133,12 +132,12 @@ function gamestate.load()
 
     -- initialize specific state
     if gamestate.savesFolderExists() then
-        gamestate.push(OverworldGameState)
+        gamestate.push(OverworldGameState.new(gamestate))
     else
-        gamestate.push(StartNewGameState)
+        gamestate.push(OverworldGameState.new(gamestate))
     end
 
-    return gamestate.current().load(gamestate)
+    gamestate.current():load()
 end
 
 function gamestate.setFlag(flag)
