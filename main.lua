@@ -24,7 +24,6 @@ function love.update()
     gamestate.update()
 end
 function love.load()
-    love.window.setMode(_renderWidth, _renderHeight, { resizable = true })
-    
-	gamestate.load()
+    love.window.setMode(_renderWidth, _renderHeight, { resizable = true, minwidth = 400, minheight = 300 })
+    gamestate.load()
 end
