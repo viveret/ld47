@@ -12,7 +12,7 @@ function M.new(world, gfx, x, y)
         world = world,
         walkForceX = 0.125,
         walkForceY = 0.125,
-        positionIsCenter = false
+        positionIsCenter = true
 	}, M)
     self.body = lp.newBody(world, self.x, self.y, "dynamic")
     self.body:setLinearDamping(0.9)
@@ -24,13 +24,16 @@ function M.new(world, gfx, x, y)
 end
 
 function M:draw()
+    lg.push()
+    --lg.scale(1 / 64, 1 / 64)
     if self.positionIsCenter then
-        self.idleAnimation:draw(self.body:getX(), self.body:getY())
-        lg.rectangle("fill", self.body:getX() - self.w / 2, self.body:getY() - self.h / 2, self.w, self.h)
+        self.idleAnimation:draw(self.body:getX() - self.w / 2, self.body:getY() - self.h / 2)
+        --lg.rectangle("fill", self.body:getX(), self.body:getY(), self.w, self.h)
     else
         self.idleAnimation:draw(self.body:getX(), self.body:getY())
-        lg.rectangle("fill", self.body:getX(), self.body:getY(), self.w, self.h)
+        --lg.rectangle("fill", self.body:getX(), self.body:getY(), self.w, self.h)
     end
+    lg.pop()
 end
 
 function M:update(dt)
@@ -38,11 +41,14 @@ function M:update(dt)
 
     if lk.isDown('w') then
         vy = -1
-    elseif lk.isDown('a') then
+    end
+    if lk.isDown('a') then
         vx = -1
-    elseif lk.isDown('s') then
+    end
+    if lk.isDown('s') then
         vy = 1
-    elseif lk.isDown('d') then
+    end
+    if lk.isDown('d') then
         vx = 1
     end
 

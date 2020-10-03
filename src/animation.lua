@@ -19,7 +19,7 @@ end
 
 function M:draw(x, y)
     local spriteIdx = math.floor(self.currentTime / self.duration * #self.quads) + 1
-    lg.draw(self.spritesheet, self.quads[spriteIdx], x, y)
+    lg.draw(self.spritesheet, self.quads[spriteIdx], x, y, 0, 1 / 16, 1 / 16)
 end
 
 function M:update(dt) 
