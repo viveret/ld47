@@ -1,0 +1,22 @@
+Fr. #   Action
+0       idle1
+1       idle2 (bounce, to put in idle animation occasionally)
+2       idle3 (blink, ditto)
+3       down1
+4       down2
+5       down3
+6       down4
+7       down5
+8       down6
+9       up1
+10      up2
+11      up3
+12      up4
+13      up5
+14      up6
+15      leftright1
+16      leftright2
+17      leftright3
+18      leftright4
+19      leftright5
+20      leftright6
