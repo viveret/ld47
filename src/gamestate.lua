@@ -135,7 +135,7 @@ function gamestate.load()
 
     -- initialize specific state
     if gamestate.savesFolderExists() then
-        gamestate.warpTo('OverworldGame,0,0,x')
+        gamestate.warpTo('OverworldGame,65,55,x')
     else
         gamestate.warpTo('OverworldGame,0,0,x')
     end

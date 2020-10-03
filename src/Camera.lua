@@ -21,7 +21,7 @@ function M:draw()
     local w, h = lg.getWidth(), lg.getHeight()
     lg.translate(w / 2, h / 2)
     lg.scale(self.scalex, self.scaley)
-    lg.translate(-self.x, -self.y)
+    lg.translate(-min(self.x, w / 2 / self.scalex), -max(self.y, h / 2 / self.scalex))
     if self.rotate ~= 0 then
         lg.rotate(self.rotate)
     end
