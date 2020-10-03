@@ -6,7 +6,7 @@ function M.draw()
     lg.print("You are in the overworld", 0, 0)
 
     if M.gamestate ~= nil then
-        M.gamestate.graphics.drawObjectFit(M.gamestate.graphics.Overworld, 0, 0)
+        M.gamestate.graphics.drawObject(M.gamestate.graphics.Overworld, 0, 0)
     end
 end
 
