@@ -14,12 +14,14 @@ function M:draw()
     PhysicalGameState.draw(self)
 end
 
-function M:update()
-    PhysicalGameState.update(self)
+function M:update(dt)
+    PhysicalGameState.update(self, dt)
 end
 
-function M:load()
-    PhysicalGameState.load(self)
+function M:load(x, y)
+    PhysicalGameState.load(self, x, y)
+
+	self.gamestate.ensureBGMusic("overworld")
 end
 
 function M.save()

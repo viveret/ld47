@@ -1,40 +1,56 @@
 local M = {}
+M.__index = M
 
 --[[
 TODO:
     - location
 ]]
 
-function M.load() 
-    M.x = lg.getWidth() / 2
-    M.y = lg.getHeight() / 2
-    M.speed = 16
-
-    return M
+function M.new(world)
+    local self = setmetatable({
+        x = lg.getWidth() / 2,
+        y = lg.getHeight() / 2,
+        world = world,
+	}, M)
+    self.body = lp.newBody(world, self.x, self.y, "dynamic")
+    self.shape = lp.newRectangleShape(64, 64)
+    self.fixture = lp.newFixture(self.body, self.shape)
+	return self
 end
 
-function M.draw()
-    lg.rectangle("fill", M.x, M.y, 64, 64)
+function M:draw()
+    lg.rectangle("fill", self.body:getX(), self.body:getY(), 64, 64)
 end
 
-function M.update()
+function M:update(dt)
     if lk.isDown('w') then
-        if M.y > 0 then
-            M.y = M.y - M.speed
+        if self.body:getY() > 0 then
+            self.body:applyLinearImpulse(0, -50)
+        else
+            self.body:setLinearVelocity(0, 0)
         end
     elseif lk.isDown('a') then
-        if M.x > 0 then
-            M.x = M.x - M.speed
+        if self.body:getX() > 0 then
+            self.body:applyLinearImpulse(-50, 0)
+        else
+            self.body:setLinearVelocity(0, 0)
         end
     elseif lk.isDown('s') then
-        if M.y < lg.getHeight() - 64 then
-            M.y = M.y + M.speed
+        if self.body:getY() < lg.getHeight() - 64 then
+            self.body:applyLinearImpulse(0, 50)
+        else
+            self.body:setLinearVelocity(0, 0)
         end
     elseif lk.isDown('d') then
-        if M.x < lg.getWidth() - 64 then
-            M.x = M.x + M.speed
+        if self.body:getX() < lg.getWidth() - 64 then
+            self.body:applyLinearImpulse(50, 0)
+        else
+            self.body:setLinearVelocity(0, 0)
         end
+    else
+        self.body:setLinearVelocity(0, 0)
     end
+
 end
 
 return M

@@ -6,6 +6,7 @@ lg = love.graphics
 la = love.audio
 lm = love.mouse
 lk = love.keyboard
+lp = love.physics
 lfs = love.filesystem
 
 lume = require "lib.lume"
@@ -18,8 +19,8 @@ function love.draw()
     _renderWidth, _renderHeight = love.graphics.getDimensions()
     gamestate.draw()
 end
-function love.update()
-    gamestate.update()
+function love.update(dt)
+    gamestate.update(dt)
 end
 function love.load()
     love.window.setMode(_renderWidth, _renderHeight, { resizable = false, minwidth = _windowWidth, minheight = _windowHeight })

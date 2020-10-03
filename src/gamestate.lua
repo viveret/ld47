@@ -2,7 +2,12 @@ local gamestate = {
     stack = {},
     timeline = {},
     flags = {},
-    time = 0
+    time = 0,
+    states = {
+        StartNewGame = require "src.gamestates.StartNewGameState",
+        OverworldGame = require "src.gamestates.OverworldGameState"
+    },
+    backgroundMusic = { }
 }
 lfs = love.filesystem
 lume = require "lib.lume"
@@ -10,7 +15,6 @@ lume = require "lib.lume"
 local audio = require "src.audio"
 local timeline = require "src.timeline"
 local graphics = require "src.graphics"
-local player = require "src.player"
 
 function donothing()
 end
@@ -107,18 +111,17 @@ function gamestate.draw()
     end
 end
 
-function gamestate.update()
-    return gamestate.current():update()
-end
+function gamestate.update(dt)
+    -- handle any fadeouts that are in progress
+    gamestate.advanceBGMusic()
 
-StartNewGameState = require "src.gamestates.StartNewGameState"
-OverworldGameState = require "src.gamestates.OverworldGameState"
+    return gamestate.current():update(dt)
+end
 
 function gamestate.load()
     -- universal setup
     gamestate.graphics = graphics.load()
     gamestate.audio = audio.load()
-    gamestate.player = player.load()
 
     -- time is 0 now
     gamestate.time = 0
@@ -132,12 +135,10 @@ function gamestate.load()
 
     -- initialize specific state
     if gamestate.savesFolderExists() then
-        gamestate.push(OverworldGameState.new(gamestate))
+        gamestate.warpTo('OverworldGame,0,0,x')
     else
-        gamestate.push(OverworldGameState.new(gamestate))
+        gamestate.warpTo('OverworldGame,0,0,x')
     end
-
-    gamestate.current():load()
 end
 
 function gamestate.setFlag(flag)
@@ -166,6 +167,84 @@ end
 
 function gamestate.showRoomText(text)
     gamestate.roomText = text
+end
+
+function gamestate.warpTo(path)
+    local scene, x, y, etc = path:match("^%s*(.-),%s*(.-),%s*(.-),%s*(.-)$")
+    local stateType = gamestate.states[scene]
+    gamestate.push(stateType.new(gamestate))
+    gamestate.current():load(x, y)
+end
+
+function gamestate.ensureBGMusic(bgMusicName)
+    local source = gamestate.audio[bgMusicName]:clone()
+
+    source:setVolume(0)
+    source:setLooping(true)
+    source:play()
+
+    table.insert(gamestate.backgroundMusic, source)
+end
+
+function gamestate.advanceBGMusic()
+    local fadeOverSeconds = 5
+    local step =  1 / (60 * fadeOverSeconds)
+
+    local bg = gamestate.backgroundMusic
+
+    local queued = #gamestate.backgroundMusic
+
+    if queued == 0 then
+        return
+    end
+
+    local current = gamestate.backgroundMusic[1]
+
+    local shouldFadeOut = queued > 1
+
+    local curVol = current:getVolume()
+
+    if curVol == 1 and not shouldFadeOut then
+        -- nothing to do
+        return
+    end
+
+    -- update current volume
+    if shouldFadeOut then
+        curVol = curVol - step
+    else 
+        curVol = curVol + step
+    end
+
+    if curVol < 0  then
+        curVol = 0
+    end
+
+    if curVol > 1  then
+        curVol = 1
+    end
+
+    current:setVolume(curVol)
+
+    -- update next volume (if we're also fading it in)
+    if shouldFadeOut then
+        local next = gamestate.backgroundMusic[2]
+
+        local nextVol = next:getVolume()
+        nextVol = nextVol + step
+        if nextVol > 1 then
+            nextVol = 1
+        end
+
+        next:setVolume(nextVol)
+    end
+
+    -- if current is completely faded out, toss it
+    if curVol == 0 then
+        current:stop()
+        current:release()
+        table.remove(gamestate.backgroundMusic, 1)
+    end
 end
 
 return gamestate
