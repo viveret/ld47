@@ -16,22 +16,24 @@ function M:update()
     local time = self.gamestate.time
     local nextEvent = self.nextEvent
 
-    if nextEvent == nil then
-        return
+    if nextEvent ~= nil then
+        if nextEvent.time == time then
+            -- fire the event
+            self.gamestate.fire(nextEvent.action)
+
+            -- lookup the next event
+            self.nextEvent = timeline.nextEvent(self.timeline, self.gamestate.time)
+        end
     end
 
-    if nextEvent.time == time then
-        -- fire the event
-        self.gamestate.fire(nextEvent.action)
-
-        -- lookup the next event
-        self.nextEvent = timeline.nextEvent(self.timeline, self.gamestate.time)
-    end
+    -- advance time, this always happens...
+    self.gamestate.time = self.gamestate.time + 1
 end
 
 function M:load()
-    -- what can happen in the overworld?
+    -- load relevant timeline
     self.timeline = timeline.lookup(self.gamestate.timeline, self.name, self.gamestate.time, self.gamestate.flags)
+    -- what comes next?
     self.nextEvent = timeline.nextEvent(self.timeline, self.gamestate.time)
 end
 

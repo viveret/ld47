@@ -108,9 +108,6 @@ function gamestate.draw()
 end
 
 function gamestate.update()
-    -- advance time, this always happens...
-    gamestate.time = gamestate.time + 1
-
     return gamestate.current():update()
 end
 
