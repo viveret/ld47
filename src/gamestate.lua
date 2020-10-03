@@ -6,7 +6,8 @@ local gamestate = {
     states = {
         StartNewGame = require "src.gamestates.StartNewGameState",
         OverworldGame = require "src.gamestates.OverworldGameState"
-    }
+    },
+    backgroundMusic = { }
 }
 lfs = love.filesystem
 lume = require "lib.lume"
@@ -111,6 +112,9 @@ function gamestate.draw()
 end
 
 function gamestate.update(dt)
+    -- handle any fadeouts that are in progress
+    gamestate.advanceBGMusic()
+
     return gamestate.current():update(dt)
 end
 
@@ -170,6 +174,77 @@ function gamestate.warpTo(path)
     local stateType = gamestate.states[scene]
     gamestate.push(stateType.new(gamestate))
     gamestate.current():load(x, y)
+end
+
+function gamestate.ensureBGMusic(bgMusicName)
+    local source = gamestate.audio[bgMusicName]:clone()
+
+    source:setVolume(0)
+    source:setLooping(true)
+    source:play()
+
+    table.insert(gamestate.backgroundMusic, source)
+end
+
+function gamestate.advanceBGMusic()
+    local fadeOverSeconds = 5
+    local step =  1 / (60 * fadeOverSeconds)
+
+    local bg = gamestate.backgroundMusic
+
+    local queued = #gamestate.backgroundMusic
+
+    if queued == 0 then
+        return
+    end
+
+    local current = gamestate.backgroundMusic[1]
+
+    local shouldFadeOut = queued > 1
+
+    local curVol = current:getVolume()
+
+    if curVol == 1 and not shouldFadeOut then
+        -- nothing to do
+        return
+    end
+
+    -- update current volume
+    if shouldFadeOut then
+        curVol = curVol - step
+    else 
+        curVol = curVol + step
+    end
+
+    if curVol < 0  then
+        curVol = 0
+    end
+
+    if curVol > 1  then
+        curVol = 1
+    end
+
+    current:setVolume(curVol)
+
+    -- update next volume (if we're also fading it in)
+    if shouldFadeOut then
+        local next = gamestate.backgroundMusic[2]
+
+        local nextVol = next:getVolume()
+        nextVol = nextVol + step
+        if nextVol > 1 then
+            nextVol = 1
+        end
+
+        next:setVolume(nextVol)
+    end
+
+    -- if current is completely faded out, toss it
+    if curVol == 0 then
+        current:stop()
+        current:release()
+        table.remove(gamestate.backgroundMusic, 1)
+    end
 end
 
 return gamestate
