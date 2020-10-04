@@ -15,6 +15,7 @@ function M.new(gamestate, name, graphics)
     self.renderWarps = false
     self.toast = nil
     self.isPhysicalGameState = true
+    self.actors = {}
 
     self:addContactListeners()
 
@@ -165,6 +166,10 @@ function M:drawInWorldView()
         end
     end
 
+    for _, actor in pairs(self.actors) do
+        actor:draw()
+    end
+
     if self.gamestate ~= nil then
         self.player:draw()
     end
@@ -201,12 +206,20 @@ function M:draw()
     lg.print("You are at " .. x .. ", " .. y .. " in " .. self.name, 0, 0)
     lg.print("Camera is at " .. self:currentCamera().x .. ", " .. self:currentCamera().y, 0, 16)
     lg.print("Player's velocity is " .. currentVx .. ", " .. currentVy, 0, 32)
+    lg.print("Current time is " .. self.gamestate.time, 0, 48)
 end
 
 function M:update(dt)
     TimedGameState.update(self, dt)
-    self.world:update(dt)
+
     self.player:update(dt)
+
+    for _, actor in pairs(self.actors) do
+        actor:update(dt)
+    end
+
+    self.world:update(dt)
+    
     self:currentCamera():update(dt)
 end
 
@@ -278,6 +291,22 @@ function M:setupWarps()
         warp.fixture = lp.newFixture(warp.body, warp.shape)
         warp.fixture:setUserData(warp)
     end
+end
+
+function M:addActor(name, actor)
+    self.actors[name] = actor
+end
+
+function M:getActor(name)
+    return self.actors[name]
+end
+
+function M:removeActor(name)
+    local oldActor = self.actors[name]
+
+    self.actors[name] = nil
+
+    return oldActor ~= nil
 end
 
 return M

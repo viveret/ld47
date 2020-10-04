@@ -46,6 +46,7 @@ end
 --   1. Name
 --   2. ToX
 --   3. ToY
+--   4. Speed
 -- Despawn
 --   1. Name
 -- Speak
@@ -75,8 +76,9 @@ function parseAction(raw)
 		local name = parts[2]
 		local toX = tonumber(parts[3])
 		local toY = tonumber(parts[4])
+		local speed = tonumber(parts[5])
 
-		return ActorMoveEvent.new(name, toX, toY)
+		return ActorMoveEvent.new(name, toX, toY, speed)
 	elseif type == "Despawn" then
 		local name = parts[2]
 

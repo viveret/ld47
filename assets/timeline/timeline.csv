@@ -3,9 +3,15 @@ Home,200,Hello,Move|Bob|200|200
 Home,300,Hello|Second Loop,Speak|Bob|Hello world
 Home,400,Hello,Despawn|Bob
 Home,500,,RoomText|It is possible for Bob to have been here
-Overworld,195,,Speak|Player|Suuuuuuuup, and lots more text - like lots more - like so much that the text starts wrapping and we can test that.  No really.
 Overworld,100,,RoomText|This happened on trigger!!!
+Overworld,195,,Speak|Player|Suuuuuuuup, and lots more text - like lots more - like so much that the text starts wrapping and we can test that.  No really.
 Overworld,200,,PlaySound|mirror
 Overworld,201,,ToggleFlag|HearMirror
-Overworld,300,,RoomText|...And then this superceded it...
-Overworld,601,,ToggleFlag|HearMirror
+Overworld,300,,RoomText|Look at the cultist go!
+Overworld,802,,Spawn|Cultist|50|40
+Overworld,1105,,Move|Cultist|50|95|10
+Overworld,2105,,Move|Cultist|150|95|10
+Overworld,3505,,Move|Cultist|150|40|10
+Overworld,4505,,Move|Cultist|50|40|10
+Overworld,5705,,RoomText|And they're done now
+Overworld,5905,,Despawn|Cultist

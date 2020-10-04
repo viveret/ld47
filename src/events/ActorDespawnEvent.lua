@@ -1,7 +1,14 @@
 local M = {}
 
 function M.fireOn(self, gs) 
-	-- todo
+	local currentGS = gs:current()
+
+	if not currentGS.isPhysicalGameState then
+		print("Current state cannot move actors")
+		return
+	end
+
+	currentGS:removeActor(self.name)
 end
 
 function M.new(name) 

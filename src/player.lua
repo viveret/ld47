@@ -1,8 +1,6 @@
 local M = {}
 M.__index = M
 
-local animation = require "src.animation"
-
 function M.new(world, spritesheet, x, y)
     local self = setmetatable({
         x = x,

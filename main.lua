@@ -30,6 +30,7 @@ player = require "src.player"
 door = require "src.world.door"
 toast = require "src.toast"
 animation = require "src.animation"
+actor = require "src.world.actor"
 
 
 function love.draw()

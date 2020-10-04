@@ -3,6 +3,8 @@ local M = {}
 function M.load()
     lg.setDefaultFilter('linear', 'linear')
 
+    local cultist = lg.newImage("assets/images/people/cultist.png")
+
     return lume.extend({
         Overworld = {
 			Bg = lg.newImage("assets/images/world/Overworld.png"),
@@ -63,8 +65,13 @@ function M.load()
         MotelDoor = lg.newImage("assets/images/world/Motel/Door.png"),
         PostOfficeDoor = lg.newImage("assets/images/world/PostOffice/Door.png"),
         SchoolDoor = lg.newImage("assets/images/world/School/Door.png"),
-        StoreDoor = lg.newImage("assets/images/world/Shop/Door.png")
+        StoreDoor = lg.newImage("assets/images/world/Shop/Door.png"),
 
+    	CultistIdle = animation.new(cultist, 64, 64, 0, 3, 0, 1),
+        CultistDown = animation.new(cultist, 64, 64, 3, 6, 0, 1),
+        CultistUp = animation.new(cultist, 64, 64, 9, 6, 0, 1),
+        CultistRight = animation.new(cultist, 64, 64, 15, 6, 0, 1),
+        CultistLeft = animation.new(cultist, 64, 64, 15, 6, 0, 1, true)
     }, M)
 end
 
