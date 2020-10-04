@@ -255,7 +255,10 @@ function M:drawInWorldView()
         self:currentCamera():draw()
     end
 
-    local ambientColor = self:getColorRightNow()
+    local ambientColor = self.gamestate.saveData.globalAmbientColor
+    if ambientColor == nil then
+        ambientColor = self:getColorRightNow()
+    end
     lg.setColor(ambientColor.r, ambientColor.g, ambientColor.b)
 
     lg.draw(self.background, 0, 0, 0, 1 / 8, 1 / 8)

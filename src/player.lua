@@ -8,8 +8,8 @@ function M.new(world, spritesheet, x, y)
         w = 4,
         h = 4,
         world = world,
-        walkForceX = 0.5,
-        walkForceY = 0.5,
+        walkForceX = 0.25,
+        walkForceY = 0.25,
         positionIsCenter = true,
         maxVelocity = 30,
         type = "player"

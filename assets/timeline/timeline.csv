@@ -21,4 +21,8 @@ Overworld,5905,,Despawn|CultistOne
 
 -- comment
 
+-- Turn sky red
+Overworld,80400,,GlobalAmbientColor|1|0.5|0.5
+
+-- Final event
 Overworld,86400,,GameOver|

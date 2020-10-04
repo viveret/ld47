@@ -137,6 +137,11 @@ function parseAction(scene, raw)
 		return ManualCameraEvent.new(scene, x, y, duration, hold)
 	elseif type == "GameOver" then
 		return GameOverEvent.new()
+	elseif type == "GlobalAmbientColor" then
+		local r = tonumber(parts[2])
+		local g = tonumber(parts[3])
+		local b = tonumber(parts[4])
+		return GlobalAmbientColorEvent.new(r, g, b)
 	else 
 		error("Unexpected type:"..type)
 	end 
