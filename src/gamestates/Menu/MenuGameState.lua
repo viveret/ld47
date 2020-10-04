@@ -24,7 +24,7 @@ function M:draw()
 
     lg.push()
     self.offsetX = lg.getWidth() / 2 - 230 / 2
-    self.offsetY = 60 * 3
+    self.offsetY = 60 * 2
     lg.translate(self.offsetX, self.offsetY)
     for k, el in pairs(self.uielements) do
         self:drawUiElement(el)
@@ -67,6 +67,8 @@ function M:drawUiElement(el)
     local actionHandler = actions[el.type]
     if actionHandler ~= nil then
         actionHandler(el)
+    elseif el.draw ~= nil then
+        el:draw()
     end
 end
 
@@ -91,12 +93,18 @@ function M:update(dt)
                 end
             end
             ely = ely + 60
+        elseif el.update ~= nil then
+            el:update(dt)
         end
     end
 end
 
+function M:addUiElement(el)
+    table.insert(self.uielements, el)
+end
+
 function M:addButton(text, eventToFire)
-    table.insert(self.uielements, {
+    self:addUiElement({
         type = 'button',
         text = text,
         event = eventToFire

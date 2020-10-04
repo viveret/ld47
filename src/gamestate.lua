@@ -26,6 +26,7 @@ local gamestate = {
         StartNewGame = require "src.gamestates.StartNewGameState",
         DialogGame = require "src.gamestates.DialogGameState",
         Pause = require "src.gamestates.Menu.PauseGameState",
+        GameOver = require "src.gamestates.Menu.GameOverGameState",
     },
     backgroundMusic = { },
     events = {},
@@ -226,6 +227,10 @@ end
 
 function gamestate.quitGame()
     love.event.quit()
+end
+
+function gamestate.gameOver()
+    self.warpTo('GameOver,0,0,x')
 end
 
 function gamestate.ensureBGMusic(bgMusicName)
