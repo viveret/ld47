@@ -10,6 +10,7 @@ function M.new(gamestate, name, bg)
     self:pushCamera(Camera.new())
     self.renderBounds = false
     self.toast = nil
+    self.isPhysicalGameState = true
 
 	return self
 end

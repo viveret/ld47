@@ -1,7 +1,9 @@
 local M = {}
 
 function M.fireOn(self, gs)
-    -- todo
+    local dialogState = gs.states.DialogGame.new(gs, self.name, self.text)
+
+    gs.push(dialogState)
 end
 
 function M.new(name, text) 

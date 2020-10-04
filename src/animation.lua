@@ -1,15 +1,14 @@
 local M = {}
 M.__index = M
 
-local frameSize = 64;
-
-function M.new(img, firstFrameIndex, frameCount, currentTime, duration, flipHorizontal)
+function M.new(img, frameSize, firstFrameIndex, frameCount, currentTime, duration, flipHorizontal)
     local self = setmetatable({
         spritesheet = img,
         currentTime = currentTime,
         duration = duration,
         quads = {},
-        flipHorizontal = flipHorizontal or false
+        flipHorizontal = flipHorizontal or false,
+        frameSize = frameSize
     }, M)
 
     for f = 0, frameCount - 1 do
@@ -20,13 +19,18 @@ function M.new(img, firstFrameIndex, frameCount, currentTime, duration, flipHori
     return self
 end
 
-function M:draw(x, y)
+function M:draw(x, y, noScale)
     local spriteIdx = math.floor(self.currentTime / self.duration * #self.quads) + 1
 
+    local scale = 1
+    if not noScale then
+        scale = scale / 8
+    end
+
     if self.flipHorizontal then
-        lg.draw(self.spritesheet, self.quads[spriteIdx], x, y, 0, -1 / 8, 1 / 8, 64, 0)
+        lg.draw(self.spritesheet, self.quads[spriteIdx], x, y, 0, -scale, scale, self.frameSize, 0)
     else
-        lg.draw(self.spritesheet, self.quads[spriteIdx], x, y, 0, 1 / 8, 1 / 8)
+        lg.draw(self.spritesheet, self.quads[spriteIdx], x, y, 0, scale, scale)
     end
 end
 
@@ -35,6 +39,10 @@ function M:update(dt)
     if self.currentTime >= self.duration then
         self.currentTime = self.currentTime - self.duration
     end
+end
+
+function M:getFrameSize()
+    return self.frameSize
 end
 
 return M

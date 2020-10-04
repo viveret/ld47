@@ -21,11 +21,11 @@ function M.new(world, spritesheet, x, y)
     self.fixture = lp.newFixture(self.body, self.shape)
     
     self.animations = {
-        idle = animation.new(spritesheet, 0, 3, 0, 1),
-        down = animation.new(spritesheet, 3, 6, 0, 1),
-        up = animation.new(spritesheet, 9, 6, 0, 1),
-        right = animation.new(spritesheet, 15, 6, 0, 1),
-        left = animation.new(spritesheet, 15, 6, 0, 1, true)
+        idle = animation.new(spritesheet, 64, 0, 3, 0, 1),
+        down = animation.new(spritesheet, 64, 3, 6, 0, 1),
+        up = animation.new(spritesheet, 64, 9, 6, 0, 1),
+        right = animation.new(spritesheet, 64, 15, 6, 0, 1),
+        left = animation.new(spritesheet, 64, 15, 6, 0, 1, true)
     }
 	return self
 end

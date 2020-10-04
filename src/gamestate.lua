@@ -5,7 +5,8 @@ local gamestate = {
     time = 0,
     states = {
         StartNewGame = require "src.gamestates.StartNewGameState",
-        OverworldGame = require "src.gamestates.OverworldGameState"
+        OverworldGame = require "src.gamestates.OverworldGameState",
+        DialogGame = require "src.gamestates.DialogGameState"
     },
     backgroundMusic = { }
 }

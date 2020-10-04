@@ -20,16 +20,7 @@ function M.draw()
 		return
 	end
 
-	local dialogBox = M.gamestate.graphics.Dialog
-
-	local width, height = dialogBox:getDimensions()
-
-	local y = 5
-	local x = _renderWidth / 2 - width / 2
-
-	M.gamestate.graphics.drawObject(dialogBox, x, y, width, height)
-
-	lg.print(M.text, width / 2, height / 2)
+	M.gamestate.graphics:drawDialogBox("???", M.text, nil)
 end
 
 function M.tick()

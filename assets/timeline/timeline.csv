@@ -3,6 +3,7 @@ Home,200,Hello,Move|Bob|200|200
 Home,300,Hello|Second Loop,Speak|Bob|Hello world
 Home,400,Hello,Despawn|Bob
 Home,500,,RoomText|It is possible for Bob to have been here
+Overworld,195,,Speak|Bob|Suuuuuuuup, and lots more text - like lots more - like so much that the text starts wrapping and we can test that.  No really.
 Overworld,100,,RoomText|This happened on trigger!!!
 Overworld,200,,PlaySound|mirror
 Overworld,201,,ToggleFlag|HearMirror
