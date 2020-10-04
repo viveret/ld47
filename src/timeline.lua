@@ -1,5 +1,11 @@
 local M = { }
 
+-- time!
+--  1 tick = 1/60 of a real time second
+--  60 ticks = 1 real time second
+--  1 in game hour = 1.3 real time minutes
+--  1 in game hour = (1.3 real time minutes * 60 real time seconds) * 60 ticks = 4680 ticks
+
 -- timeline is a table of "scene name" -> "timeline"
 --
 -- timeline is a sequence of entries
@@ -58,6 +64,11 @@ end
 --   1. Text
 -- ToggleFlag
 --   1. FlagName
+-- ManualCamera
+--   1. X
+--   2. Y
+--   3. Duration (time to span there and back)
+--   4. Hold (time to just look at the X,Y)
 function parseAction(raw)
 	local parts = {}
 	for part in string.gmatch(raw, "[^\\|]+") do
@@ -100,6 +111,13 @@ function parseAction(raw)
 		local flagName = parts[2]
 
 		return ToggleFlagEvent.new(flagName)
+	elseif type == "ManualCamera" then
+		local x = tonumber(parts[2])
+		local y = tonumber(parts[3])
+		local duration = tonumber(parts[4])
+		local hold = tonumber(parts[5])
+
+		return ManualCameraEvent.new(x, y, duration, hold)
 	else 
 		error("Unexpected type:"..type)
 	end 

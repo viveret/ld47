@@ -290,6 +290,15 @@ function M:replaceCamera(camera)
     end
 end
 
+function M:removeCamera(camera)
+    for ix, c in pairs(self.cameras) do
+        if c == camera then
+            self.cameras[ix] = nil
+            break
+        end
+    end
+end
+
 function M:setupWorldBounds()
     for k, bound in pairs(self.bounds) do
         bound.type = 'world-bound'
