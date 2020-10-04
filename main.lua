@@ -25,6 +25,7 @@ NewGameEvent = require "src.events.NewGameEvent"
 ContinueGameEvent = require "src.events.ContinueGameEvent"
 QuitGameEvent = require "src.events.QuitGameEvent"
 ManualCameraEvent = require "src.events.ManualCameraEvent"
+GameOverEvent = require "src.events.GameOverEvent"
 
 Camera = require "src.Camera"
 ManualCamera = require "src.ManualCamera"

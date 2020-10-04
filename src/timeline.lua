@@ -135,6 +135,8 @@ function parseAction(raw)
 		local hold = tonumber(parts[5])
 
 		return ManualCameraEvent.new(x, y, duration, hold)
+	elseif type == "GameOver" then
+		return GameOverEvent.new()
 	else 
 		error("Unexpected type:"..type)
 	end 
