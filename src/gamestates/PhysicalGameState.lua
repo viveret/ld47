@@ -1,13 +1,15 @@
 local M = setmetatable({}, { __index = TimedGameState })
 M.__index = M
 
-function M.new(gamestate, name, bg)
+function M.new(gamestate, name, graphics)
     local self = setmetatable(TimedGameState.new(gamestate, name), M)
-    self.background = bg
+    self.background = graphics.Bg
     self.world = lp.newWorld(0, 0, true)
     self.player = nil
     self.cameras = { }
     self:pushCamera(Camera.new())
+    self.bounds = {}
+    self.warps = {}
     self.renderBounds = false
     self.renderWarps = false
     self.toast = nil
@@ -21,12 +23,20 @@ function M.new(gamestate, name, bg)
         local bUserData = b:getUserData()
         
         if aUserData ~= nil and bUserData ~= nil then
-            self:physContactBetween(aUserData, bUserData)
+            self:physContactBetweenStart(aUserData, bUserData)
         end
     end
     
     local physEndContact = function (a, b, coll)
+        if a == nil or b == nil then
+            return
+        end
+        local aUserData = a:getUserData()
+        local bUserData = b:getUserData()
         
+        if aUserData ~= nil and bUserData ~= nil then
+            self:physContactBetweenEnd(aUserData, bUserData)
+        end
     end
      
     local physPreSolve = function (a, b, coll)
@@ -40,16 +50,63 @@ function M.new(gamestate, name, bg)
 	return self
 end
 
+function M:addExteriorWorldBounds(paddingx, paddingy)
+    if paddingx == nil then
+        paddingx = 2
+    end
+    if paddingy == nil then
+        paddingy = paddingx
+    end
+    
+    table.insert(
+        self.bounds,
+        { -- Top
+            x = 0, y = -paddingy,
+            w = self:getWidth(), h = paddingy * 2
+        }
+    )
+    table.insert(
+        self.bounds,
+        { -- Bottom
+            x = 0, y = self:getHeight() - paddingy,
+            w = self:getWidth(), h = paddingy * 2
+        }
+    )
+    table.insert(
+        self.bounds,
+        { -- Left
+            x = -paddingx, y = -paddingy * 2,
+            w = paddingx * 2, h = self:getHeight() + paddingy * 2
+        }
+    )
+    table.insert(
+        self.bounds,
+        { -- Right
+            x = self:getWidth() - paddingx, y = -paddingy * 2,
+            w = paddingx * 2, h = self:getHeight() + paddingy * 2
+        }
+    )
+end
+
+function M:addWorldBounds(bounds)
+    for k,v in pairs(bounds) do
+        table.insert(
+            self.bounds,
+            v
+        )
+    end
+end
+
 function M:touchWarp(warp)
     self.gamestate.fire(WarpEvent.new(warp.path), true)
 end
 
 function M:getWidth()
-    return 16 * 10 --self.background:getWidth() / 64
+    return self.background:getWidth() / 10
 end
 
 function M:getHeight()
-    return 12 * 10 -- self.background:getHeight() / 64
+    return self.background:getHeight() / 10
 end
 
 function M:drawInWorldView()
@@ -85,7 +142,7 @@ function M:drawInWorldView()
     end
 end
 
-function M:physContactBetween(a, b)
+function M:physContactBetweenStart(a, b)
     if a.type ~= nil then
         if a.type == 'warp' then
             self:touchWarp(a)
@@ -97,6 +154,20 @@ function M:physContactBetween(a, b)
     else
         error('Unknown user data type')
     end
+end
+
+function M:physContactBetweenEnd(a, b)
+    -- if a.type ~= nil then
+    --     if a.type == 'warp' then
+    --         self:touchWarp(a)
+    --     end
+    -- elseif b.type ~= nil then
+    --     if b.type == 'warp' then
+    --         self:touchWarp(b)
+    --     end
+    -- else
+    --     error('Unknown user data type')
+    -- end
 end
 
 function M:draw()
@@ -127,6 +198,21 @@ function M:load(x, y)
     TimedGameState.load(self)
     self:setupWorldBounds()
     self:setupWarps()
+    
+    if type(x) == "string" then
+        x = tonumber(x)
+    end
+    if type(y) == "string" then
+        y = tonumber(y)
+    end
+
+    if type(x) == "number" and x < 0 then
+        x = x + self:getWidth()
+    end
+    if type(y) == "number" and y < 0 then
+        y = y + self:getHeight()
+    end
+
     self.player = player.new(self.world, self.gamestate.graphics.Player, x, y)
     self:pushCamera(Camera.new(self.gamestate, self.player.body))
 end

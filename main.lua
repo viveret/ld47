@@ -27,6 +27,7 @@ TimedGameState = require "src.gamestates.TimedGameState"
 gamestate = require "src.gamestate"
 timeline = require "src.timeline"
 player = require "src.player"
+door = require "src.world.door"
 toast = require "src.toast"
 animation = require "src.animation"
 

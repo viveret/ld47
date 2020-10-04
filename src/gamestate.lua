@@ -4,8 +4,11 @@ local gamestate = {
     flags = {},
     time = 0,
     states = {
+        Overworld = require "src.gamestates.Exterior.OverworldGameState",
+        Swamp = require "src.gamestates.Exterior.SwampGameState",
+        Coffee = require "src.gamestates.Interior.CoffeeGameState",
+        
         StartNewGame = require "src.gamestates.StartNewGameState",
-        OverworldGame = require "src.gamestates.OverworldGameState",
         DialogGame = require "src.gamestates.DialogGameState"
     },
     backgroundMusic = { },
@@ -152,9 +155,9 @@ function gamestate.load()
 
     -- initialize specific state
     if gamestate.savesFolderExists() then
-        gamestate.warpTo('OverworldGame,65,55,x')
+        gamestate.warpTo('Overworld,65,55,x')
     else
-        gamestate.warpTo('OverworldGame,0,0,x')
+        gamestate.warpTo('Overworld,0,0,x')
     end
 end
 
@@ -193,8 +196,12 @@ function gamestate.warpTo(path)
     print(path)
     local scene, x, y, etc = path:match("^%s*(.-),%s*(.-),%s*(.-),%s*(.-)$")
     local stateType = gamestate.states[scene]
-    gamestate.push(stateType.new(gamestate))
-    gamestate.current():load(x, y)
+    if stateType ~= nil then
+        gamestate.push(stateType.new(gamestate))
+        gamestate.current():load(x, y)
+    else
+        error ('Invalid stateType ' .. scene)
+    end
 end
 
 function gamestate.ensureBGMusic(bgMusicName)

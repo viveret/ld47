@@ -4,7 +4,46 @@ function M.load()
     lg.setDefaultFilter('linear', 'linear')
 
     return lume.extend({
-        Overworld = lg.newImage("assets/images/world/Overworld.png"),
+        Overworld = {
+			Bg = lg.newImage("assets/images/world/Overworld.png"),
+		},
+        Antiques = {
+			Bg = lg.newImage("assets/images/world/Antiques/Interior.png"),
+		},
+        Bar = {
+			Bg = lg.newImage("assets/images/world/Bar/Interior.png"),
+		},
+        Cemetery = {
+			Bg = lg.newImage("assets/images/world/Cemetery/Cemetery.png"),
+		},
+        Coffee = {
+			Bg = lg.newImage("assets/images/world/Coffee/Interior.png"),
+			Table = lg.newImage("assets/images/world/Coffee/table.png"),
+		},
+        Doctor = {
+			Bg = lg.newImage("assets/images/world/Doctor/Interior.png"),
+		},
+        Home = {
+			Bg = lg.newImage("assets/images/world/Home/Interior.png"),
+		},
+        Library = {
+			Bg = lg.newImage("assets/images/world/Library/Interior.png"),
+		},
+        Motel = {
+			Bg = lg.newImage("assets/images/world/Motel/Interior.png"),
+		},
+        PostOffice = {
+			Bg = lg.newImage("assets/images/world/PostOffice/Interior.png"),
+		},
+        School = {
+			Bg = lg.newImage("assets/images/world/School/Interior.png"),
+		},
+        Shop = {
+			Bg = lg.newImage("assets/images/world/Shop/Interior.png"),
+		},
+        Swamp = {
+			Bg = lg.newImage("assets/images/world/Swamp/Swamp.png"),
+		},
         Player = lg.newImage("assets/images/people/protag.png"),
         Dialog = lg.newImage("/assets/images/screen/dialog-box.png"),
         DialogFont = love.graphics.newImageFont(
