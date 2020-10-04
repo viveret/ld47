@@ -5,7 +5,7 @@ local M = {
 	gamestate = nil
 }
 
-function M.init(world, gamestate) 
+function M.init(gamestate) 
     M.gamestate = gamestate
 end
 
@@ -20,7 +20,16 @@ function M.draw()
 		return
 	end
 
-	lg.print(M.text, _renderWidth / 2, _renderHeight / 2)
+	local dialogBox = M.gamestate.graphics.Dialog
+
+	local width, height = dialogBox:getDimensions()
+
+	local y = 5
+	local x = _renderWidth / 2 - width / 2
+
+	M.gamestate.graphics.drawObject(dialogBox, x, y, width, height)
+
+	lg.print(M.text, width / 2, height / 2)
 end
 
 function M.tick()
