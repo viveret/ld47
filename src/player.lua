@@ -13,7 +13,8 @@ function M.new(world, spritesheet, x, y)
         walkForceX = 0.5,
         walkForceY = 0.5,
         positionIsCenter = true,
-        maxVelocity = 30
+        maxVelocity = 30,
+        type = "player"
 	}, M)
     self.body = lp.newBody(world, self.x, self.y, "dynamic")
     self.body:setMass(self.body:getMass() * 20)
@@ -108,7 +109,9 @@ function M:update(dt)
         self.activeAnimation = self.animations.idle
     end
 
-    self.activeAnimation:update(dt)
+    if self.activeAnimation ~= nil then
+        self.activeAnimation:update(dt)
+    end
 end
 
 return M

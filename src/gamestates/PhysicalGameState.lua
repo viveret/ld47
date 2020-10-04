@@ -8,12 +8,15 @@ function M.new(gamestate, name, graphics)
     self.player = nil
     self.cameras = { }
     self:pushCamera(Camera.new())
+    self.contactListeners = {}
     self.bounds = {}
     self.warps = {}
     self.renderBounds = false
     self.renderWarps = false
     self.toast = nil
     self.isPhysicalGameState = true
+
+    self:addContactListeners()
 
     local physBeginContact = function (a, b, coll)
         if a == nil or b == nil then
@@ -50,6 +53,34 @@ function M.new(gamestate, name, graphics)
 	return self
 end
 
+function M:addContactListener(filterFn, startFn, endFn)
+    table.insert(self.contactListeners,
+    {
+        filter = filterFn,
+        onStart = startFn,
+        onEnd = endFn
+    })
+end
+
+function M:addContactListeners()
+    self:addContactListener(
+        function (a, b)
+            return a.activated ~= true and a.type == 'warp' and b.type == 'player'
+        end,
+        function (a, b)
+            if a.path ~= nil then
+                self.gamestate.fire(WarpEvent.new(a.path), true)
+            else
+                self.gamestate.fire(WarpEvent.new(b.path), true)
+            end
+            a.activated = true
+            b.activated = true
+        end,
+        function (a, b)
+        end
+    )
+end
+
 function M:addExteriorWorldBounds(paddingx, paddingy)
     if paddingx == nil then
         paddingx = 2
@@ -68,7 +99,7 @@ function M:addExteriorWorldBounds(paddingx, paddingy)
     table.insert(
         self.bounds,
         { -- Bottom
-            x = 0, y = self:getHeight() - paddingy,
+            x = 0, y = self:getHeight() - paddingy * 2,
             w = self:getWidth(), h = paddingy * 2
         }
     )
@@ -97,16 +128,12 @@ function M:addWorldBounds(bounds)
     end
 end
 
-function M:touchWarp(warp)
-    self.gamestate.fire(WarpEvent.new(warp.path), true)
-end
-
 function M:getWidth()
-    return self.background:getWidth() / 10
+    return self.background:getWidth() / 8
 end
 
 function M:getHeight()
-    return self.background:getHeight() / 10
+    return self.background:getHeight() / 8
 end
 
 function M:drawInWorldView()
@@ -114,8 +141,9 @@ function M:drawInWorldView()
         self:currentCamera():draw()
     end
 
+    lg.draw(self.background, 0, 0, 0, 1 / 8, 1 / 8)
+
     if self.gamestate ~= nil then
-        self.gamestate.graphics.drawObject(self.background, 0, 0, 16 * 10, 12 * 10)
         self.player:draw()
     end
 
@@ -143,31 +171,19 @@ function M:drawInWorldView()
 end
 
 function M:physContactBetweenStart(a, b)
-    if a.type ~= nil then
-        if a.type == 'warp' then
-            self:touchWarp(a)
+    for k,listener in pairs(self.contactListeners) do
+        if listener.filter(a, b) or listener.filter(b, a) then
+            listener.onStart(a, b)
         end
-    elseif b.type ~= nil then
-        if b.type == 'warp' then
-            self:touchWarp(b)
-        end
-    else
-        error('Unknown user data type')
     end
 end
 
 function M:physContactBetweenEnd(a, b)
-    -- if a.type ~= nil then
-    --     if a.type == 'warp' then
-    --         self:touchWarp(a)
-    --     end
-    -- elseif b.type ~= nil then
-    --     if b.type == 'warp' then
-    --         self:touchWarp(b)
-    --     end
-    -- else
-    --     error('Unknown user data type')
-    -- end
+    for k,listener in pairs(self.contactListeners) do
+        if listener.filter(a, b) or listener.filter(b, a) then
+            listener.onEnd(a, b)
+        end
+    end
 end
 
 function M:draw()

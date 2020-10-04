@@ -24,7 +24,7 @@ end
 
 function M:update(dt)
     -- animate on collision
-    self:draw()
+    --self:draw()
 end
 
 return M

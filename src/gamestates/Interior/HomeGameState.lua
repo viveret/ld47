@@ -3,13 +3,13 @@ local M = setmetatable({}, { __index = IndoorsGameState })
 M.__index = M
 
 function M.new(gamestate)
-    local self = setmetatable(IndoorsGameState.new(gamestate, 'Coffee', gamestate.graphics.Coffee), M)
-	
+    local self = setmetatable(IndoorsGameState.new(gamestate, 'Home', gamestate.graphics.Home), M)
+    
     self.warps = {
         { -- Main door
-            x = 45, y = 68,
+            x = 45, y = 143,
             w = 10, h = 10,
-            path = 'Overworld,96,97,x'
+            path = 'Overworld,-15,-15,x'
         }
     }
     self.renderWarps = true

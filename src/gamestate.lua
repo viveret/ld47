@@ -7,6 +7,7 @@ local gamestate = {
         Overworld = require "src.gamestates.Exterior.OverworldGameState",
         Swamp = require "src.gamestates.Exterior.SwampGameState",
         Coffee = require "src.gamestates.Interior.CoffeeGameState",
+        Home = require "src.gamestates.Interior.HomeGameState",
         
         StartNewGame = require "src.gamestates.StartNewGameState",
         DialogGame = require "src.gamestates.DialogGameState"
@@ -110,7 +111,8 @@ end
 
 function gamestate.replace(newGamestate)
     if newGamestate ~= nil then
-        gamestate.stack[-1] = newGamestate
+        gamestate.pop()
+        gamestate.push(newGamestate)
     else
         error('newGamestate must not be nil')
     end
@@ -197,7 +199,11 @@ function gamestate.warpTo(path)
     local scene, x, y, etc = path:match("^%s*(.-),%s*(.-),%s*(.-),%s*(.-)$")
     local stateType = gamestate.states[scene]
     if stateType ~= nil then
-        gamestate.push(stateType.new(gamestate))
+        if gamestate.current().world == nil then
+            gamestate.push(stateType.new(gamestate))
+        else
+            gamestate.replace(stateType.new(gamestate))
+        end
         gamestate.current():load(x, y)
     else
         error ('Invalid stateType ' .. scene)

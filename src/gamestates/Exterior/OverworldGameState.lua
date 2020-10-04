@@ -35,19 +35,19 @@ function M.new(gamestate)
     
     self.warps = {
         { -- Home
-            x = 135, y = 115,
+            x = 180, y = 140,
             w = 20, h = 10,
-            path = 'Home,65,55,x'
+            path = 'Home,50,120,x'
         },
         { -- Swamp
-            x = 0, y = 100,
-            w = 5, h = 5,
+            x = 0, y = 97,
+            w = 8, h = 10,
             path = 'Swamp,-30,-35,x'
         },
         { -- Coffee
             x = 50, y = 100,
             w = 5, h = 5,
-            path = 'Coffee,-30,-35,x'
+            path = 'Coffee,20,15,x'
         },
     }
     self.renderWarps = true
@@ -83,7 +83,7 @@ end
 
 function M:load(x, y)
     PhysicalGameState.load(self, x, y)
-	self.gamestate.ensureBGMusic("overworld")
+	self.gamestate.ensureBGMusic("theme")
 end
 
 function M:save()
