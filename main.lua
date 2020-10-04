@@ -29,5 +29,6 @@ function love.update(dt)
 end
 function love.load()
     love.window.setMode(_renderWidth, _renderHeight, { resizable = false, minwidth = _windowWidth, minheight = _windowHeight })
+    love.window.setTitle("Trouble Stirring at Loop's Bend")
     gamestate.load()
 end
