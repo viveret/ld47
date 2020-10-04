@@ -29,7 +29,7 @@ function M.new(gamestate, name, text)
 end
 
 function M:update(dt)
-	if lk.isDown('q') then
+	if lk.isDown('space', 'return', 'escape') then
         self.gamestate.pop()
     end
 

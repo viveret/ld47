@@ -1,7 +1,6 @@
 local M = {}
 
 function M.fireOn(self, gs)
-	print("firing "..self.text)
     toast.showToast(self.text)
 end
 
