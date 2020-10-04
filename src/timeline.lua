@@ -25,7 +25,7 @@ function M.load(lines)
 		else
 	    	local scene, timeRaw, flagsRaw, actionRaw = line:match("^%s*(.-),%s*(.-),%s*(.-),%s*(.-)$")
 			
-			local action = parseAction(actionRaw)
+			local action = parseAction(scene, actionRaw)
 			local time = tonumber(timeRaw)
 			local flags = {}
 			for flag in flagsRaw:gmatch("([^\\|]+):?") do 
@@ -75,7 +75,7 @@ end
 --   2. Y
 --   3. Duration (time to span there and back)
 --   4. Hold (time to just look at the X,Y)
-function parseAction(raw)
+function parseAction(scene, raw)
 	local parts = {}
 	for part in string.gmatch(raw, "[^\\|]+") do
 		table.insert(parts, part)
@@ -99,42 +99,42 @@ function parseAction(raw)
 			end
 		end
 
-		return ActorSpawnEvent.new(name, assetName, x, y, callback)
+		return ActorSpawnEvent.new(scene, name, assetName, x, y, callback)
 	elseif type == "Move" then
 		local name = parts[2]
 		local toX = tonumber(parts[3])
 		local toY = tonumber(parts[4])
 		local speed = tonumber(parts[5])
 
-		return ActorMoveEvent.new(name, toX, toY, speed)
+		return ActorMoveEvent.new(scene, name, toX, toY, speed)
 	elseif type == "Despawn" then
 		local name = parts[2]
 
-		return ActorDespawnEvent.new(name)
+		return ActorDespawnEvent.new(scene, name)
 	elseif type == "Speak" then
 		local name = parts[2]
 		local text = parts[3]
 
-		return ActorSpeakEvent.new(name, text)
+		return ActorSpeakEvent.new(scene, name, text)
 	elseif type == "PlaySound" then
 		local path = parts[2]
 
-		return PlaySoundEvent.new(path)
+		return PlaySoundEvent.new(scene, path)
 	elseif type == "RoomText" then
 		local text = parts[2]
 
-		return RoomTextEvent.new(text)
+		return RoomTextEvent.new(scene, text)
 	elseif type == "ToggleFlag" then
 		local flagName = parts[2]
 
-		return ToggleFlagEvent.new(flagName)
+		return ToggleFlagEvent.new(scene, flagName)
 	elseif type == "ManualCamera" then
 		local x = tonumber(parts[2])
 		local y = tonumber(parts[3])
 		local duration = tonumber(parts[4])
 		local hold = tonumber(parts[5])
-
-		return ManualCameraEvent.new(x, y, duration, hold)
+		
+		return ManualCameraEvent.new(scene, x, y, duration, hold)
 	elseif type == "GameOver" then
 		return GameOverEvent.new()
 	else 

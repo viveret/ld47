@@ -3,7 +3,7 @@ local gamestate = {
     timeline = {},
     flags = {},
     time = 0,
-    states = {
+    timedGameStateCreators ={
         -- Exterior
         Overworld = require "src.gamestates.Exterior.OverworldGameState",
         Swamp = require "src.gamestates.Exterior.SwampGameState",
@@ -19,7 +19,10 @@ local gamestate = {
         Motel = require "src.gamestates.Interior.MotelGameState",
         PostOffice = require "src.gamestates.Interior.PostOfficeGameState",
         School = require "src.gamestates.Interior.SchoolGameState",
-        Shop = require "src.gamestates.Interior.ShopGameState",
+        Shop = require "src.gamestates.Interior.ShopGameState"
+    },
+    existingStates = { },
+    createStates = {
         
         -- Other
         Title = require "src.gamestates.Menu.TitleGameState",
@@ -35,7 +38,8 @@ local gamestate = {
     },
     initial = {
         location = 'Home,65,55,x'
-    }
+    },
+    fracSec = 0
 }
 lfs = love.filesystem
 lume = require "lib.lume"
@@ -80,16 +84,53 @@ function gamestate.current()
     end
 end
 
+-- transition to a different gamestate here
+function gamestate.switchTo(toGamestate)
+    if toGamestate == nil then
+        error('toGamestate must not be nil')
+    end
+
+    local moved = false
+
+    for ix, state in ipairs(gamestate.stack) do
+        if state == toGamestate then
+            table.remove(gamestate.stack, ix)
+            moved = true
+        end
+    end
+
+    if not moved then
+        error('toGamestate not already included')
+    end
+
+    gamestate.push(toGamestate)
+    gamestate.markTopmost(toGamestate)
+end
+
+-- push a NEW gamestate here
 function gamestate.push(newGamestate)
     if newGamestate ~= nil then
         table.insert(gamestate.stack, newGamestate)
     else
         error('newGamestate must not be nil')
     end
+
+    gamestate.markTopmost(newGamestate)
+end
+
+function gamestate.markTopmost(toGamestate) 
+    for _, state in ipairs(gamestate.stack) do
+        state.topmost = toGamestate == state
+    end
 end
 
 function gamestate.pop()
     table.remove(gamestate.stack)
+
+    local current = gamestate:current()
+    if current ~= nil then
+        gamestate.markTopmost(current)
+    end
 end
 
 function gamestate.replace(newGamestate)
@@ -105,6 +146,24 @@ function gamestate.draw()
     gamestate.current():draw()
 end
 
+function gamestate.updateForTimespassed(dt)
+    local tickEverySeconds = 1 / 60
+
+    local secondsSinceLastUpdate = dt
+
+    if gamestate.fracSec ~= nil then
+        secondsSinceLastUpdate = dt + gamestate.fracSec
+    end
+
+    local ticks = secondsSinceLastUpdate / tickEverySeconds
+    local wholeTicks = math.floor(ticks)
+    local remainder = secondsSinceLastUpdate - (wholeTicks * tickEverySeconds)
+
+    gamestate.fracSec = remainder
+
+    return wholeTicks;
+end
+
 function gamestate.update(dt)
     -- handle any fadeouts that are in progress
     gamestate.advanceBGMusic()
@@ -117,7 +176,33 @@ function gamestate.update(dt)
         end
     end
 
-    return gamestate.current():update(dt)
+    local currentGameState = gamestate.current()
+
+    local currentNeedsUpdate = true
+
+    -- pump everything if time is passing
+    if currentGameState.isPhysicalGameState then
+        local ticks = gamestate.updateForTimespassed(dt)
+
+        for i=0,ticks,1 do
+            -- advance time, this always happens...
+            gamestate.time = gamestate.time + 1
+
+            -- pump every "time-y" state
+            for key, existing in pairs(gamestate.existingStates) do
+                existing:update(1/60)   -- every step is always the same length
+
+                if existing == currentGameState then
+                    currentNeedsUpdate = false
+                end
+            end
+
+            -- tick the toast
+            toast.tick()
+        end 
+    else
+        currentGameState:update(dt)
+    end
 end
 
 function gamestate.load()
@@ -139,6 +224,17 @@ function gamestate.load()
 
     -- spin up toast
     toast.init(gamestate)
+
+    -- spin up the TimedGameStates
+
+    for key, creator in pairs(gamestate.timedGameStateCreators) do
+        local state = creator.new(gamestate)
+        state:load()
+        gamestate.existingStates[key] = state
+        gamestate.push(state)
+
+        print("Creating State "..key)
+    end
 
     -- start at title
     gamestate.warpTo('Title,0,0,x')
@@ -197,20 +293,24 @@ function gamestate.warpTo(path)
     end
     print(path)
     local scene, x, y, etc = path:match("^%s*(.-),%s*(.-),%s*(.-),%s*(.-)$")
-    local stateType = gamestate.states[scene]
-    if stateType ~= nil then
-        local newState = stateType.new(gamestate)
+
+
+    local existing = gamestate.existingStates[scene]
+    local create = gamestate.createStates[scene]
+
+    if existing ~= nil then
+        gamestate.switchTo(existing)
+        existing:switchTo(tonumber(x), tonumber(y))
+    elseif create ~= nil then
+        local newState = create.new(gamestate)
         newState.type = scene
-        if gamestate.current().isPhysicalGameState then
-            gamestate.push(newState)
-        else
-            gamestate.replace(newState)
-        end
-        gamestate.current():load(x, y)
-        gamestate.saveData.location = path
-    else
+        gamestate.push(newState)
+        gamestate.current():load(tonumber(x), tonumber(y))
+    else 
         error ('Invalid stateType ' .. scene)
     end
+
+    gamestate.saveData.location = path
 end
 
 function gamestate.newGame()

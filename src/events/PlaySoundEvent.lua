@@ -1,12 +1,16 @@
 local M = {}
 
 function M.fireOn(self, gs)
-	local toPlay = gs.audio[self.name]
-    love.audio.play(toPlay)
+	local currentScene = gs:current().name
+
+	if name == self.scene then
+		local toPlay = gs.audio[self.name]
+    	love.audio.play(toPlay)
+    end
 end
 
-function M.new(name) 
-	local ret = { type = "PlaySoundEvent", name = name, fireOn = M.fireOn }
+function M.new(scene, name) 
+	local ret = { scene, type = "PlaySoundEvent", name = name, fireOn = M.fireOn }
 
 	return ret
 end

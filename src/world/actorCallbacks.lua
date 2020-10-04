@@ -18,7 +18,7 @@ function M.cultist(gs, actor, eventType, param)
 
 		if not hasToldOff and isPlayer then
 			gs.setFlag("ToldOff")
-			local dialog = gs.states.DialogGame.new(gs, "Cultist", "Best watch where you are walking.")
+			local dialog = gs.createStates.DialogGame.new(gs, "Cultist", "Best watch where you are walking.")
 			gs.push(dialog)
 		end
 	end

@@ -30,9 +30,13 @@ function M:update(dt)
     PhysicalGameState.update(self, dt)
 end
 
-function M:load(x, y)
-    PhysicalGameState.load(self, x, y)
-	-- self.gamestate.ensureBGMusic("overworld")
+function M:load()
+    PhysicalGameState.load(self)
+end
+
+function M:switchTo(x, y)
+    PhysicalGameState.switchTo(self, x, y)
+    self.gamestate.ensureBGMusic("chill")
 end
 
 function M:save()

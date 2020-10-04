@@ -328,7 +328,7 @@ function M:draw()
 end
 
 function M:update(dt)
-    TimedGameState.update(self, dt)
+    TimedGameState.update(self)
     self.world:update(dt)
     self:currentCamera():update(dt)
 
@@ -351,27 +351,18 @@ function M:update(dt)
     end
 end
 
-function M:load(x, y)
+function M:load()
     TimedGameState.load(self)
     self:setupWorldBounds()
     self:setupWarps()
     
-    if type(x) == "string" then
-        x = tonumber(x)
-    end
-    if type(y) == "string" then
-        y = tonumber(y)
-    end
-
-    if type(x) == "number" and x < 0 then
-        x = x + self:getWidth()
-    end
-    if type(y) == "number" and y < 0 then
-        y = y + self:getHeight()
-    end
-
-    self.player = player.new(self.world, self.gamestate.graphics.Player, x, y)
+    self.player = player.new(self.world, self.gamestate.graphics.Player, 0, 0)
     self:pushCamera(Camera.new(self.gamestate, self.player.body))
+end
+
+function M:switchTo(x, y)
+    TimedGameState.switchTo(self, x, y)
+    self.player:setPosition(x, y, 0, 0)
 end
 
 function M:save()

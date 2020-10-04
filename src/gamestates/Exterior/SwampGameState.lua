@@ -30,9 +30,12 @@ function M:update(dt)
     PhysicalGameState.update(self, dt)
 end
 
-function M:load(x, y)
-    PhysicalGameState.load(self, x, y)
-	self.gamestate.ensureBGMusic("nightSpooky")
+function M:load()
+    PhysicalGameState.load(self)
+end
+
+function M:switchTo(x, y)
+    self.gamestate.ensureBGMusic("nightSpooky")
 end
 
 function M:save()

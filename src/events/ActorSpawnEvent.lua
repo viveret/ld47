@@ -1,14 +1,16 @@
 local M = {}
 
 function M.fireOn(self, gs) 
-	local currentGS = gs:current()
+	print("ActorSpawnEvent firing "..self.scene.." "..self.name)
 
-	if not currentGS.isPhysicalGameState then
+	local scene = gs.existingStates[self.scene]
+
+	if not scene.isPhysicalGameState then
 		print("Current state cannot spawn actors")
 		return
 	end
 
-	local world = currentGS.world
+	local world = scene.world
 
 	local spritesheetStill = gs.graphics[self.assetName.."Idle"]
 	local spritesheetUp = gs.graphics[self.assetName.."Up"]
@@ -20,11 +22,12 @@ function M.fireOn(self, gs)
 
 	local newActor = actor.new(world, gs, self.x, self.y, spritesheetStill, spritesheetUp, spritesheetDown, spritesheetLeft, spritesheetRight, callback)
 
-	currentGS:addActor(self.name, newActor)
+	scene:addActor(self.name, newActor)
 end
 
-function M.new(name, assetName, x, y, callback) 
+function M.new(scene, name, assetName, x, y, callback) 
 	return { 
+		scene = scene,
 		type="ActorSpawnEvent", 
 		name = name, 
 		assetName = assetName,

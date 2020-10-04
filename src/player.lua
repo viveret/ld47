@@ -31,6 +31,12 @@ function M.new(world, spritesheet, x, y)
 	return self
 end
 
+function M:setPosition(x, y, vX, vY)
+    self.body:setX(x)
+    self.body:setY(y)
+    self.body:setLinearVelocity(vX, vY)
+end
+
 function M:draw()
     if self.activeAnimation == nil then
         self.activeAnimation = self.animations.idle

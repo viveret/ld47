@@ -17,8 +17,12 @@ function M:update(dt)
     PhysicalGameState.update(self, dt)
 end
 
-function M:load(x, y)
+function M:load()
     PhysicalGameState.load(self, x, y)
+end
+
+function M:switchTo(x, y)
+    PhysicalGameState.switchTo(self, x, y)
 
     if self.lightsAreOn or true then
         self.colors = {

@@ -9,7 +9,7 @@ function M.new(gamestate)
         { -- Main door
             x = 45, y = 143,
             w = 10, h = 10,
-            path = 'Overworld,-15,-15,x'
+            path = 'Overworld,40,40,x'
         }
     }
     self.renderWarps = true
@@ -26,8 +26,12 @@ function M:update(dt)
     IndoorsGameState.update(self, dt)
 end
 
-function M:load(x, y)
-    IndoorsGameState.load(self, x, y)
+function M:load()
+    IndoorsGameState.load(self)
+end
+
+function M:switchTo(x, y)
+    IndoorsGameState.switchTo(self, x, y)
     self.gamestate.ensureBGMusic("dreamSequence")
 end
 
