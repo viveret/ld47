@@ -40,7 +40,6 @@ lfs = love.filesystem
 lume = require "lib.lume"
 
 local audio = require "src.audio"
-local timeline = require "src.timeline"
 local graphics = require "src.graphics"
 
 function donothing()
@@ -122,7 +121,7 @@ end
 
 function gamestate.load()
     randomseed(os.time())
-    
+
     -- universal setup
     gamestate.graphics = graphics.new()
     gamestate.audio = audio.load()

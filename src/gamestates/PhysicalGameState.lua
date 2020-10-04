@@ -16,6 +16,14 @@ function M.new(gamestate, name, graphics)
     self.toast = nil
     self.isPhysicalGameState = true
     self.actors = {}
+    self.colors = {
+        night = { r = 0.2, g = 0.2, b = 0.6 },
+        day = { r = 1, g = 1, b = 1 }
+    }
+    self.sunriseHourStart = 6.5
+    self.sunriseHourEnd = 7.5
+    self.sunsetHourStart = 18
+    self.sunsetHourEnd = 20
 
     self:addContactListeners()
     self:addProximityListeners()
@@ -53,6 +61,24 @@ function M.new(gamestate, name, graphics)
     self.world:setCallbacks(physBeginContact, physEndContact, physPreSolve, physPostSolve)
 
 	return self
+end
+
+function M:getColorRightNow()
+    local ticksPerHour = 60 * 60
+    local timeOfDay = self.gamestate.time % (ticksPerHour * 24)
+    if timeOfDay < self.sunriseHourStart * ticksPerHour then
+        return self.colors.night
+    elseif timeOfDay < self.sunriseHourEnd * ticksPerHour then
+        local sunriseDuration = self.sunriseHourEnd - self.sunriseHourStart
+        return interpolateValues(self.colors.night, self.colors.day, (timeOfDay - self.sunriseHourStart * ticksPerHour) / (sunriseDuration * ticksPerHour))
+    elseif timeOfDay < self.sunsetHourStart * ticksPerHour then
+        return self.colors.day
+    elseif timeOfDay < self.sunsetHourEnd * ticksPerHour then
+        local sunsetDuration = self.sunsetHourEnd - self.sunsetHourStart
+        return interpolateValues(self.colors.day, self.colors.night, (timeOfDay - self.sunsetHourStart * ticksPerHour) / (sunsetDuration * ticksPerHour))
+    else
+        return self.colors.night
+    end
 end
 
 function M:addContactListener(filterFn, startFn, endFn)
@@ -106,8 +132,11 @@ function M:addContactListeners()
     )
 
     self:onContactFireEvent(
-        function (a, b) return a.type == 'sign' and b.type == 'player' end,
+        function (a, b) return a.type == 'sign' and b.type == 'player' end
     )
+end
+
+function M:addProximityListener()
 end
 
 function M:addProximityListeners()
@@ -118,14 +147,11 @@ function M:addProximityListeners()
         function (a, b)
             local sign = a.sign
             if sign == nil then
-                sign = b.path
-                door = b.door
+                sign = b.sign
             end
 
-            if door ~= nil then
-                door:animateAndWarp(self.gamestate, path)
-            else
-                self.gamestate.fire(WarpEvent.new(path), true)
+            if sign ~= nil then
+                sign:withinProximity(a, b)
             end
             a.activated = true
             b.activated = true
@@ -199,7 +225,24 @@ function M:drawInWorldView()
         self:currentCamera():draw()
     end
 
+    local ambientColor = self:getColorRightNow()
+    lg.setColor(ambientColor.r, ambientColor.g, ambientColor.b)
+
     lg.draw(self.background, 0, 0, 0, 1 / 8, 1 / 8)
+
+    local drawList = function(list)
+        if list ~= nil then
+            for _, e in pairs(list) do
+                e:draw()
+            end
+        end
+    end
+
+    drawList(self.actors)
+    drawList(self.doors)
+    drawList(self.animatedObjects)
+
+    self.player:draw()
 
     if self.renderBounds then
         lg.setColor(1, 0, 0)
@@ -217,19 +260,7 @@ function M:drawInWorldView()
         lg.setColor(1, 1, 1)
     end
 
-    local drawList = function(list)
-        if list ~= nil then
-            for _, e in pairs(list) do
-                e:draw()
-            end
-        end
-    end
-
-    drawList(self.actors)
-    drawList(self.doors)
-    drawList(self.animatedObjects)
-
-    self.player:draw()
+    lg.setColor(1, 1, 1)
 end
 
 function M:physContactBetweenStart(a, b)

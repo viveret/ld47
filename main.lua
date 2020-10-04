@@ -39,6 +39,15 @@ animation = require "src.animation"
 actor = require "src.world.actor"
 
 
+function interpolateValues(a, b, v)
+    local r = {}
+    for k,av in pairs(a) do
+        r[k] = (b[k] - av) * v + av
+    end
+    return r
+end
+
+
 function love.draw()
     _renderWidth, _renderHeight = love.graphics.getDimensions()
     gamestate.draw()
