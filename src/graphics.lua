@@ -5,6 +5,17 @@ function M.new()
     lg.setDefaultFilter('linear', 'linear')
 
     local cultist = lg.newImage("assets/images/people/cultist.png")
+    
+    local person1 = lg.newImage("assets/images/people/person1.png")
+    local person2 = lg.newImage("assets/images/people/person2.png")
+    local person3 = lg.newImage("assets/images/people/person3.png")
+    local person4 = lg.newImage("assets/images/people/person4.png")
+    local person5 = lg.newImage("assets/images/people/person5.png")
+    local person6 = lg.newImage("assets/images/people/person6.png")
+    local person7 = lg.newImage("assets/images/people/person7.png")
+    local person8 = lg.newImage("assets/images/people/person8.png")
+    local person9 = lg.newImage("assets/images/people/person9.png")
+    local person10 = lg.newImage("assets/images/people/person10.png")
 
     return setmetatable({
         Overworld = {
@@ -93,7 +104,32 @@ function M.new()
 		SchoolFlag = lg.newImage("assets/images/world/Street/school-flag.png"),
 		BeerSign = lg.newImage("assets/images/world/Street/beer-sign.png"),
 
-		MaryIdle = animation.new(lg.newImage("assets/images/world/Antiques/Mary.png"), 64, 64, 0, 3, 0, 1)
+		MaryIdle = animation.new(lg.newImage("assets/images/world/Antiques/Mary.png"), 64, 64, 0, 3, 0, 1),
+
+		-- People
+		Person1Idle = animation.new(person1, 64, 64, 0, 3, 0, 1),
+		Person1Down = animation.new(person1, 64, 64, 3, 6, 0, 1),
+		Person1Up = animation.new(person1, 64, 64, 9, 6, 0, 1),
+		Person1Right = animation.new(person1, 64, 64, 15, 6, 0, 1),
+		Person1Left = animation.new(person1, 64, 64, 15, 6, 0, 1, true),
+
+		Person2Idle = animation.new(person2, 64, 64, 0, 3, 0, 1),
+		Person2Down = animation.new(person2, 64, 64, 3, 6, 0, 1),
+		Person2Up = animation.new(person2, 64, 64, 9, 6, 0, 1),
+		Person2Right = animation.new(person2, 64, 64, 15, 6, 0, 1),
+		Person2Left = animation.new(person2, 64, 64, 15, 6, 0, 1, true),
+
+		Person3Idle = animation.new(person3, 64, 64, 0, 3, 0, 1),
+		Person3Down = animation.new(person3, 64, 64, 3, 6, 0, 1),
+		Person3Up = animation.new(person3, 64, 64, 9, 6, 0, 1),
+		Person3Right = animation.new(person3, 64, 64, 15, 6, 0, 1),
+		Person3Left = animation.new(person3, 64, 64, 15, 6, 0, 1, true),
+
+		Person4Idle = animation.new(person4, 64, 64, 0, 3, 0, 1),
+		Person4Down = animation.new(person4, 64, 64, 3, 6, 0, 1),
+		Person4Up = animation.new(person4, 64, 64, 9, 6, 0, 1),
+		Person4Right = animation.new(person4, 64, 64, 15, 6, 0, 1),
+		Person4Left = animation.new(person4, 64, 64, 15, 6, 0, 1, true)
 		
     }, M)
 end

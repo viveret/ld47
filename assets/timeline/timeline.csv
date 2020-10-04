@@ -4,25 +4,25 @@ Home,23400,,PlaySound|doorbell
 Home,23600,,Speak|Player|What's that? Someone at the door? Must be the mailman.
 Home,74880,,PlaySound|mirror
 Home,74881,,ToggleFlag|HearMirror
-Overworld,195,,Speak|Player|Suuuuuuuup, and lots more text - like lots more - like so much that the text starts wrapping and we can test that.  No really.
-Overworld,200,,PlaySound|mirror
-Overworld,201,,ToggleFlag|HearMirror
-Overworld,300,,RoomText|Look at the cultist go!
-Overworld,802,,Spawn|CultistOne|Cultist|50|40|cultist
-Overworld,803,,ManualCamera|50|40|405|100
-Overworld,1105,,Move|CultistOne|50|95|10
-Overworld,1200,ToldOff,Spawn|CultistTwo|Cultist|50|40
-Overworld,2105,,Move|CultistOne|150|95|10
-Overworld,3505,,Move|CultistOne|150|40|10
-Overworld,4505,,Move|CultistOne|50|40|10
-Overworld,5500,,ManualCamera|50|40|405|100
-Overworld,5705,,Speak|Cultist|I have finished my circular ritual.  Fear me.
-Overworld,5905,,Despawn|CultistOne
-
--- comment
 
 -- Turn sky red
 Overworld,80400,,GlobalAmbientColor|1|0.5|0.5
 
 -- Final event
 Overworld,86400,,GameOver|
+
+-- !!Coffee shop scenario!!
+-- ========================
+--
+-- boss yells at you if you haven't done your job by 9:30
+Overworld,7020,NotDoneJob,Spawn|Boss|Person1|110|85
+Overworld,7098,NotDoneJob,Speak|Person1|Where have you been?  There are customers wanting their coffee!
+Overworld,7176,,Despawn|Boss
+--
+-- customer one comes in, approaches counter, and can have coffee ordered
+Coffee,5460,,Spawn|CustomerOne|Person2|62|64
+Coffee,5538,,Move|CustomerOne|85|30|10
+Coffee,5850,,Despawn|CustomerOne
+Coffee,5851,,Spawn|CustomerOne|Person2|85|30|customerOne
+Coffee,8190,,Move|CustomerOne|62|64|10
+Coffee,9282,,Despawn|CustomerOne

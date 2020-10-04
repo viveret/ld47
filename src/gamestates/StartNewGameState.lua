@@ -6,6 +6,7 @@ function M:new(o, gamestate)
     }
     setmetatable(o, self)
     self.__index = self
+
     return o
 end
 

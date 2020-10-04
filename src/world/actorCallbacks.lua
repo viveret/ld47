@@ -24,4 +24,38 @@ function M.cultist(gs, actor, eventType, param)
 	end
 end
 
+function M.customerServed(gs, customerName, type, param) 
+	if param.type ~= "player" then
+		return
+	end
+
+	local notDoneJob = gs.hasFlag("NotDoneJob")
+	if notDoneJob then
+		gs.clearFlag("NotDoneJob")
+	end
+
+	local customerFlag = customerName.."Served"
+
+	local served = gs.hasFlag(customerFlag)
+	if not served then
+		gs.setFlag(customerFlag)
+	end
+end
+
+function M.customerOne(gs, actor, eventType, param)
+	M.customerServed(gs, "customerOne", eventType, param)
+end
+
+function M.customerTwo(gs, actor, eventType, param)
+	M.customerServed(gs, "customerTwo", eventType, param)
+end
+
+function M.customerThree(gs, actor, eventType, param)
+	M.customerServed(gs, "customerThree", eventType, param)
+end
+
+function M.customerFour(gs, actor, eventType, param)
+	M.customerServed(gs, "customerFour", eventType, param)
+end
+
 return M

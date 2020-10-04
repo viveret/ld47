@@ -245,9 +245,10 @@ function gamestate.load()
         state:load()
         gamestate.existingStates[key] = state
         gamestate.push(state)
-
-        print("Creating State "..key)
     end
+
+    -- initial flags
+    gamestate.setFlag("NotDoneJob")
 
     -- start at title
     gamestate.warpTo('Title,0,0,x')
@@ -269,6 +270,8 @@ function gamestate.setFlag(flag)
     end
 
     table.insert(gamestate.flags, flag)
+
+    gamestate.recalcTimeline()
 end
 
 function gamestate.clearFlag(flag) 
@@ -280,6 +283,8 @@ function gamestate.clearFlag(flag)
             break
         end
     end
+
+    gamestate.recalcTimeline()
 end
 
 function gamestate.hasFlag(flag)
@@ -290,6 +295,14 @@ function gamestate.hasFlag(flag)
     end
 
     return false
+end
+
+function gamestate.recalcTimeline()
+    for _, existing in pairs(gamestate.existingStates) do
+        existing:update(1/60)   -- every step is always the same length
+
+        existing:recalcTimeline()
+    end
 end
 
 function gamestate.fire(ev, queue)

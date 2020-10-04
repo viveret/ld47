@@ -20,7 +20,12 @@ function M.fireOn(self, gs)
 
 	local callback = self.callback
 
-	local newActor = actor.new(world, gs, self.x, self.y, spritesheetStill, spritesheetUp, spritesheetDown, spritesheetLeft, spritesheetRight, callback)
+	local width, height = spritesheetStill.spritesheet:getDimensions()
+
+	local newX = self.x
+	local newY = self.y
+
+	local newActor = actor.new(world, gs, newX, newY, spritesheetStill, spritesheetUp, spritesheetDown, spritesheetLeft, spritesheetRight, callback)
 
 	scene:addActor(self.name, newActor)
 end
