@@ -9,9 +9,10 @@ function M.init(gamestate)
     M.gamestate = gamestate
 end
 
-function M.showToast(text)
+function M.showToast(text, name)
 	M.visible = true
 	M.text = text
+	M.name = name
 	M.duration = text:len() * 30
 end
 
@@ -20,7 +21,8 @@ function M.draw()
 		return
 	end
 
-	M.gamestate.graphics:drawDialogBox("???", M.text, nil)
+	local name = M.name or "???"
+	M.gamestate.graphics:drawDialogBox(name, M.text, nil)
 end
 
 function M.tick()

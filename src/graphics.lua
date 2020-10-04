@@ -62,7 +62,8 @@ function M.new()
     	
     	PlayerProfile = lg.newImage("assets/images/people/protag-profile.png"),
     	UnknownProfile = lg.newImage("assets/images/people/unknown-profile.png"),
-    	CultistProfile = lg.newImage("assets/images/people/cultist-profile.png"),
+		CultistProfile = lg.newImage("assets/images/people/cultist-profile.png"),
+		MaryProfile = lg.newImage("assets/images/people/mary-profile.png"),
         
 		ui = {
 			button_bg = lg.newImage("assets/images/ui/button_bg.png"),

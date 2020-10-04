@@ -39,6 +39,11 @@ end
 
 function M:draw()
     IndoorsGameState.draw(self)
+
+    if self.greeting ~= nil then
+        self.gamestate.fire(self.greeting)
+        self.greeting = nil
+    end
 end
 
 function M:update(dt)
@@ -56,6 +61,9 @@ function M:switchTo(x, y)
         self.shopkeeper = ActorSpawnEvent.new("Antiques", "AntiqueSeller", "Mary", 28, 20)
         self.gamestate.fire(self.shopkeeper)
     end
+
+    -- todo: time of day check
+    self.greeting = ActorTextEvent.new("Mary", "I've collected many things over the years. Please, browse at your leisure.")
 end
 
 function M.save()
