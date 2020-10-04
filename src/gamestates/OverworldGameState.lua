@@ -49,6 +49,15 @@ function M.new(gamestate)
         }
     }
     self.renderBounds = true
+    
+    self.warps = {
+        { -- Home
+            x = 130, y = 90,
+            w = 10, h = 10,
+            path = 'OverworldGame,65,55,x'
+        }
+    }
+    self.renderWarps = true
 	return self
 end
 

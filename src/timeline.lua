@@ -1,11 +1,3 @@
-local ActorSpawnEvent = require "src.events.ActorSpawnEvent"
-local ActorMoveEvent = require "src.events.ActorMoveEvent"
-local ActorDespawnEvent = require "src.events.ActorDespawnEvent"
-local ActorSpeakEvent = require "src.events.ActorSpeakEvent"
-local PlaySoundEvent = require "src.events.PlaySoundEvent"
-local RoomTextEvent = require "src.events.RoomTextEvent"
-local ToggleFlagEvent = require "src.events.ToggleFlagEvent"
-
 local M = { }
 
 -- timeline is a table of "scene name" -> "timeline"

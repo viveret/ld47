@@ -8,7 +8,8 @@ local gamestate = {
         OverworldGame = require "src.gamestates.OverworldGameState",
         DialogGame = require "src.gamestates.DialogGameState"
     },
-    backgroundMusic = { }
+    backgroundMusic = { },
+    events = {}
 }
 lfs = love.filesystem
 lume = require "lib.lume"
@@ -120,6 +121,14 @@ function gamestate.update(dt)
     -- handle any fadeouts that are in progress
     gamestate.advanceBGMusic()
 
+    if #gamestate.events > 0 then
+        local tmp = gamestate.events
+        gamestate.events = {}
+        for k, ev in pairs(tmp) do
+            ev:fireOn(gamestate)
+        end
+    end
+
     return gamestate.current():update(dt)
 end
 
@@ -169,11 +178,19 @@ function gamestate.hasFlag(flag)
     return false
 end
 
-function gamestate.fire(ev)
-    return ev.fireOn(ev, gamestate)
+function gamestate.fire(ev, queue)
+    if queue then
+        table.insert(gamestate.events, ev)
+    else
+        return ev:fireOn(gamestate)
+    end
 end
 
 function gamestate.warpTo(path)
+    if path == nil or path == '' then
+        error('path cannot be nil or empty')
+    end
+    print(path)
     local scene, x, y, etc = path:match("^%s*(.-),%s*(.-),%s*(.-),%s*(.-)$")
     local stateType = gamestate.states[scene]
     gamestate.push(stateType.new(gamestate))

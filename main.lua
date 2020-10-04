@@ -13,6 +13,15 @@ lume = require "lib.lume"
 kuey = require "lib.kuey"
 lume.extend(_G, math)
 
+ActorSpawnEvent = require "src.events.ActorSpawnEvent"
+ActorMoveEvent = require "src.events.ActorMoveEvent"
+ActorDespawnEvent = require "src.events.ActorDespawnEvent"
+ActorSpeakEvent = require "src.events.ActorSpeakEvent"
+PlaySoundEvent = require "src.events.PlaySoundEvent"
+RoomTextEvent = require "src.events.RoomTextEvent"
+ToggleFlagEvent = require "src.events.ToggleFlagEvent"
+WarpEvent = require "src.events.WarpEvent"
+
 Camera = require "src.Camera"
 TimedGameState = require "src.gamestates.TimedGameState"
 gamestate = require "src.gamestate"
@@ -20,6 +29,7 @@ timeline = require "src.timeline"
 player = require "src.player"
 toast = require "src.toast"
 animation = require "src.animation"
+
 
 function love.draw()
     _renderWidth, _renderHeight = love.graphics.getDimensions()

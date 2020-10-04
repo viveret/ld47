@@ -19,6 +19,7 @@ function M.new(world, spritesheet, x, y)
     self.body:setMass(self.body:getMass() * 20)
     self.shape = lp.newRectangleShape(self.w, self.h)
     self.fixture = lp.newFixture(self.body, self.shape)
+    self.fixture:setUserData(self)
     
     self.animations = {
         idle = animation.new(spritesheet, 64, 0, 3, 0, 1),
