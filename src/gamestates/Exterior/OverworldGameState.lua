@@ -34,6 +34,10 @@ function M.new(gamestate)
         { -- Coffee, Library
             x = 57, y = 45,
             w = 85, h = 42
+        },
+        { -- Post Office
+            x = 109, y = 104,
+            w = 43, h = 33
         }
     })
     self.renderBounds = true
@@ -104,6 +108,12 @@ function M.new(gamestate)
             w = 9, h = 8,
             path = 'Library,20,90,x',
             door = self.doors.library,
+        },
+        { -- Post Office
+            x = 126, y = 129,
+            w = 9, h = 8,
+            path = 'PostOffice,10,10,x',
+            door = self.doors.postoffice
         },
     }
     self.renderWarps = true
