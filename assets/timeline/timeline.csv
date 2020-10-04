@@ -1,9 +1,9 @@
-Home,100,Hello,Spawn|Bob|10|100
-Home,200,Hello,Move|Bob|200|200
-Home,300,Hello|Second Loop,Speak|Bob|Hello world
-Home,400,Hello,Despawn|Bob
-Home,500,,RoomText|It is possible for Bob to have been here
-Overworld,100,,RoomText|This happened on trigger!!!
+Home,100,,Speak|Player|Good morning. What a glorious time (8 a.m.) to be alive on this fine Tuesday.
+Home,1000,,Speak|Player|I better get going if I don't want to be late to my job at the local coffee shop.
+Home,23400,,PlaySound|doorbell
+Home,23600,,Speak|Player|What's that? Someone at the door? Must be the mailman.
+Home,74880,,PlaySound|mirror
+Home,74881,,ToggleFlag|HearMirror
 Overworld,195,,Speak|Player|Suuuuuuuup, and lots more text - like lots more - like so much that the text starts wrapping and we can test that.  No really.
 Overworld,200,,PlaySound|mirror
 Overworld,201,,ToggleFlag|HearMirror

@@ -33,7 +33,7 @@ local gamestate = {
         location = nil,
     },
     initial = {
-        location = 'Overworld,65,55,x'
+        location = 'Home,65,55,x'
     }
 }
 lfs = love.filesystem
