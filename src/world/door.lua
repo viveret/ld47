@@ -10,7 +10,7 @@ function M.new(world, spritesheet, x, y)
         y = y
     }, M)
 
-    self.animation = animation.new(self.spritesheet, 80, 0, 6, 0, 1)
+    self.animation = animation.new(self.spritesheet, 80, 72, 0, 6, 0, 1)
     self.body = lp.newBody(world, self.x, self.y, "static")
     self.shape = lp.newRectangleShape(4, 4)
     self.fixture = lp.newFixture(self.body, self.shape)

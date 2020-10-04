@@ -1,19 +1,20 @@
 local M = {}
 M.__index = M
 
-function M.new(img, frameSize, firstFrameIndex, frameCount, currentTime, duration, flipHorizontal)
+function M.new(img, frameWidth, frameHeight, firstFrameIndex, frameCount, currentTime, duration, flipHorizontal)
     local self = setmetatable({
         spritesheet = img,
         currentTime = currentTime,
         duration = duration,
         quads = {},
         flipHorizontal = flipHorizontal or false,
-        frameSize = frameSize
+        frameWidth = frameWidth,
+        frameHeight = frameHeight
     }, M)
 
     for f = 0, frameCount - 1 do
-        y = frameSize * (firstFrameIndex + f)
-        table.insert(self.quads, lg.newQuad(0, y, frameSize, frameSize, img:getDimensions()))
+        y = frameHeight * (firstFrameIndex + f)
+        table.insert(self.quads, lg.newQuad(0, y, frameWidth, frameHeight, img:getDimensions()))
     end
 
     return self
@@ -28,7 +29,7 @@ function M:draw(x, y, noScale)
     end
 
     if self.flipHorizontal then
-        lg.draw(self.spritesheet, self.quads[spriteIdx], x, y, 0, -scale, scale, self.frameSize, 0)
+        lg.draw(self.spritesheet, self.quads[spriteIdx], x, y, 0, -scale, scale, self.frameWidth, 0)
     else
         lg.draw(self.spritesheet, self.quads[spriteIdx], x, y, 0, scale, scale)
     end
@@ -42,7 +43,7 @@ function M:update(dt)
 end
 
 function M:getFrameSize()
-    return self.frameSize
+    return { width = self.frameWidth, height = self.frameHeight }
 end
 
 return M

@@ -121,8 +121,8 @@ function M:drawDialogBox(profileName, text, animation)
 	if animation ~= nil then
 		local animSize = animation:getFrameSize()
 
-		local animX = x + width - innerXGutter - animSize
-		local animY = y + height - innerYGutter - animSize
+		local animX = x + width - innerXGutter - animSize.width
+		local animY = y + height - innerYGutter - animSize.height
 
 		animation:draw(animX, animY, true)
 	end

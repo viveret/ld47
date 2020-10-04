@@ -23,7 +23,7 @@ function M.new(gamestate, name, text)
         name = name,
         text = text,
         lowerGameState = physicalGamestate,
-        nextAnimation = animation.new(gamestate.graphics.TextArrow, 32, 0, 2, 0, 1, false),
+        nextAnimation = animation.new(gamestate.graphics.TextArrow, 32, 32, 0, 2, 0, 1, false),
 	}, M)
 	return self
 end
