@@ -3,6 +3,7 @@ local M = setmetatable({}, { __index = PhysicalGameState })
 M.__index = M
 
 local timeline = require "src.timeline"
+local door = require "src.world.door"
 
 function M.new(gamestate)
     local self = setmetatable(PhysicalGameState.new(gamestate, 'Overworld', gamestate.graphics.Overworld), M)
@@ -58,6 +59,21 @@ function M.new(gamestate)
         }
     }
     self.renderWarps = true
+
+    self.doors = {
+        antiques = door.new(self.world, self.gamestate.graphics.AntiquesDoor, 50, 65),
+        bar = door.new(self.world, self.gamestate.graphics.BarDoor, 23, 65),
+        coffee = door.new(self.world, self.gamestate.graphics.CoffeeShopDoor, 75, 65),
+        doctor = door.new(self.world, self.gamestate.graphics.DoctorDoor, 138, 20),
+        library = door.new(self.world, self.gamestate.graphics.LibraryDoor, 100, 65),
+        motelLeft = door.new(self.world, self.gamestate.graphics.MotelDoor, 8, 17),
+        motelMiddle = door.new(self.world, self.gamestate.graphics.MotelDoor, 20, 17),
+        motelRight = door.new(self.world, self.gamestate.graphics.MotelDoor, 40, 21),
+        postoffice = door.new(self.world, self.gamestate.graphics.PostOfficeDoor, 100, 100),
+        school = door.new(self.world, self.gamestate.graphics.SchoolDoor, 138, 62),
+        store = door.new(self.world, self.gamestate.graphics.StoreDoor, 35, 97),
+    }
+
 	return self
 end
 

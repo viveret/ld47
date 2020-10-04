@@ -16,6 +16,16 @@ function M.load()
     	TextArrow = lg.newImage("/assets/images/screen/text-arrow.png"),
     	PlayerProfile = lg.newImage("assets/images/people/protag-profile.png"),
     	UnknownProfile = lg.newImage("assets/images/people/unknown-profile.png"),
+        AntiquesDoor = lg.newImage("assets/images/world/Antiques/Door.png"),
+        BarDoor = lg.newImage("assets/images/world/Bar/Door.png"),
+        CoffeeShopDoor = lg.newImage("assets/images/world/Coffee/Door.png"),
+        DoctorDoor = lg.newImage("assets/images/world/Doctor/Door.png"),
+        LibraryDoor = lg.newImage("assets/images/world/Library/Door.png"),
+        MotelDoor = lg.newImage("assets/images/world/Motel/Door.png"),
+        PostOfficeDoor = lg.newImage("assets/images/world/PostOffice/Door.png"),
+        SchoolDoor = lg.newImage("assets/images/world/School/Door.png"),
+        StoreDoor = lg.newImage("assets/images/world/Shop/Door.png")
+
     }, M)
 end
 

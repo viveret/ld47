@@ -77,6 +77,12 @@ function M:drawInWorldView()
         end
         lg.setColor(1, 1, 1)
     end
+
+    if self.doors ~= nil then
+        for _, door in pairs(self.doors) do
+            door:draw()
+        end
+    end
 end
 
 function M:physContactBetween(a, b)
