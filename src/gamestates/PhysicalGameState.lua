@@ -175,6 +175,8 @@ function M:drawInWorldView()
         end
     end
 
+    drawList(self.actors)
+    drawList(self.doors)
     drawList(self.animatedObjects)
 
     self.player:draw()
@@ -231,6 +233,7 @@ function M:update(dt)
 
     updateList(self.animatedObjects)
     updateList(self.actors)
+    updateList(self.doors)
 
     if lk.isDown('p') then
         self.gamestate.warpTo('Pause,0,0,x')
