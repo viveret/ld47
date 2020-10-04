@@ -19,6 +19,11 @@ function M.new(gamestate)
             }
         }
     }, M)
+
+    for _,flag in pairs(self.items) do
+        flag.has = gamestate.hasFlag(flag.flag)
+    end
+
 	return self
 end
 
@@ -36,7 +41,11 @@ function M:draw()
 end
 
 function M:drawItem(el)
-    lg.setColor(0, 1, 0)
+    if el.has then
+        lg.setColor(0, 1, 0)
+    else
+        lg.setColor(1, 0, 0)
+    end
     lg.rectangle('line', 0, 0, self.itemWidth, self.itemHeight)
     lg.setColor(1, 1, 1)
 	self.gamestate.graphics:renderTextInBox(el.text, self.itemPad, self.itemPad, self.itemWidth - self.itemPad * 2, self.itemHeight - self.itemPad * 2)
