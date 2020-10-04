@@ -18,6 +18,7 @@ function M.new(gamestate, name, graphics)
     self.actors = {}
 
     self:addContactListeners()
+    self:addProximityListeners()
 
     local physBeginContact = function (a, b, coll)
         if a == nil or b == nil then
@@ -63,6 +64,22 @@ function M:addContactListener(filterFn, startFn, endFn)
     })
 end
 
+function M:onContactFireEvent(filterFn, contactEvent)
+    self:addContactListener(
+        function (a, b)
+            return a.activated ~= true and filterFn(a, b)
+        end,
+        function (a, b)
+            self.gamestate.fire(contactEvent, true)
+
+            a.activated = true
+            b.activated = true
+        end,
+        function (a, b)
+        end
+    )
+end
+
 function M:addContactListeners()
     self:addContactListener(
         function (a, b)
@@ -87,6 +104,39 @@ function M:addContactListeners()
         function (a, b)
         end
     )
+
+    self:onContactFireEvent(
+        function (a, b) return a.type == 'sign' and b.type == 'player' end,
+    )
+end
+
+function M:addProximityListeners()
+    self:addProximityListener(
+        function (a, b)
+            return a.activated ~= true and a.type == 'sign' and b.type == 'player'
+        end,
+        function (a, b)
+            local sign = a.sign
+            if sign == nil then
+                sign = b.path
+                door = b.door
+            end
+
+            if door ~= nil then
+                door:animateAndWarp(self.gamestate, path)
+            else
+                self.gamestate.fire(WarpEvent.new(path), true)
+            end
+            a.activated = true
+            b.activated = true
+        end,
+        function (a, b)
+        end
+    )
+
+    -- self:onProximityFireEvent(
+    --     function (a, b) return a.type == 'sign' and b.type == 'player' end,
+    -- )
 end
 
 function M:addExteriorWorldBounds(paddingx, paddingy)
