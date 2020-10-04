@@ -1,7 +1,7 @@
 local M = {}
 M.__index = M
 
-function M.new(img, frameWidth, frameHeight, firstFrameIndex, frameCount, currentTime, duration, flipHorizontal)
+function M.new(img, frameWidth, frameHeight, firstFrameIndex, frameCount, currentTime, duration, flipHorizontal, callback)
     local self = setmetatable({
         spritesheet = img,
         currentTime = currentTime,
@@ -9,7 +9,9 @@ function M.new(img, frameWidth, frameHeight, firstFrameIndex, frameCount, curren
         quads = {},
         flipHorizontal = flipHorizontal or false,
         frameWidth = frameWidth,
-        frameHeight = frameHeight
+        frameHeight = frameHeight,
+        runOnlyOnce = callback ~= nil,
+        callback = callback
     }, M)
 
     for f = 0, frameCount - 1 do
@@ -38,7 +40,11 @@ end
 function M:update(dt) 
     self.currentTime = self.currentTime + dt
     if self.currentTime >= self.duration then
-        self.currentTime = self.currentTime - self.duration
+        if self.runOnlyOnce then
+            self.callback()
+        else
+            self.currentTime = self.currentTime - self.duration
+        end
     end
 end
 

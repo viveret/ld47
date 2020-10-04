@@ -37,6 +37,20 @@ function M.new(gamestate)
     })
     self.renderBounds = true
     
+    self.doors = {
+        antiques = door.new(self.world, self.gamestate.graphics.AntiquesDoor, 65, 82.5),
+        bar = door.new(self.world, self.gamestate.graphics.BarDoor, 30, 82.5),
+        coffee = door.new(self.world, self.gamestate.graphics.CoffeeShopDoor, 95, 82.5),
+        doctor = door.new(self.world, self.gamestate.graphics.DoctorDoor, 174.5, 25.5),
+        library = door.new(self.world, self.gamestate.graphics.LibraryDoor, 124.5, 82.5),
+        motelLeft = door.new(self.world, self.gamestate.graphics.MotelDoor, 10.5, 21.5),
+        motelMiddle = door.new(self.world, self.gamestate.graphics.MotelDoor, 25, 21.5),
+        motelRight = door.new(self.world, self.gamestate.graphics.MotelDoor, 49.5, 26),
+        postoffice = door.new(self.world, self.gamestate.graphics.PostOfficeDoor, 125.5, 127.5),
+        school = door.new(self.world, self.gamestate.graphics.SchoolDoor, 172, 77),
+        store = door.new(self.world, self.gamestate.graphics.StoreDoor, 43.5, 121),
+    }
+
     self.warps = {
         { -- Home
             x = 180, y = 140,
@@ -56,7 +70,8 @@ function M.new(gamestate)
         { -- Antiques
             x = 65, y = 80,
             w = 9, h = 8,
-            path = 'Antiques,20,15,x'
+            path = 'Antiques,20,15,x',
+            door = self.doors.antiques
         },
         { -- Coffee
             x = 95, y = 80,
@@ -85,20 +100,6 @@ function M.new(gamestate)
         },
     }
     self.renderWarps = true
-
-    self.doors = {
-        antiques = door.new(self.world, self.gamestate.graphics.AntiquesDoor, 65, 82.5),
-        bar = door.new(self.world, self.gamestate.graphics.BarDoor, 30, 82.5),
-        coffee = door.new(self.world, self.gamestate.graphics.CoffeeShopDoor, 95, 82.5),
-        doctor = door.new(self.world, self.gamestate.graphics.DoctorDoor, 174.5, 25.5),
-        library = door.new(self.world, self.gamestate.graphics.LibraryDoor, 124.5, 82.5),
-        motelLeft = door.new(self.world, self.gamestate.graphics.MotelDoor, 10.5, 21.5),
-        motelMiddle = door.new(self.world, self.gamestate.graphics.MotelDoor, 25, 21.5),
-        motelRight = door.new(self.world, self.gamestate.graphics.MotelDoor, 49.5, 26),
-        postoffice = door.new(self.world, self.gamestate.graphics.PostOfficeDoor, 125.5, 127.5),
-        school = door.new(self.world, self.gamestate.graphics.SchoolDoor, 172, 77),
-        store = door.new(self.world, self.gamestate.graphics.StoreDoor, 43.5, 121),
-    }
 
 	return self
 end

@@ -70,7 +70,12 @@ function M:addContactListeners()
         end,
         function (a, b)
             if a.path ~= nil then
-                self.gamestate.fire(WarpEvent.new(a.path), true)
+                if a.door ~= nil then
+                    print("it's a door!")
+                    a.door:animateAndWarp(self.gamestate, a.path)
+                else
+                    self.gamestate.fire(WarpEvent.new(a.path), true)
+                end
             else
                 self.gamestate.fire(WarpEvent.new(b.path), true)
             end
@@ -216,6 +221,12 @@ function M:update(dt)
 
     for _, actor in pairs(self.actors) do
         actor:update(dt)
+    end
+
+    if self.doors ~= nil then
+        for _, door in pairs(self.doors) do
+            door:update(dt)
+        end
     end
 
     self.world:update(dt)
