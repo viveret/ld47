@@ -75,6 +75,14 @@ function gamestate.clear()
     lfs.remove("saves")
 end
 
+function gamestate.getWidth()
+    return gamestate.current():getWidth()
+end
+
+function gamestate.getHeight()
+    return gamestate.current():getHeight()
+end
+
 function gamestate.current()
     if lume.count(gamestate.stack) > 0 then
         return lume.last(gamestate.stack)

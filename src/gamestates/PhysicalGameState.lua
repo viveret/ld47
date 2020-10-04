@@ -11,6 +11,14 @@ function M.new(gamestate, name, bg)
 	return self
 end
 
+function M:getWidth()
+    return 16 * 16 --self.background:getWidth() / 64
+end
+
+function M:getHeight()
+    return 12 * 16 -- self.background:getHeight() / 64
+end
+
 function M:draw()
     -- TimedGameState.draw(self)
     lg.push()
@@ -25,9 +33,10 @@ function M:draw()
 
     lg.pop()
 
-    local x = self:currentCamera().x
-    local y = self:currentCamera().y
+    local x = self.player.body:getX()
+    local y = self.player.body:getY()
     lg.print("You are at " .. x .. ", " .. y .. " in " .. self.name, 0, 0)
+    lg.print("Camera is at " .. self:currentCamera().x .. ", " .. self:currentCamera().y, 0, 16)
 end
 
 function M:update(dt)
@@ -40,7 +49,7 @@ end
 function M:load(x, y)
     TimedGameState.load(self)
     self.player = player.new(self.world, self.gamestate.graphics.Player, x, y)
-    self:pushCamera(Camera.new(self.player.body))
+    self:pushCamera(Camera.new(self.gamestate, self.player.body))
 end
 
 function M:save()
