@@ -87,17 +87,17 @@ function M.new(gamestate)
     self.renderWarps = true
 
     self.doors = {
-        antiques = door.new(self.world, self.gamestate.graphics.AntiquesDoor, 50, 65),
-        bar = door.new(self.world, self.gamestate.graphics.BarDoor, 23, 65),
-        coffee = door.new(self.world, self.gamestate.graphics.CoffeeShopDoor, 75, 65),
-        doctor = door.new(self.world, self.gamestate.graphics.DoctorDoor, 138, 20),
-        library = door.new(self.world, self.gamestate.graphics.LibraryDoor, 100, 65),
-        motelLeft = door.new(self.world, self.gamestate.graphics.MotelDoor, 8, 17),
-        motelMiddle = door.new(self.world, self.gamestate.graphics.MotelDoor, 20, 17),
-        motelRight = door.new(self.world, self.gamestate.graphics.MotelDoor, 40, 21),
-        postoffice = door.new(self.world, self.gamestate.graphics.PostOfficeDoor, 100, 100),
-        school = door.new(self.world, self.gamestate.graphics.SchoolDoor, 138, 62),
-        store = door.new(self.world, self.gamestate.graphics.StoreDoor, 35, 97),
+        antiques = door.new(self.world, self.gamestate.graphics.AntiquesDoor, 65, 82.5),
+        bar = door.new(self.world, self.gamestate.graphics.BarDoor, 30, 82.5),
+        coffee = door.new(self.world, self.gamestate.graphics.CoffeeShopDoor, 95, 82.5),
+        doctor = door.new(self.world, self.gamestate.graphics.DoctorDoor, 174.5, 25.5),
+        library = door.new(self.world, self.gamestate.graphics.LibraryDoor, 124.5, 82.5),
+        motelLeft = door.new(self.world, self.gamestate.graphics.MotelDoor, 10.5, 21.5),
+        motelMiddle = door.new(self.world, self.gamestate.graphics.MotelDoor, 25, 21.5),
+        motelRight = door.new(self.world, self.gamestate.graphics.MotelDoor, 49.5, 26),
+        postoffice = door.new(self.world, self.gamestate.graphics.PostOfficeDoor, 125.5, 127.5),
+        school = door.new(self.world, self.gamestate.graphics.SchoolDoor, 172, 77),
+        store = door.new(self.world, self.gamestate.graphics.StoreDoor, 43.5, 121),
     }
 
 	return self
