@@ -18,3 +18,5 @@ Overworld,4505,,Move|CultistOne|50|40|10
 Overworld,5500,,ManualCamera|50|40|405|100
 Overworld,5705,,Speak|CultistOne|I have finished my circular ritual.  Fear me.
 Overworld,5905,,Despawn|CultistOne
+
+-- comment

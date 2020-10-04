@@ -20,16 +20,20 @@ function M.load(lines)
 	local data = {}
 	for line in lines do
 
-    	local scene, timeRaw, flagsRaw, actionRaw = line:match("^%s*(.-),%s*(.-),%s*(.-),%s*(.-)$")
-		
-		local action = parseAction(actionRaw)
-		local time = tonumber(timeRaw)
-		local flags = {}
-		for flag in flagsRaw:gmatch("([^\\|]+):?") do 
-			table.insert(flags, flag)
-		end
+		if line == nil or line == '' or line:sub(1, 2) == '--' then
+			-- comments, skip em
+		else
+	    	local scene, timeRaw, flagsRaw, actionRaw = line:match("^%s*(.-),%s*(.-),%s*(.-),%s*(.-)$")
+			
+			local action = parseAction(actionRaw)
+			local time = tonumber(timeRaw)
+			local flags = {}
+			for flag in flagsRaw:gmatch("([^\\|]+):?") do 
+				table.insert(flags, flag)
+			end
 
-    	data[#data + 1] = { scene = scene, time = time, flags = flags, action = action }
+	    	data[#data + 1] = { scene = scene, time = time, flags = flags, action = action }
+	    end
 	end
 
 	return data
