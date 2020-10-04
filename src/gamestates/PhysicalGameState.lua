@@ -167,25 +167,17 @@ function M:drawInWorldView()
         lg.setColor(1, 1, 1)
     end
 
-    if self.doors ~= nil then
-        for _, door in pairs(self.doors) do
-            door:draw()
+    local drawList = function(list)
+        if list ~= nil then
+            for _, e in pairs(list) do
+                e:draw()
+            end
         end
     end
 
-    if(self.animatedObjects ~= nil) then
-        for _, obj in pairs(self.animatedObjects) do
-            obj:draw()
-        end
-    end
+    drawList(self.animatedObjects)
 
-    for _, actor in pairs(self.actors) do
-        actor:draw()
-    end
-
-    if self.gamestate ~= nil then
-        self.player:draw()
-    end
+    self.player:draw()
 end
 
 function M:physContactBetweenStart(a, b)
@@ -224,28 +216,21 @@ end
 
 function M:update(dt)
     TimedGameState.update(self, dt)
+    self.world:update(dt)
+    self:currentCamera():update(dt)
 
     self.player:update(dt)
 
-    for _, actor in pairs(self.actors) do
-        actor:update(dt)
-    end
-
-    if self.doors ~= nil then
-        for _, door in pairs(self.doors) do
-            door:update(dt)
+    local updateList = function(list)
+        if list ~= nil then
+            for _, e in pairs(list) do
+                e:update(dt)
+            end
         end
     end
 
-    if(self.animatedObjects ~= nil) then
-        for _, obj in pairs(self.animatedObjects) do
-            obj:update(dt)
-        end
-    end
-
-    self.world:update(dt)
-    
-    self:currentCamera():update(dt)
+    updateList(self.animatedObjects)
+    updateList(self.actors)
 
     if lk.isDown('p') then
         self.gamestate.warpTo('Pause,0,0,x')
