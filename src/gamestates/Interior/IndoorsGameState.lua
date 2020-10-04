@@ -19,6 +19,13 @@ end
 
 function M:load(x, y)
     PhysicalGameState.load(self, x, y)
+
+    if self.lightsAreOn or true then
+        self.colors = {
+            night = { r = 0.9, g = 0.7, b = 0.7 },
+            day = { r = 1, g = 1, b = 1 }
+        }
+    end
 end
 
 function M.save()
