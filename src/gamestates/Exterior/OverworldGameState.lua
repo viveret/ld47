@@ -53,6 +53,11 @@ function M.new(gamestate)
             w = 9, h = 8,
             path = 'Bar,20,15,x'
         },
+        { -- Antiques
+            x = 65, y = 80,
+            w = 9, h = 8,
+            path = 'Antiques,20,15,x'
+        },
         { -- Coffee
             x = 95, y = 80,
             w = 9, h = 8,
@@ -71,7 +76,7 @@ function M.new(gamestate)
         { -- Cemetery
             x = 100, y = 0,
             w = 5, h = 5,
-            path = 'Cemetery,20,15,x'
+            path = 'Cemetery,100,115,x'
         },
         { -- Library
             x = 125, y = 80,

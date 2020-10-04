@@ -9,9 +9,9 @@ function M.new(gamestate)
     
     self.warps = {
         { -- Home
-            x = 95, y = 130,
+            x = 88, y = 130,
             w = 30, h = 10,
-            path = 'Overworld,80,30,x'
+            path = 'Overworld,85,30,x'
         }
     }
     self.renderWarps = true
