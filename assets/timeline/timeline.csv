@@ -13,5 +13,5 @@ Overworld,1105,,Move|Cultist|50|95|10
 Overworld,2105,,Move|Cultist|150|95|10
 Overworld,3505,,Move|Cultist|150|40|10
 Overworld,4505,,Move|Cultist|50|40|10
-Overworld,5705,,RoomText|And they're done now
+Overworld,5705,,Speak|Cultist|I have finished my circular ritual.  Fear me.
 Overworld,5905,,Despawn|Cultist

@@ -47,6 +47,7 @@ function M.load()
 			Bg = lg.newImage("assets/images/world/Swamp/Swamp.png"),
 		},
         Player = lg.newImage("assets/images/people/protag.png"),
+        
         Dialog = lg.newImage("/assets/images/screen/dialog-box.png"),
         DialogFont = love.graphics.newImageFont(
         	"/assets/images/screen/dialog-font.png",
@@ -55,8 +56,11 @@ function M.load()
     		"123456789.,!?-+/():;%&`'*#=[]\""
     	),
     	TextArrow = lg.newImage("/assets/images/screen/text-arrow.png"),
+    	
     	PlayerProfile = lg.newImage("assets/images/people/protag-profile.png"),
     	UnknownProfile = lg.newImage("assets/images/people/unknown-profile.png"),
+    	CultistProfile = lg.newImage("assets/images/people/cultist-profile.png"),
+        
         AntiquesDoor = lg.newImage("assets/images/world/Antiques/Door.png"),
         BarDoor = lg.newImage("assets/images/world/Bar/Door.png"),
         CoffeeShopDoor = lg.newImage("assets/images/world/Coffee/Door.png"),
@@ -102,15 +106,15 @@ function M:drawDialogBox(profileName, text, animation)
 	-- render the profile picture
 	local profile = nil
 
-	if profileName == 'Player' then
-		profile = self.PlayerProfile
-	elseif profileName == '???' then
+	if profileName == '???' then
 		profile = self.UnknownProfile
+	else
+		profile = self[profileName.."Profile"]
 	end
 
 	if profile ~= nil then 
 		local profileX = x + 28
-		local profielY = y + 12
+		local profileY = y + 16
 
 		M.drawObject(profile, profileX, profileY, 152, 152)
 	end
