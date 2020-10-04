@@ -23,7 +23,6 @@ local gamestate = {
         
         -- Other
         Title = require "src.gamestates.Menu.TitleGameState",
-        LoadSave = require "src.gamestates.Menu.LoadSaveGameState",
         StartNewGame = require "src.gamestates.StartNewGameState",
         DialogGame = require "src.gamestates.DialogGameState",
         Pause = require "src.gamestates.Menu.PauseGameState",

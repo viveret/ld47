@@ -4,6 +4,8 @@ M.__index = M
 function M.new()
     lg.setDefaultFilter('linear', 'linear')
 
+    local cultist = lg.newImage("assets/images/people/cultist.png")
+
     return setmetatable({
         Overworld = {
 			Bg = lg.newImage("assets/images/world/Overworld.png"),
