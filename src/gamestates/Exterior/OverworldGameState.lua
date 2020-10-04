@@ -55,7 +55,8 @@ function M.new(gamestate)
         { -- Home
             x = 180, y = 140,
             w = 20, h = 10,
-            path = 'Home,50,120,x'
+            path = 'Home,50,120,x',
+            door = self.doors.home,
         },
         { -- Swamp
             x = 0, y = 122,
@@ -65,28 +66,32 @@ function M.new(gamestate)
         { -- Bar
             x = 30, y = 80,
             w = 9, h = 8,
-            path = 'Bar,20,15,x'
+            path = 'Bar,20,15,x',
+            door = self.doors.bar
         },
         { -- Antiques
             x = 65, y = 80,
             w = 9, h = 8,
             path = 'Antiques,20,15,x',
-            door = self.doors.antiques
+            door = self.doors.antiques,
         },
         { -- Coffee
             x = 95, y = 80,
             w = 9, h = 8,
-            path = 'Coffee,20,15,x'
+            path = 'Coffee,20,15,x',
+            door = self.doors.coffee,
         },
         { -- School
             x = 173, y = 75,
             w = 9, h = 8,
-            path = 'School,20,15,x'
+            path = 'School,20,15,x',
+            door = self.doors.school,
         },
         { -- Doctor
             x = 176, y = 25,
             w = 9, h = 8,
-            path = 'Doctor,20,15,x'
+            path = 'Doctor,20,15,x',
+            door = self.doors.doctor,
         },
         { -- Cemetery
             x = 100, y = 0,
@@ -96,7 +101,8 @@ function M.new(gamestate)
         { -- Library
             x = 125, y = 80,
             w = 9, h = 8,
-            path = 'Library,20,90,x'
+            path = 'Library,20,90,x',
+            door = self.doors.library,
         },
     }
     self.renderWarps = true

@@ -69,15 +69,17 @@ function M:addContactListeners()
             return a.activated ~= true and a.type == 'warp' and b.type == 'player'
         end,
         function (a, b)
-            if a.path ~= nil then
-                if a.door ~= nil then
-                    print("it's a door!")
-                    a.door:animateAndWarp(self.gamestate, a.path)
-                else
-                    self.gamestate.fire(WarpEvent.new(a.path), true)
-                end
+            local path = a.path
+            local door = a.door
+            if path == nil then
+                path = b.path
+                door = b.door
+            end
+
+            if door ~= nil then
+                door:animateAndWarp(self.gamestate, path)
             else
-                self.gamestate.fire(WarpEvent.new(b.path), true)
+                self.gamestate.fire(WarpEvent.new(path), true)
             end
             a.activated = true
             b.activated = true

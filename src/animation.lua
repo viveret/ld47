@@ -14,9 +14,13 @@ function M.new(img, frameWidth, frameHeight, firstFrameIndex, frameCount, curren
         callback = callback
     }, M)
 
-    for f = 0, frameCount - 1 do
-        y = frameHeight * (firstFrameIndex + f)
-        table.insert(self.quads, lg.newQuad(0, y, frameWidth, frameHeight, img:getDimensions()))
+    if frameCount > 0 then
+        for f = 0, frameCount - 1 do
+            local y = frameHeight * (firstFrameIndex + f)
+            table.insert(self.quads, lg.newQuad(0, y, frameWidth, frameHeight, img:getDimensions()))
+        end
+    else
+        error ('frameCount must be greater than 0')
     end
 
     return self
@@ -24,16 +28,20 @@ end
 
 function M:draw(x, y, noScale)
     local spriteIdx = math.floor(self.currentTime / self.duration * #self.quads) + 1
+    local quad = self.quads[spriteIdx]
+
+    if #self.quads == 0 or quad == nil then
+        return
+    end
 
     local scale = 1
     if not noScale then
         scale = scale / 8
     end
-
     if self.flipHorizontal then
-        lg.draw(self.spritesheet, self.quads[spriteIdx], x, y, 0, -scale, scale, self.frameWidth, 0)
+        lg.draw(self.spritesheet, quad, x, y, 0, -scale, scale, self.frameWidth, 0)
     else
-        lg.draw(self.spritesheet, self.quads[spriteIdx], x, y, 0, scale, scale)
+        lg.draw(self.spritesheet, quad, x, y, 0, scale, scale)
     end
 end
 
