@@ -52,8 +52,10 @@ function M:draw()
 
     toast.draw()
 
+    local currentVx, currentVy = self.player.body:getLinearVelocity()
     lg.print("You are at " .. x .. ", " .. y .. " in " .. self.name, 0, 0)
     lg.print("Camera is at " .. self:currentCamera().x .. ", " .. self:currentCamera().y, 0, 16)
+    lg.print("Player's velocity is " .. currentVx .. ", " .. currentVy, 0, 32)
 end
 
 function M:update(dt)

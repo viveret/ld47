@@ -10,12 +10,12 @@ function M.new(world, spritesheet, x, y)
         w = 4,
         h = 4,
         world = world,
-        walkForceX = 0.125,
-        walkForceY = 0.125,
-        positionIsCenter = true
+        walkForceX = 0.5,
+        walkForceY = 0.5,
+        positionIsCenter = true,
+        maxVelocity = 30
 	}, M)
     self.body = lp.newBody(world, self.x, self.y, "dynamic")
-    self.body:setLinearDamping(0.9)
     self.body:setMass(self.body:getMass() * 20)
     self.shape = lp.newRectangleShape(self.w, self.h)
     self.fixture = lp.newFixture(self.body, self.shape)
@@ -32,7 +32,7 @@ end
 
 function M:draw()
     if self.activeAnimation == nil then
-        self:setActiveAnimation(self.animations.idle)
+        self.activeAnimation = self.animations.idle
     end
 
     lg.push()
@@ -67,14 +67,34 @@ function M:update(dt)
         self.activeAnimation = self.animations.right
     end
 
+    if vx == 0 and vy == 0 then
+        self.body:setLinearDamping(10)
+    else
+        self.body:setLinearDamping(0)
+    end
+
+    local currentVx, currentVy = self.body:getLinearVelocity()
+
     if vx ~= 0 then
-        self.body:applyForce(vx * self.walkForceX, 0)
+        if math.abs(currentVx) < self.maxVelocity then
+            self.body:applyForce(vx * self.walkForceX, 0)
+        end
+    else
+        --local dampingDir = currentVx < 0 and 1 or -1
+        --self.body:applyForce(dampingDir * self.dampingFactor * self.walkForceX, 0)
+        --self.body:setLinearVelocity(0, currentVy)
     end
 
     if vy ~= 0 then
-        self.body:applyForce(0, vy * self.walkForceY)
+        if math.abs(currentVy) < self.maxVelocity then
+            self.body:applyForce(0, vy * self.walkForceY)
+        end
+    else
+        -- local dampingDir = currentVy < 0 and 1 or -1
+        -- self.body:applyForce(0, dampingDir * self.dampingFactor * self.walkForceY)
+        --self.body:setLinearVelocity(currentVx, 0)
     end
-    
+
     if self.body:getY() < 0 then
         vy = abs(vy)
     end
@@ -83,14 +103,11 @@ function M:update(dt)
         vx = abs(vx)
     end
 
-    local currentVx, currentVy = self.body:getLinearVelocity()
     if currentVx == 0 and currentVy == 0 then
         self.activeAnimation = self.animations.idle
     end
 
     self.activeAnimation:update(dt)
-    --self.body:setLinearVelocity(vx, vy)
-    --self.body:applyLinearImpulse(vx, vy)
 end
 
 return M
