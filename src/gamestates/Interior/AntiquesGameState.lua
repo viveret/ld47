@@ -4,7 +4,26 @@ M.__index = M
 
 function M.new(gamestate)
     local self = setmetatable(IndoorsGameState.new(gamestate, 'Antiques', gamestate.graphics.Antiques), M)
-	
+    
+    self:addWorldBounds({
+        { -- clothing racks
+            x = 68, y = 47,
+            w = 2, h = 23
+        },
+        { -- urns and such
+            x = 63, y = 25,
+            w = 4, h = 22
+        },
+        { -- piano
+            x = 52, y = 0,
+            w = 14, h = 25
+        },
+        { -- counter
+            x = 9, y = 25,
+            w = 28, h = 1
+        }
+    })
+
     self.warps = {
         { -- Main door
             x = 45, y = 68,

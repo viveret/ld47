@@ -99,7 +99,7 @@ function M.new(gamestate)
         { -- Antiques
             x = 65, y = 80,
             w = 9, h = 8,
-            path = 'Antiques,20,15,x',
+            path = 'Antiques,48,60,x',
             door = self.doors.antiques,
         },
         { -- Coffee
