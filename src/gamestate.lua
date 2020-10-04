@@ -52,23 +52,6 @@ _empty = {
     load = donothing
 }
 
-function gamestate.load(name)
-    randomseed(os.time())
-    --[[
-    local Encoded = Kuey.encode("Love is life!", "love2d") -- Encode the string with "love2d" as key
-    print(Encoded)                                         -- Show the encoded string
-    print(Kuey.decode(Encoded, "anykey"))                  -- Try to show a decoded string with any key
-    print(Kuey.decode(Encoded, "love2d"))                  -- Show the decoded string with the correct key
-    ]]--
-    path = 'saves/' .. (name or lume.first(gamestate.savesList()) or '') .. '.txt'
-    print(path)
-    if lfs.getInfo(path) ~= nil then
-        file = lfs.read(path)
-        state = lume.deserialize(file)
-        gamestate.stack.push(state)
-    end
-end
-
 function gamestate.hasProgress()
     return gamestate.saveData.location ~= nil
 end
@@ -138,6 +121,8 @@ function gamestate.update(dt)
 end
 
 function gamestate.load()
+    randomseed(os.time())
+    
     -- universal setup
     gamestate.graphics = graphics.new()
     gamestate.audio = audio.load()
