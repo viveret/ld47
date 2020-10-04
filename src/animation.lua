@@ -11,13 +11,15 @@ function M.new(img, frameWidth, frameHeight, firstFrameIndex, frameCount, curren
         frameWidth = frameWidth,
         frameHeight = frameHeight,
         runOnlyOnce = callback ~= nil,
-        callback = callback
+        callback = callback,
+        clipW = 0.5,
+        clipH = 0.5,
     }, M)
 
     if frameCount > 0 then
         for f = 0, frameCount - 1 do
             local y = frameHeight * (firstFrameIndex + f)
-            table.insert(self.quads, lg.newQuad(0, y, frameWidth, frameHeight, img:getDimensions()))
+            table.insert(self.quads, lg.newQuad(0, y + self.clipH, frameWidth, frameHeight - self.clipH * 2, img:getDimensions()))
         end
     else
         error ('frameCount must be greater than 0')
