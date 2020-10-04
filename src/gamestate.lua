@@ -330,7 +330,7 @@ function gamestate.quitGame()
 end
 
 function gamestate.gameOver()
-    self.warpTo('GameOver,0,0,x')
+    gamestate.warpTo('GameOver,0,0,x')
 end
 
 function gamestate.ensureBGMusic(bgMusicName)
