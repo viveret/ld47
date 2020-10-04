@@ -13,7 +13,9 @@ function M.load()
         	"ABCDEFGHIJKLMNOPQRSTUVWXYZ0"..
     		"123456789.,!?-+/():;%&`'*#=[]\""
     	),
-    	TextArrow = lg.newImage("/assets/images/screen/text-arrow.png")
+    	TextArrow = lg.newImage("/assets/images/screen/text-arrow.png"),
+    	PlayerProfile = lg.newImage("assets/images/people/protag-profile.png"),
+    	UnknownProfile = lg.newImage("assets/images/people/unknown-profile.png"),
     }, M)
 end
 
@@ -32,16 +34,33 @@ function M:drawDialogBox(profileName, text, animation)
 	local maximumNameWidth = 125
 	local maximumNameHeight = 30
 
+	-- calculate dialog placement
 	local dialogBox = self.Dialog
-	
-	-- render the dialog box
 	local width, height = dialogBox:getDimensions()
-
+	
 	local maximumTextHeight = height - (innerYGutter * 2)
 
 	local y = outerYGutter
 	local x = outerXGutter + _renderWidth / 2 - width / 2
 
+	-- render the profile picture
+	local profile = nil
+
+	if profileName == 'Player' then
+		profile = self.PlayerProfile
+	elseif profileName == '???' then
+		profile = self.UnknownProfile
+	end
+
+	if profile ~= nil then 
+		local profileX = x + 28
+		local profielY = y + 12
+
+		M.drawObject(profile, profileX, profileY, 152, 152)
+	end
+
+	-- render the dialog box
+	
 	M.drawObject(dialogBox, x, y, width, height)
 	
 	-- render the text
