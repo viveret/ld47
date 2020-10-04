@@ -221,6 +221,10 @@ function M:update(dt)
     self.world:update(dt)
     
     self:currentCamera():update(dt)
+
+    if lk.isDown('p') then
+        self.gamestate.warpTo('Pause,0,0,x')
+    end
 end
 
 function M:load(x, y)

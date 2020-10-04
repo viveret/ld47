@@ -1,11 +1,10 @@
 local M = {}
+M.__index = M
 
-function M.load()
+function M.new()
     lg.setDefaultFilter('linear', 'linear')
 
-    local cultist = lg.newImage("assets/images/people/cultist.png")
-
-    return lume.extend({
+    return setmetatable({
         Overworld = {
 			Bg = lg.newImage("assets/images/world/Overworld.png"),
 		},
@@ -46,8 +45,10 @@ function M.load()
         Swamp = {
 			Bg = lg.newImage("assets/images/world/Swamp/Swamp.png"),
 		},
-        Player = lg.newImage("assets/images/people/protag.png"),
-        
+		
+		Player = lg.newImage("assets/images/people/protag.png"),
+		
+		-- UI
         Dialog = lg.newImage("/assets/images/screen/dialog-box.png"),
         DialogFont = love.graphics.newImageFont(
         	"/assets/images/screen/dialog-font.png",
@@ -61,6 +62,15 @@ function M.load()
     	UnknownProfile = lg.newImage("assets/images/people/unknown-profile.png"),
     	CultistProfile = lg.newImage("assets/images/people/cultist-profile.png"),
         
+		ui = {
+			button_bg = lg.newImage("assets/images/ui/button_bg.png"),
+			menu_bg = lg.newImage("assets/images/ui/menu_bg.png"),
+			title_fg = lg.newImage("assets/images/ui/title_fg.png"),
+		},
+		
+
+
+		-- Doors
         AntiquesDoor = lg.newImage("assets/images/world/Antiques/Door.png"),
         BarDoor = lg.newImage("assets/images/world/Bar/Door.png"),
         CoffeeShopDoor = lg.newImage("assets/images/world/Coffee/Door.png"),
@@ -75,11 +85,11 @@ function M.load()
         CultistDown = animation.new(cultist, 64, 64, 3, 6, 0, 1),
         CultistUp = animation.new(cultist, 64, 64, 9, 6, 0, 1),
         CultistRight = animation.new(cultist, 64, 64, 15, 6, 0, 1),
-        CultistLeft = animation.new(cultist, 64, 64, 15, 6, 0, 1, true)
+        CultistLeft = animation.new(cultist, 64, 64, 15, 6, 0, 1, true),
     }, M)
 end
 
-function M.drawObject(img, x, y, w, h)
+function M:drawObject(img, x, y, w, h)
     local iw, ih = img:getDimensions()
     lg.draw(img, x, y, 0, w / iw, h / ih)
 end
@@ -116,12 +126,12 @@ function M:drawDialogBox(profileName, text, animation)
 		local profileX = x + 28
 		local profileY = y + 16
 
-		M.drawObject(profile, profileX, profileY, 152, 152)
+		self:drawObject(profile, profileX, profileY, 152, 152)
 	end
 
 	-- render the dialog box
 	
-	M.drawObject(dialogBox, x, y, width, height)
+	self:drawObject(dialogBox, x, y, width, height)
 	
 	-- render the text
 	self:renderTextInBox(text, x + 180 + innerXGutter, y, maximumTextWidth, maximumTextHeight)

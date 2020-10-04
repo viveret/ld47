@@ -22,11 +22,20 @@ local gamestate = {
         Shop = require "src.gamestates.Interior.ShopGameState",
         
         -- Other
+        Title = require "src.gamestates.Menu.TitleGameState",
+        LoadSave = require "src.gamestates.Menu.LoadSaveGameState",
         StartNewGame = require "src.gamestates.StartNewGameState",
-        DialogGame = require "src.gamestates.DialogGameState"
+        DialogGame = require "src.gamestates.DialogGameState",
+        Pause = require "src.gamestates.Menu.PauseGameState",
     },
     backgroundMusic = { },
-    events = {}
+    events = {},
+    saveData = {
+        location = nil,
+    },
+    initial = {
+        location = 'Overworld,65,55,x'
+    }
 }
 lfs = love.filesystem
 lume = require "lib.lume"
@@ -52,7 +61,7 @@ function gamestate.load(name)
     print(Kuey.decode(Encoded, "anykey"))                  -- Try to show a decoded string with any key
     print(Kuey.decode(Encoded, "love2d"))                  -- Show the decoded string with the correct key
     ]]--
-    path = 'saves/' .. (name or lume.first(gamestate.list()) or '') .. '.txt'
+    path = 'saves/' .. (name or lume.first(gamestate.savesList()) or '') .. '.txt'
     print(path)
     if lfs.getInfo(path) ~= nil then
         file = lfs.read(path)
@@ -61,33 +70,12 @@ function gamestate.load(name)
     end
 end
 
-function gamestate.list()
-    if gamestate.savesFolderExists() then
-        return lfs.getDirectoryItems("saves")
-    else
-        return {}
-    end
-end
-
-function gamestate.savesFolderExists()
-    local savesInfo = lfs.getInfo("saves")
-    return not savesInfo ~= nil
+function gamestate.hasProgress()
+    return gamestate.saveData.location ~= nil
 end
 
 function gamestate.save(autosave)
-    if gamestate.savesFolderExists() == false then
-        lfs.createDirectory("saves")
-    end
-    -- save state (and record datetime / if autosave)
-
-    --[[
-    local Encoded = Kuey.encode("Love is life!", "love2d") -- Encode the string with "love2d" as key
-    print(Encoded)                                         -- Show the encoded string
-    print(Kuey.decode(Encoded, "anykey"))                  -- Try to show a decoded string with any key
-    print(Kuey.decode(Encoded, "love2d"))                  -- Show the decoded string with the correct key
-    ]]--
-    serialized = lume.serialize(gamestate.current())
-    lfs.write('saves/' .. 'name' .. '.txt', serialized)
+    
 end
 
 function gamestate.clear()
@@ -152,7 +140,7 @@ end
 
 function gamestate.load()
     -- universal setup
-    gamestate.graphics = graphics.load()
+    gamestate.graphics = graphics.new()
     gamestate.audio = audio.load()
 
     -- time is 0 now
@@ -168,12 +156,8 @@ function gamestate.load()
     -- spin up toast
     toast.init(gamestate)
 
-    -- initialize specific state
-    if gamestate.savesFolderExists() then
-        gamestate.warpTo('Overworld,65,55,x')
-    else
-        gamestate.warpTo('Overworld,0,0,x')
-    end
+    -- start at title
+    gamestate.warpTo('Title,0,0,x')
 end
 
 function gamestate.setFlag(flag)
@@ -212,15 +196,34 @@ function gamestate.warpTo(path)
     local scene, x, y, etc = path:match("^%s*(.-),%s*(.-),%s*(.-),%s*(.-)$")
     local stateType = gamestate.states[scene]
     if stateType ~= nil then
-        if gamestate.current().world == nil then
-            gamestate.push(stateType.new(gamestate))
+        local newState = stateType.new(gamestate)
+        newState.type = scene
+        if gamestate.current().isPhysicalGameState then
+            gamestate.push(newState)
         else
-            gamestate.replace(stateType.new(gamestate))
+            gamestate.replace(newState)
         end
         gamestate.current():load(x, y)
+        gamestate.saveData.location = path
     else
         error ('Invalid stateType ' .. scene)
     end
+end
+
+function gamestate.newGame()
+    gamestate.warpTo(gamestate.initial.location)
+end
+
+function gamestate.continueGame()
+    if lume.last(gamestate.stack).type == 'Pause' then
+        gamestate.pop()
+    else
+        gamestate.warpTo(gamestate.saveData.location)
+    end
+end
+
+function gamestate.quitGame()
+    love.event.quit()
 end
 
 function gamestate.ensureBGMusic(bgMusicName)

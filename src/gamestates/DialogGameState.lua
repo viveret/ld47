@@ -1,8 +1,6 @@
 local M = { }
 M.__index = M
 
-local timeline = require "src.timeline"
-
 function M.new(gamestate, name, text)
 	local physicalGamestate = nil
 
