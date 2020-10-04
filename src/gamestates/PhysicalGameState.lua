@@ -15,11 +15,11 @@ function M.new(gamestate, name, bg)
 end
 
 function M:getWidth()
-    return 16 * 16 --self.background:getWidth() / 64
+    return 16 * 10 --self.background:getWidth() / 64
 end
 
 function M:getHeight()
-    return 12 * 16 -- self.background:getHeight() / 64
+    return 12 * 10 -- self.background:getHeight() / 64
 end
 
 function M:drawInWorldView()

@@ -36,10 +36,10 @@ end
 function M:update(dt)
     if self.bodyToFollow ~= nil then
         local x, y = self.bodyToFollow:getPosition()
-        local hw = lg.getWidth() / 32 
-        local hh = lg.getHeight() / 32
+        local hw = lg.getWidth() / 16
+        local hh = lg.getHeight() / 16
         self.x = min(max(self.x + (x - self.x) / 2, hw), self.gamestate:getWidth() - hw)
-        self.y = min(max(self.y + (y - self.y) / 2, hh), self.gamestate:getHeight() - hw)
+        self.y = min(max(self.y + (y - self.y) / 2, hh), self.gamestate:getHeight() - hh)
     end
 end
 
