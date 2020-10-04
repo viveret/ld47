@@ -335,7 +335,9 @@ function M:update(dt)
     self.world:update(dt)
     self:currentCamera():update(dt)
 
-    self.player:update(dt)
+    if self.topmost then
+        self.player:update(dt)
+    end 
 
     local updateList = function(list)
         if list ~= nil then
