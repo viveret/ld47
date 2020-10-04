@@ -31,7 +31,7 @@ function M:draw()
 end
 
 function M:update(dt)
-    TimedGameState.update(self)
+    TimedGameState.update(self, dt)
     self.world:update(dt)
     self.player:update(dt)
     self:currentCamera():update(dt)
