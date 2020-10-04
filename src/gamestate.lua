@@ -75,6 +75,14 @@ function gamestate.clear()
     lfs.remove("saves")
 end
 
+function gamestate.getWidth()
+    return gamestate.current():getWidth()
+end
+
+function gamestate.getHeight()
+    return gamestate.current():getHeight()
+end
+
 function gamestate.current()
     if lume.count(gamestate.stack) > 0 then
         return lume.last(gamestate.stack)
@@ -135,7 +143,7 @@ function gamestate.load()
 
     -- initialize specific state
     if gamestate.savesFolderExists() then
-        gamestate.warpTo('OverworldGame,0,0,x')
+        gamestate.warpTo('OverworldGame,65,55,x')
     else
         gamestate.warpTo('OverworldGame,0,0,x')
     end

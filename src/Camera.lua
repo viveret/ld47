@@ -1,8 +1,9 @@
 local M = {}
 M.__index = M
 
-function M.new(bodyToFollow)
+function M.new(gamestate, bodyToFollow)
     local self = setmetatable({
+        gamestate = gamestate,
         x = 0,
         y = 0,
         vx = 0,
@@ -14,6 +15,11 @@ function M.new(bodyToFollow)
         rotate = 0,
         bodyToFollow = bodyToFollow
 	}, M)
+    if self.bodyToFollow ~= nil then
+        local x, y = self.bodyToFollow:getPosition()
+        self.x = x
+        self.y = y
+    end
 	return self
 end
 
@@ -30,10 +36,11 @@ end
 function M:update(dt)
     if self.bodyToFollow ~= nil then
         local x, y = self.bodyToFollow:getPosition()
-        self.x = self.x + (x - self.x) / 2
-        self.y = self.y + (y - self.y) / 2
+        local hw = lg.getWidth() / 32 
+        local hh = lg.getHeight() / 32
+        self.x = min(max(self.x + (x - self.x) / 2, hw), self.gamestate:getWidth() - hw)
+        self.y = min(max(self.y + (y - self.y) / 2, hh), self.gamestate:getHeight() - hw)
     end
-    --self.ax -= self.
 end
 
 function M:reset()
