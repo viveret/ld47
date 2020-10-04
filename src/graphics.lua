@@ -90,7 +90,10 @@ function M.new()
 		CultistLeft = animation.new(cultist, 64, 64, 15, 6, 0, 1, true),
 		
 		SchoolFlag = lg.newImage("assets/images/world/Street/school-flag.png"),
-		BeerSign = lg.newImage("assets/images/world/Street/beer-sign.png")
+		BeerSign = lg.newImage("assets/images/world/Street/beer-sign.png"),
+
+		MaryIdle = animation.new(lg.newImage("assets/images/world/Antiques/Mary.png"), 64, 64, 0, 3, 0, 1)
+		
     }, M)
 end
 

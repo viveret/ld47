@@ -19,7 +19,7 @@ function M.new(gamestate)
             w = 14, h = 25
         },
         { -- counter
-            x = 9, y = 25,
+            x = 9, y = 26,
             w = 28, h = 1
         }
     })
@@ -51,6 +51,11 @@ end
 
 function M:switchTo(x, y)
     IndoorsGameState.switchTo(self, x, y)
+
+    if self.shopkeeper == nil then
+        self.shopkeeper = ActorSpawnEvent.new("Antiques", "AntiqueSeller", "Mary", 28, 20)
+        self.gamestate.fire(self.shopkeeper)
+    end
 end
 
 function M.save()
