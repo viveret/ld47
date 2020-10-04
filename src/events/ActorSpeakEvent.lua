@@ -1,9 +1,9 @@
 local M = {}
 
 function M.fireOn(self, gs)
-	local currentScene = gs:current()
+	local currentScene = gs:current().scene
 
-	if currentScene.name == self.scene then
+	if currentScene == self.scene then
     	local dialogState = gs.createStates.DialogGame.new(gs, self.name, self.text)
 
     	gs.push(dialogState)

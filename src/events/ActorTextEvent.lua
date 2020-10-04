@@ -1,9 +1,9 @@
 local M = {}
 
 function M.fireOn(self, gs)
-    local scene = gs:current().name
+    local scene = gs:current().scene
 
-	if scene == self.name then
+	if scene == self.scene then
     	toast.showToast(self.text, self.name)
     end
 end

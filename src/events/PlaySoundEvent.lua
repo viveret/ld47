@@ -1,9 +1,9 @@
 local M = {}
 
 function M.fireOn(self, gs)
-	local currentScene = gs:current().name
+	local currentScene = gs:current().scene
 
-	if name == self.scene then
+	if currentScene == self.scene then
 		local toPlay = gs.audio[self.name]
     	love.audio.play(toPlay)
     end

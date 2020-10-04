@@ -1,8 +1,8 @@
 local M = setmetatable({}, { __index = TimedGameState })
 M.__index = M
 
-function M.new(gamestate, name, graphics)
-    local self = setmetatable(TimedGameState.new(gamestate, name), M)
+function M.new(gamestate, scene, graphics)
+    local self = setmetatable(TimedGameState.new(gamestate, scene), M)
     self.background = graphics.Bg
     self.world = lp.newWorld(0, 0, true)
     self.player = nil
@@ -324,7 +324,7 @@ function M:draw()
     toast.draw()
 
     local currentVx, currentVy = self.player.body:getLinearVelocity()
-    lg.print("You are at " .. x .. ", " .. y .. " in " .. self.name, 0, 0)
+    lg.print("You are at " .. x .. ", " .. y .. " in " .. self.scene, 0, 0)
     lg.print("Camera is at " .. self:currentCamera().x .. ", " .. self:currentCamera().y, 0, 16)
     lg.print("Player's velocity is " .. currentVx .. ", " .. currentVy, 0, 32)
     lg.print("Current time is " .. self.gamestate.time, 0, 48)

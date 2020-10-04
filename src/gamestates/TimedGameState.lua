@@ -1,10 +1,10 @@
 local M = {}
 M.__index = M
 
-function M.new(gamestate, name)
+function M.new(gamestate, scene)
     local self = setmetatable({
         gamestate = gamestate,
-        name = name,
+        scene = scene,
         fracSec = nil
 	}, M)
 	return self
@@ -28,7 +28,7 @@ end
 
 function M:load()
     -- load relevant timeline
-    self.timeline = timeline.lookup(self.gamestate.timeline, self.name, self.gamestate.time)
+    self.timeline = timeline.lookup(self.gamestate.timeline, self.scene, self.gamestate.time)
     -- what comes next?
     self.nextEvent = timeline.nextEvent(self.timeline, self.gamestate.time, self.gamestate.flags)
 end
