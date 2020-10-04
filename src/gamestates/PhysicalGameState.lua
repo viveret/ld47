@@ -20,8 +20,8 @@ function M.new(gamestate, name, graphics)
         night = { r = 0.2, g = 0.2, b = 0.6 },
         day = { r = 1, g = 1, b = 1 }
     }
-    self.sunriseHourStart = 6.5
-    self.sunriseHourEnd = 7.5
+    self.sunriseHourStart = 8
+    self.sunriseHourEnd = 8.5
     self.sunsetHourStart = 18
     self.sunsetHourEnd = 20
 
@@ -94,7 +94,8 @@ end
 
 function M:getColorRightNow()
     local ticksPerHour = 60 * 60
-    local timeOfDay = self.gamestate.time % (ticksPerHour * 24)
+    local ticksOffset = 8 * ticksPerHour
+    local timeOfDay = (self.gamestate.time + ticksOffset) % (ticksPerHour * 24)
     if timeOfDay < self.sunriseHourStart * ticksPerHour then
         return self.colors.night
     elseif timeOfDay < self.sunriseHourEnd * ticksPerHour then
