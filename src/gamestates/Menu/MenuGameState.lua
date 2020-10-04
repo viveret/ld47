@@ -36,7 +36,6 @@ function M:drawFlow(elems)
     lg.push()
     
     for k, el in pairs(elems) do
-        --lg.translate(0, 60)
         self:drawUiElement(el)
     end
     
