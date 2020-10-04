@@ -143,10 +143,6 @@ function M:drawInWorldView()
 
     lg.draw(self.background, 0, 0, 0, 1 / 8, 1 / 8)
 
-    if self.gamestate ~= nil then
-        self.player:draw()
-    end
-
     if self.renderBounds then
         lg.setColor(1, 0, 0)
         for k, bound in pairs(self.bounds) do
@@ -167,6 +163,10 @@ function M:drawInWorldView()
         for _, door in pairs(self.doors) do
             door:draw()
         end
+    end
+
+    if self.gamestate ~= nil then
+        self.player:draw()
     end
 end
 
