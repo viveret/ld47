@@ -113,10 +113,6 @@ end
 
 function gamestate.draw()
     gamestate.current():draw()
-
-    if gamestate.roomText ~= nil then
-        love.graphics.print(gamestate.roomText, _renderWidth / 2, _renderHeight / 2)
-    end
 end
 
 function gamestate.update(dt)
@@ -140,6 +136,9 @@ function gamestate.load()
     -- load timeline
     local timelineLines = lfs.lines("assets/timeline/timeline.csv")
     gamestate.timeline = timeline.load(timelineLines)
+
+    -- spin up toast
+    toast.init(gamestate)
 
     -- initialize specific state
     if gamestate.savesFolderExists() then
@@ -171,10 +170,6 @@ end
 
 function gamestate.fire(ev)
     return ev.fireOn(ev, gamestate)
-end
-
-function gamestate.showRoomText(text)
-    gamestate.roomText = text
 end
 
 function gamestate.warpTo(path)

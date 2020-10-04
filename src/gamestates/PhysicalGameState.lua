@@ -9,6 +9,8 @@ function M.new(gamestate, name, bg)
     self.cameras = { }
     self:pushCamera(Camera.new())
     self.renderBounds = false
+    self.toast = nil
+
 	return self
 end
 
@@ -47,6 +49,9 @@ function M:draw()
 
     local x = self.player.body:getX()
     local y = self.player.body:getY()
+
+    toast.draw()
+
     lg.print("You are at " .. x .. ", " .. y .. " in " .. self.name, 0, 0)
     lg.print("Camera is at " .. self:currentCamera().x .. ", " .. self:currentCamera().y, 0, 16)
 end

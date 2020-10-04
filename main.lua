@@ -18,6 +18,7 @@ TimedGameState = require "src.gamestates.TimedGameState"
 gamestate = require "src.gamestate"
 timeline = require "src.timeline"
 player = require "src.player"
+toast = require "src.toast"
 
 function love.draw()
     _renderWidth, _renderHeight = love.graphics.getDimensions()

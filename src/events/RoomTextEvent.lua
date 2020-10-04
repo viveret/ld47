@@ -1,7 +1,8 @@
 local M = {}
 
 function M.fireOn(self, gs)
-    gs.showRoomText(self.text)
+	print("firing "..self.text)
+    toast.showToast(self.text)
 end
 
 function M.new(text) 

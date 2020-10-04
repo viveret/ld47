@@ -42,6 +42,7 @@ function M:update(dt)
 
         -- advance time, this always happens...
         self.gamestate.time = self.gamestate.time + 1
+        toast.tick()
     end
 
     self.fracSec = remainder
