@@ -38,6 +38,10 @@ function M.new(gamestate)
         { -- Post Office
             x = 109, y = 104,
             w = 43, h = 33
+        },
+        { -- General Store
+            x = 33, y = 105,
+            w = 70, h = 24
         }
     })
     self.renderBounds = true
@@ -115,6 +119,12 @@ function M.new(gamestate)
             path = 'PostOffice,10,10,x',
             door = self.doors.postoffice
         },
+        { -- General Store
+            x = 44, y = 122,
+            w = 9, h = 8,
+            path = 'Shop,10,10,x',
+            door = self.doors.store
+        }
     }
     self.renderWarps = true
 
