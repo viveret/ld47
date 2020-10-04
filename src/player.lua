@@ -37,9 +37,8 @@ function M:draw()
     end
 
     lg.push()
-    --lg.scale(1 / 64, 1 / 64)
     if self.positionIsCenter then
-        self.activeAnimation:draw(self.body:getX() - self.w / 2, self.body:getY() - self.h / 2)
+        self.activeAnimation:draw(self.body:getX() - self.w, self.body:getY() - self.h)
         --lg.rectangle("fill", self.body:getX(), self.body:getY(), self.w, self.h)
     else
         self.activeAnimation:draw(self.body:getX(), self.body:getY())
