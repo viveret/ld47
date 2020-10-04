@@ -24,9 +24,9 @@ function M:draw(x, y)
     local spriteIdx = math.floor(self.currentTime / self.duration * #self.quads) + 1
 
     if self.flipHorizontal then
-        lg.draw(self.spritesheet, self.quads[spriteIdx], x, y, 0, -1 / 16, 1 / 16, 64, 0)
+        lg.draw(self.spritesheet, self.quads[spriteIdx], x, y, 0, -1 / 8, 1 / 8, 64, 0)
     else
-        lg.draw(self.spritesheet, self.quads[spriteIdx], x, y, 0, 1 / 16, 1 / 16)
+        lg.draw(self.spritesheet, self.quads[spriteIdx], x, y, 0, 1 / 8, 1 / 8)
     end
 end
 

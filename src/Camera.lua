@@ -10,8 +10,8 @@ function M.new(gamestate, bodyToFollow)
         vy = 0,
         ax = 0,
         ay = 0,
-        scalex = 16,
-        scaley = 16,
+        scalex = 8,
+        scaley = 8,
         rotate = 0,
         bodyToFollow = bodyToFollow
 	}, M)

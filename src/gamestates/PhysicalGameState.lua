@@ -26,7 +26,7 @@ function M:drawInWorldView()
     end
 
     if self.gamestate ~= nil then
-        self.gamestate.graphics.drawObject(self.background, 0, 0, 16 * 16, 12 * 16)
+        self.gamestate.graphics.drawObject(self.background, 0, 0, 16 * 10, 12 * 10)
         self.player:draw()
     end
 
