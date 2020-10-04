@@ -39,7 +39,6 @@ end
 
 function M:draw()
     IndoorsGameState.draw(self)
-
     if self.greeting ~= nil then
         self.gamestate.fire(self.greeting)
         self.greeting = nil
@@ -63,7 +62,7 @@ function M:switchTo(x, y)
     end
 
     -- todo: time of day check
-    self.greeting = ActorTextEvent.new("Mary", "I've collected many things over the years. Please, browse at your leisure.")
+    self.greeting = ActorTextEvent.new("Antiques", "Mary", "I've collected many things over the years. Please, browse at your leisure.")
 end
 
 function M.save()
