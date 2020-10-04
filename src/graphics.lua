@@ -87,7 +87,9 @@ function M.new()
         CultistDown = animation.new(cultist, 64, 64, 3, 6, 0, 1),
         CultistUp = animation.new(cultist, 64, 64, 9, 6, 0, 1),
         CultistRight = animation.new(cultist, 64, 64, 15, 6, 0, 1),
-        CultistLeft = animation.new(cultist, 64, 64, 15, 6, 0, 1, true),
+		CultistLeft = animation.new(cultist, 64, 64, 15, 6, 0, 1, true),
+		
+		SchoolFlag = lg.newImage("assets/images/world/Street/school-flag.png")
     }, M)
 end
 

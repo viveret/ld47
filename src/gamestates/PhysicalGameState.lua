@@ -173,6 +173,12 @@ function M:drawInWorldView()
         end
     end
 
+    if(self.animatedObjects ~= nil) then
+        for _, obj in pairs(self.animatedObjects) do
+            obj:draw()
+        end
+    end
+
     for _, actor in pairs(self.actors) do
         actor:draw()
     end
@@ -228,6 +234,12 @@ function M:update(dt)
     if self.doors ~= nil then
         for _, door in pairs(self.doors) do
             door:update(dt)
+        end
+    end
+
+    if(self.animatedObjects ~= nil) then
+        for _, obj in pairs(self.animatedObjects) do
+            obj:update(dt)
         end
     end
 
