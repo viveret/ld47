@@ -7,14 +7,14 @@ M.__index = M
         - changes like flipping horizontally once in a while
 ]]
 
-function M.new(world, spritesheet, x, y, frameWidth, frameHeight, frameCount)
+function M.new(world, spritesheet, x, y, frameWidth, frameHeight, frameCount, duration)
     local self = setmetatable({
         spritesheet = spritesheet,
         x = x,
         y = y
     }, M)
 
-    self.animation = animation.new(self.spritesheet, frameWidth, frameHeight, 0, frameCount, 0, 1)
+    self.animation = animation.new(self.spritesheet, frameWidth, frameHeight, 0, frameCount, 0, duration or 1)
     self.body = lp.newBody(world, self.x, self.y, "static")
     self.shape = lp.newRectangleShape(frameWidth / 8, frameHeight / 8)
     self.fixture = lp.newFixture(self.body, self.shape)

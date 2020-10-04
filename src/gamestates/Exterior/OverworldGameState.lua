@@ -129,8 +129,8 @@ function M.new(gamestate)
     self.renderWarps = true
 
     self.animatedObjects = {
-        schoolFlag = AnimatedObject.new(self.world, self.gamestate.graphics.SchoolFlag, 184, 70, 88, 160, 3),
-        beerSign = AnimatedObject.new(self.world, self.gamestate.graphics.BeerSign, 20, 80, 56, 80, 14)
+        schoolFlag = AnimatedObject.new(self.world, self.gamestate.graphics.SchoolFlag, 184, 70, 88, 160, 3, 3),
+        beerSign = AnimatedObject.new(self.world, self.gamestate.graphics.BeerSign, 20, 80, 56, 80, 14, 5)
     }
 
 	return self
