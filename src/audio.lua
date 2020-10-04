@@ -6,8 +6,11 @@ function M.load()
         mirror = love.audio.newSource( "assets/audio/mirror.mp3", 'static' ),
 
         -- long tracks
-        overworld = love.audio.newSource( "assets/audio/overworld.mp3", 'stream' ),
-        other = love.audio.newSource( "assets/audio/other.mp3", 'stream' )
+        theme = love.audio.newSource( "assets/audio/theme.ogg", 'stream' ),
+        chill = love.audio.newSource( "assets/audio/chill-bg.ogg", 'stream' ),
+        day2 = love.audio.newSource( "assets/audio/day2-bg.ogg", 'stream' ),
+        dreamSequence = love.audio.newSource( "assets/audio/dream-sequence-bg.ogg", 'stream' ),
+        nightSpooky = love.audio.newSource( "assets/audio/night-spooky-bg.ogg", 'stream' ),
     }
 end
 

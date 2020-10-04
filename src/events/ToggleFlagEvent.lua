@@ -6,11 +6,11 @@ function M.fireOn(self, gs)
     if gs.hasFlag(flagName) then
     	gs.clearFlag(flagName)
 		-- remove this once we have multiple states
-    	gs.ensureBGMusic("overworld")
+    	gs.ensureBGMusic("theme")
     else
     	gs.setFlag(flagName)
     	-- remove this once we have multiple states
-    	gs.ensureBGMusic("other")
+    	gs.ensureBGMusic("chill")
     end
 end
 

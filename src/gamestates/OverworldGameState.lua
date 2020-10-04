@@ -76,7 +76,7 @@ end
 function M:load(x, y)
     PhysicalGameState.load(self, x, y)
 
-	self.gamestate.ensureBGMusic("overworld")
+	self.gamestate.ensureBGMusic("theme")
 end
 
 function M:save()
