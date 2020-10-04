@@ -27,6 +27,7 @@ function M.new(world, spritesheet, x, y)
         right = animation.new(spritesheet, 64, 64, 15, 6, 0, 1),
         left = animation.new(spritesheet, 64, 64, 15, 6, 0, 1, true)
     }
+
 	return self
 end
 

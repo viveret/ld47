@@ -1,11 +1,12 @@
 local M = {}
 M.__index = M
 
-function M.new(world, gamestate, x, y, spriteSheetStill, spritesheetUp, spritesheetDown, spritesheetLeft, spritesheetRight)
+function M.new(world, gamestate, x, y, spriteSheetStill, spritesheetUp, spritesheetDown, spritesheetLeft, spritesheetRight, callback)
     local self = setmetatable({
         width = 4,
         height = 4,
-        movingTo = nil
+        movingTo = nil,
+        type = "actor"
     }, M)
 
     self.spriteSheetStill = spriteSheetStill
@@ -13,6 +14,7 @@ function M.new(world, gamestate, x, y, spriteSheetStill, spritesheetUp, spritesh
     self.spritesheetDown = spritesheetDown
     self.spritesheetLeft = spritesheetLeft
     self.spritesheetRight = spritesheetRight
+    self.callback = callback
 
     local trueX = x - self.width / 2
     local trueY = y - self.height / 2
@@ -21,6 +23,8 @@ function M.new(world, gamestate, x, y, spriteSheetStill, spritesheetUp, spritesh
     self.body = lp.newBody(world, trueX, trueY, "dynamic")
     self.shape = lp.newRectangleShape(self.width, self.height)
     self.fixture = lp.newFixture(self.body, self.shape)
+
+    self.fixture:setUserData(self)
 
     return self
 end

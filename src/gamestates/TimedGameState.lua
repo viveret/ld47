@@ -34,7 +34,7 @@ function M:update(dt)
                 self.gamestate.fire(nextEvent.action)
 
                 -- lookup the next event
-                self.nextEvent = timeline.nextEvent(self.timeline, self.gamestate.time)
+                self.nextEvent = timeline.nextEvent(self.timeline, self.gamestate.time, self.gamestate.flags)
             end
         end
 
@@ -48,9 +48,9 @@ end
 
 function M:load()
     -- load relevant timeline
-    self.timeline = timeline.lookup(self.gamestate.timeline, self.name, self.gamestate.time, self.gamestate.flags)
+    self.timeline = timeline.lookup(self.gamestate.timeline, self.name, self.gamestate.time)
     -- what comes next?
-    self.nextEvent = timeline.nextEvent(self.timeline, self.gamestate.time)
+    self.nextEvent = timeline.nextEvent(self.timeline, self.gamestate.time, self.gamestate.flags)
 end
 
 function M:save()

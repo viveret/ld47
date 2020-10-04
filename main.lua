@@ -37,6 +37,7 @@ door = require "src.world.door"
 toast = require "src.toast"
 animation = require "src.animation"
 actor = require "src.world.actor"
+actorCallbacks = require "src.world.actorCallbacks"
 
 
 function interpolateValues(a, b, v)

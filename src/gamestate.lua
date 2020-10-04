@@ -144,20 +144,39 @@ function gamestate.load()
 end
 
 function gamestate.setFlag(flag)
-    if not gamestate.flags[flag] then
-        gamestate.flags[flag] = true
+    print("setFlag("..flag..")")
+
+    local alreadySet = false
+    for _, setFlag in ipairs(gamestate.flags) do
+        if setFlag == flag then
+            alreadySet = true
+            break
+        end 
     end
+
+    if alreadySet then
+        return
+    end
+
+    table.insert(gamestate.flags, flag)
 end
 
 function gamestate.clearFlag(flag) 
-    if gamestate.flags[flag] then
-        gamestate.flags[flag] = nil
+    print("clearFlag("..flag..")")
+
+    for ix, setFlag in ipairs(gamestate.flags) do
+        if flag == setFlag then
+            gamestate.flags[ix] = nil
+            break
+        end
     end
 end
 
 function gamestate.hasFlag(flag)
-    if gamestate.flags[flag] then
-        return true
+    for _, setFlag in ipairs(gamestate.flags) do
+        if setFlag == flag then
+            return true
+        end
     end
 
     return false

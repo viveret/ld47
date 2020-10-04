@@ -25,16 +25,45 @@ function M.new(gamestate, name, graphics)
     self.sunsetHourStart = 18
     self.sunsetHourEnd = 20
 
+    -- hook up warps and what not
     self:addContactListeners()
     self:addProximityListeners()
 
+    -- hook up actor collisions
+    local contactFilter = function(a,b)
+        return a.callback ~= nil or b.callback ~= nil
+    end
+
+    local contactOnStart = function(a,b)
+        if a.callback ~= nil then
+            a.callback(gamestate, a, "collision", b)
+        end
+
+        if b.callback ~= nil then
+            b.callback(gamestate, b, "collision", a)
+        end
+    end
+
+    local contactOnEnd = function(a,b)
+        if a.callback ~= nil then
+            a.callback(gamestate, a, "end collision", b)
+        end
+
+        if b.callback ~= nil then
+            b.callback(gamestate, b, "end collision", a)
+        end
+    end
+
+    self:addContactListener(contactFilter, contactOnStart, contactOnEnd)
+
     local physBeginContact = function (a, b, coll)
+        
         if a == nil or b == nil then
             return
         end
         local aUserData = a:getUserData()
         local bUserData = b:getUserData()
-        
+
         if aUserData ~= nil and bUserData ~= nil then
             self:physContactBetweenStart(aUserData, bUserData)
         end
@@ -402,6 +431,10 @@ end
 
 function M:addActor(name, actor)
     self.actors[name] = actor
+
+    if actor.callback ~= nil then
+
+    end 
 end
 
 function M:getActor(name)

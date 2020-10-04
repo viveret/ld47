@@ -8,12 +8,13 @@ Overworld,195,,Speak|Player|Suuuuuuuup, and lots more text - like lots more - li
 Overworld,200,,PlaySound|mirror
 Overworld,201,,ToggleFlag|HearMirror
 Overworld,300,,RoomText|Look at the cultist go!
-Overworld,802,,Spawn|Cultist|50|40
+Overworld,802,,Spawn|CultistOne|Cultist|50|40|cultist
 Overworld,803,,ManualCamera|50|40|405|100
-Overworld,1105,,Move|Cultist|50|95|10
-Overworld,2105,,Move|Cultist|150|95|10
-Overworld,3505,,Move|Cultist|150|40|10
-Overworld,4505,,Move|Cultist|50|40|10
+Overworld,1105,,Move|CultistOne|50|95|10
+Overworld,1200,ToldOff,Spawn|CultistTwo|Cultist|50|40
+Overworld,2105,,Move|CultistOne|150|95|10
+Overworld,3505,,Move|CultistOne|150|40|10
+Overworld,4505,,Move|CultistOne|50|40|10
 Overworld,5500,,ManualCamera|50|40|405|100
-Overworld,5705,,Speak|Cultist|I have finished my circular ritual.  Fear me.
-Overworld,5905,,Despawn|Cultist
+Overworld,5705,,Speak|CultistOne|I have finished my circular ritual.  Fear me.
+Overworld,5905,,Despawn|CultistOne

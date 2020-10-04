@@ -10,19 +10,29 @@ function M.fireOn(self, gs)
 
 	local world = currentGS.world
 
-	local spritesheetStill = gs.graphics[self.name.."Idle"]
-	local spritesheetUp = gs.graphics[self.name.."Up"]
-	local spritesheetDown = gs.graphics[self.name.."Down"]
-	local spritesheetLeft = gs.graphics[self.name.."Left"]
-	local spritesheetRight = gs.graphics[self.name.."Right"]
+	local spritesheetStill = gs.graphics[self.assetName.."Idle"]
+	local spritesheetUp = gs.graphics[self.assetName.."Up"]
+	local spritesheetDown = gs.graphics[self.assetName.."Down"]
+	local spritesheetLeft = gs.graphics[self.assetName.."Left"]
+	local spritesheetRight = gs.graphics[self.assetName.."Right"]
 
-	local newActor = actor.new(world, gs, self.x, self.y, spritesheetStill, spritesheetUp, spritesheetDown, spritesheetLeft, spritesheetRight)
+	local callback = self.callback
+
+	local newActor = actor.new(world, gs, self.x, self.y, spritesheetStill, spritesheetUp, spritesheetDown, spritesheetLeft, spritesheetRight, callback)
 
 	currentGS:addActor(self.name, newActor)
 end
 
-function M.new(name, x, y) 
-	return { type="ActorSpawnEvent", name = name, x = x, y = y, fireOn = M.fireOn }
+function M.new(name, assetName, x, y, callback) 
+	return { 
+		type="ActorSpawnEvent", 
+		name = name, 
+		assetName = assetName,
+		x = x, 
+		y = y, 
+		callback = callback,
+		fireOn = M.fireOn 
+	}
 end
 
 return M

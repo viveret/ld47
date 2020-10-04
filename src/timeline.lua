@@ -26,7 +26,7 @@ function M.load(lines)
 		local time = tonumber(timeRaw)
 		local flags = {}
 		for flag in flagsRaw:gmatch("([^\\|]+):?") do 
-			flags[flag] = true
+			table.insert(flags, flag)
 		end
 
     	data[#data + 1] = { scene = scene, time = time, flags = flags, action = action }
@@ -46,8 +46,10 @@ end
 --
 -- Spawn
 --   1. Name
+--   2. AssertName
 --   2. X
 --   3. Y
+--   4. callback name (optional) [comes from actorCallback.lua]
 -- Move
 --   1. Name
 --   2. ToX
@@ -79,10 +81,21 @@ function parseAction(raw)
 
 	if type == "Spawn" then
 		local name = parts[2]
-		local x = tonumber(parts[3])
-		local y = tonumber(parts[4])
+		local assetName = parts[3]
+		local x = tonumber(parts[4])
+		local y = tonumber(parts[5])
 
-		return ActorSpawnEvent.new(name, x, y)
+		local callbackName = parts[6]
+		local callback = nil
+
+		if callbackName ~= nil then
+			callback = actorCallbacks[callbackName]
+			if callback == nil then
+				error("could find actorCallbacks."..callbackName)
+			end
+		end
+
+		return ActorSpawnEvent.new(name, assetName, x, y, callback)
 	elseif type == "Move" then
 		local name = parts[2]
 		local toX = tonumber(parts[3])
@@ -129,23 +142,11 @@ end
 --   if the given flags are set
 --
 -- returns a new Timeline
-function M.lookup(timeline, scene, atTime, flags)
+function M.lookup(timeline, scene, atTime)
 	local ret = {}
 	for ix, entry in ipairs(timeline) do
 		local isValid = entry.scene == scene and atTime <= entry.time
 
-
-		if isValid then 
-			for iy, flag in ipairs(entry.flags) do
-				local hasFlag = flags[flag]
-
-				if not hasFlag then
-					isValid = false
-					break
-				end
-			end
-		end
-		
 		if isValid then
 			ret[#ret + 1] = entry
 		end
@@ -155,11 +156,29 @@ function M.lookup(timeline, scene, atTime, flags)
 end
 
 -- gets the next event that is scheduled to happen
-function M.nextEvent(timeline, currentTime)
+function M.nextEvent(timeline, currentTime, flags)
 	local row = nil
 
 	for ix, entry in ipairs(timeline) do
 		local stillValid = currentTime < entry.time
+
+		if stillValid then 
+			for iy, flag in ipairs(entry.flags) do
+				local hasFlag = false
+
+				for ij, setFlag in ipairs(flags) do
+					if setFlag == flag then
+						hasFlag = true
+						break
+					end
+				end
+
+				if not hasFlag then
+					stillValid = false
+					break
+				end
+			end
+		end
 
 		if stillValid then
 			if row == nil or row.time > entry.time then
