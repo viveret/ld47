@@ -12,7 +12,7 @@ function M.new(gamestate)
             w = self.getWidth(), h = 4
         },
         { -- Bottom
-            x = 0, y = self.getHeight() - 4,
+            x = 0, y = self.getHeight() - 2,
             w = self.getWidth(), h = 4
         },
         { -- Left
@@ -20,12 +20,32 @@ function M.new(gamestate)
             w = 4, h = self.getHeight() + 4
         },
         { -- Right
-            x = self.getWidth() - 4, y = -4,
+            x = self.getWidth() - 2, y = -4,
             w = 4, h = self.getHeight() + 4
         },
-        { -- Building 1
-            x = 0, y = 0,
-            w = 54, h = 38
+        { -- Building 1a
+            x = 0, y = 2,
+            w = 32, h = 15
+        },
+        { -- Building 1b
+            x = 30, y = 15,
+            w = 18, h = 6
+        },
+        { -- Cemetary left
+            x = 45, y = 2,
+            w = 30, h = 4
+        },
+        { -- Cemetary right
+            x = 45 + 35 + 10, y = 2,
+            w = 30, h = 4
+        },
+        { -- Building 2
+            x = 130, y = 2,
+            w = 28, h = 20
+        },
+        { -- Building 3
+            x = 125, y = 40,
+            w = 35, h = 23
         }
     }
     self.renderBounds = true

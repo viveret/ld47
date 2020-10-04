@@ -100,8 +100,8 @@ end
 
 function M:setupWorldBounds()
     for k, bound in pairs(self.bounds) do
-        local body = lp.newBody(self.world, bound.x + bound.w / 4, bound.y + bound.h / 4, "static")
-        local shape = lp.newRectangleShape(bound.w * 1.5, bound.h * 1.5)
+        local body = lp.newBody(self.world, bound.x + bound.w / 2, bound.y + bound.h / 2, "static")
+        local shape = lp.newRectangleShape(bound.w, bound.h)
         lp.newFixture(body, shape)
     end
 end
