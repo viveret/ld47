@@ -348,10 +348,6 @@ function M:update(dt)
     updateList(self.animatedObjects)
     updateList(self.actors)
     updateList(self.doors)
-
-    if lk.isDown('p') then
-        self.gamestate.warpTo('Pause,0,0,x')
-    end
 end
 
 function M:load()

@@ -203,6 +203,10 @@ function gamestate.update(dt)
     else
         currentGameState:update(dt)
     end
+
+    if lk.isDown('p') then
+        gamestate.warpTo('Pause,0,0,x')
+    end
 end
 
 function gamestate.load()
@@ -293,7 +297,6 @@ function gamestate.warpTo(path)
     end
     print(path)
     local scene, x, y, etc = path:match("^%s*(.-),%s*(.-),%s*(.-),%s*(.-)$")
-
 
     local existing = gamestate.existingStates[scene]
     local create = gamestate.createStates[scene]
