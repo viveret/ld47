@@ -28,6 +28,7 @@ end
 
 function M:load(x, y)
     IndoorsGameState.load(self, x, y)
+    self.gamestate.ensureBGMusic("dreamSequence")
 end
 
 function M.save()
