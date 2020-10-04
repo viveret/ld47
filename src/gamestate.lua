@@ -4,11 +4,24 @@ local gamestate = {
     flags = {},
     time = 0,
     states = {
+        -- Exterior
         Overworld = require "src.gamestates.Exterior.OverworldGameState",
         Swamp = require "src.gamestates.Exterior.SwampGameState",
+        Cemetery = require "src.gamestates.Exterior.CemeteryGameState",
+
+        -- Interior
+        Antiques = require "src.gamestates.Interior.AntiquesGameState",
+        Bar = require "src.gamestates.Interior.BarGameState",
         Coffee = require "src.gamestates.Interior.CoffeeGameState",
         Home = require "src.gamestates.Interior.HomeGameState",
+        Doctor = require "src.gamestates.Interior.DoctorGameState",
+        Library = require "src.gamestates.Interior.LibraryGameState",
+        Motel = require "src.gamestates.Interior.MotelGameState",
+        PostOffice = require "src.gamestates.Interior.PostOfficeGameState",
+        School = require "src.gamestates.Interior.SchoolGameState",
+        Shop = require "src.gamestates.Interior.ShopGameState",
         
+        -- Other
         StartNewGame = require "src.gamestates.StartNewGameState",
         DialogGame = require "src.gamestates.DialogGameState"
     },

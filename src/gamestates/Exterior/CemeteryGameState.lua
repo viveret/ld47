@@ -3,15 +3,15 @@ local M = setmetatable({}, { __index = PhysicalGameState })
 M.__index = M
 
 function M.new(gamestate)
-    local self = setmetatable(PhysicalGameState.new(gamestate, 'Swamp', gamestate.graphics.Swamp), M)
-    self:addExteriorWorldBounds(4)
+    local self = setmetatable(PhysicalGameState.new(gamestate, 'Cemetery', gamestate.graphics.Cemetery), M)
+    self:addExteriorWorldBounds(8)
     self.renderBounds = true
     
     self.warps = {
         { -- Home
-            x = 193, y = 105,
-            w = 10, h = 30,
-            path = 'Overworld,18,120,x'
+            x = 95, y = 130,
+            w = 30, h = 10,
+            path = 'Overworld,80,30,x'
         }
     }
     self.renderWarps = true
@@ -32,7 +32,7 @@ end
 
 function M:load(x, y)
     PhysicalGameState.load(self, x, y)
-	self.gamestate.ensureBGMusic("nightSpooky")
+	-- self.gamestate.ensureBGMusic("overworld")
 end
 
 function M:save()

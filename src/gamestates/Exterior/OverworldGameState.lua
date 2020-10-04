@@ -19,16 +19,20 @@ function M.new(gamestate)
             w = 30, h = 4
         },
         { -- Cemetary right
-            x = 45 + 35 + 10, y = 2,
+            x = 45 + 35 + 30, y = 2,
             w = 30, h = 4
         },
-        { -- Building 2
-            x = 130, y = 2,
-            w = 28, h = 20
+        { -- Doctor
+            x = 160, y = 2,
+            w = 40, h = 27
         },
-        { -- Building 3
-            x = 125, y = 40,
-            w = 35, h = 23
+        { -- School
+            x = 155, y = 47,
+            w = 45, h = 33
+        },
+        { -- Coffee, Library
+            x = 57, y = 45,
+            w = 85, h = 42
         }
     })
     self.renderBounds = true
@@ -40,14 +44,39 @@ function M.new(gamestate)
             path = 'Home,50,120,x'
         },
         { -- Swamp
-            x = 0, y = 97,
+            x = 0, y = 122,
             w = 8, h = 10,
             path = 'Swamp,-30,-35,x'
         },
+        { -- Bar
+            x = 30, y = 80,
+            w = 9, h = 8,
+            path = 'Bar,20,15,x'
+        },
         { -- Coffee
-            x = 50, y = 100,
-            w = 5, h = 5,
+            x = 95, y = 80,
+            w = 9, h = 8,
             path = 'Coffee,20,15,x'
+        },
+        { -- School
+            x = 173, y = 75,
+            w = 9, h = 8,
+            path = 'School,20,15,x'
+        },
+        { -- Doctor
+            x = 176, y = 25,
+            w = 9, h = 8,
+            path = 'Doctor,20,15,x'
+        },
+        { -- Cemetery
+            x = 100, y = 0,
+            w = 5, h = 5,
+            path = 'Cemetery,20,15,x'
+        },
+        { -- Library
+            x = 125, y = 80,
+            w = 9, h = 8,
+            path = 'Library,20,90,x'
         },
     }
     self.renderWarps = true
