@@ -105,6 +105,15 @@ function gamestate.switchTo(toGamestate)
 
     gamestate.push(toGamestate)
     gamestate.markTopmost(toGamestate)
+
+    for _, state in ipairs(gamestate.stack) do
+        if not state.topmost and state.player ~= nil then
+            state.player.body:setActive(false)
+        end
+        if state.topmost and state.player ~= nil then
+            state.player.body:setActive(true)
+        end
+    end
 end
 
 -- push a NEW gamestate here
