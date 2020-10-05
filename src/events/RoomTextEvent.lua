@@ -1,10 +1,13 @@
 local M = {}
 
+local toast = require "src.components.toast"
+
 function M.fireOn(self, gs)
 	local scene = gs:current().scene
 
 	if scene == self.scene then
-    	toast.showToast(self.text)
+		gs.toast = toast.new(gs, self.text)
+		gs.toast:showToast()
     end
 end
 

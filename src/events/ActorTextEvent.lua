@@ -7,6 +7,7 @@ function M.fireOn(self, gs)
 
 	if scene == self.scene then
 		gs.toast = toast.new(gs, self.text, self.name)
+		gs.toast:showToast()
     end
 end
 
