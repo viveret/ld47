@@ -29,6 +29,11 @@ function M.customerServed(gs, actorName, customerName, type, param, text)
 		return
 	end
 
+	local doneJob = gs.hasFlag("DoneJob")
+	if not donJob then
+		gs.setFlag("DoneJob")
+	end
+
 	local notDoneJob = gs.hasFlag("NotDoneJob")
 	if notDoneJob then
 		gs.clearFlag("NotDoneJob")
@@ -40,7 +45,7 @@ function M.customerServed(gs, actorName, customerName, type, param, text)
 	local served = gs.hasFlag(customerFlag)
 	if not served then
 		gs.setFlag(customerFlag)
-		gs.fire(ActorSpeakEvent.new(gs.current().scene, "Customer", text), true)
+		gs.fire(ActorSpeakEvent.new(gs.current().scene, actorName, text), true)
 	end
 
 	if gs.hasFlag(notCustomerFlag) then
@@ -57,23 +62,29 @@ function M.customerServed(gs, actorName, customerName, type, param, text)
 end
 
 function M.customerOne(gs, actor, eventType, param)
-	M.customerServed(gs, actor.name, "customerOne", eventType, param, "Ah, a nice cup of joe.  Thanks for the coffee, kid.")
+	M.customerServed(gs, "Customer 1", "customerOne", eventType, param, "Ah, a nice cup of joe.  Thanks for the coffee, kid.")
 end
 
 function M.customerTwo(gs, actor, eventType, param)
-	M.customerServed(gs, actor.name,"customerTwo", eventType, param, "Soy latte's are my favorite.  Though I always wonder, how does one milk a soy?")
+	M.customerServed(gs, "Customer 2","customerTwo", eventType, param, "Soy latte's are my favorite.  Though I always wonder, how does one milk a soy?")
 end
 
 function M.customerThree(gs, actor, eventType, param)
-	M.customerServed(gs, actor.name,"customerThree", eventType, param, "Caffeine is life.  Therefore, I owe you mine.")
+	M.customerServed(gs, "Customer 3","customerThree", eventType, param, "Caffeine is life.  Therefore, I owe you mine.")
 end
 
 function M.customerFour(gs, actor, eventType, param)
-	M.customerServed(gs, actor.name,"customerFour", eventType, param, "You must have a rather banal existence.")
+	M.customerServed(gs, "Customer 4","customerFour", eventType, param, "You must have a rather banal existence.")
 end
 
 function M.customerCultist(gs, actor, eventType, param)
-	-- todo
+	local coffeeCultist = "CoffeeCultistSpoken"
+
+	local spoken = gs.hasFlag(coffeeCultist)
+	if not spoken then
+		gs.setFlag(coffeeCultist)
+		gs.fire(ActorSpeakEvent.new(gs.current().scene, "Cultist", "Spend your tips soon.  There isn't much time left."), true)
+	end
 end
 
 function M.readBook(gs, book, eventType, param)

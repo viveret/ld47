@@ -16,45 +16,45 @@ Overworld,7098,NotDoneJob,Speak|Boss|Where have you been?  There are customers w
 Overworld,7176,,Despawn|Boss
 --
 -- customer one comes in, approaches counter, and can have coffee ordered
-Coffee,5460,,Spawn|CustomerOne|person2|62|64
-Coffee,5538,,Move|CustomerOne|90|44|10
-Coffee,5850,,Despawn|CustomerOne
-Coffee,5851,,Spawn|CustomerOne|person2|90|44|customerOne
-Coffee,8190,,Move|CustomerOne|62|64|10
-Coffee,9282,,Despawn|CustomerOne
+Coffee,5460,,Spawn|Customer 1|person2|62|64
+Coffee,5538,,Move|Customer 1|90|44|10
+Coffee,5850,,Despawn|Customer 1
+Coffee,5851,,Spawn|Customer 1|person2|90|44|customerOne
+Coffee,8190,,Move|Customer 1|62|64|10
+Coffee,9282,,Despawn|Customer 1
 --
 -- customer two & three come in, approaches, and can have coffee ordered
 -- customer two
-Coffee,9360,,Spawn|CustomerTwo|person3|62|64
-Coffee,10530,,Move|CustomerTwo|90|44|10
-Coffee,12870,,Despawn|CustomerTwo
-Coffee,12871,,Spawn|CustomerTwo|person3|90|44|customerTwo
-Coffee,15210,,Move|CustomerTwo|62|64|10
+Coffee,9360,,Spawn|Customer 2|person3|62|64
+Coffee,10530,,Move|Customer 2|90|44|10
+Coffee,12870,,Despawn|Customer 2
+Coffee,12871,,Spawn|Customer 2|person3|90|44|customerTwo
+Coffee,15210,,Move|Customer 2|62|64|10
 Coffee,16300,NotServedcustomerTwo,Speak|CustomerTwo|What a crummy coffee shop, no service at all!
-Coffee,16301,,Despawn|CustomerTwo
+Coffee,16301,,Despawn|Customer 2
 -- customer three
-Coffee,9361,,Spawn|CustomerThree|person4|40|64
-Coffee,10531,,Move|CustomerThree|80|44|10
-Coffee,12873,,Despawn|CustomerThree
-Coffee,12874,,Spawn|CustomerThree|person4|80|44|customerThree
-Coffee,15211,,Move|CustomerThree|40|64|10
-Coffee,16302,,Despawn|CustomerThree
+Coffee,9361,,Spawn|Customer 3|person4|40|64
+Coffee,10531,,Move|Customer 3|80|44|10
+Coffee,12873,,Despawn|Customer 3
+Coffee,12874,,Spawn|Customer 3|person4|80|44|customerThree
+Coffee,15211,,Move|Customer 3|40|64|10
+Coffee,16302,,Despawn|Customer 3
 --
 -- customer four & a cultist come in (only if all customers served), approaches, and can have coffee ordered
 -- customer four
-Coffee,18720,,Spawn|CustomerFour|person2|62|64
-Coffee,19000,,Move|CustomerFour|90|44|10
-Coffee,21000,,Despawn|CustomerFour
-Coffee,21001,,Spawn|CustomerFour|person2|90|44|customerFour
-Coffee,24400,,Move|CustomerFour|62|64|10
-Coffee,25000,,Despawn|CustomerFour
+Coffee,18720,,Spawn|Customer 4|person2|62|64
+Coffee,19000,,Move|Customer 4|90|44|10
+Coffee,21000,,Despawn|Customer 4
+Coffee,21001,,Spawn|Customer 4|person2|90|44|customerFour
+Coffee,24400,,Move|Customer 4|62|64|10
+Coffee,25000,,Despawn|Customer 4
 -- customer cultist
-Coffee,18721,ServedAllCustomers,Spawn|CustomerCultist|cultist|40|64
-Coffee,19001,,Move|CustomerCultist|80|44|10
-Coffee,21001,,Despawn|CustomerCultist
-Coffee,21002,,Spawn|CustomerFive|person2|90|44|customerCultist
-Coffee,25401,,Move|CustomerCultist|40|64|10
-Coffee,25001,,Despawn|CustomerCultist
+Coffee,18721,ServedAllCustomers,Spawn|Cultist|cultist|40|64
+Coffee,19001,,Move|Cultist|80|44|10
+Coffee,21001,,Despawn|Cultist
+Coffee,21002,,Spawn|Cultist|cultist|80|44|customerCultist
+Coffee,25401,,Move|Cultist|40|64|10
+Coffee,25001,,Despawn|Cultist
 
 
 -- !!mail arriving scenarios!!
