@@ -33,6 +33,10 @@ end
 
 function M:load()
     IndoorsGameState.load(self)
+
+    self:addStaticObjects({
+        construction = StaticObject.new(self.world, 40, 40, self.gamestate.images.decor.construction),
+    })
 end
 
 function M:switchTo(x, y)
