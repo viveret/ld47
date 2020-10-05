@@ -10,6 +10,33 @@ function M.new(gamestate, scene)
 	return self
 end
 
+function M:draw()
+    local hours = floor(self.gamestate.time / (60 * 60)) + 1
+    local minutes = floor(self.gamestate.time / 60) % 60 -- - (hours * 60 - 1)
+    local amOrPm = "AM"
+    if hours > 12 then
+        hours = hours - 12
+        amOrPm = "PM"
+    end
+    local friendlyTime = hours .. ":"
+    
+    if minutes > 9 then
+        friendlyTime = friendlyTime .. minutes
+    else
+        friendlyTime = friendlyTime .. "0" .. minutes
+    end
+
+    friendlyTime = friendlyTime .. " " .. amOrPm
+
+	self.graphics:drawObject(self.ui.dialog, x, y, width, height)
+	
+	-- render the text
+    self.graphics:renderTextInBox(text, x + 180 + innerXGutter, y, maximumTextWidth, maximumTextHeight, self.ui.dialog_font)
+    
+
+    lg.print(friendlyTime, 0, lg.getHeight() - 48)
+end
+
 function M:update(dt)
     -- check to see if something is ready to happen
     local time = self.gamestate.time

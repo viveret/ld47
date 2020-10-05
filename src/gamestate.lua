@@ -189,7 +189,7 @@ function gamestate.draw()
 end
 
 function gamestate.updateForTimespassed(dt)
-    local tickEverySeconds = 1 / 60
+    local tickEverySeconds = 60
 
     local secondsSinceLastUpdate = dt
 
@@ -203,7 +203,7 @@ function gamestate.updateForTimespassed(dt)
 
     gamestate.fracSec = remainder
 
-    return wholeTicks * 8
+    return wholeTicks-- * 8
 end
 
 function gamestate.update(dt)

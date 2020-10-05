@@ -49,10 +49,6 @@ end
 
 function M:draw()
     IndoorsGameState.draw(self)
-    if self.greeting ~= nil then
-        self.gamestate.fire(self.greeting)
-        self.greeting = nil
-    end
 end
 
 function M:update(dt)
@@ -66,13 +62,29 @@ end
 function M:switchTo(x, y)
     IndoorsGameState.switchTo(self, x, y)
 
+    -- todo: time of day check
+
     if self.guy == nil then
-        self.guy = ActorSpawnEvent.new("MotelLobby", "MotelGuy", "motel_guy", 37, 31)
+        local onMotelGuyInteract = function(player)
+            if (self.gamestate.hasFlag('has-not-reserved-room')) then
+                self.gamestate.clearFlag('has-not-reserved-room')
+                self.gamestate.setFlag('has-reserved-room')
+                self.gamestate.fire(self.onReserveRoomEvent, true)
+            else
+                -- you have already reserved a room
+                self.gamestate.fire(self.onReReserveRoomEvent, true)
+            end
+        end
+
+        self.guy = ActorSpawnEvent.new("MotelLobby", "MotelGuy", "motel_guy", 37, 31, onMotelGuyInteract)
         self.gamestate.fire(self.guy)
     end
 
-    -- todo: time of day check
-    self.greeting = ActorTextEvent.new("MotelLobby", "MotelGuy", "'sup. Are you here for the convention?")
+    self.greeting = ActorSpeakEvent.new("MotelLobby", "MotelGuy", "'sup. Are you here for the convention?")
+    self.onReserveRoomEvent = ActorSpeakEvent.new("MotelLobby", "MotelGuy", "Here are the keys to the last room.")
+    self.onReReserveRoomEvent = ActorSpeakEvent.new("MotelLobby", "MotelGuy", "You already reservd a room.")
+
+    self.gamestate.fire(self.greeting)
 end
 
 function M.save()

@@ -68,6 +68,9 @@ function M.new(graphics)
 			title_fg = lg.newImage("assets/images/ui/title_fg.png"),
 			title = lg.newImage("assets/images/ui/title.png"),
 			start_btn = lg.newImage("assets/images/ui/start-button.png"),
+			quit_btn = lg.newImage("assets/images/ui/quit-button.png"),
+			continue_btn = lg.newImage("assets/images/ui/continue-button.png"),
+			end_bg = lg.newImage("assets/images/ui/end.png"),
 
 			profiles = {
 				player = lg.newImage("assets/images/people/protag-profile.png"),

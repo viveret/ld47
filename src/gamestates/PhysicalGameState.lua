@@ -390,7 +390,6 @@ function M:physContactBetweenEnd(a, b)
 end
 
 function M:draw()
-    -- TimedGameState.draw(self)
     lg.push()
     self:drawInWorldView()
     lg.pop()
@@ -403,6 +402,8 @@ function M:draw()
     lg.print("Camera is at " .. self:currentCamera().x .. ", " .. self:currentCamera().y, 0, 16)
     lg.print("Player's velocity is " .. currentVx .. ", " .. currentVy, 0, 32)
     lg.print("Current time is " .. self.gamestate.time, 0, 48)
+
+    TimedGameState.draw(self)
 end
 
 function M:update(dt)

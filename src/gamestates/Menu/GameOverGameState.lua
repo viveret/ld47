@@ -5,6 +5,7 @@ local journal = require "src.components.journal"
 
 function M.new(gamestate)
     local self = setmetatable(MenuGameState.new(gamestate, 'Game Over'), M)
+    self.bg = self.gamestate.images.ui.end_bg
 
     if not gamestate.hasFlag('defeated-cultists') then
         self:addButton('Continue', ContinueGameEvent.new())
