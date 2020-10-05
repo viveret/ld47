@@ -2,6 +2,8 @@ IndoorsGameState = require "src.gamestates.Interior.IndoorsGameState"
 local M = setmetatable({}, { __index = IndoorsGameState })
 M.__index = M
 
+-- TODO: adam
+
 function M.new(gamestate)
     local self = setmetatable(IndoorsGameState.new(gamestate, 'Library', gamestate.graphics.Library), M)
 	

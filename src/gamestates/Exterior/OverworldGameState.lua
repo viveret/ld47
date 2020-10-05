@@ -64,7 +64,7 @@ function M.new(gamestate)
         { -- Home
             x = 180, y = 140,
             w = 20, h = 10,
-            path = 'Home,50,120,x',
+            path = 'Home,50,50,x',
             door = self.doors.home,
         },
         { -- Galaxy Motel Left
