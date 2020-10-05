@@ -184,7 +184,21 @@ Motel,51480,,Despawn|Cultist
 -- !! cemetery how much are they scenario !!
 -- ========================
 --
--- cultist spawns after 11am, walks to gravedigger, asks q
+-- cultist spawns after 11am, walks to graves, asks how much they are
+Cemetery,11120,,Spawn|Cultist|cultist|99|130
+Cemetery,12700,,Move|Cultist|50|40|10
+Cemetery,14000,,Speak|Cultist|Hello? ... yes... yes...
+Cemetery,14500,,Move|Cultist|60|50|5
+Cemetery,15000,,Move|Cultist|30|20|5
+Cemetery,15001,,Speak|Cultist|How much are they?
+Cemetery,16500,,Move|Cultist|50|45|5
+Cemetery,18000,,Speak|Cultist|How ... much ... are ... they ... ?
+Cemetery,19500,,Move|Cultist|60|25|5
+Cemetery,21000,,Speak|Cultist|...Oh, they aren't for sale?
+Cemetery,21010,,ToggleFlag|SawCemeteryCultist
+Cemetery,21020,,ToggleFlag|NotSeenCemeteryCultist
+Cemetery,21200,,Move|Cultist|99|140|30
+Cemetery,23480,,Despawn|Cultist
 
 
 -- !! antique shop breakin scenario  - KEY EVENT!!

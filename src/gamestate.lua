@@ -35,7 +35,7 @@ local gamestate = {
     events = {},
     saveData = {},
     initial = {
-        location = 'Home,50,50,x'
+        location = 'Cemetery,50,50,x'
     },
     fracSec = 0
 }
@@ -289,6 +289,8 @@ function gamestate.init()
     gamestate.setFlag("NotServedcustomerFour")
     gamestate.setFlag("has-not-reserved-room")
     gamestate.setFlag("NotSeenSickCultist")
+    gamestate.setFlag("SawCemeteryCultist")
+    gamestate.setFlag("NotSeenCemeteryCultist")
 
     -- start at title
     gamestate.warpTo('Title,0,0,x')
