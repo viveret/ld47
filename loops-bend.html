@@ -24,9 +24,15 @@ html, body
 	border-bottom: 21px solid transparent;
 	box-sizing: border-box;
 }
-a
+a, a:visited
 {
 	color: red;
+}
+#mainlink
+{
+	display: block;
+	text-align: center;
+	font-size: larger;
 }
 canvas {
 	outline: 1px solid black;
@@ -63,7 +69,7 @@ canvas {
 <body>
 <div id="wrapper">
 	<h1 id="title">Loop&lsquo;s Bend</h1>
-	<a href="https://github.com/viveret/ld47">https://github.com/viveret/ld47</a>
+	<a id="mainlink" href="https://github.com/viveret/ld47">https://github.com/viveret/ld47</a>
 	<div id="main">
 		<center><canvas id="canvas" width="800" height="600" style="max-width:100%;background:#000;vertical-align:middle"></canvas></center>
 	</div>
