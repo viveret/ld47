@@ -1,7 +1,10 @@
 local M = {}
 
 function M.fireOn(self, gs)
-	local currentScene = gs:current().scene
+	print('self.scene: ')
+	print(self.scene)
+
+	local currentScene = gs.current().scene
 
 	print("ActorSpeakEvent firing"..currentScene)
 

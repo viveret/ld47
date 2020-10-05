@@ -2,7 +2,9 @@ local M = { }
 M.__index = M
 
 function M.new(gamestate, name, text)
-	print("new "..name)
+	if name == nil then
+		error ('name cannot be nil')
+	end
 
 	local physicalGamestate = nil
 
@@ -26,8 +28,6 @@ function M.new(gamestate, name, text)
         nextAnimation = animation.new(gamestate.graphics.TextArrow, 32, 32, 0, 2, 0, 1, false),
         scene = name
 	}, M)
-
-    self.scene = name
 
 	return self
 end
