@@ -32,33 +32,27 @@ function M:update(dt)
         self.animation = self.animations.right
     end
 
-    if vx == 0 and vy == 0 then
-        self.body:setLinearDamping(10)
-    else
-        self.body:setLinearDamping(0)
-    end
-
     local currentVx, currentVy = self.body:getLinearVelocity()
     local dampingFactor = .1
 
     if vx ~= 0 then
         if math.abs(currentVx) < self.maxVelocity then
-            self.body:applyForce(vx * (self.walkForceX * .5), 0)
+            self.body:applyForce(vx * (self.walkForce * .5), 0)
         end
     else
         -- local dampingDir = currentVx < 0 and 1 or -1
-        -- self.body:applyForce(dampingDir * dampingFactor * self.walkForceX, 0)
-        self.body:setLinearVelocity(0, currentVy)
+        -- self.body:applyForce(dampingDir * dampingFactor * self.walkForce, 0)
+        --self.body:setLinearVelocity(0, currentVy)
     end
 
     if vy ~= 0 then
         if math.abs(currentVy) < self.maxVelocity then
-            self.body:applyForce(0, (vy * self.walkForceY * .5))
+            self.body:applyForce(0, (vy * self.walkForce * .5))
         end
     else
         -- local dampingDir = currentVy < 0 and 1 or -1
-        -- self.body:applyForce(0, dampingDir * dampingFactor * self.walkForceY)
-        self.body:setLinearVelocity(currentVx, 0)
+        -- self.body:applyForce(0, dampingDir * dampingFactor * self.walkForce)
+        --self.body:setLinearVelocity(currentVx, 0)
     end
 
     self.y = self.body:getY()

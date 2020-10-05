@@ -189,7 +189,7 @@ function gamestate.draw()
 end
 
 function gamestate.updateForTimespassed(dt)
-    local tickEverySeconds = 60
+    local tickEverySeconds = 1 / 60
 
     local secondsSinceLastUpdate = dt
 
@@ -224,6 +224,7 @@ function gamestate.update(dt)
 
     -- pump everything if time is passing
     if currentGameState.isPhysicalGameState then
+        currentGameState:realTimeUpdate(dt)
         local ticks = gamestate.updateForTimespassed(dt)
 
         for i=0,ticks,1 do

@@ -406,9 +406,12 @@ function M:draw()
     TimedGameState.draw(self)
 end
 
+function M:realTimeUpdate(dt)
+    self.world:update(dt)
+end
+
 function M:update(dt)
     TimedGameState.update(self)
-    self.world:update(dt)
     self:currentCamera():update(dt)
 
     if self.topmost then

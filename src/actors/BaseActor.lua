@@ -10,9 +10,8 @@ function M.new(world, name, gamestate, x, y, w, h, callback)
         height = h,
         name = name,
         gamestate = gamestate,
-        walkForceX = 0.125,
-        walkForceY = 0.125,
-        maxVelocity = 10,
+        walkForce = 12,
+        maxVelocity = 12,
         interactWith = {}
 	}, M)
 
@@ -22,6 +21,8 @@ function M.new(world, name, gamestate, x, y, w, h, callback)
     self.body = lp.newBody(world, trueX, trueY, "dynamic")
     self.shape = lp.newRectangleShape(self.width, self.height)
     self.fixture = lp.newFixture(self.body, self.shape)
+    
+    self.body:setLinearDamping(self.walkForce / 2)
 
     self.fixture:setUserData(self)
 
