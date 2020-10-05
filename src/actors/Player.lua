@@ -38,25 +38,26 @@ function M:update(dt)
     end
 
     local currentVx, currentVy = self.body:getLinearVelocity()
+    local dampingFactor = .1
 
     if vx ~= 0 then
         if math.abs(currentVx) < self.maxVelocity then
-            self.body:applyForce(vx * self.walkForceX, 0)
+            self.body:applyForce(vx * (self.walkForceX * .5), 0)
         end
     else
-        --local dampingDir = currentVx < 0 and 1 or -1
-        --self.body:applyForce(dampingDir * self.dampingFactor * self.walkForceX, 0)
-        --self.body:setLinearVelocity(0, currentVy)
+        -- local dampingDir = currentVx < 0 and 1 or -1
+        -- self.body:applyForce(dampingDir * dampingFactor * self.walkForceX, 0)
+        self.body:setLinearVelocity(0, currentVy)
     end
 
     if vy ~= 0 then
         if math.abs(currentVy) < self.maxVelocity then
-            self.body:applyForce(0, vy * self.walkForceY)
+            self.body:applyForce(0, (vy * self.walkForceY * .5))
         end
     else
         -- local dampingDir = currentVy < 0 and 1 or -1
-        -- self.body:applyForce(0, dampingDir * self.dampingFactor * self.walkForceY)
-        --self.body:setLinearVelocity(currentVx, 0)
+        -- self.body:applyForce(0, dampingDir * dampingFactor * self.walkForceY)
+        self.body:setLinearVelocity(currentVx, 0)
     end
 
     self.y = self.body:getY()
