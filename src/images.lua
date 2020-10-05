@@ -193,7 +193,7 @@ function M:drawDialogBox(actor, title, text, animation)
 		profile = self.ui.portraits[actor]
 	end
 
-	if profile == nill then
+	if profile == nil then
 		profile = self.ui.portraits.unknown
 	end
 
