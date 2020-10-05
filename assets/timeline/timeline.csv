@@ -55,6 +55,8 @@ Coffee,21001,,Despawn|Cultist
 Coffee,21002,,Spawn|Cultist|cultist|80|44|customerCultist
 Coffee,25401,,Move|Cultist|40|64|10
 Coffee,25001,,Despawn|Cultist
+-- shifts over
+Coffee,25100,CoffeeCultistSpoken,RoomText|You've finished your shift, congrats.  You feel weird about that strangely dressed customer you just left though...
 
 
 -- !!mail arriving scenarios!!
