@@ -138,7 +138,7 @@ function M.new(gamestate)
         { -- Post Office
             x = 126, y = 129,
             w = 9, h = 8,
-            path = 'PostOffice,10,10,x',
+            path = 'PostOffice,50,50,x',
             door = self.doors.postoffice
         },
         { -- General Store

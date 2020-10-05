@@ -6,7 +6,14 @@ M.__index = M
 
 function M.new(gamestate)
     local self = setmetatable(IndoorsGameState.new(gamestate, 'PostOffice', gamestate.graphics.PostOffice), M)
-	
+    
+    self:addWorldBounds({
+        { -- Divider
+            x = 0, y = 30,
+            w = self:getWidth(), h = 4
+        },
+    })
+    
     self.warps = {
         { -- Main door
             x = 45, y = 68,
@@ -14,6 +21,7 @@ function M.new(gamestate)
             path = 'Overworld,130,140,x'
         }
     }
+    
     self.renderWarps = true
     self.renderBounds = true
 
