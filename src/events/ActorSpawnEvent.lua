@@ -1,5 +1,7 @@
 local M = {}
 
+local NPC = require "src.actors.NPC"
+
 function M.fireOn(self, gs) 
 	print("ActorSpawnEvent firing "..self.scene.." "..self.name)
 
@@ -10,22 +12,12 @@ function M.fireOn(self, gs)
 		return
 	end
 
-	local world = scene.world
-
-	local spritesheetStill = gs.graphics[self.assetName.."Idle"]
-	local spritesheetUp = gs.graphics[self.assetName.."Up"]
-	local spritesheetDown = gs.graphics[self.assetName.."Down"]
-	local spritesheetLeft = gs.graphics[self.assetName.."Left"]
-	local spritesheetRight = gs.graphics[self.assetName.."Right"]
-
-	local callback = self.callback
-
-	local width, height = spritesheetStill.spritesheet:getDimensions()
-
-	local newX = self.x
-	local newY = self.y
-
-	local newActor = actor.new(world, gs, newX, newY, spritesheetStill, spritesheetUp, spritesheetDown, spritesheetLeft, spritesheetRight, callback)
+	local anims = gs.animations.actors[self.assetName]
+	if anims == nil then
+		error('could not find ' .. self.assetName .. ' in animations.actors')
+	end
+	
+	local newActor = NPC.new(scene.world, name, gs, self.x, self.y, 8, 8, anims, self.callback)
 
 	scene:addActor(self.name, newActor)
 end

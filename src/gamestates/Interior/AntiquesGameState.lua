@@ -3,7 +3,7 @@ local M = setmetatable({}, { __index = IndoorsGameState })
 M.__index = M
 
 function M.new(gamestate)
-    local self = setmetatable(IndoorsGameState.new(gamestate, 'Antiques', gamestate.graphics.Antiques), M)
+    local self = setmetatable(IndoorsGameState.new(gamestate, 'Antiques', gamestate.images.places.antiques), M)
     
     self:addWorldBounds({
         { -- clothing racks
@@ -57,12 +57,12 @@ function M:switchTo(x, y)
     IndoorsGameState.switchTo(self, x, y)
 
     if self.shopkeeper == nil then
-        self.shopkeeper = ActorSpawnEvent.new("Antiques", "AntiqueSeller", "Mary", 28, 20)
+        self.shopkeeper = ActorSpawnEvent.new("Antiques", "AntiqueSeller", "mary", 28, 20)
         self.gamestate.fire(self.shopkeeper)
     end
 
     -- todo: time of day check
-    self.greeting = ActorTextEvent.new("Antiques", "Mary", "I've collected many things over the years. Please, browse at your leisure.")
+    self.greeting = ActorTextEvent.new("Antiques", "mary", "I've collected many things over the years. Please, browse at your leisure.")
 end
 
 function M.save()

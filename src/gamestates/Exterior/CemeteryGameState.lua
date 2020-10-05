@@ -3,7 +3,7 @@ local M = setmetatable({}, { __index = PhysicalGameState })
 M.__index = M
 
 function M.new(gamestate)
-    local self = setmetatable(PhysicalGameState.new(gamestate, 'Cemetery', gamestate.graphics.Cemetery), M)
+    local self = setmetatable(PhysicalGameState.new(gamestate, 'Cemetery', gamestate.images.places.cemetery), M)
     self:addExteriorWorldBounds(8)
     self.renderBounds = true
     

@@ -3,7 +3,7 @@ local M = setmetatable({}, { __index = IndoorsGameState })
 M.__index = M
 
 function M.new(gamestate)
-    local self = setmetatable(IndoorsGameState.new(gamestate, 'Doctor', gamestate.graphics.Doctor), M)
+    local self = setmetatable(IndoorsGameState.new(gamestate, 'Doctor', gamestate.images.places.doctor), M)
 	
     self.warps = {
         { -- Main door

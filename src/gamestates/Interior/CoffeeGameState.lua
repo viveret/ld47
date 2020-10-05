@@ -3,7 +3,7 @@ local M = setmetatable({}, { __index = IndoorsGameState })
 M.__index = M
 
 function M.new(gamestate)
-    local self = setmetatable(IndoorsGameState.new(gamestate, 'Coffee', gamestate.graphics.Coffee), M)
+    local self = setmetatable(IndoorsGameState.new(gamestate, 'Coffee', gamestate.images.places.coffee), M)
 	
     self.warps = {
         { -- Main door
@@ -45,16 +45,19 @@ function M:load()
     IndoorsGameState.load(self)
 
     self.indoorObjects = {
-        freezer1 = AnimatedObject.new(self.world, self.gamestate.graphics.Freezer, 3.5, 5, 96, 96, 3, 10000),
-        freezer2 = AnimatedObject.new(self.world, self.gamestate.graphics.Freezer, 15.5, 5, 96, 96, 3, 10000),
-        freezer3 = AnimatedObject.new(self.world, self.gamestate.graphics.Freezer, 27.5, 5, 96, 96, 3, 10000),
-        backCounter = StaticObject.new(self.world, self.gamestate.graphics.BackCounter, 56, 5),
-        counter = StaticObject.new(self.world, self.gamestate.graphics.Counter, 46.5, 20)
+        freezer1 = AnimatedObject.new(self.world, self.gamestate.images.decor.freezer, 3.5, 5, 96, 96, 3, 10000),
+        freezer2 = AnimatedObject.new(self.world, self.gamestate.images.decor.freezer, 15.5, 5, 96, 96, 3, 10000),
+        freezer3 = AnimatedObject.new(self.world, self.gamestate.images.decor.freezer, 27.5, 5, 96, 96, 3, 10000),
+        backcounter = StaticObject.new(self.world, self.gamestate.images.decor.back_counter, 56, 5),
+        counter = StaticObject.new(self.world, self.gamestate.images.decor.counter, 46.5, 20)
     }
 end
 
 function M:switchTo(x, y)
     IndoorsGameState.switchTo(self, x, y)
+end
+
+function M:activate()
     self.gamestate.ensureBGMusic("chill")
 end
 

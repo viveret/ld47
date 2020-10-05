@@ -2,6 +2,10 @@ local M = { }
 M.__index = M
 
 function M.new(gamestate, name, text)
+	if name == nil then
+		error ('name cannot be nil')
+	end
+
 	local physicalGamestate = nil
 
 	for i=#gamestate.stack,0,-1 do
@@ -21,19 +25,29 @@ function M.new(gamestate, name, text)
         name = name,
         text = text,
         lowerGameState = physicalGamestate,
-        nextAnimation = animation.new(gamestate.graphics.TextArrow, 32, 32, 0, 2, 0, 1, false),
+        nextAnimation = gamestate.animations.ui.text_arrow,
+        scene = name
 	}, M)
+
 	return self
+end
+
+function M:keypressed( key, scancode, isrepeat )
+    if not isrepeat then
+		if lume.find({'space', 'return', 'escape'}, key) ~= nil then
+			self.gamestate.pop()
+		end
+	end
+end
+
+function M:keyreleased( key, scancode )
+	
 end
 
 function M:activated()
 end
 
 function M:update(dt)
-	if lk.isDown('space', 'return', 'escape') then
-        self.gamestate.pop()
-    end
-
     self.nextAnimation:update(dt)
 end
 
@@ -46,7 +60,7 @@ end
 function M:draw()
 	self.lowerGameState:draw()
 
-	self.gamestate.graphics:drawDialogBox(self.name, self.text, self.nextAnimation)
+	self.gamestate.images:drawDialogBox(self.name, self.text, self.nextAnimation)
 end
 
 function M:getWidth()

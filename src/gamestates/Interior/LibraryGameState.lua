@@ -5,7 +5,7 @@ M.__index = M
 -- TODO: adam
 
 function M.new(gamestate)
-    local self = setmetatable(IndoorsGameState.new(gamestate, 'Library', gamestate.graphics.Library), M)
+    local self = setmetatable(IndoorsGameState.new(gamestate, 'Library', gamestate.images.places.library), M)
 	
     self.warps = {
         { -- Main door

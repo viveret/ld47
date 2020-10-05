@@ -1,9 +1,19 @@
 local M = setmetatable({}, { __index = TimedGameState })
 M.__index = M
 
+local Player = require "src.actors.Player"
+
 function M.new(gamestate, scene, graphics)
+    if gamestate == nil then
+        error ('gamestate must not be nil')
+    elseif scene == nil or scene == '' then
+        error ('scene must not be nil or empty')
+    elseif graphics == nil then
+        error ('graphics must not be nil')
+    end
+
     local self = setmetatable(TimedGameState.new(gamestate, scene), M)
-    self.background = graphics.Bg
+    self.background = graphics.bg
     self.world = lp.newWorld(0, 0, true)
     self.player = nil
     self.cameras = { }
@@ -15,7 +25,6 @@ function M.new(gamestate, scene, graphics)
     self.proximityObjects = {}
     self.renderBounds = false
     self.renderWarps = false
-    self.toast = nil
     self.isPhysicalGameState = true
     self.actors = {}
     self.colors = {
@@ -92,6 +101,12 @@ function M.new(gamestate, scene, graphics)
     self.world:setCallbacks(physBeginContact, physEndContact, physPreSolve, physPostSolve)
 
 	return self
+end
+
+function M:keypressed( key, scancode, isrepeat )
+end
+
+function M:keyreleased( key, scancode )
 end
 
 function M:getColorRightNow()
@@ -332,7 +347,6 @@ function M:drawInWorldView()
     drawList(self.actors)
     drawList(self.doors)
     drawList(self.animatedObjects)
-
     drawList(self.indoorObjects)
 
     self.player:draw()
@@ -380,8 +394,6 @@ function M:draw()
 
     local x = self.player.body:getX()
     local y = self.player.body:getY()
-
-    toast.draw()
 
     local currentVx, currentVy = self.player.body:getLinearVelocity()
     lg.print("You are at " .. x .. ", " .. y .. " in " .. self.scene, 0, 0)
@@ -461,7 +473,7 @@ function M:load()
     self:setupWorldBounds()
     self:setupWarps()
     
-    self.player = player.new(self.world, self.gamestate.graphics.Player, 0, 0)
+    self.player = Player.new(self.world, 'player', self.gamestate, 0, 0, 4, 4, self.gamestate.animations.actors.player)
     self:pushCamera(Camera.new(self.gamestate, self.player.body))
 end
 
@@ -528,6 +540,10 @@ function M:setupWarps()
         warp.shape = lp.newRectangleShape(warp.w, warp.h)
         warp.fixture = lp.newFixture(warp.body, warp.shape)
         warp.fixture:setUserData(warp)
+
+        if warp.door ~= nil then
+            warp.door.path = warp.path
+        end
     end
 end
 

@@ -5,7 +5,7 @@ M.__index = M
 -- TODO viv
 
 function M.new(gamestate)
-    local self = setmetatable(IndoorsGameState.new(gamestate, 'Home', gamestate.graphics.Home), M)
+    local self = setmetatable(IndoorsGameState.new(gamestate, 'Home', gamestate.images.places.home), M)
     
     self:addWorldBounds({
         { -- Left
@@ -20,7 +20,7 @@ function M.new(gamestate)
             x = 85, y = 0,
             w = 4, h = 80
         },
-        { -- Table
+        { -- table
             x = 80, y = 21.5,
             w = 20, h = 13
         },
