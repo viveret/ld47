@@ -56,7 +56,7 @@ function M:switchTo(x, y)
 end
 
 function M:activated()
-    self.gamestate.ensureBGMusic("dreamSequence")
+    self.gamestate.ensureBGMusic("chill")
 end
 
 function M.save()

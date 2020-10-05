@@ -23,5 +23,9 @@ end
 function M:save()
 end
 
+function M:activated()
+    self.gamestate.ensureBGMusic("theme")
+end
+
 
 return M
