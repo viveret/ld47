@@ -17,7 +17,7 @@ function M.fireOn(self, gs)
 		error('could not find ' .. self.assetName .. ' in animations.actors')
 	end
 	
-	local newActor = NPC.new(scene.world, name, gs, self.x, self.y, 8, 8, anims, self.callback)
+	local newActor = NPC.new(scene.world, name, gs, self.x, self.y, 5, 5, anims, self.callback)
 
 	scene:addActor(self.name, newActor)
 end

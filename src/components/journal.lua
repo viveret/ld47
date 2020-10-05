@@ -16,6 +16,14 @@ function M.new(gamestate)
             {
                 flag = "ServedAllCustomers",
                 text = "You served coffee. You're a good 'lil worker!"
+            },
+            {
+                flag = "has-not-reserved-room",
+                text = "You should check out a motel room"
+            },
+            {
+                flag = "has-reserved-room",
+                text = "You reserved a motel room, keeping a cultist away"
             }
         }
     }, M)

@@ -67,7 +67,7 @@ function M:switchTo(x, y)
     IndoorsGameState.switchTo(self, x, y)
 
     if self.guy == nil then
-        self.guy = ActorSpawnEvent.new("MotelLobby", "MotelGuy", "motel_guy", 37, 29)
+        self.guy = ActorSpawnEvent.new("MotelLobby", "MotelGuy", "motel_guy", 37, 31)
         self.gamestate.fire(self.guy)
     end
 
