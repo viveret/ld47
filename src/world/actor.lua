@@ -3,6 +3,8 @@ M.__index = M
 
 function M.new(world, gamestate, x, y, spriteSheetStill, spritesheetUp, spritesheetDown, spritesheetLeft, spritesheetRight, callback)
     local self = setmetatable({
+        x = x,
+        y = y,
         width = 4,
         height = 4,
         movingTo = nil,
@@ -46,11 +48,11 @@ function M:update(dt)
         local leftX = self.body:getX()
         local topY = self.body:getY()
 
-        local x = leftX + self.width / 2
-        local y = topY + self.height / 2
+        self.x = leftX + self.width / 2
+        self.y = topY + self.height / 2
 
-        local dirX = self.movingTo.x - x
-        local dirY = self.movingTo.y - y
+        local dirX = self.movingTo.x - self.x
+        local dirY = self.movingTo.y - self.y
 
         local dist = math.sqrt(dirX*dirX + dirY*dirY)
 

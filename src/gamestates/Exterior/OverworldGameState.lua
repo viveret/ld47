@@ -151,6 +151,18 @@ function M.new(gamestate)
         beerSign = AnimatedObject.new(self.world, self.gamestate.graphics.BeerSign, 20, 80, 56, 80, 14, 5)
     }
 
+    -- local inta = function(beerSign)
+    --     print('Turned off / on beer sign')
+    --     beerSign.canInteractWith = false
+    --     beerSign.animation.pause = not self.animation.pause
+    --     beerSign.animation.currentTime = 0
+    -- end
+
+    self.animatedObjects.beerSign.type = 'sign'
+    self.animatedObjects.beerSign.isInteractable = true
+    --self.animatedObjects.beerSign.interact = inta
+    table.insert(self.proximityObjects, self.animatedObjects.beerSign)
+
 	return self
 end
 

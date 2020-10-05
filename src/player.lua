@@ -99,11 +99,13 @@ function M:update(dt)
         --self.body:setLinearVelocity(currentVx, 0)
     end
 
-    if self.body:getY() < 0 then
+    self.y = self.body:getY()
+    if self.y < 0 then
         vy = abs(vy)
     end
 
-    if self.body:getX() < 0 then
+    self.x = self.body:getX()
+    if self.x < 0 then
         vx = abs(vx)
     end
 
@@ -113,6 +115,12 @@ function M:update(dt)
 
     if self.activeAnimation ~= nil then
         self.activeAnimation:update(dt)
+    end
+
+
+    if lk.isDown('space') and self.interactWith ~= nil then
+        self.interactWith:interact()
+        self.interactWith = nil
     end
 end
 

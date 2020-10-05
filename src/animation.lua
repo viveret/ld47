@@ -14,6 +14,7 @@ function M.new(img, frameWidth, frameHeight, firstFrameIndex, frameCount, curren
         callback = callback,
         clipW = 0.5,
         clipH = 0.5,
+        pause = false,
     }, M)
 
     if frameCount > 0 then
@@ -48,6 +49,10 @@ function M:draw(x, y, noScale)
 end
 
 function M:update(dt) 
+    if self.pause then
+        return
+    end
+    
     self.currentTime = self.currentTime + dt
     if self.currentTime >= self.duration then
         if self.runOnlyOnce then

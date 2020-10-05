@@ -9,8 +9,10 @@ function M.new(gamestate, scene, graphics)
     self.cameras = { }
     self:pushCamera(Camera.new())
     self.contactListeners = {}
+    self.proximityListeners = {}
     self.bounds = {}
     self.warps = {}
+    self.proximityObjects = {}
     self.renderBounds = false
     self.renderWarps = false
     self.toast = nil
@@ -166,27 +168,75 @@ function M:addContactListeners()
     )
 end
 
-function M:addProximityListener()
+function M:getActiveObjects()
+    return lume.concat(self.actors, { self.player }, self.proximityObjects)
+end
+
+function M:addProximityListener(proximity, filterFn, onEnterFn, onLeaveFn)
+    table.insert(self.proximityListeners,
+    {
+        proximity = proximity,
+        filter = filterFn,
+        onEnter = onEnterFn,
+        onLeave = onLeaveFn
+    })
 end
 
 function M:addProximityListeners()
     self:addProximityListener(
+        8,
         function (a, b)
-            return a.activated ~= true and a.type == 'sign' and b.type == 'player'
+            return a.isInteractable and b.type == 'player'
         end,
         function (a, b)
-            local sign = a.sign
-            if sign == nil then
-                sign = b.sign
+            local interactable = a
+            local player = b
+            if not interactable.isInteractable then
+                interactable = b
+                player = a
+            end
+
+            if interactable.hasInteractedWith then
+                return
+            end
+
+            interactable.hasInteractedWith = true
+            interactable.canInteractWith = true
+            player.interactWith = interactable
+        end,
+        function (a, b)
+            if a.isInteractable then
+                a.hasInteractedWith = false
+                a.canInteractWith = false
+            else
+                b.hasInteractedWith = false
+                b.canInteractWith = false
+            end
+        end
+    )
+
+
+    self:addProximityListener(
+        10,
+        function (a, b)
+            return a.type == 'sign' and b.type == 'player'
+        end,
+        function (a, b)
+            local sign = a
+            if sign.type ~= 'sign' then
+                sign = b
             end
 
             if sign ~= nil then
-                sign:withinProximity(a, b)
+                sign.inProximity = true
             end
-            a.activated = true
-            b.activated = true
         end,
         function (a, b)
+            if a.type == 'sign' then
+                a.inProximity = false
+            else
+                b.inProximity = false
+            end
         end
     )
 
@@ -339,6 +389,8 @@ function M:update(dt)
         self.player:update(dt)
     end 
 
+    self:updateProximityListeners()
+
     local updateList = function(list)
         if list ~= nil then
             for _, e in pairs(list) do
@@ -350,6 +402,48 @@ function M:update(dt)
     updateList(self.animatedObjects)
     updateList(self.actors)
     updateList(self.doors)
+end
+
+function M:updateProximityListeners()
+    local withinProximity = function(r, a, b)
+        local ax = a.x
+        local ay = a.y
+        local bx = b.x
+        local by = b.y
+        
+        if ax == nil then
+            ax = a:getX()
+            ay = a:getY()
+        end
+
+        if bx == nil then
+            bx = b:getX()
+            by = b:getY()
+        end
+
+        local dx = bx - ax
+        local dy = by - ay
+        local d2 = dx * dx + dy * dy
+        local r2 = r * r
+        return d2 < r2
+    end
+
+    local allObjects = self:getActiveObjects()
+    for ia,a in pairs(allObjects) do
+        for ib,b in pairs(allObjects) do
+            if ia ~= ib and a ~= nil and b ~= nil then
+                for _,li in pairs(self.proximityListeners) do
+                    if li.filter(a, b) or li.filter(b, a) then
+                        if withinProximity(li.proximity, a, b) then
+                            li.onEnter(a, b)
+                        else
+                            li.onLeave(a, b)
+                        end
+                    end
+                end
+            end
+        end
+    end
 end
 
 function M:load()
