@@ -3,9 +3,6 @@ Home,1000,,Speak|Player|I better get going if I don't want to be late to my job 
 Home,74880,,PlaySound|mirror
 Home,74881,,ToggleFlag|HearMirror
 
-Home,300,,SpawnStaticObject|book|book|50|50|readBook
-Home,1300,,DespawnStaticObject|book
-
 -- Turn sky red
 Overworld,88920,,GlobalAmbientColor|1|0.5|0.5
 
@@ -272,33 +269,33 @@ Swamp,90000,,Move|Cultist|47|48|10
 
 -- c2 actions
 Swamp,89200,,Spawn|Cultist1|cultist1|178|115
-Swamp,89400,,Move|Cultist1|175|49|10
-Swamp,89400,,Move|Cultist1|54|38|10
+Swamp,89500,,Move|Cultist1|175|49|10
+Swamp,89700,,Move|Cultist1|54|38|10
 
 -- c3 actions
 Swamp,89520,,Spawn|Cultist2|cultist2|178|115
 Swamp,89600,,Move|Cultist2|175|49|10
-Swamp,89600,,Move|Cultist2|71|36|10
+Swamp,90000,,Move|Cultist2|71|36|10
 
 -- c4 actions
 Swamp,89920,,Spawn|Cultist3|cultist3|178|115
 Swamp,90000,,Move|Cultist3|175|49|10
-Swamp,90000,,Move|Cultist3|54|52|10
+Swamp,90600,,Move|Cultist3|54|52|10
 
 -- c5 actions
 Swamp,90120,,Spawn|Cultist4|cultist4|178|115
 Swamp,90500,,Move|Cultist4|175|49|10
-Swamp,90500,,Move|Cultist4|71|52|10
+Swamp,91000,,Move|Cultist4|71|52|10
 
 -- c6 actions
 Swamp,90820,,Spawn|Cultist5|cultist5|178|115
 Swamp,91000,,Move|Cultist5|175|49|10
-Swamp,91000,,Move|Cultist5|80|54|10
+Swamp,91500,,Move|Cultist5|80|54|10
 
 -- c7 actions
 Swamp,91320,,Spawn|Cultist6|cultist6|178|115
 Swamp,91600,,Move|Cultist6|175|49|10
-Swamp,91600,,Move|Cultist6|80|40|10
+Swamp,92000,,Move|Cultist6|80|40|10
 
 -- TODO: ADD IN THE SUMMONING CIRCLE
 
