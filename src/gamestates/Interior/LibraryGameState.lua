@@ -8,33 +8,29 @@ function M.new(gamestate)
     local self = setmetatable(IndoorsGameState.new(gamestate, 'Library', gamestate.images.places.library), M)
 	
     self:addWorldBounds({
-        { -- Left
-            x = 15, y = 8,
-            w = 4, h = 80
+        -- { -- Left
+        --     x = 15, y = 8,
+        --     w = 4, h = 80
+        -- },
+        -- { -- Top
+        --     x = 0, y = 20,
+        --     w = 100, h = 4
+        -- },
+        -- { -- Right
+        --     x = 85, y = 0,
+        --     w = 4, h = 80
+        -- },
+        { -- Room divider top
+            x = 60, y = 0,
+            w = 5, h = 30
         },
-        { -- Top
-            x = 0, y = 20,
-            w = 100, h = 4
-        },
-        { -- Right
-            x = 85, y = 0,
-            w = 4, h = 80
-        },
-        { -- Chairs Right
-            x = 55, y = 0,
-            w = 20, h = 150
-        },
-        { -- Chairs Bottom Right
-            x = 60, y = 60,
-            w = 20, h = 13
-        },
-        { -- file cabinet
-            x = 62, y = 24,
-            w = 22, h = 5
+        { -- Room divider bottom
+            x = 60, y = 48,
+            w = 5, h = 30
         },
         { -- table
-            x = 26, y = 36,
-            w = 23, h = 1
+            x = 21, y = 42,
+            w = 23, h = 7
         }
     })
 

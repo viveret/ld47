@@ -132,7 +132,7 @@ function M.new(gamestate)
         { -- Library
             x = 125, y = 80,
             w = 9, h = 8,
-            path = 'Library,20,90,x',
+            path = 'Library,50,50,x',
             door = self.doors.library,
         },
         { -- Post Office
