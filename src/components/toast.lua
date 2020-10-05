@@ -6,7 +6,7 @@ function M.new(gamestate, text, name)
 		visible = false,
 		name = name or "???",
 		text = text,
-		duration = text:len() * 30,
+		duration = text:len() * 10,
 		gamestate = gamestate
 	}, M)
 	
