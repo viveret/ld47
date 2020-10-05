@@ -100,7 +100,8 @@ function M.new(graphics)
 			counter = lg.newImage("assets/images/world/coffee/counter.png"),
 			table = lg.newImage("assets/images/world/coffee/table.png"),
 			ropes = lg.newImage("assets/images/world/library/ropes.png"),
-			tome = lg.newImage("assets/images/world/library/tome.png")
+			tome = lg.newImage("assets/images/world/library/tome.png"),
+			construction = lg.newImage("assets/images/world/construction.png")
 		},
 
 		actors = {
