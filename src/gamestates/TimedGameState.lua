@@ -28,13 +28,8 @@ function M:draw()
 
     friendlyTime = friendlyTime .. " " .. amOrPm
 
-	self.graphics:drawObject(self.ui.dialog, x, y, width, height)
-	
-	-- render the text
-    self.graphics:renderTextInBox(text, x + 180 + innerXGutter, y, maximumTextWidth, maximumTextHeight, self.ui.dialog_font)
-    
-
-    lg.print(friendlyTime, 0, lg.getHeight() - 48)
+	self.gamestate.graphics:drawObject(self.gamestate.images.ui.clock_bg, 0, lg.getHeight() - 48, 100, 64)
+    self.gamestate.graphics:renderTextInBox(friendlyTime, 0, lg.getHeight() - 48 - 8, 100, 64, self.gamestate.images.ui.dialog_font)
 end
 
 function M:update(dt)
