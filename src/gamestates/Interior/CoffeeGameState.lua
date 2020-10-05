@@ -45,11 +45,11 @@ function M:load()
     IndoorsGameState.load(self)
 
     self.indoorObjects = {
-        freezer1 = AnimatedObject.new(self.world, self.gamestate.images.decor.freezer, 3.5, 5, 96, 96, 3, 10000),
-        freezer2 = AnimatedObject.new(self.world, self.gamestate.images.decor.freezer, 15.5, 5, 96, 96, 3, 10000),
-        freezer3 = AnimatedObject.new(self.world, self.gamestate.images.decor.freezer, 27.5, 5, 96, 96, 3, 10000),
-        backcounter = StaticObject.new(self.world, self.gamestate.images.decor.back_counter, 56, 5),
-        counter = StaticObject.new(self.world, self.gamestate.images.decor.counter, 46.5, 20)
+        freezer1 = AnimatedObject.new(self.world, 3.5, 5, self.gamestate.animations.decor.freezer),
+        freezer2 = AnimatedObject.new(self.world, 15.5, 5, self.gamestate.animations.decor.freezer),
+        freezer3 = AnimatedObject.new(self.world, 27.5, 5, self.gamestate.animations.decor.freezer),
+        backcounter = StaticObject.new(self.world, 56, 5, self.gamestate.images.decor.back_counter),
+        counter = StaticObject.new(self.world, 46.5, 20, self.gamestate.images.decor.counter)
     }
 end
 

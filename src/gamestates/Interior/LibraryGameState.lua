@@ -59,8 +59,8 @@ function M:load()
     IndoorsGameState.load(self)
 
     self.indoorObjects = {
-        ropes = StaticObject.new(self.world, self.gamestate.images.decor.ropes, 50, 32),
-        tome = StaticObject.new(self.world, self.gamestate.images.decor.tome, 70, 34)
+        ropes = StaticObject.new(self.world, 50, 32, self.gamestate.images.decor.ropes),
+        tome = StaticObject.new(self.world, 70, 34, self.gamestate.images.decor.tome)
     }
 end
 
