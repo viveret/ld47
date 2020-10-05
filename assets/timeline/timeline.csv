@@ -9,7 +9,7 @@ Home,74881,,ToggleFlag|HearMirror
 Overworld,80400,,GlobalAmbientColor|1|0.5|0.5
 
 -- Final event
-Overworld,16400,,GameOver|
+Overworld,86400,,GameOver|
 
 -- !!Coffee shop scenario!!
 -- ========================
