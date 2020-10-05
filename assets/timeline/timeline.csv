@@ -137,28 +137,6 @@ MotelLobby,18720,,Spawn|Cultist|cultist|40|64
 -- cultist spawns after 11am, walks to gravedigger, asks q
 
 
--- !! general store misc purchase scenarios !!
--- ========================
---
--- someone buys something 9am
-
--- cultist buys rope 10am
-
--- cultist buys knife set 12pm
-
--- someone buys something 1pm
-
--- someone buys something 2pm
-
--- cultists buys gas 5pm
-
-
--- !! general store candle purchase scenario - KEY EVENT !!
--- ========================
---
--- cultist buys 7 candles 3pm
-
-
 -- !! antique shop breakin scenario  - KEY EVENT!!
 -- ========================
 --
@@ -166,19 +144,6 @@ MotelLobby,18720,,Spawn|Cultist|cultist|40|64
 
 -- cultists breaks into cabinet at 8pm and gets amulet
 
-
--- !! doctors visits scenarios !!
--- ========================
---
--- someone has a regular illness 11am
-
--- someone has a regular illness 1pm
-
--- someone has a weird scary illness 3pm
-
--- someone has a weird scary illness 4pm
-
--- doctor leaves abruptly to check on cultist at motel 5pm
 
 
 -- !! cemetery bone stealing scenario - KEY EVENT!!
@@ -235,10 +200,7 @@ MotelLobby,18720,,Spawn|Cultist|cultist|40|64
 -- extra 10th student standing in middle of room instead of at desk
 
 
--- !! doctor breakin scenario - KEY EVENT !!
--- ========================
---
--- cultist enters office at 6pm and steals ??
+
 
 
 -- !! home breakin scenario - KEY EVENT !!
@@ -271,18 +233,19 @@ MotelLobby,18720,,Spawn|Cultist|cultist|40|64
 -- cultist1, personA, personB, and cultist2 fight in bar
 
 
--- !! post office pickup scenario - KEY EVENT !!
--- ========================
---
--- cultist arrives at 11am and picks up package
 
--- if player visits after cultist gets package, clerk is like oh sorry
 
 
 -- !! all mirrors breaking (except bar) scenario !!
 -- ========================
 --
 -- mirrors in each building break at midnight
+Doctor,74800,,PlaySound|mirror
+School,74800,,PlaySound|mirror
+Library,74800,,PlaySound|mirror
+PostOffice,74800,,PlaySound|mirror
+Store,74800,,PlaySound|mirror
+Antiques,74800,,PlaySound|mirror
 
 -- if you are in a room you get dialogue from whoever is present
 
@@ -326,7 +289,17 @@ Swamp,91320,,Spawn|Cultist6|cultist6|178|115
 Swamp,91600,,Move|Cultist6|175|49|10
 Swamp,91600,,Move|Cultist6|80|40|10
 
+--TODO: ADD IN THE SUMMONING CIRCLE
+
 -- at 4am the ritual begins
+Swamp,93600,Speak|Cultist|All present, bear witness to the great power of our God!
+Swamp,95600,Speak|Cultist1|O, most unholy, please grant us your terrible presence!
+Swamp,97600,Speak|Cultist2|We beseech thee, rid this foul world of non-believers.
+Swamp,99600,Speak|Cultist3|And render all power and glory unto you, Great One!
+Swamp,101600,Speak|Cultist4|Please grant mercy on us, your humble servants!
+Swamp,103600,Speak|Cultist5|We live to do your bidding!
+Swamp,105600,Speak|Cultist6|And thus, without interruption, we call on you NOW. All hail!
+Swamp,107600,Speak|Cultist|ALL HAIL.
 
 -- at 8am the ritual completes unless interrupted somehow
 
@@ -335,3 +308,61 @@ Swamp,91600,,Move|Cultist6|80|40|10
 -- ========================
 --
 -- thing
+
+
+
+
+-- STRETCH GOALS BELOW
+
+
+-- !! post office pickup scenario - KEY EVENT !!
+-- ========================
+--
+-- cultist arrives at 11am and picks up package
+
+-- if player visits after cultist gets package, clerk is like oh sorry
+
+
+-- !! doctor breakin scenario - KEY EVENT !!
+-- ========================
+--
+-- cultist enters office at 6pm and steals ??
+
+
+-- !! doctors visits scenarios !!
+-- ========================
+--
+-- someone has a regular illness 11am
+
+-- someone has a regular illness 1pm
+
+-- someone has a weird scary illness 3pm
+
+-- someone has a weird scary illness 4pm
+
+-- doctor leaves abruptly to check on cultist at motel 5pm
+
+
+-- !! general store misc purchase scenarios !!
+-- ========================
+--
+-- someone buys something 9am
+
+-- cultist buys rope 10am
+
+-- cultist buys knife set 12pm
+
+-- someone buys something 1pm
+
+-- someone buys something 2pm
+
+-- cultists buys gas 5pm
+
+
+-- !! general store candle purchase scenario - KEY EVENT !!
+-- ========================
+--
+-- cultist buys 7 candles 3pm
+
+
+
