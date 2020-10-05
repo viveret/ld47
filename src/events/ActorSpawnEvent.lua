@@ -25,7 +25,7 @@ function M.fireOn(self, gs)
 	local newX = self.x
 	local newY = self.y
 
-	local newActor = actor.new(world, gs, newX, newY, spritesheetStill, spritesheetUp, spritesheetDown, spritesheetLeft, spritesheetRight, callback)
+	local newActor = actor.new(world, name, gs, newX, newY, spritesheetStill, spritesheetUp, spritesheetDown, spritesheetLeft, spritesheetRight, callback)
 
 	scene:addActor(self.name, newActor)
 end

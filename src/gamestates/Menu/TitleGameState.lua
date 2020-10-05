@@ -10,6 +10,8 @@ function M.new(gamestate)
     
     self:addButton('New Game', NewGameEvent.new())
 
+    self.scene = "Title"
+
 	return self
 end
 

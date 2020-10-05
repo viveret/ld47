@@ -37,7 +37,7 @@ local gamestate = {
         location = nil,
     },
     initial = {
-        location = 'Home,65,55,x'
+        location = 'Overworld,65,55,x'
     },
     fracSec = 0
 }
@@ -107,6 +107,8 @@ function gamestate.switchTo(toGamestate)
         error('toGamestate must not be nil')
     end
 
+    print("switchTo "..toGamestate.scene)
+
     local moved = false
 
     for ix, state in ipairs(gamestate.stack) do
@@ -131,17 +133,24 @@ function gamestate.switchTo(toGamestate)
             state.player.body:setActive(true)
         end
     end
+
+    print("switchTo, queue "..#gamestate.stack)
+    print("switchTo, new current "..gamestate.current().scene)
 end
 
 -- push a NEW gamestate here
 function gamestate.push(newGamestate)
     if newGamestate ~= nil then
+        print("pushing "..newGamestate.scene)
         table.insert(gamestate.stack, newGamestate)
     else
         error('newGamestate must not be nil')
     end
 
     gamestate.markTopmost(newGamestate)
+
+    print("push, queue "..#gamestate.stack)
+    print("push, new current "..gamestate.current().scene)
 end
 
 function gamestate.markTopmost(toGamestate) 
@@ -187,7 +196,7 @@ function gamestate.updateForTimespassed(dt)
 
     gamestate.fracSec = remainder
 
-    return wholeTicks
+    return wholeTicks * 8
 end
 
 function gamestate.update(dt)

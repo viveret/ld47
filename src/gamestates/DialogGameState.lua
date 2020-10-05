@@ -2,6 +2,8 @@ local M = { }
 M.__index = M
 
 function M.new(gamestate, name, text)
+	print("new "..name)
+
 	local physicalGamestate = nil
 
 	for i=#gamestate.stack,0,-1 do
@@ -22,7 +24,11 @@ function M.new(gamestate, name, text)
         text = text,
         lowerGameState = physicalGamestate,
         nextAnimation = animation.new(gamestate.graphics.TextArrow, 32, 32, 0, 2, 0, 1, false),
+        scene = name
 	}, M)
+
+    self.scene = name
+
 	return self
 end
 
