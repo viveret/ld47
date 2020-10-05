@@ -23,6 +23,7 @@ function M.new(gamestate, scene, graphics)
     self.bounds = {}
     self.warps = {}
     self.proximityObjects = {}
+    self.staticObjects = {}
     self.renderBounds = false
     self.renderWarps = false
     self.isPhysicalGameState = true
@@ -186,7 +187,7 @@ function M:addContactListeners()
 end
 
 function M:getActiveObjects()
-    return lume.concat(self.actors, { self.player }, self.proximityObjects)
+    return lume.concat(self.actors, { self.player }, self.proximityObjects, lume.filter(self.staticObjects, { isInteractable = true }))
 end
 
 function M:addProximityListener(proximity, filterFn, onEnterFn, onLeaveFn)
@@ -349,7 +350,7 @@ function M:drawInWorldView()
     drawList(self.actors)
     drawList(self.doors)
     drawList(self.animatedObjects)
-    drawList(self.indoorObjects)
+    drawList(self.staticObjects)
 
     self.player:draw()
 
@@ -551,10 +552,10 @@ end
 
 function M:addActor(name, actor)
     self.actors[name] = actor
+end
 
-    if actor.callback ~= nil then
-
-    end 
+function M:addStaticObject(name, staticObject)
+    self.staticObjects[name] = staticObject
 end
 
 function M:getActor(name)
@@ -570,6 +571,21 @@ function M:removeActor(name)
     end
 
     return oldActor ~= nil
+end
+
+function M:getStaticObject(name)
+    return self.staticObjects[name]
+end
+
+function M:removeStaticObject(name)
+    local oldObj = self.staticObjects[name]
+
+    if oldObj ~= nil then
+        self.staticObjects[name] = nil
+        oldObj:onRemove(self)
+    end
+
+    return oldObj ~= nil
 end
 
 return M

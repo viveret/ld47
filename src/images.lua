@@ -120,6 +120,10 @@ function M.new(graphics)
 			motel_guy = lg.newImage("assets/images/world/motel/motelguy.png"),
 			librarian = lg.newImage("assets/images/people/bartender.png")
 		},
+
+		timelineObjs = {
+			book = lg.newImage("assets/images/world/library/tome.png")
+		}
     }, M)
 end
 
