@@ -91,7 +91,7 @@ function M.new(gamestate)
         { -- Swamp
             x = 0, y = 122,
             w = 8, h = 10,
-            path = 'Swamp,-30,-35,x'
+            path = 'Swamp,176,114,x'
         },
         { -- Bar
             x = 30, y = 80,

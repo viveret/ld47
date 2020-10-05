@@ -34,6 +34,11 @@ function M.new(world, name, gamestate, x, y, w, h, callback)
 	return self
 end
 
+function M:onRemove()
+    self.body:destroy()
+    self.body = nil
+end
+
 function M:moveTo(x, y, speed)
     self.movingTo = {
         x = x - self.width / 2,

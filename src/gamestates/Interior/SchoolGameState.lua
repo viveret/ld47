@@ -12,8 +12,13 @@ function M.new(gamestate)
             path = 'Overworld,176,94,x'
         }
     }
-    self.renderWarps = true
-    self.renderBounds = true
+
+    self:addWorldBounds({
+        { -- top
+            x = 0, y = 5,
+            w = self:getWidth(), h = 4
+        },
+    })
 
 	return self
 end

@@ -21,42 +21,42 @@ Overworld,7176,,Despawn|Boss
 --
 -- customer one comes in, approaches counter, and can have coffee ordered
 Coffee,5460,,Spawn|CustomerOne|person2|62|64
-Coffee,5538,,Move|CustomerOne|85|30|10
+Coffee,5538,,Move|CustomerOne|90|44|10
 Coffee,5850,,Despawn|CustomerOne
-Coffee,5851,,Spawn|CustomerOne|person2|85|30|customerOne
+Coffee,5851,,Spawn|CustomerOne|person2|90|44|customerOne
 Coffee,8190,,Move|CustomerOne|62|64|10
 Coffee,9282,,Despawn|CustomerOne
 --
 -- customer two & three come in, approaches, and can have coffee ordered
 -- customer two
 Coffee,9360,,Spawn|CustomerTwo|person3|62|64
-Coffee,10530,,Move|CustomerTwo|85|30|10
+Coffee,10530,,Move|CustomerTwo|90|44|10
 Coffee,12870,,Despawn|CustomerTwo
-Coffee,12871,,Spawn|CustomerTwo|person3|85|30|customerTwo
+Coffee,12871,,Spawn|CustomerTwo|person3|90|44|customerTwo
 Coffee,15210,,Move|CustomerTwo|62|64|10
 Coffee,16300,NotServedcustomerTwo,Speak|CustomerTwo|What a crummy coffee shop, no service at all!
 Coffee,16301,,Despawn|CustomerTwo
 -- customer three
 Coffee,9361,,Spawn|CustomerThree|person4|40|64
-Coffee,10531,,Move|CustomerThree|63|30|10
+Coffee,10531,,Move|CustomerThree|80|44|10
 Coffee,12873,,Despawn|CustomerThree
-Coffee,12874,,Spawn|CustomerThree|person4|63|30|customerThree
+Coffee,12874,,Spawn|CustomerThree|person4|80|44|customerThree
 Coffee,15211,,Move|CustomerThree|40|64|10
 Coffee,16302,,Despawn|CustomerThree
 --
 -- customer four & a cultist come in (only if all customers served), approaches, and can have coffee ordered
 -- customer four
 Coffee,18720,,Spawn|CustomerFour|person2|62|64
-Coffee,19000,,Move|CustomerFour|85|30|10
+Coffee,19000,,Move|CustomerFour|90|44|10
 Coffee,21000,,Despawn|CustomerFour
-Coffee,21001,,Spawn|CustomerFour|person2|85|30|customerFour
+Coffee,21001,,Spawn|CustomerFour|person2|90|44|customerFour
 Coffee,24400,,Move|CustomerFour|62|64|10
 Coffee,25000,,Despawn|CustomerFour
 -- customer cultist
-Coffee,18721,ServedAllCustomers,Spawn|CustomerCultist|Cultist|40|64
-Coffee,19001,,Move|CustomerCultist|63|30|10
+Coffee,18721,ServedAllCustomers,Spawn|CustomerCultist|cultist|40|64
+Coffee,19001,,Move|CustomerCultist|80|44|10
 Coffee,21001,,Despawn|CustomerCultist
-Coffee,21002,,Spawn|CustomerFive|person2|85|30|customerCultist
+Coffee,21002,,Spawn|CustomerFive|person2|90|44|customerCultist
 Coffee,25401,,Move|CustomerCultist|40|64|10
 Coffee,25001,,Despawn|CustomerCultist
 

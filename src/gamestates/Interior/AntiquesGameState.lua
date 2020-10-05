@@ -31,8 +31,6 @@ function M.new(gamestate)
             path = 'Overworld,66,97,x'
         }
     }
-    self.renderWarps = true
-    self.renderBounds = true
 
 	return self
 end
