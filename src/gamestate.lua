@@ -289,6 +289,8 @@ function gamestate.init()
     gamestate.setFlag("NotServedcustomerFour")
     gamestate.setFlag("has-not-reserved-room")
     gamestate.setFlag("NotSeenSickCultist")
+    gamestate.setFlag("SawCemeteryCultist")
+    gamestate.setFlag("NotSeenCemeteryCultist")
 
     -- start at title
     gamestate.warpTo('Title,0,0,x')

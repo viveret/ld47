@@ -6,7 +6,7 @@ function M.new(gamestate, text, name)
 		visible = false,
 		name = name or "???",
 		text = text,
-		duration = text:len() * 30,
+		duration = text:len() * 10,
 		gamestate = gamestate
 	}, M)
 	
@@ -22,7 +22,7 @@ function M:draw()
 		return
 	end
 
-	self.gamestate.images:drawDialogBox(nil, self.name, self.text, nil)
+	self.gamestate.images:drawDialogBox(self.name, self.name, self.text, nil)
 end
 
 function M:tick()

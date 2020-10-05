@@ -22,8 +22,8 @@ function M.new(gamestate)
         }
     }
     
-    self.renderWarps = true
-    self.renderBounds = true
+    self.renderWarps = false
+    self.renderBounds = false
 
 	return self
 end
