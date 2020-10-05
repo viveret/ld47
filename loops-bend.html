@@ -5,9 +5,12 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Loops Bend</title>
 	<style type="text/css">
+:root {
+	--accent: #63c2c9;
+}
 html, body
 {
-	background-color: #e0f4fc;
+	background-color: black;
 	margin: 0;
 	height: 100%;
 	font-family: sans-serif;
@@ -21,39 +24,35 @@ html, body
 	border-bottom: 21px solid transparent;
 	box-sizing: border-box;
 }
+a
+{
+	color: red;
+}
+canvas {
+	outline: 1px solid black;
+}
 #title
 {
-	background-color: #ea316e;
-	margin: 9px;
-	padding: .8em;
-	border: 1px solid black;
-	border-radius: 10px;
-	box-shadow: 3px 3px 0 0 rgba(0,0,0,0.3);
 	text-align: center;
-	color: #f5f5f5;
+	color: var(--accent);
 }
 #main
 {
-	background-color: #b1e3fa;
 	margin: 9px;
 	padding: 15px 0;
-	border: 1px solid black;
 	border-radius: 10px;
-	box-shadow: 3px 3px 0 0 rgba(0,0,0,0.3);
+	box-shadow: 3px 3px 0 0 rgba(var(--accent),0.3);
 }
 #footer
 {
-	background-color: #b1e3fa;
 	padding-top: 3px;
 	height: 17px;
-	border-top: 1px dashed #77A;
-	color: #444;
+	border-top: 1px dashed var(--accent);
+	color: var(--accent);
 	font-size: 9pt;
 	text-align: center;
 	overflow-y: auto;
 }
-#footer a { color: #77A; }
-#footer a:hover, #footera:active { color: #ea316e; }
 @media (max-width: 850px)
 {
 	#wrapper { font-size: 80%; }
@@ -63,12 +62,13 @@ html, body
 </head>
 <body>
 <div id="wrapper">
-	<h1 id="title">Loops Bend</h1>
+	<h1 id="title">Loop&lsquo;s Bend</h1>
+	<a href="https://github.com/viveret/ld47">https://github.com/viveret/ld47</a>
 	<div id="main">
 		<center><canvas id="canvas" width="800" height="600" style="max-width:100%;background:#000;vertical-align:middle"></canvas></center>
 	</div>
 </div>
-<div id="footer">&copy; Kevin, Viv, zeitghost, kristinamay &middot; Made using the <a href="https://love2d.org/" target="_blank">LÖVE Framework</a> (<a href="https://bitbucket.org/rude/love/raw/default/license.txt" target="_blank">License</a>) &middot; Packaged using <a href="https://schellingb.github.io/LoveWebBuilder/" target="_blank">LÖVE Web Builder</a></div>
+<div id="footer">Made using the <a href="https://love2d.org/" target="_blank">LÖVE Framework</a> (<a href="https://bitbucket.org/rude/love/raw/default/license.txt" target="_blank">License</a>) &middot; Packaged using <a href="https://schellingb.github.io/LoveWebBuilder/" target="_blank">LÖVE Web Builder</a></div>
 <script type="text/javascript">(function(){
 var TXT =
 {
