@@ -35,7 +35,7 @@ local gamestate = {
     events = {},
     saveData = {},
     initial = {
-        location = 'Cemetery,50,50,x'
+        location = 'Home,50,50,x'
     },
     fracSec = 0
 }
