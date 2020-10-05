@@ -11,7 +11,7 @@ function M.fireOn(self, gs)
 	scene:removeActor(self.name)
 end
 
-function M.new(scene, name) 
+function M.new(scene, name)
 	return { scene = scene, type="ActorDespawnEvent", name = name, fireOn = M.fireOn }
 end
 
