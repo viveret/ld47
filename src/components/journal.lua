@@ -36,6 +36,14 @@ function M.new(gamestate)
             {
                 flag = "NotSeenSickCultist",
                 text = "You should drop by the motel room."
+            },
+            {
+                flag = "SawCemeteryCultist",
+                text = "How much do they cost?",
+            },
+            {
+                flag = "NotSeenCemeteryCultist",
+                text = "You should visit the cemetery",
             }
         }
     }, M)
