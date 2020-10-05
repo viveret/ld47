@@ -114,7 +114,7 @@ function M.new(gamestate)
         { -- School
             x = 173, y = 75,
             w = 9, h = 8,
-            path = 'School,20,15,x',
+            path = 'School,50,55,x',
             door = self.doors.school,
         },
         { -- Doctor
