@@ -76,4 +76,8 @@ function M.customerCultist(gs, actor, eventType, param)
 	-- todo
 end
 
+function M.readBook(gs, book, eventType, param)
+	-- todo
+end
+
 return M

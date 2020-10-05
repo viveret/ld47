@@ -28,6 +28,8 @@ QuitGameEvent = require "src.events.QuitGameEvent"
 ManualCameraEvent = require "src.events.ManualCameraEvent"
 GameOverEvent = require "src.events.GameOverEvent"
 GlobalAmbientColorEvent = require "src.events.GlobalAmbientColorEvent"
+StaticObjectSpawnEvent = require "src.events.StaticObjectSpawnEvent"
+StaticObjectDespawnEvent = require "src.events.StaticObjectDespawnEvent"
 
 Camera = require "src.Camera"
 ManualCamera = require "src.ManualCamera"
@@ -37,7 +39,7 @@ gamestate = require "src.gamestate"
 timeline = require "src.timeline"
 door = require "src.world.door"
 animation = require "src.animation"
-actorCallbacks = require "src.world.actorCallbacks"
+timelineCallbacks = require "src.world.timelineCallbacks"
 StaticObject = require "src.world.StaticObject"
 
 

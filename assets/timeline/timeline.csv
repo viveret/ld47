@@ -5,6 +5,9 @@ Home,23600,,Speak|Player|What's that? Someone at the door? Must be the mailman.
 Home,74880,,PlaySound|mirror
 Home,74881,,ToggleFlag|HearMirror
 
+Home,300,,SpawnStaticObject|book|book|50|50|readBook
+Home,1300,,DespawnStaticObject|book
+
 -- Turn sky red
 Overworld,88920,,GlobalAmbientColor|1|0.5|0.5
 
@@ -65,7 +68,11 @@ Coffee,25001,,Despawn|CustomerCultist
 -- ========================
 
 -- mail arrives at coffee at 11am
+
 -- Coffee,14040,,Spawn|Mailman|mailman|40|64
+
+-- PostOffice,14040,,Spawn|Mailman|mailman|40|64
+
 
 -- mail arrives at doctor at 12pm
 -- Doctor,18720,,Spawn|Mailman|mailman|40|64

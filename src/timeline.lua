@@ -53,7 +53,7 @@ end
 --   2. AssertName
 --   2. X
 --   3. Y
---   4. callback name (optional) [comes from actorCallback.lua]
+--   4. callback name (optional) [comes from timelineCallbacks.lua]
 -- Move
 --   1. Name
 --   2. ToX
@@ -75,6 +75,18 @@ end
 --   2. Y
 --   3. Duration (time to span there and back)
 --   4. Hold (time to just look at the X,Y)
+-- GlobalAmbientColor
+--   1. R
+--   2. G
+--   3. B
+-- SpawnStaticObj
+--   1. Name
+--   2. AssertName
+--   3. X
+--   4. Y
+-- DespawnStaticObj
+--   1. Name
+-- GameOver
 function parseAction(scene, raw)
 	local parts = {}
 	for part in string.gmatch(raw, "[^\\|]+") do
@@ -93,9 +105,9 @@ function parseAction(scene, raw)
 		local callback = nil
 
 		if callbackName ~= nil then
-			callback = actorCallbacks[callbackName]
+			callback = timelineCallbacks[callbackName]
 			if callback == nil then
-				error("could find actorCallbacks."..callbackName)
+				error("could find timelineCallbacks."..callbackName)
 			end
 		end
 
@@ -142,6 +154,26 @@ function parseAction(scene, raw)
 		local g = tonumber(parts[3])
 		local b = tonumber(parts[4])
 		return GlobalAmbientColorEvent.new(r, g, b)
+	elseif type == "SpawnStaticObject" then
+		local name = parts[2]
+		local assetName = parts[3]
+		local x = tonumber(parts[4])
+		local y = tonumber(parts[5])
+
+		local callbackName = parts[6]
+		local callback = nil
+
+		if callbackName ~= nil then
+			callback = timelineCallbacks[callbackName]
+			if callback == nil then
+				error("could find timelineCallbacks."..callbackName)
+			end
+		end
+
+		return StaticObjectSpawnEvent.new(scene, name, assetName, x, y, callback)
+	elseif type == "DespawnStaticObject" then
+		local name = parts[2]
+		return StaticObjectDespawnEvent.new(scene, name)
 	else 
 		error("Unexpected type:"..type)
 	end 
