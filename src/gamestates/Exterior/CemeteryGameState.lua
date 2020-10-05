@@ -5,16 +5,22 @@ M.__index = M
 function M.new(gamestate)
     local self = setmetatable(PhysicalGameState.new(gamestate, 'Cemetery', gamestate.images.places.cemetery), M)
     self:addExteriorWorldBounds(8)
-    self.renderBounds = true
+    
+    self:addWorldBounds({
+        { -- Building
+            x = 130, y = 0,
+            w = 80, h = 50
+        },
+    })
     
     self.warps = {
         { -- Home
             x = 88, y = 130,
             w = 30, h = 10,
-            path = 'Overworld,85,30,x'
+            path = 'Overworld,90,30,x'
         }
     }
-    self.renderWarps = true
+    
 	return self
 end
 

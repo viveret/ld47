@@ -31,8 +31,8 @@ function M.new(gamestate)
             w = 22, h = 5
         },
         { -- table
-            x = 26, y = 36,
-            w = 23, h = 1
+            x = 26, y = 26,
+            w = 23, h = 10
         }
     })
 	
@@ -40,11 +40,9 @@ function M.new(gamestate)
         { -- Main door
             x = 45, y = 68,
             w = 10, h = 10,
-            path = 'Overworld,30,40,x'
+            path = 'Overworld,48,43,x'
         }
     }
-    self.renderWarps = true
-    self.renderBounds = true
 
 	return self
 end

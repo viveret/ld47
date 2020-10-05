@@ -12,8 +12,6 @@ function M.new(gamestate)
             path = 'Overworld,96,97,x'
         }
     }
-    self.renderWarps = true
-    self.renderBounds = true
 
     self:addWorldBounds({
         { -- subrooms
@@ -47,14 +45,6 @@ function M:load()
         backcounter = StaticObject.new(self.world, 70, 10, self.gamestate.images.decor.back_counter),
         counter = StaticObject.new(self.world, 70.5, 35, self.gamestate.images.decor.counter)
     }
-
-    -- self.decor = {
-    --     freezer1 = AnimatedObject.new(self.world, 3.5, 5, self.gamestate.animations.decor.freezer),
-    --     freezer2 = AnimatedObject.new(self.world, 15.5, 5, self.gamestate.animations.decor.freezer),
-    --     freezer3 = AnimatedObject.new(self.world, 27.5, 5, self.gamestate.animations.decor.freezer),
-    --     backcounter = StaticObject.new(self.world, 56, 5, self.gamestate.images.decor.back_counter),
-    --     counter = StaticObject.new(self.world, 46.5, 20, self.gamestate.images.decor.counter)
-    -- }
 end
 
 function M:switchTo(x, y)
