@@ -4,13 +4,18 @@ M.__index = M
 
 function M.new(gamestate, name, graphics)
     local self = setmetatable(PhysicalGameState.new(gamestate, name, graphics), M)
-	-- self.field = field
     self:addExteriorWorldBounds()
 	return self
 end
 
 function M:draw()
     PhysicalGameState.draw(self)
+
+    if self.objects ~= nil then
+        for _, obj in pairs(self.objects) do
+            obj:draw()
+        end
+    end
 end
 
 function M:update(dt)

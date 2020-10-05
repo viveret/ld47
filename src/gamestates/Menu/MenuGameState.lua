@@ -10,17 +10,19 @@ function M.new(gamestate, title)
         wasClickedBefore = false,
         uielements = {
 
-        }
-	}, M)
+        },
+        bg = gamestate.graphics.ui.menu_bg
+    }, M)
+    
 	return self
 end
 
+function M:activated()
+    self.gamestate.ensureBGMusic("day2")
+end
+
 function M:draw()
-    self.gamestate.graphics:drawObject(self.gamestate.graphics.ui.menu_bg, 0, 0, lg.getWidth(), lg.getHeight())
-    
-    if self.title ~= nil then
-        lg.print(self.title, 0, 0)
-    end
+    self.gamestate.graphics:drawObject(self.bg, 0, 0, lg.getWidth(), lg.getHeight())
 
     lg.push()
     self.offsetX = lg.getWidth() / 2 - 230 / 2
@@ -58,10 +60,30 @@ function M:drawButton(el)
     end
 end
 
+function M:drawImageButton(el)
+    if el.clicked then
+        lg.setColor(0.6, 0.6, 0.6)
+    elseif el.hover then
+        lg.setColor(0.8, 0.8, 0.8)
+    end
+    self.gamestate.graphics:drawObject(el.img, 0, 0, 230, 60)
+    lg.translate(0, 60 + 16)
+    if el.clicked then
+        lg.setColor(1, 1, 1)
+    elseif el.hover then
+        lg.setColor(1, 1, 1)
+    end
+end
+
+function M:drawSpace(el)
+    lg.translate(0, el.distance)
+end
+
 function M:drawUiElement(el)
     local actions = {
         ["button"] = function (el) self:drawButton(el) end,
-        --["button"] = function (el) self.drawButton(el) end
+        ["imgbutton"] = function (el) self:drawImageButton(el) end,
+        ["space"] = function (el) self:drawSpace(el) end,
     }
     local actionHandler = actions[el.type]
     if actionHandler ~= nil then
@@ -80,7 +102,7 @@ function M:update(dt)
     local ely = 0
     
     for k,el in pairs(self.uielements) do
-        if el.type == 'button' then
+        if el.type == 'button' or el.type == 'imgbutton' then
             el.hover = elx <= x and elx + (el.w or 230) >= x and
                 ely <= y and ely + (el.h or 60) >= y
             if el.hover and isClicked then
@@ -92,6 +114,8 @@ function M:update(dt)
                 end
             end
             ely = ely + 60
+        elseif el.type == 'space' then
+            ely = ely + el.distance
         elseif el.update ~= nil then
             el:update(dt)
         end
@@ -107,6 +131,21 @@ function M:addButton(text, eventToFire)
         type = 'button',
         text = text,
         event = eventToFire
+    })
+end
+
+function M:addImageButton(img, eventToFire)
+    self:addUiElement({
+        type = 'imgbutton',
+        img = img,
+        event = eventToFire
+    })
+end
+
+function M:addSpace(distance)
+    self:addUiElement({
+        type = 'space',
+        distance = distance,
     })
 end
 

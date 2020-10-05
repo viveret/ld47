@@ -80,6 +80,8 @@ function M.new()
 			button_bg = lg.newImage("assets/images/ui/button_bg.png"),
 			menu_bg = lg.newImage("assets/images/ui/menu_bg.png"),
 			title_fg = lg.newImage("assets/images/ui/title_fg.png"),
+			title = lg.newImage("assets/images/ui/title.png"),
+			start_btn = lg.newImage("assets/images/ui/start-button.png"),
 		},
 		
 
@@ -105,6 +107,12 @@ function M.new()
 		BeerSign = lg.newImage("assets/images/world/Street/beer-sign.png"),
 
 		MaryIdle = animation.new(lg.newImage("assets/images/world/Antiques/Mary.png"), 64, 64, 0, 3, 0, 1),
+
+		-- Coffee Shop assets
+		Freezer = lg.newImage("assets/images/world/Coffee/freezer.png"),
+		BackCounter = lg.newImage("assets/images/world/Coffee/back-counter.png"),
+		Counter = lg.newImage("assets/images/world/Coffee/counter.png"),
+		Table = lg.newImage("assets/images/world/Coffee/table.png"),
 
 		-- People
 		Person1Idle = animation.new(person1, 64, 64, 0, 3, 0, 1),

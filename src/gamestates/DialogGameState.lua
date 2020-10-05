@@ -32,6 +32,9 @@ function M.new(gamestate, name, text)
 	return self
 end
 
+function M:activated()
+end
+
 function M:update(dt)
 	if lk.isDown('space', 'return', 'escape') then
         self.gamestate.pop()

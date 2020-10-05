@@ -8,20 +8,20 @@ function M.new(gamestate)
     self:addExteriorWorldBounds()
     self:addWorldBounds({
         { -- Building 1a
-            x = 0, y = 2,
-            w = 32, h = 15
+            x = 2, y = 2,
+            w = 43, h = 24
         },
         { -- Building 1b
-            x = 30, y = 15,
-            w = 18, h = 6
+            x = 36, y = 16,
+            w = 26, h = 14
         },
         { -- Cemetary left
-            x = 45, y = 2,
-            w = 30, h = 4
+            x = 56, y = 2,
+            w = 39, h = 8
         },
         { -- Cemetary right
-            x = 45 + 35 + 30, y = 2,
-            w = 30, h = 4
+            x = 110, y = 2,
+            w = 42, h = 8
         },
         { -- Doctor
             x = 160, y = 2,
@@ -30,6 +30,10 @@ function M.new(gamestate)
         { -- School
             x = 155, y = 47,
             w = 45, h = 33
+        },
+        { -- Bar
+            x = 10, y = 67,
+            w = 33, h = 20
         },
         { -- Coffee, Library
             x = 57, y = 45,
@@ -64,25 +68,25 @@ function M.new(gamestate)
         { -- Home
             x = 180, y = 140,
             w = 20, h = 10,
-            path = 'Home,50,120,x',
+            path = 'Home,50,50,x',
             door = self.doors.home,
         },
         { -- Galaxy Motel Left
             x = 11, y = 20,
             w = 9, h = 8,
-            path = 'Motel,20,15,x',
+            path = 'Motel,62,52,x',
             door = self.doors.motelLeft
         },
         { -- Galaxy Motel Center
             x = 25, y = 20,
             w = 9, h = 8,
-            path = 'Motel,20,15,x',
-            door = self.doors.motelCenter
+            path = 'Motel,62,52,x',
+            door = self.doors.motelMiddle
         },
         { -- Galaxy Motel Right
             x = 50, y = 26,
             w = 9, h = 8,
-            path = 'Motel,20,15,x',
+            path = 'Motel,62,52,x',
             door = self.doors.motelRight
         },
         { -- Swamp
@@ -93,7 +97,7 @@ function M.new(gamestate)
         { -- Bar
             x = 30, y = 80,
             w = 9, h = 8,
-            path = 'Bar,20,15,x',
+            path = 'Bar,50,52,x',
             door = self.doors.bar
         },
         { -- Antiques
@@ -105,7 +109,7 @@ function M.new(gamestate)
         { -- Coffee
             x = 95, y = 80,
             w = 9, h = 8,
-            path = 'Coffee,20,15,x',
+            path = 'Coffee,48,64,x',
             door = self.doors.coffee,
         },
         { -- School
@@ -121,8 +125,8 @@ function M.new(gamestate)
             door = self.doors.doctor,
         },
         { -- Cemetery
-            x = 100, y = 0,
-            w = 5, h = 5,
+            x = 95, y = 0,
+            w = 15, h = 5,
             path = 'Cemetery,100,115,x'
         },
         { -- Library
@@ -134,7 +138,7 @@ function M.new(gamestate)
         { -- Post Office
             x = 126, y = 129,
             w = 9, h = 8,
-            path = 'PostOffice,10,10,x',
+            path = 'PostOffice,50,50,x',
             door = self.doors.postoffice
         },
         { -- General Store
@@ -188,6 +192,9 @@ end
 
 function M:switchTo(x, y)
     PhysicalGameState.switchTo(self, x, y)
+end
+
+function M:activated()
     self.gamestate.ensureBGMusic("theme")
 end
 

@@ -333,6 +333,8 @@ function M:drawInWorldView()
     drawList(self.doors)
     drawList(self.animatedObjects)
 
+    drawList(self.indoorObjects)
+
     self.player:draw()
 
     if self.renderBounds then
@@ -466,6 +468,11 @@ end
 function M:switchTo(x, y)
     TimedGameState.switchTo(self, x, y)
     self.player:setPosition(x, y, 0, 0)
+
+    for _,warp in pairs(self.warps) do
+        warp.activated = false
+    end
+    self.player.activated = false
 end
 
 function M:save()

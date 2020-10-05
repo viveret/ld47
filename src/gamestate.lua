@@ -153,7 +153,8 @@ function gamestate.push(newGamestate)
     print("push, new current "..gamestate.current().scene)
 end
 
-function gamestate.markTopmost(toGamestate) 
+function gamestate.markTopmost(toGamestate)
+    toGamestate:activated()
     for _, state in ipairs(gamestate.stack) do
         state.topmost = toGamestate == state
     end

@@ -57,6 +57,7 @@ function M:update(dt)
     if self.currentTime >= self.duration then
         if self.runOnlyOnce then
             self.callback()
+            self.currentTime = 0
         else
             self.currentTime = self.currentTime - self.duration
         end
