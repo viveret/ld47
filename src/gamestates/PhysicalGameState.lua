@@ -588,4 +588,13 @@ function M:removeStaticObject(name)
     return oldObj ~= nil
 end
 
+function M:addStaticObjects(list)
+    for k,v in pairs(list) do
+        table.insert(
+            self.staticObjects,
+            v
+        )
+    end
+end
+
 return M

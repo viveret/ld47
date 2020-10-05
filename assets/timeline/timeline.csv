@@ -1,7 +1,5 @@
 Home,100,,Speak|Player|Good morning. What a glorious time (8 a.m.) to be alive on this fine Tuesday.
 Home,1000,,Speak|Player|I better get going if I don't want to be late to my job at the local coffee shop.
-Home,23400,,PlaySound|doorbell
-Home,23600,,Speak|Player|What's that? Someone at the door? Must be the mailman.
 Home,74880,,PlaySound|mirror
 Home,74881,,ToggleFlag|HearMirror
 
@@ -68,13 +66,20 @@ Coffee,25001,,Despawn|CustomerCultist
 -- ========================
 
 -- mail arrives at coffee at 11am
-
--- Coffee,14040,,Spawn|Mailman|mailman|40|64
-
--- PostOffice,14040,,Spawn|Mailman|mailman|40|64
+Coffee,39600,,Spawn|Mailman|person4|40|64
+Coffee,40000,,Move|Mailman|38|10|10
+Coffee,50000,,SpawnStaticObject|package|package|38|10
+Coffee,50000,,Move|Mailman|38|64|10
+Coffee,54000,,Despawn|Mailman
 
 
 -- mail arrives at doctor at 12pm
+Doctor,39600,,Spawn|Mailman|person4|40|64
+Doctor,40000,,Move|Mailman|38|0|10
+Doctor,40000,,SpawnStaticObject|package|package|38|10|pickupPackage
+Doctor,50000,,Move|Mailman|38|64|10
+Doctor,54000,,Despawn|Mailman
+
 -- Doctor,18720,,Spawn|Mailman|mailman|40|64
 
 -- mail arrives at school at 1pm
@@ -84,8 +89,9 @@ Coffee,25001,,Despawn|CustomerCultist
 -- Antiques,28080,,Spawn|Mailman|mailman|40|64
 
 -- mail arrives at home at 3pm
--- Home,32760,,Spawn|Mailman|mailman|40|64
--- Home,32761,PackageAtHome,Spawn|Package|package|40|40
+Home,23400,,PlaySound|doorbell
+Home,23600,,Speak|Player|What's that? Someone at the door? Must be the mailman.
+Home,23800,,SpawnStaticObject|package|package|84|66|pickupPackage
 
 -- mail arrives at library at 4pm
 -- Library,37440,,Spawn|Mailman|mailman|40|64

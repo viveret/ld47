@@ -128,7 +128,8 @@ function M.new(graphics)
 		},
 
 		timelineObjs = {
-			book = lg.newImage("assets/images/world/library/tome.png")
+			book = lg.newImage("assets/images/world/library/tome.png"),
+			package = lg.newImage("assets/images/world/home/package.png"),
 		}
     }, M)
 end

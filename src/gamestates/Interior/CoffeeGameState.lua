@@ -38,13 +38,13 @@ end
 function M:load()
     IndoorsGameState.load(self)
 
-    self.indoorObjects = {
+    self:addStaticObjects({
         freezer1 = AnimatedObject.new(self.world, 3.5, 5, self.gamestate.animations.decor.freezer),
         freezer2 = AnimatedObject.new(self.world, 15.5, 5, self.gamestate.animations.decor.freezer),
         freezer3 = AnimatedObject.new(self.world, 27.5, 5, self.gamestate.animations.decor.freezer),
         backcounter = StaticObject.new(self.world, 70, 10, self.gamestate.images.decor.back_counter),
-        counter = StaticObject.new(self.world, 70.5, 35, self.gamestate.images.decor.counter)
-    }
+        counter = StaticObject.new(self.world, 71, 35, self.gamestate.images.decor.counter)
+    })
 end
 
 function M:switchTo(x, y)

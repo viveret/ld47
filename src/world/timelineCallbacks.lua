@@ -80,4 +80,16 @@ function M.readBook(gs, book, eventType, param)
 	-- todo
 end
 
+function M.pickupPackage(gs, book, eventType, param)
+	if type ~= "action" then
+		return
+	end
+
+	local served = gs.hasFlag('picked-up-own-package')
+	if not served then
+		gs.setFlag('picked-up-own-package')
+		gs.fire(ActorSpeakEvent.new(gs.current().scene, "Player", "Strange, I didn't order anything recently..."), true)
+	end
+end
+
 return M
