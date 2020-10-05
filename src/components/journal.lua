@@ -48,7 +48,7 @@ function M:drawItem(el)
     end
     lg.rectangle('line', 0, 0, self.itemWidth, self.itemHeight)
     lg.setColor(1, 1, 1)
-	self.gamestate.graphics:renderTextInBox(el.text, self.itemPad, self.itemPad, self.itemWidth - self.itemPad * 2, self.itemHeight - self.itemPad * 2)
+	self.gamestate.graphics:renderTextInBox(el.text, self.itemPad, self.itemPad, self.itemWidth - self.itemPad * 2, self.itemHeight - self.itemPad * 2, self.gamestate.images.ui.dialog_font)
 end
 
 function M:update(dt)

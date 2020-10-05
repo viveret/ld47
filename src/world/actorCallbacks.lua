@@ -29,6 +29,8 @@ function M.customerServed(gs, actorName, customerName, type, param, text)
 		return
 	end
 
+	print('customer served: ' .. customerName)
+
 	local notDoneJob = gs.hasFlag("NotDoneJob")
 	if notDoneJob then
 		gs.clearFlag("NotDoneJob")

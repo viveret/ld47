@@ -4,7 +4,7 @@ local M = setmetatable({}, { __index = PhysicalGameState })
 M.__index = M
 
 function M.new(gamestate)
-    local self = setmetatable(PhysicalGameState.new(gamestate, 'Overworld', gamestate.graphics.Overworld), M)
+    local self = setmetatable(PhysicalGameState.new(gamestate, 'Overworld', gamestate.images.places.overworld), M)
     self:addExteriorWorldBounds()
     self:addWorldBounds({
         { -- Building 1a
@@ -51,17 +51,17 @@ function M.new(gamestate)
     self.renderBounds = true
     
     self.doors = {
-        antiques = door.new(self.world, self.gamestate.graphics.AntiquesDoor, 65, 82.5),
-        bar = door.new(self.world, self.gamestate.graphics.BarDoor, 30, 82.5),
-        coffee = door.new(self.world, self.gamestate.graphics.CoffeeShopDoor, 95, 82.5),
-        doctor = door.new(self.world, self.gamestate.graphics.DoctorDoor, 174.5, 25.5),
-        library = door.new(self.world, self.gamestate.graphics.LibraryDoor, 124.5, 82.5),
-        motelLeft = door.new(self.world, self.gamestate.graphics.MotelDoor, 10.5, 21.5),
-        motelMiddle = door.new(self.world, self.gamestate.graphics.MotelDoor, 25, 21.5),
-        motelRight = door.new(self.world, self.gamestate.graphics.MotelDoor, 49.5, 26),
-        postoffice = door.new(self.world, self.gamestate.graphics.PostOfficeDoor, 125.5, 127.5),
-        school = door.new(self.world, self.gamestate.graphics.SchoolDoor, 172, 77),
-        store = door.new(self.world, self.gamestate.graphics.StoreDoor, 43.5, 121),
+        antiques = door.new(self.gamestate.animations.doors.antiques, 65, 82.5),
+        bar = door.new(self.gamestate.animations.doors.bar, 30, 82.5),
+        coffee = door.new(self.gamestate.animations.doors.coffee_shop, 95, 82.5),
+        doctor = door.new(self.gamestate.animations.doors.doctor, 174.5, 25.5),
+        library = door.new(self.gamestate.animations.doors.library, 124.5, 82.5),
+        motelLeft = door.new(self.gamestate.animations.doors.motel, 10.5, 21.5),
+        motelMiddle = door.new(self.gamestate.animations.doors.motel, 25, 21.5),
+        motelRight = door.new(self.gamestate.animations.doors.motel, 49.5, 26),
+        postoffice = door.new(self.gamestate.animations.doors.post_office, 125.5, 127.5),
+        school = door.new(self.gamestate.animations.doors.school, 172, 77),
+        store = door.new(self.gamestate.animations.doors.store, 43.5, 121),
     }
 
     self.warps = {
@@ -151,8 +151,8 @@ function M.new(gamestate)
     self.renderWarps = true
 
     self.animatedObjects = {
-        schoolFlag = AnimatedObject.new(self.world, self.gamestate.graphics.SchoolFlag, 184, 70, 88, 160, 3, 3),
-        beerSign = AnimatedObject.new(self.world, self.gamestate.graphics.BeerSign, 20, 80, 56, 80, 14, 5, awdawdawd)
+        schoolFlag = AnimatedObject.new(self.world, self.gamestate.images.decor.school_flag, 184, 70, 88, 160, 3, 3),
+        beerSign = AnimatedObject.new(self.world, self.gamestate.images.decor.beer_sign, 20, 80, 56, 80, 14, 5, awdawdawd)
     }
     
 

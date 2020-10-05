@@ -5,7 +5,7 @@ M.__index = M
 -- TODO: viv
 
 function M.new(gamestate)
-    local self = setmetatable(IndoorsGameState.new(gamestate, 'PostOffice', gamestate.graphics.PostOffice), M)
+    local self = setmetatable(IndoorsGameState.new(gamestate, 'PostOffice', gamestate.images.places.post_office), M)
     
     self:addWorldBounds({
         { -- Divider

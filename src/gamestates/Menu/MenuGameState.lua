@@ -11,10 +11,16 @@ function M.new(gamestate, title)
         uielements = {
 
         },
-        bg = gamestate.graphics.ui.menu_bg
+        bg = gamestate.images.ui.menu_bg
     }, M)
     
 	return self
+end
+
+function M:keypressed( key, scancode, isrepeat )
+end
+
+function M:keyreleased( key, scancode )
 end
 
 function M:activated()
@@ -50,8 +56,8 @@ function M:drawButton(el)
     elseif el.hover then
         lg.setColor(0.8, 0.8, 0.8)
     end
-    self.gamestate.graphics:drawObject(self.gamestate.graphics.ui.button_bg, 0, 0, 230, 60)
-	self.gamestate.graphics:renderTextInBox(el.text, 0, 0, 230, 60)
+    self.gamestate.graphics:drawObject(self.gamestate.images.ui.button_bg, 0, 0, 230, 60)
+	self.gamestate.graphics:renderTextInBox(el.text, 0, 0, 230, 60, self.gamestate.images.ui.dialog_font)
     lg.translate(0, 60 + 16)
     if el.clicked then
         lg.setColor(1, 1, 1)
@@ -105,7 +111,7 @@ function M:update(dt)
         if el.type == 'button' or el.type == 'imgbutton' then
             el.hover = elx <= x and elx + (el.w or 230) >= x and
                 ely <= y and ely + (el.h or 60) >= y
-            if el.hover and isClicked then
+            if el.hover and isClicked and el.clicked ~= true then
                 el.clicked = true
                 if el.onClicked ~= nil then
                     el.onClicked()
@@ -150,19 +156,6 @@ function M:addSpace(distance)
 end
 
 function M:load()
-	--local buttons = {}
-	-- for line in lines do
-    -- 	local scene, timeRaw, flagsRaw, actionRaw = line:match("^%s*(.-),%s*(.-),%s*(.-),%s*(.-)$")
-		
-	-- 	local action = parseAction(actionRaw)
-	-- 	local time = tonumber(timeRaw)
-	-- 	local flags = {}
-	-- 	for flag in flagsRaw:gmatch("([^\\|]+):?") do 
-	-- 		flags[flag] = true
-	-- 	end
-
-    -- 	data[#data + 1] = { scene = scene, time = time, flags = flags, action = action }
-	-- end
 end
 
 function M:save()

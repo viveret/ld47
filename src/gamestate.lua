@@ -3,7 +3,7 @@ local gamestate = {
     timeline = {},
     flags = {},
     time = 0,
-    timedGameStateCreators ={
+    timedGameStateCreators = {
         -- Exterior
         Overworld = require "src.gamestates.Exterior.OverworldGameState",
         Swamp = require "src.gamestates.Exterior.SwampGameState",
@@ -23,7 +23,6 @@ local gamestate = {
     },
     existingStates = { },
     createStates = {
-        
         -- Other
         Title = require "src.gamestates.Menu.TitleGameState",
         StartNewGame = require "src.gamestates.StartNewGameState",
@@ -33,11 +32,9 @@ local gamestate = {
     },
     backgroundMusic = { },
     events = {},
-    saveData = {
-        location = nil,
-    },
+    saveData = {},
     initial = {
-        location = 'Overworld,65,55,x'
+        location = 'Home,50,50,x'
     },
     fracSec = 0
 }
@@ -46,6 +43,8 @@ lume = require "lib.lume"
 
 local audio = require "src.audio"
 local graphics = require "src.graphics"
+local images = require "src.images"
+local animations = require "src.animations"
 
 function donothing()
 end
@@ -53,11 +52,13 @@ end
 _empty = {
     draw = donothing,
     update = donothing,
-    load = donothing
+    load = donothing,
+    keypressed = donothing,
+    keyreleased = donothing,
 }
 
 function gamestate.hasProgress()
-    return gamestate.saveData.location ~= nil
+    return gamestate.dirty
 end
 
 function gamestate.save(autosave)
@@ -75,14 +76,19 @@ function gamestate.keypressed( key, scancode, isrepeat )
             end
         end
     end
+
+    gamestate.current():keypressed( key, scancode, isrepeat )
 end
 
 function gamestate.keyreleased( key, scancode )
-    
+    gamestate.current():keyreleased( key, scancode )
 end
 
 function gamestate.clear()
-    
+    gamestate.time = 0
+    gamestate.flags = {}
+    gamestate.stack = {}
+    -- gamestate.saveData = {}
 end
 
 function gamestate.getWidth()
@@ -107,7 +113,7 @@ function gamestate.switchTo(toGamestate)
         error('toGamestate must not be nil')
     end
 
-    print("switchTo "..toGamestate.scene)
+    --print("switchTo "..toGamestate.scene)
 
     local moved = false
 
@@ -116,10 +122,6 @@ function gamestate.switchTo(toGamestate)
             table.remove(gamestate.stack, ix)
             moved = true
         end
-    end
-
-    if not moved then
-        error('toGamestate not already included')
     end
 
     gamestate.push(toGamestate)
@@ -134,14 +136,14 @@ function gamestate.switchTo(toGamestate)
         end
     end
 
-    print("switchTo, queue "..#gamestate.stack)
-    print("switchTo, new current "..gamestate.current().scene)
+    --print("switchTo, queue "..#gamestate.stack)
+    --print("switchTo, new current "..gamestate.current().scene)
 end
 
 -- push a NEW gamestate here
 function gamestate.push(newGamestate)
     if newGamestate ~= nil then
-        print("pushing "..newGamestate.scene)
+        -- print("pushing "..newGamestate.scene)
         table.insert(gamestate.stack, newGamestate)
     else
         error('newGamestate must not be nil')
@@ -149,8 +151,8 @@ function gamestate.push(newGamestate)
 
     gamestate.markTopmost(newGamestate)
 
-    print("push, queue "..#gamestate.stack)
-    print("push, new current "..gamestate.current().scene)
+    --print("push, queue "..#gamestate.stack)
+    --print("push, new current "..gamestate.current().scene)
 end
 
 function gamestate.markTopmost(toGamestate)
@@ -180,6 +182,9 @@ end
 
 function gamestate.draw()
     gamestate.current():draw()
+    if gamestate.toast ~= nil then
+        gamestate.toast:draw()
+    end
 end
 
 function gamestate.updateForTimespassed(dt)
@@ -234,7 +239,9 @@ function gamestate.update(dt)
             end
 
             -- tick the toast
-            toast.tick()
+            if gamestate.toast ~= nil then
+                gamestate.toast.tick()
+            end
         end 
     else
         currentGameState:update(dt)
@@ -246,6 +253,8 @@ function gamestate.load()
 
     -- universal setup
     gamestate.graphics = graphics.new()
+    gamestate.images = images.new(gamestate.graphics)
+    gamestate.animations = animations.new(gamestate.images)
     gamestate.audio = audio.load()
 
     -- time is 0 now
@@ -258,9 +267,6 @@ function gamestate.load()
     local timelineLines = lfs.lines("assets/timeline/timeline.csv")
     gamestate.timeline = timeline.load(timelineLines)
 
-    -- spin up toast
-    toast.init(gamestate)
-
     -- spin up the TimedGameStates
 
     for key, creator in pairs(gamestate.timedGameStateCreators) do
@@ -270,7 +276,11 @@ function gamestate.load()
         gamestate.push(state)
     end
 
-    -- initial flags
+    -- initialize
+    gamestate.init()
+end
+
+function gamestate.init()
     gamestate.setFlag("NotDoneJob")
     gamestate.setFlag("NotServedcustomerOne")
     gamestate.setFlag("NotServedcustomerTwo")
@@ -342,7 +352,7 @@ function gamestate.warpTo(path)
     if path == nil or path == '' then
         error('path cannot be nil or empty')
     end
-    print(path)
+    print('Warp to ' .. path)
     local scene, x, y, etc = path:match("^%s*(.-),%s*(.-),%s*(.-),%s*(.-)$")
 
     local existing = gamestate.existingStates[scene]
@@ -359,19 +369,23 @@ function gamestate.warpTo(path)
     else 
         error ('Invalid stateType ' .. scene)
     end
-
-    gamestate.saveData.location = path
 end
 
 function gamestate.newGame()
+    gamestate.saveData = {
+        dirty = true
+    }
     gamestate.warpTo(gamestate.initial.location)
 end
 
 function gamestate.continueGame()
-    if lume.last(gamestate.stack).type == 'Pause' then
+    local lastType = lume.last(gamestate.stack).type
+    
+    if lastType == 'Pause' then
         gamestate.pop()
-    else
-        gamestate.warpTo(gamestate.saveData.location)
+    elseif lastType == 'GameOver' then
+        gamestate.clear()
+        gamestate.init()
     end
 end
 

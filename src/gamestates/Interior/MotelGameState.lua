@@ -3,7 +3,7 @@ local M = setmetatable({}, { __index = IndoorsGameState })
 M.__index = M
 
 function M.new(gamestate)
-    local self = setmetatable(IndoorsGameState.new(gamestate, 'Galaxy Motel', gamestate.graphics.Motel), M)
+    local self = setmetatable(IndoorsGameState.new(gamestate, 'Galaxy Motel', gamestate.images.places.motel), M)
     
     self:addWorldBounds({
         { -- Left
@@ -18,7 +18,7 @@ function M.new(gamestate)
             x = 85, y = 0,
             w = 4, h = 80
         },
-        { -- Table
+        { -- table
             x = 80, y = 45,
             w = 20, h = 13
         },

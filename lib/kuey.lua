@@ -17,7 +17,7 @@ local function getKeyLNow(key, l)
 	return n
 end
 
-function getStringTable(key)
+function getStringtable(key)
 	local t = {}
 	
 	strgsub(key, ".",function(l) 
@@ -56,7 +56,7 @@ end
 
 local function encode(str, key, lr)
 	local outStr = {}
-	local keyT = getStringTable(key)
+	local keyT = getStringtable(key)
 	local keyL = 0
 	local s = 0
 	local t = #str

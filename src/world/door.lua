@@ -3,19 +3,18 @@ M.__index = M
 
 local animation = require "src.animation"
 
-function M.new(world, spritesheet, x, y)
+function M.new(anim, x, y)
+    if anim == nil then
+        error ('anim must not be null')
+    end
+
     local self = setmetatable({
         spritesheet = spritesheet,
         x = x,
         y = y
     }, M)
 
-    local doWarp = function ()
-        self.animate = false
-        self.gamestate.fire(WarpEvent.new(self.path), true)
-    end
-
-    self.animation = animation.new(self.spritesheet, 80, 72, 0, 6, 0, 1, false, doWarp)
+    self.animation = anim
 
     return self
 end
@@ -27,6 +26,10 @@ end
 function M:update(dt)
     if self.animate then
         self.animation:update(dt)
+        if self.animation.loopCount > 0 then
+            self.animate = false
+            self.gamestate.fire(WarpEvent.new(self.path), true)
+        end
     end
 end
 
