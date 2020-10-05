@@ -46,6 +46,9 @@ function M.new()
         Motel = {
 			Bg = lg.newImage("assets/images/world/Motel/Interior.png"),
 		},
+		MotelLobby = {
+			Bg = lg.newImage("assets/images/world/Motel/Interior-lobby.png"),
+		},
         PostOffice = {
 			Bg = lg.newImage("assets/images/world/PostOffice/Interior.png"),
 		},
@@ -75,6 +78,7 @@ function M.new()
     	UnknownProfile = lg.newImage("assets/images/people/unknown-profile.png"),
 		CultistProfile = lg.newImage("assets/images/people/cultist-profile.png"),
 		MaryProfile = lg.newImage("assets/images/people/mary-profile.png"),
+		MotelGuyProfile = lg.newImage("assets/images/people/motelguy-profile.png"),
         
 		ui = {
 			button_bg = lg.newImage("assets/images/ui/button_bg.png"),
@@ -107,6 +111,7 @@ function M.new()
 		BeerSign = lg.newImage("assets/images/world/Street/beer-sign.png"),
 
 		MaryIdle = animation.new(lg.newImage("assets/images/world/Antiques/Mary.png"), 64, 64, 0, 3, 0, 1),
+		MotelGuyIdle = animation.new(lg.newImage("assets/images/world/Motel/motelguy.png"), 64, 64, 0, 6, 0, 1),
 
 		-- Coffee Shop assets
 		Freezer = lg.newImage("assets/images/world/Coffee/freezer.png"),
