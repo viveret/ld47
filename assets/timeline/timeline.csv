@@ -1,7 +1,12 @@
 Home,100,,Speak|Player|Good morning. What a glorious time (8 a.m.) to be alive on this fine Tuesday.
 Home,1000,,Speak|Player|I better get going if I don't want to be late to my job at the local coffee shop.
+<<<<<<< HEAD
 Home,74880,,PlaySound|mirror
 Home,74881,,ToggleFlag|HearMirror
+=======
+Home,23400,,PlaySound|doorbell
+Home,23600,,Speak|Player|What's that? Someone at the door? Must be the mailman.
+>>>>>>> timeline updates
 
 Home,300,,SpawnStaticObject|book|book|50|50|readBook
 Home,1300,,DespawnStaticObject|book
@@ -151,7 +156,6 @@ MotelLobby,18720,,Spawn|Cultist|cultist|40|64
 -- cultists breaks into cabinet at 8pm and gets amulet
 
 
-
 -- !! cemetery bone stealing scenario - KEY EVENT!!
 -- ========================
 --
@@ -206,9 +210,6 @@ MotelLobby,18720,,Spawn|Cultist|cultist|40|64
 -- extra 10th student standing in middle of room instead of at desk
 
 
-
-
-
 -- !! home breakin scenario - KEY EVENT !!
 -- ========================
 --
@@ -221,14 +222,26 @@ MotelLobby,18720,,Spawn|Cultist|cultist|40|64
 -- ========================
 --
 -- at 5pm personA begins drinking
+Bar,42140,,Spawn|Person1|person1|50|50
+Bar,42142,,Speak|Person1|Ah, so nice to grab a cold one after a long day at work.
+Bar,43000,,Move|Person1|50|20|10
 
 -- at 7pm personB begins drinking
+Bar,51480,,Spawn|Person2|person2|50|50
+Bar,51800,,Speak|Person2|Alriiiiight, Alex is here! Hey, Alex!
+Bar,52000,,Move|Person2|55|20|10
 
 -- at 8pm cultist1 begins drinking
+Bar,56160,,Spawn|Cultist|cultist|50|50
+Bar,56200,,Speak|Cultist|Pay no mind to that utter mirror breaking nonsense and serve me a beverage, barkeep.
+Bar,56600,,Move|Cultist|60|20|10
 
 -- at 8pm mirror breaks when cultist enters
+Bar,56162,,PlaySound|mirror
+-- TODO: spawn broken mirror background
 
 -- at 9pm cultist 2 begins drinking
+
 
 -- cultist1 continues drinking if player is successful
 
@@ -239,21 +252,18 @@ MotelLobby,18720,,Spawn|Cultist|cultist|40|64
 -- cultist1, personA, personB, and cultist2 fight in bar
 
 
-
-
-
 -- !! all mirrors breaking (except bar) scenario !!
 -- ========================
 --
 -- mirrors in each building break at midnight
-Doctor,74800,,PlaySound|mirror
 School,74800,,PlaySound|mirror
 Library,74800,,PlaySound|mirror
-PostOffice,74800,,PlaySound|mirror
-Store,74800,,PlaySound|mirror
 Antiques,74800,,PlaySound|mirror
+Home,74880,,PlaySound|mirror
+MotelLobby,,74880,PlaySound|mirror
+-- Home,74881,,ToggleFlag|HearMirror
 
--- if you are in a room you get dialogue from whoever is present
+-- TODO: if you are in a room you get dialogue from whoever is present
 
 
 -- !! swamp ritual scenario - KEY EVENT!!
@@ -298,27 +308,27 @@ Swamp,91600,,Move|Cultist6|80|40|10
 --TODO: ADD IN THE SUMMONING CIRCLE
 
 -- at 4am the ritual begins
-Swamp,93600,Speak|Cultist|All present, bear witness to the great power of our God!
-Swamp,95600,Speak|Cultist1|O, most unholy, please grant us your terrible presence!
-Swamp,97600,Speak|Cultist2|We beseech thee, rid this foul world of non-believers.
-Swamp,99600,Speak|Cultist3|And render all power and glory unto you, Great One!
-Swamp,101600,Speak|Cultist4|Please grant mercy on us, your humble servants!
-Swamp,103600,Speak|Cultist5|We live to do your bidding!
-Swamp,105600,Speak|Cultist6|And thus, without interruption, we call on you NOW. All hail!
-Swamp,107600,Speak|Cultist|ALL HAIL.
+Swamp,93600,,Speak|Cultist|All present, bear witness to the great power of our God!
+Swamp,95600,,Speak|Cultist1|O, most unholy, please grant us your terrible presence!
+Swamp,97600,,Speak|Cultist2|We beseech thee, rid this foul world of non-believers.
+Swamp,99600,,Speak|Cultist3|And render all power and glory unto you, Great One!
+Swamp,101600,,Speak|Cultist4|Please grant mercy on us, your humble servants!
+Swamp,103600,,Speak|Cultist5|We live to do your bidding!
+Swamp,105600,,Speak|Cultist6|And thus, without interruption, we call on you NOW. All hail!
+Swamp,107600,,Speak|Cultist|ALL HAIL.
 
 -- at 8am the ritual completes unless interrupted somehow
 
+
+
+-- STRETCH GOALS BELOW
+-- ===================
+-- ===================
 
 -- !! exterior misc idle color, add stuff here for flavor !!
 -- ========================
 --
 -- thing
-
-
-
-
--- STRETCH GOALS BELOW
 
 
 -- !! post office pickup scenario - KEY EVENT !!
