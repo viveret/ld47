@@ -203,7 +203,7 @@ function gamestate.updateForTimespassed(dt)
 
     gamestate.fracSec = remainder
 
-    return wholeTicks
+    return wholeTicks * 8
 end
 
 function gamestate.update(dt)

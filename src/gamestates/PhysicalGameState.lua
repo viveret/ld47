@@ -28,12 +28,12 @@ function M.new(gamestate, scene, graphics)
     self.isPhysicalGameState = true
     self.actors = {}
     self.colors = {
-        night = { r = 0.2, g = 0.2, b = 0.6 },
+        night = { r = 0.5, g = 0.5, b = 0.6 },
         day = { r = 1, g = 1, b = 1 }
     }
     self.sunriseHourStart = 8
-    self.sunriseHourEnd = 8.5
-    self.sunsetHourStart = 18
+    self.sunriseHourEnd = 9
+    self.sunsetHourStart = 19
     self.sunsetHourEnd = 20
 
     self.interactProximity = 18

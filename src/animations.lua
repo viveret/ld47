@@ -18,6 +18,7 @@ function M.new(images)
 			},
 			player =  getActorAnimations(images.actors.player),
 			cultist =  getActorAnimations(images.actors.cultist),
+			cultist =  getActorAnimations(images.actors.cultist),
 			person1 =  getActorAnimations(images.actors.person1),
 			person2 =  getActorAnimations(images.actors.person2),
 			person3 =  getActorAnimations(images.actors.person3),

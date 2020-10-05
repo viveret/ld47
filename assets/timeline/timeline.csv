@@ -6,10 +6,10 @@ Home,74880,,PlaySound|mirror
 Home,74881,,ToggleFlag|HearMirror
 
 -- Turn sky red
-Overworld,80400,,GlobalAmbientColor|1|0.5|0.5
+Overworld,88920,,GlobalAmbientColor|1|0.5|0.5
 
 -- Final event
-Overworld,86400,,GameOver|
+Overworld,107640,,GameOver|
 
 -- !!Coffee shop scenario!!
 -- ========================
@@ -65,29 +65,29 @@ Coffee,25001,,Despawn|CustomerCultist
 -- ========================
 
 -- mail arrives at coffee at 11am
-Coffee,14040,,Spawn|Mailman|mailman|40|64
+-- Coffee,14040,,Spawn|Mailman|mailman|40|64
 
 -- mail arrives at doctor at 12pm
-Doctor,18720,,Spawn|Mailman|mailman|40|64
+-- Doctor,18720,,Spawn|Mailman|mailman|40|64
 
 -- mail arrives at school at 1pm
-School,23400,,Spawn|Mailman|mailman|40|64
+-- School,23400,,Spawn|Mailman|mailman|40|64
 
 -- mail arrives at antiques at 2pm
-Antiques,28080,,Spawn|Mailman|mailman|40|64
+-- Antiques,28080,,Spawn|Mailman|mailman|40|64
 
 -- mail arrives at home at 3pm
-Home,32760,,Spawn|Mailman|mailman|40|64
-Home,32761,PackageAtHome,Spawn|Package|package|40|40
+-- Home,32760,,Spawn|Mailman|mailman|40|64
+-- Home,32761,PackageAtHome,Spawn|Package|package|40|40
 
 -- mail arrives at library at 4pm
-Library,37440,,Spawn|Mailman|mailman|40|64
+-- Library,37440,,Spawn|Mailman|mailman|40|64
 
 -- mail arrives at motel at 5pm
-Motel,42120,,Spawn|Mailman|mailman|40|64
+-- Motel,42120,,Spawn|Mailman|mailman|40|64
 
 -- mail arrives at store at 6pm
-Store,46800,,Spawn|Mailman|mailman|40|64
+-- Store,46800,,Spawn|Mailman|mailman|40|64
 
 
 -- !! Motel Lobby check-ins scenario !!
@@ -97,16 +97,22 @@ Store,46800,,Spawn|Mailman|mailman|40|64
 MotelLobby,18720,,Spawn|Cultist|cultist|40|64
 
 -- cultist arrives to check in at 1
+MotelLobby,18720,,Spawn|Cultist|cultist|40|64
 
 -- cultist arrives to check in at 2
+MotelLobby,18720,,Spawn|Cultist|cultist|40|64
 
 -- cultist arrives to check in at 3
+MotelLobby,18720,,Spawn|Cultist|cultist|40|64
 
 -- cultist arrives to check in at 4
+MotelLobby,18720,,Spawn|Cultist|cultist|40|64
 
 -- cultist arrives to check in at 5
+MotelLobby,18720,,Spawn|Cultist|cultist|40|64
 
 -- cultist arrives to check in at 6
+MotelLobby,18720,,Spawn|Cultist|cultist|40|64
 
 -- cultist arrives to check in at 9 (KEY EVENT)
 
@@ -278,6 +284,40 @@ MotelLobby,18720,,Spawn|Cultist|cultist|40|64
 -- ========================
 --
 -- at 3am cultists begin gathering in swamp
+--c1 actions
+Swamp,88920,,Spawn|Cultist|cultist|178|115
+Swamp,89000,,Move|Cultist|175|49|10
+Swamp,90000,,Move|Cultist|47|48|10
+
+--c2 actions
+Swamp,89200,,Spawn|Cultist1|cultist1|178|115
+Swamp,89400,,Move|Cultist1|175|49|10
+Swamp,89400,,Move|Cultist1|54|38|10
+
+--c3 actions
+Swamp,89520,,Spawn|Cultist2|cultist2|178|115
+Swamp,89600,,Move|Cultist2|175|49|10
+Swamp,89600,,Move|Cultist2|71|36|10
+
+--c4 actions
+Swamp,89920,,Spawn|Cultist3|cultist3|178|115
+Swamp,90000,,Move|Cultist3|175|49|10
+Swamp,90000,,Move|Cultist3|54|52|10
+
+--c5 actions
+Swamp,90120,,Spawn|Cultist4|cultist4|178|115
+Swamp,90500,,Move|Cultist4|175|49|10
+Swamp,90500,,Move|Cultist4|71|52|10
+
+--c6 actions
+Swamp,90820,,Spawn|Cultist5|cultist5|178|115
+Swamp,91000,,Move|Cultist5|175|49|10
+Swamp,91000,,Move|Cultist5|80|54|10
+
+--c7 actions
+Swamp,91320,,Spawn|Cultist6|cultist6|178|115
+Swamp,91600,,Move|Cultist6|175|49|10
+Swamp,91600,,Move|Cultist6|80|40|10
 
 -- at 4am the ritual begins
 
