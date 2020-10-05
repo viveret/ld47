@@ -71,13 +71,11 @@ Coffee,54000,,Despawn|Mailman
 
 
 -- mail arrives at doctor at 12pm
-Doctor,39600,,Spawn|Mailman|person4|40|64
+Doctor,18720,,Spawn|Mailman|person4|40|64
 Doctor,40000,,Move|Mailman|38|0|10
 Doctor,40000,,SpawnStaticObject|package|package|38|10|pickupPackage
 Doctor,50000,,Move|Mailman|38|64|10
 Doctor,54000,,Despawn|Mailman
-
--- Doctor,18720,,Spawn|Mailman|mailman|40|64
 
 -- mail arrives at school at 1pm
 -- School,23400,,Spawn|Mailman|mailman|40|64
@@ -86,8 +84,8 @@ Doctor,54000,,Despawn|Mailman
 -- Antiques,28080,,Spawn|Mailman|mailman|40|64
 
 -- mail arrives at home at 3pm
---Home,23400,,PlaySound|doorbell
---Home,23600,,Speak|Player|What's that? Someone at the door? Must be the mailman.
+Home,23400,,PlaySound|doorbell
+Home,23600,,Speak|Player|What's that? Someone at the door? Must be the mailman.
 Home,23800,,SpawnStaticObject|package|package|84|66|pickupPackage
 
 -- mail arrives at library at 4pm
@@ -102,29 +100,67 @@ Home,23800,,SpawnStaticObject|package|package|84|66|pickupPackage
 
 -- !! Motel Lobby check-ins scenario !!
 -- ========================
+
+-- talk to owner to reserve room
+-- darn! no more rooms available
+-- otherwise sweet, I got the last room!
+
 --
--- cultist arrives to check in at 12
-MotelLobby,18720,,Spawn|Cultist|cultist|40|64
+-- cultist arrives to check in at 12 (43200)
+MotelLobby,18721,,Spawn|Cultist|cultist|44|70
+MotelLobby,19721,,Move|Cultist|40|6|10
+MotelLobby,23721,,Move|Cultist|44|70|10
+MotelLobby,24721,,Despawn|Cultist
 
 -- cultist arrives to check in at 1
-MotelLobby,18721,,Spawn|Cultist1|cultist|40|64
+MotelLobby,38721,,Spawn|Cultist|cultist|44|70
+MotelLobby,39721,,Move|Cultist|40|6|10
+MotelLobby,43721,,Move|Cultist|44|70|10
+MotelLobby,44721,,Despawn|Cultist
 
 -- cultist arrives to check in at 2
-MotelLobby,18722,,Spawn|Cultist2|cultist|40|64
+MotelLobby,58721,,Spawn|Cultist|cultist|44|70
+MotelLobby,59721,,Move|Cultist|40|6|10
+MotelLobby,63721,,Move|Cultist|44|70|10
+MotelLobby,64721,,Despawn|Cultist
 
 -- cultist arrives to check in at 3
-MotelLobby,18723,,Spawn|Cultist3|cultist|40|64
+MotelLobby,78721,,Spawn|Cultist|cultist|44|70
+MotelLobby,79721,,Move|Cultist|40|6|10
+MotelLobby,83721,,Move|Cultist|44|70|10
+MotelLobby,84721,,Despawn|Cultist
 
 -- cultist arrives to check in at 4
-MotelLobby,18724,,Spawn|Cultist4|cultist|40|64
+MotelLobby,98721,,Spawn|Cultist|cultist|44|70
+MotelLobby,99721,,Move|Cultist|40|6|10
+MotelLobby,103721,,Move|Cultist|44|70|10
+MotelLobby,104721,,Despawn|Cultist
 
 -- cultist arrives to check in at 5
-MotelLobby,18725,,Spawn|Cultist5|cultist|40|64
+MotelLobby,118721,,Spawn|Cultist|cultist|44|70
+MotelLobby,119721,,Move|Cultist|40|6|10
+MotelLobby,123721,,Move|Cultist|44|70|10
+MotelLobby,124721,,Despawn|Cultist
 
 -- cultist arrives to check in at 6
-MotelLobby,18726,,Spawn|Cultist6|cultist|40|64
+MotelLobby,138721,,Spawn|Cultist|cultist|44|70
+MotelLobby,139721,,Move|Cultist|40|6|10
+MotelLobby,143721,,Move|Cultist|44|70|10
+MotelLobby,144721,,Despawn|Cultist
 
 -- cultist arrives to check in at 9 (KEY EVENT)
+MotelLobby,138721,,Spawn|Cultist|cultist|44|70
+MotelLobby,139721,,Move|Cultist|40|6|10
+
+MotelLobby,139721,,Speak|Cultist|Hello, I'd like to reserve a room
+MotelLobby,139721,has-reserved-room,Speak|MotelGuy|I'm sorry, but we have no more rooms available
+MotelLobby,139721,has-reserved-room,Speak|Cultist|Darn! No more rooms are available.
+
+MotelLobby,139721,has-not-reserved-room,Speak|MotelGuy|We have one more room available
+MotelLobby,139721,has-not-reserved-room,Speak|Cultist|Sweet, I got the last room!
+
+MotelLobby,143721,,Move|Cultist|44|70|10
+MotelLobby,144721,,Despawn|Cultist
 
 
 -- !! Motel room cultist sick scenario !!
