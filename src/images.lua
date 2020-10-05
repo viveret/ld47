@@ -18,6 +18,17 @@ function M.new(graphics)
 			},
 			cemetery = {
 				bg = lg.newImage("assets/images/world/cemetery/cemetery.png"),
+				dugUp = lg.newImage("assets/images/world/cemetery/dugupgrave.png"),
+				fresh = lg.newImage("assets/images/world/cemetery/freshgrave.png"),
+				bones = lg.newImage("assets/images/world/cemetery/bonepile.png"),
+				grave1 = lg.newImage("assets/images/world/cemetery/grave1.png"),
+				grave2 = lg.newImage("assets/images/world/cemetery/grave2.png"),
+				grave3 = lg.newImage("assets/images/world/cemetery/grave3.png"),
+				grave4 = lg.newImage("assets/images/world/cemetery/grave4.png"),
+				grave5 = lg.newImage("assets/images/world/cemetery/grave5.png"),
+				grave6 = lg.newImage("assets/images/world/cemetery/grave6.png"),
+				grave7 = lg.newImage("assets/images/world/cemetery/grave7.png"),
+				grave8 = lg.newImage("assets/images/world/cemetery/grave8.png"),
 			},
 			coffee = {
 				bg = lg.newImage("assets/images/world/coffee/interior.png"),
