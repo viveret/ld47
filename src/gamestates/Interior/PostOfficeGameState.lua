@@ -18,7 +18,7 @@ function M.new(gamestate)
         { -- Main door
             x = 45, y = 68,
             w = 10, h = 10,
-            path = 'Overworld,130,140,x'
+            path = 'Overworld,130,145,x'
         }
     }
     
