@@ -35,6 +35,7 @@ function M:load()
 end
 
 function M:switchTo(x, y)
+    PhysicalGameState.switchTo(self, x, y)
     self.gamestate.ensureBGMusic("nightSpooky")
 end
 
