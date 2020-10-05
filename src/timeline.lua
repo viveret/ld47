@@ -18,6 +18,7 @@ local M = { }
 --   Home,110,Hello|SecondLoop,Something something something something
 function M.load(lines) 
 	local data = {}
+	local lineNo = 1
 	for line in lines do
 
 		if line == nil or line == '' or line:sub(1, 2) == '--' then
@@ -27,13 +28,18 @@ function M.load(lines)
 			
 			local action = parseAction(scene, actionRaw)
 			local time = tonumber(timeRaw)
+			if time == nil then
+				error ('must include time at line ' .. lineNo)
+			end
+
 			local flags = {}
 			for flag in flagsRaw:gmatch("([^\\|]+):?") do 
 				table.insert(flags, flag)
 			end
 
 	    	data[#data + 1] = { scene = scene, time = time, flags = flags, action = action }
-	    end
+		end
+		lineNo = lineNo + 1
 	end
 
 	return data
@@ -186,6 +192,9 @@ end
 --
 -- returns a new Timeline
 function M.lookup(timeline, scene, atTime)
+	if atTime == nil then
+		error ('must include atTime')
+	end
 	local ret = {}
 	for ix, entry in ipairs(timeline) do
 		local isValid = entry.scene == scene and atTime <= entry.time
