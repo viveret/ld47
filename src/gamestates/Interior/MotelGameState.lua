@@ -4,12 +4,31 @@ M.__index = M
 
 function M.new(gamestate)
     local self = setmetatable(IndoorsGameState.new(gamestate, 'Galaxy Motel', gamestate.graphics.Motel), M)
+    
+    self:addWorldBounds({
+        { -- Left
+            x = 15, y = 8,
+            w = 4, h = 80
+        },
+        { -- Top
+            x = 0, y = 20,
+            w = 100, h = 4
+        },
+        { -- Right
+            x = 85, y = 0,
+            w = 4, h = 80
+        },
+        { -- Table
+            x = 80, y = 45,
+            w = 20, h = 13
+        },
+    })
 	
     self.warps = {
         { -- Main door
             x = 45, y = 68,
             w = 10, h = 10,
-            path = 'Overworld,96,97,x'
+            path = 'Overworld,30,40,x'
         }
     }
     self.renderWarps = true
