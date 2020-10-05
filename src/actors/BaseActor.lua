@@ -10,9 +10,9 @@ function M.new(world, name, gamestate, x, y, w, h, callback)
         height = h,
         name = name,
         gamestate = gamestate,
-        walkForceX = 0.25,
-        walkForceY = 0.25,
-        maxVelocity = 30,
+        walkForceX = 0.125,
+        walkForceY = 0.125,
+        maxVelocity = 10,
         interactWith = {}
 	}, M)
 

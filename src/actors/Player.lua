@@ -48,7 +48,7 @@ function M:update(dt)
     else
         -- local dampingDir = currentVx < 0 and 1 or -1
         -- self.body:applyForce(dampingDir * dampingFactor * self.walkForceX, 0)
-        -- self.body:setLinearVelocity(0, currentVy)
+        self.body:setLinearVelocity(0, currentVy)
     end
 
     if vy ~= 0 then
@@ -58,7 +58,7 @@ function M:update(dt)
     else
         -- local dampingDir = currentVy < 0 and 1 or -1
         -- self.body:applyForce(0, dampingDir * dampingFactor * self.walkForceY)
-        -- self.body:setLinearVelocity(currentVx, 0)
+        self.body:setLinearVelocity(currentVx, 0)
     end
 
     self.y = self.body:getY()

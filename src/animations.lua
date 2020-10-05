@@ -4,11 +4,11 @@ M.__index = M
 function M.new(images)
 	local getActorAnimations = function(img)
 		return {
-			still = animation.new(img, 64, 64, 0, 3, 0, 1),
-			down = animation.new(img, 64, 64, 3, 6, 0, 1),
-			up = animation.new(img, 64, 64, 9, 6, 0, 1),
-			right = animation.new(img, 64, 64, 15, 6, 0, 1),
-			left = animation.new(img, 64, 64, 15, 6, 0, 1, true),
+			still = animation.new(img, 64, 64, 0, 3, 0, 8),
+			down = animation.new(img, 64, 64, 3, 6, 0, 8),
+			up = animation.new(img, 64, 64, 9, 6, 0, 8),
+			right = animation.new(img, 64, 64, 15, 6, 0, 8),
+			left = animation.new(img, 64, 64, 15, 6, 0, 8, true),
 		}
 	end
 	return setmetatable({
