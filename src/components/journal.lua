@@ -19,11 +19,19 @@ function M.new(gamestate)
             },
             {
                 flag = "has-not-reserved-room",
-                text = "You should check out a motel room"
+                text = "You should check into a motel room."
             },
             {
                 flag = "has-reserved-room",
-                text = "You reserved a motel room, keeping a cultist away"
+                text = "You reserved a motel room, keeping a cultist away."
+            },
+            {
+                flag = "SawSickCultist",
+                text = "You witnessed a cultist's demise."
+            },
+            {
+                flag = "NotSeenSickCultist",
+                text = "You should drop by the motel room."
             }
         }
     }, M)
