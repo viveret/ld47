@@ -11,7 +11,7 @@ function M.new(gamestate, scene)
 end
 
 function M:draw()
-    local hours = floor(self.gamestate.time / (60 * 60)) + 1
+    local hours = floor(self.gamestate.time / (60 * 60)) + 8
     local minutes = floor(self.gamestate.time / 60) % 60 -- - (hours * 60 - 1)
     local amOrPm = "AM"
     if hours > 12 then
