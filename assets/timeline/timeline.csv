@@ -1,7 +1,5 @@
 Home,100,,Speak|Player|Good morning. What a glorious time (8 a.m.) to be alive on this fine Tuesday.
 Home,1000,,Speak|Player|I better get going if I don't want to be late to my job at the local coffee shop.
-Home,74880,,PlaySound|mirror
-Home,74881,,ToggleFlag|HearMirror
 
 -- Turn sky red
 Overworld,88920,,GlobalAmbientColor|1|0.5|0.5
@@ -278,7 +276,8 @@ Bar,56200,,Speak|Cultist|Pay no mind to that utter mirror breaking nonsense and 
 Bar,56600,,Move|Cultist|60|20|10
 
 -- at 8pm mirror breaks when cultist enters
-Bar,56162,,PlaySound|mirror
+Bar,56162,,RoomText|**CRASH** Looks like the mirror just ... broke?
+Bar,56163,,ToggleFlag|HearMirror
 -- TODO: spawn broken mirror background
 
 -- at 9pm cultist 2 begins drinking
@@ -297,12 +296,16 @@ Bar,56162,,PlaySound|mirror
 -- ========================
 --
 -- mirrors in each building break at midnight
-School,74800,,PlaySound|mirror
-Library,74800,,PlaySound|mirror
-Antiques,74800,,PlaySound|mirror
-Home,74880,,PlaySound|mirror
-MotelLobby,74880,,PlaySound|mirror
--- Home,74881,,ToggleFlag|HearMirror
+School,74800,,RoomText|**CRASH** Looks like the mirror just ... broke?
+Library,74800,,RoomText|**CRASH** Looks like the mirror just ... broke?
+Antiques,74800,,RoomText|**CRASH** Looks like the mirror just ... broke?
+Home,74880,,RoomText|**CRASH** Looks like the mirror just ... broke?
+MotelLobby,74880,,RoomText|**CRASH** Looks like the mirror just ... broke?
+School,74881,,ToggleFlag|HearMirror
+Library,74881,,ToggleFlag|HearMirror
+Antiques,74881,,ToggleFlag|HearMirror
+Home,74881,,ToggleFlag|HearMirror
+MotelLobby,74881,,ToggleFlag|HearMirror
 
 -- TODO: if you are in a room you get dialogue from whoever is present
 

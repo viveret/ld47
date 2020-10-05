@@ -2,10 +2,6 @@ local M = {}
 
 function M.load()
     return {
-    	-- small tracks
-        mirror = love.audio.newSource( "assets/audio/mirror.mp3", 'static' ),
-        doorbell = love.audio.newSource("assets/audio/doorbell.mp3", "static"),
-
         -- long tracks
         theme = love.audio.newSource( "assets/audio/theme.ogg", 'stream' ),
         chill = love.audio.newSource( "assets/audio/chill-bg.ogg", 'stream' ),
