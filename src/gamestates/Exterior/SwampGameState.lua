@@ -36,11 +36,13 @@ end
 
 function M:switchTo(x, y)
     PhysicalGameState.switchTo(self, x, y)
-    self.gamestate.ensureBGMusic("nightSpooky")
 end
 
 function M:save()
 end
 
+function M:activated()
+    self.gamestate.ensureBGMusic("nightSpooky")
+end
 
 return M

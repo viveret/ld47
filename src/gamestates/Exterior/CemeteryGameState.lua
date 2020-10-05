@@ -42,6 +42,9 @@ end
 
 function M:switchTo(x, y)
     PhysicalGameState.switchTo(self, x, y)
+end
+
+function M:activated()
     self.gamestate.ensureBGMusic("chill")
 end
 

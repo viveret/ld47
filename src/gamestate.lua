@@ -126,7 +126,6 @@ function gamestate.switchTo(toGamestate)
     end
 
     gamestate.push(toGamestate)
-    gamestate.markTopmost(toGamestate)
 
     for _, state in ipairs(gamestate.stack) do
         if not state.topmost and state.player ~= nil then
@@ -402,6 +401,8 @@ function gamestate.gameOver()
 end
 
 function gamestate.ensureBGMusic(bgMusicName)
+    print("ensureBGMusic "..bgMusicName)
+
     local source = gamestate.audio[bgMusicName]:clone()
 
     source:setVolume(0)
