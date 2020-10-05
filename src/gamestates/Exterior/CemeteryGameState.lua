@@ -40,7 +40,7 @@ function M.new(gamestate)
             local x = xoff + c * (self:getWidth() - 100) / cols + random(1, 3)
             local y = yoff + r * (self:getHeight() - 70) / rows + random(1, 3)
 
-            table.insert(self.staticObjects, StaticObject.new(self.world, x, y, self.gamestate.images.places.cemetery['grave' .. random(1,7)]))
+            table.insert(self.staticObjects, StaticObject.new(self.world, x, y, self.gamestate.images.places.cemetery['grave' .. random(1,8)]))
 
             if random() < 0.1 then
                 table.insert(self.staticObjects, StaticObject.new(self.world, x, y + 8, self.gamestate.images.places.cemetery.bones))
