@@ -12,7 +12,8 @@ function M.new(world, spritesheet, x, y)
         walkForceY = 0.25,
         positionIsCenter = true,
         maxVelocity = 30,
-        type = "player"
+        type = "player",
+        interactWith = {}
 	}, M)
     self.body = lp.newBody(world, self.x, self.y, "dynamic")
     self.body:setMass(self.body:getMass() * 20)
@@ -118,9 +119,10 @@ function M:update(dt)
     end
 
 
-    if lk.isDown('space') and self.interactWith ~= nil then
-        self.interactWith:interact()
-        self.interactWith = nil
+    if lk.isDown('space') and #self.interactWith > 0 then
+        for _,v in pairs(self.interactWith) do
+            v:interact(self)
+        end
     end
 end
 

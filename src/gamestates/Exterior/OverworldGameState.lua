@@ -148,22 +148,30 @@ function M.new(gamestate)
 
     self.animatedObjects = {
         schoolFlag = AnimatedObject.new(self.world, self.gamestate.graphics.SchoolFlag, 184, 70, 88, 160, 3, 3),
-        beerSign = AnimatedObject.new(self.world, self.gamestate.graphics.BeerSign, 20, 80, 56, 80, 14, 5)
+        beerSign = AnimatedObject.new(self.world, self.gamestate.graphics.BeerSign, 20, 80, 56, 80, 14, 5, awdawdawd)
     }
-
-    -- local inta = function(beerSign)
-    --     print('Turned off / on beer sign')
-    --     beerSign.canInteractWith = false
-    --     beerSign.animation.pause = not self.animation.pause
-    --     beerSign.animation.currentTime = 0
-    -- end
+    
 
     self.animatedObjects.beerSign.type = 'sign'
     self.animatedObjects.beerSign.isInteractable = true
-    --self.animatedObjects.beerSign.interact = inta
     table.insert(self.proximityObjects, self.animatedObjects.beerSign)
 
+    self.animatedObjects.schoolFlag.type = 'sign'
+    self.animatedObjects.schoolFlag.isInteractable = true
+    table.insert(self.proximityObjects, self.animatedObjects.schoolFlag)
+
 	return self
+end
+
+function awdawdawd(b, player)
+    if not b.canInteractWith then
+        print('Turned off / on beer sign')
+        b.canInteractWith = false
+        b.hasInteractedWith = true
+        b.animation.pause = not b.animation.pause
+        b.animation.currentTime = 0
+        lume.remove(player.interactWith, b)
+    end
 end
 
 function M:draw()

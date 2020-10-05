@@ -7,12 +7,13 @@ M.__index = M
         - changes like flipping horizontally once in a while
 ]]
 
-function M.new(world, spritesheet, x, y, frameWidth, frameHeight, frameCount, duration)
+function M.new(world, spritesheet, x, y, frameWidth, frameHeight, frameCount, duration, onInteract)
     local self = setmetatable({
         spritesheet = spritesheet,
         x = x,
         y = y,
-        hasNotInteractedWith = false
+        hasNotInteractedWith = false,
+        onInteract = onInteract
     }, M)
 
     self.animation = animation.new(self.spritesheet, frameWidth, frameHeight, 0, frameCount, 0, duration or 1)
@@ -32,11 +33,15 @@ function M:draw()
     end
 end
 
-function M:interact()
-    print('Turned off / on beer sign')
+function M:interact(player)
     self.canInteractWith = false
-    self.animation.pause = not self.animation.pause
-    self.animation.currentTime = 0
+    self.hasInteractedWith = true
+    if self.onInteract ~= nil then
+        self.onInteract(self, player)
+    else
+        self.animation.pause = not self.animation.pause
+        self.animation.currentTime = self.animation.duration * 0.5
+    end
 end
 
 function M:update(dt)

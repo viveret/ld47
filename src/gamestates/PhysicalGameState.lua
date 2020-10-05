@@ -184,7 +184,7 @@ end
 
 function M:addProximityListeners()
     self:addProximityListener(
-        8,
+        15,
         function (a, b)
             return a.isInteractable and b.type == 'player'
         end,
@@ -202,13 +202,19 @@ function M:addProximityListeners()
 
             interactable.hasInteractedWith = true
             interactable.canInteractWith = true
-            player.interactWith = interactable
+            table.insert(player.interactWith, interactable)
         end,
         function (a, b)
             if a.isInteractable then
+                if b.interactWith ~= nil then
+                    lume.remove(b.interactWith, a)
+                end
                 a.hasInteractedWith = false
                 a.canInteractWith = false
             else
+                if b.interactWith ~= nil then
+                    lume.remove(b.interactWith, a)
+                end
                 b.hasInteractedWith = false
                 b.canInteractWith = false
             end
@@ -216,29 +222,29 @@ function M:addProximityListeners()
     )
 
 
-    self:addProximityListener(
-        10,
-        function (a, b)
-            return a.type == 'sign' and b.type == 'player'
-        end,
-        function (a, b)
-            local sign = a
-            if sign.type ~= 'sign' then
-                sign = b
-            end
+    -- self:addProximityListener(
+    --     10,
+    --     function (a, b)
+    --         return a.type == 'sign' and b.type == 'player'
+    --     end,
+    --     function (a, b)
+    --         local sign = a
+    --         if sign.type ~= 'sign' then
+    --             sign = b
+    --         end
 
-            if sign ~= nil then
-                sign.inProximity = true
-            end
-        end,
-        function (a, b)
-            if a.type == 'sign' then
-                a.inProximity = false
-            else
-                b.inProximity = false
-            end
-        end
-    )
+    --         if sign ~= nil then
+    --             sign.inProximity = true
+    --         end
+    --     end,
+    --     function (a, b)
+    --         if a.type == 'sign' then
+    --             a.inProximity = false
+    --         else
+    --             b.inProximity = false
+    --         end
+    --     end
+    -- )
 
     -- self:onProximityFireEvent(
     --     function (a, b) return a.type == 'sign' and b.type == 'player' end,
