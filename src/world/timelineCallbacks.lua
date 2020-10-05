@@ -40,7 +40,7 @@ function M.customerServed(gs, actorName, customerName, type, param, text)
 	local served = gs.hasFlag(customerFlag)
 	if not served then
 		gs.setFlag(customerFlag)
-		gs.fire(ActorSpeakEvent.new(gs.current().scene, "Cultist", "Best watch where you are walking."), true)
+		gs.fire(ActorSpeakEvent.new(gs.current().scene, "Customer", text), true)
 	end
 
 	if gs.hasFlag(notCustomerFlag) then
