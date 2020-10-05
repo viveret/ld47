@@ -333,6 +333,8 @@ function M:drawInWorldView()
     drawList(self.doors)
     drawList(self.animatedObjects)
 
+    drawList(self.indoorObjects)
+
     self.player:draw()
 
     if self.renderBounds then

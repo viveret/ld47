@@ -41,6 +41,7 @@ toast = require "src.toast"
 animation = require "src.animation"
 actor = require "src.world.actor"
 actorCallbacks = require "src.world.actorCallbacks"
+StaticObject = require "src.world.StaticObject"
 
 
 function interpolateValues(a, b, v)

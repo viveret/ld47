@@ -105,7 +105,7 @@ function M.new(gamestate)
         { -- Coffee
             x = 95, y = 80,
             w = 9, h = 8,
-            path = 'Coffee,20,15,x',
+            path = 'Coffee,48,64,x',
             door = self.doors.coffee,
         },
         { -- School

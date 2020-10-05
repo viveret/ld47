@@ -108,6 +108,12 @@ function M.new()
 
 		MaryIdle = animation.new(lg.newImage("assets/images/world/Antiques/Mary.png"), 64, 64, 0, 3, 0, 1),
 
+		-- Coffee Shop assets
+		Freezer = lg.newImage("assets/images/world/Coffee/freezer.png"),
+		BackCounter = lg.newImage("assets/images/world/Coffee/back-counter.png"),
+		Counter = lg.newImage("assets/images/world/Coffee/counter.png"),
+		Table = lg.newImage("assets/images/world/Coffee/table.png"),
+
 		-- People
 		Person1Idle = animation.new(person1, 64, 64, 0, 3, 0, 1),
 		Person1Down = animation.new(person1, 64, 64, 3, 6, 0, 1),
