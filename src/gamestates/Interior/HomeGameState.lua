@@ -9,7 +9,7 @@ function M.new(gamestate)
         { -- Main door
             x = 45, y = 143,
             w = 10, h = 10,
-            path = 'Overworld,40,40,x'
+            path = 'Overworld,175,130,x'
         }
     }
     self.renderWarps = true
