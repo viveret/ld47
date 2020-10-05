@@ -5,7 +5,7 @@ M.__index = M
 function M.new(gamestate)
     local self = setmetatable(PhysicalGameState.new(gamestate, 'Swamp', gamestate.images.places.swamp), M)
     self:addExteriorWorldBounds(4)
-    self.renderBounds = true
+    self.renderBounds = false
     
     self.warps = {
         { -- Home
@@ -14,7 +14,7 @@ function M.new(gamestate)
             path = 'Overworld,18,120,x'
         }
     }
-    self.renderWarps = true
+    self.renderWarps = false
 	return self
 end
 
