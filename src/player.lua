@@ -117,9 +117,10 @@ function M:update(dt)
     if self.activeAnimation ~= nil then
         self.activeAnimation:update(dt)
     end
+end
 
-
-    if lk.isDown('space') and #self.interactWith > 0 then
+function M:doInteraction()
+    if #self.interactWith > 0 then
         for _,v in pairs(self.interactWith) do
             v:interact(self)
         end

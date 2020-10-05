@@ -164,14 +164,10 @@ function M.new(gamestate)
 end
 
 function awdawdawd(b, player)
-    if not b.canInteractWith then
-        print('Turned off / on beer sign')
-        b.canInteractWith = false
-        b.hasInteractedWith = true
-        b.animation.pause = not b.animation.pause
-        b.animation.currentTime = 0
-        lume.remove(player.interactWith, b)
-    end
+    print('Turned off / on beer sign')
+    b.hasInteractedWith = true
+    b.animation.pause = not b.animation.pause
+    b.animation.currentTime = 0
 end
 
 function M:draw()

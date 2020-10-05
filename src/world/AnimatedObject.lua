@@ -34,8 +34,6 @@ function M:draw()
 end
 
 function M:interact(player)
-    self.canInteractWith = false
-    self.hasInteractedWith = true
     if self.onInteract ~= nil then
         self.onInteract(self, player)
     else

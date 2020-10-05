@@ -202,7 +202,9 @@ function M:addProximityListeners()
 
             interactable.hasInteractedWith = true
             interactable.canInteractWith = true
-            table.insert(player.interactWith, interactable)
+            if lume.find(player.interactWith, interactable) == nil then
+                table.insert(player.interactWith, interactable)
+            end
         end,
         function (a, b)
             if a.isInteractable then

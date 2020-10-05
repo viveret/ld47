@@ -64,3 +64,11 @@ function love.load()
     love.window.setTitle("Trouble Stirring at Loop's Bend")
     gamestate.load()
 end
+
+function love.keypressed( key, scancode, isrepeat )
+    gamestate.keypressed( key, scancode, isrepeat )
+end
+
+function love.keyreleased( key, scancode )
+    gamestate.keyreleased( key, scancode )
+end
