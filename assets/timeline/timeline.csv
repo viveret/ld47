@@ -59,3 +59,232 @@ Coffee,21001,,Despawn|CustomerCultist
 Coffee,21002,,Spawn|CustomerFive|person2|85|30|customerCultist
 Coffee,25401,,Move|CustomerCultist|40|64|10
 Coffee,25001,,Despawn|CustomerCultist
+
+
+-- !!mail arriving scenarios!!
+-- ========================
+
+-- mail arrives at coffee at 11am
+Coffee,14040,,Spawn|Mailman|mailman|40|64
+
+-- mail arrives at doctor at 12pm
+Doctor,18720,,Spawn|Mailman|mailman|40|64
+
+-- mail arrives at school at 1pm
+School,23400,,Spawn|Mailman|mailman|40|64
+
+-- mail arrives at antiques at 2pm
+Antiques,28080,,Spawn|Mailman|mailman|40|64
+
+-- mail arrives at home at 3pm
+Home,32760,,Spawn|Mailman|mailman|40|64
+Home,32761,PackageAtHome,Spawn|Package|package|40|40
+
+-- mail arrives at library at 4pm
+Library,37440,,Spawn|Mailman|mailman|40|64
+
+-- mail arrives at motel at 5pm
+Motel,42120,,Spawn|Mailman|mailman|40|64
+
+-- mail arrives at store at 6pm
+Store,46800,,Spawn|Mailman|mailman|40|64
+
+
+-- !! Motel Lobby check-ins scenario !!
+-- ========================
+--
+-- cultist arrives to check in at 12
+MotelLobby,18720,,Spawn|Cultist|cultist|40|64
+
+-- cultist arrives to check in at 1
+
+-- cultist arrives to check in at 2
+
+-- cultist arrives to check in at 3
+
+-- cultist arrives to check in at 4
+
+-- cultist arrives to check in at 5
+
+-- cultist arrives to check in at 6
+
+-- cultist arrives to check in at 9 (KEY EVENT)
+
+
+-- !! Motel room cultist sick scenario !!
+-- ========================
+-- 
+-- cultist wandering around room and saying weird shit 5-7pm
+-- cultist dead at 7pm
+
+
+-- !! cemetery how much are they scenario !!
+-- ========================
+--
+-- cultist spawns after 11am, walks to gravedigger, asks q
+
+
+-- !! general store misc purchase scenarios !!
+-- ========================
+--
+-- someone buys something 9am
+
+-- cultist buys rope 10am
+
+-- cultist buys knife set 12pm
+
+-- someone buys something 1pm
+
+-- someone buys something 2pm
+
+-- cultists buys gas 5pm
+
+
+-- !! general store candle purchase scenario - KEY EVENT !!
+-- ========================
+--
+-- cultist buys 7 candles 3pm
+
+
+-- !! antique shop breakin scenario  - KEY EVENT!!
+-- ========================
+--
+-- cultist enters shop at 7pm and starts trying to break into cabinet
+
+-- cultists breaks into cabinet at 8pm and gets amulet
+
+
+-- !! doctors visits scenarios !!
+-- ========================
+--
+-- someone has a regular illness 11am
+
+-- someone has a regular illness 1pm
+
+-- someone has a weird scary illness 3pm
+
+-- someone has a weird scary illness 4pm
+
+-- doctor leaves abruptly to check on cultist at motel 5pm
+
+
+-- !! cemetery bone stealing scenario - KEY EVENT!!
+-- ========================
+--
+-- cultists enter at 10pm and begin digging up graves
+
+-- by midnight all graves are empty
+
+
+-- !! library book requests scenario !!
+-- ========================
+--
+-- cultist tries to check out book at 9am
+
+-- cultist tries to check out book at 10am
+
+-- cultist tries to check out book at 11am
+
+
+-- !! library book theft scenario - KEY EVENT!!
+-- ========================
+--
+-- librarian goes to lunch at 12pm
+
+-- cultist steals book on lunch break a little after 12pm
+
+
+-- !! swamp school field trip scenario !!
+-- ========================
+--
+-- 9 students and teacher no longer at school at 12pm
+
+-- 9 students and teacher at swamp at 12pm
+
+-- 10 students and teacher leave swamp at 2pm
+
+
+-- !! school frog dissection and undissection scenario !!
+-- ========================
+--
+-- students are dissecting frogs from 10am to 12pm
+
+-- after 2pm students return to school, one extra
+
+-- after 2pm frogs suddenly become undissected
+
+
+-- !! school mysterious student scenario - KEY EVENT!!
+-- ========================
+--
+-- after 2pm students are weird (not moving, answering monotone)
+
+-- extra 10th student standing in middle of room instead of at desk
+
+
+-- !! doctor breakin scenario - KEY EVENT !!
+-- ========================
+--
+-- cultist enters office at 6pm and steals ??
+
+
+-- !! home breakin scenario - KEY EVENT !!
+-- ========================
+--
+-- cultist knocks at 11pm
+
+-- if no answer, cultist comes in and takes package a little after 11
+
+
+-- !! bar drinking scenario !!
+-- ========================
+--
+-- at 5pm personA begins drinking
+
+-- at 7pm personB begins drinking
+
+-- at 8pm cultist1 begins drinking
+
+-- at 8pm mirror breaks when cultist enters
+
+-- at 9pm cultist 2 begins drinking
+
+-- cultist1 continues drinking if player is successful
+
+
+-- !! bar fight scenario - KEY EVENT!!
+-- ========================
+--
+-- cultist1, personA, personB, and cultist2 fight in bar
+
+
+-- !! post office pickup scenario - KEY EVENT !!
+-- ========================
+--
+-- cultist arrives at 11am and picks up package
+
+-- if player visits after cultist gets package, clerk is like oh sorry
+
+
+-- !! all mirrors breaking (except bar) scenario !!
+-- ========================
+--
+-- mirrors in each building break at midnight
+
+-- if you are in a room you get dialogue from whoever is present
+
+
+-- !! swamp ritual scenario - KEY EVENT!!
+-- ========================
+--
+-- at 3am cultists begin gathering in swamp
+
+-- at 4am the ritual begins
+
+-- at 8am the ritual completes unless interrupted somehow
+
+
+-- !! exterior misc idle color, add stuff here for flavor !!
+-- ========================
+--
+-- thing
