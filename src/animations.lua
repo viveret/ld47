@@ -55,7 +55,7 @@ function M.new(images)
 		},
 		decor = {
 			school_flag = animation.new(images.decor.school_flag, 88, 160, 0, 3, 0, 3, false),
-			beer_sign = animation.new(images.decor.beer_sign, 56, 80, 0, 14, 0, 5, false),
+			beer_sign = animation.new(images.decor.beer_sign, 56, 80, 0, 14, 0, 12, false),
 			freezer = animation.new(images.decor.freezer, 96, 96, 0, 3, 0, 10000),
 		}
     }, M)
