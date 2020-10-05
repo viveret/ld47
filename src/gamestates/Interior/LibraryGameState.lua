@@ -30,10 +30,20 @@ end
 
 function M:load()
     IndoorsGameState.load(self)
+
+    self.indoorObjects = {
+        ropes = StaticObject.new(self.world, self.gamestate.images.decor.ropes, 50, 32),
+        tome = StaticObject.new(self.world, self.gamestate.images.decor.tome, 70, 34)
+    }
 end
 
 function M:switchTo(x, y)
     IndoorsGameState.switchTo(self, x, y)
+
+    if self.librarian == nil then
+        self.librarian = ActorSpawnEvent.new("Library", "Librarian", "librarian", 23, 46)
+        self.gamestate.fire(self.librarian)
+    end
 end
 
 function M.save()

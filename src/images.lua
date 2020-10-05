@@ -99,6 +99,8 @@ function M.new(graphics)
 			back_counter = lg.newImage("assets/images/world/coffee/back-counter.png"),
 			counter = lg.newImage("assets/images/world/coffee/counter.png"),
 			table = lg.newImage("assets/images/world/coffee/table.png"),
+			ropes = lg.newImage("assets/images/world/library/ropes.png"),
+			tome = lg.newImage("assets/images/world/library/tome.png")
 		},
 
 		actors = {
@@ -116,6 +118,7 @@ function M.new(graphics)
 			person9 = lg.newImage("assets/images/people/person9.png"),
 			person10 = lg.newImage("assets/images/people/person10.png"),
 			motel_guy = lg.newImage("assets/images/world/motel/motelguy.png"),
+			librarian = lg.newImage("assets/images/people/bartender.png")
 		},
     }, M)
 end
