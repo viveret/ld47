@@ -1,12 +1,9 @@
 Home,100,,Speak|Player|Good morning. What a glorious time (8 a.m.) to be alive on this fine Tuesday.
 Home,1000,,Speak|Player|I better get going if I don't want to be late to my job at the local coffee shop.
-<<<<<<< HEAD
 Home,74880,,PlaySound|mirror
 Home,74881,,ToggleFlag|HearMirror
-=======
 Home,23400,,PlaySound|doorbell
 Home,23600,,Speak|Player|What's that? Someone at the door? Must be the mailman.
->>>>>>> timeline updates
 
 Home,300,,SpawnStaticObject|book|book|50|50|readBook
 Home,1300,,DespawnStaticObject|book
@@ -115,22 +112,22 @@ Home,23800,,SpawnStaticObject|package|package|84|66|pickupPackage
 MotelLobby,18720,,Spawn|Cultist|cultist|40|64
 
 -- cultist arrives to check in at 1
-MotelLobby,18720,,Spawn|Cultist|cultist|40|64
+MotelLobby,18721,,Spawn|Cultist1|cultist|40|64
 
 -- cultist arrives to check in at 2
-MotelLobby,18720,,Spawn|Cultist|cultist|40|64
+MotelLobby,18722,,Spawn|Cultist2|cultist|40|64
 
 -- cultist arrives to check in at 3
-MotelLobby,18720,,Spawn|Cultist|cultist|40|64
+MotelLobby,18723,,Spawn|Cultist3|cultist|40|64
 
 -- cultist arrives to check in at 4
-MotelLobby,18720,,Spawn|Cultist|cultist|40|64
+MotelLobby,18724,,Spawn|Cultist4|cultist|40|64
 
 -- cultist arrives to check in at 5
-MotelLobby,18720,,Spawn|Cultist|cultist|40|64
+MotelLobby,18725,,Spawn|Cultist5|cultist|40|64
 
 -- cultist arrives to check in at 6
-MotelLobby,18720,,Spawn|Cultist|cultist|40|64
+MotelLobby,18726,,Spawn|Cultist6|cultist|40|64
 
 -- cultist arrives to check in at 9 (KEY EVENT)
 
@@ -260,7 +257,7 @@ School,74800,,PlaySound|mirror
 Library,74800,,PlaySound|mirror
 Antiques,74800,,PlaySound|mirror
 Home,74880,,PlaySound|mirror
-MotelLobby,,74880,PlaySound|mirror
+MotelLobby,74880,,PlaySound|mirror
 -- Home,74881,,ToggleFlag|HearMirror
 
 -- TODO: if you are in a room you get dialogue from whoever is present
@@ -270,42 +267,42 @@ MotelLobby,,74880,PlaySound|mirror
 -- ========================
 --
 -- at 3am cultists begin gathering in swamp
---c1 actions
+-- c1 actions
 Swamp,88920,,Spawn|Cultist|cultist|178|115
 Swamp,89000,,Move|Cultist|175|49|10
 Swamp,90000,,Move|Cultist|47|48|10
 
---c2 actions
+-- c2 actions
 Swamp,89200,,Spawn|Cultist1|cultist1|178|115
 Swamp,89400,,Move|Cultist1|175|49|10
 Swamp,89400,,Move|Cultist1|54|38|10
 
---c3 actions
+-- c3 actions
 Swamp,89520,,Spawn|Cultist2|cultist2|178|115
 Swamp,89600,,Move|Cultist2|175|49|10
 Swamp,89600,,Move|Cultist2|71|36|10
 
---c4 actions
+-- c4 actions
 Swamp,89920,,Spawn|Cultist3|cultist3|178|115
 Swamp,90000,,Move|Cultist3|175|49|10
 Swamp,90000,,Move|Cultist3|54|52|10
 
---c5 actions
+-- c5 actions
 Swamp,90120,,Spawn|Cultist4|cultist4|178|115
 Swamp,90500,,Move|Cultist4|175|49|10
 Swamp,90500,,Move|Cultist4|71|52|10
 
---c6 actions
+-- c6 actions
 Swamp,90820,,Spawn|Cultist5|cultist5|178|115
 Swamp,91000,,Move|Cultist5|175|49|10
 Swamp,91000,,Move|Cultist5|80|54|10
 
---c7 actions
+-- c7 actions
 Swamp,91320,,Spawn|Cultist6|cultist6|178|115
 Swamp,91600,,Move|Cultist6|175|49|10
 Swamp,91600,,Move|Cultist6|80|40|10
 
---TODO: ADD IN THE SUMMONING CIRCLE
+-- TODO: ADD IN THE SUMMONING CIRCLE
 
 -- at 4am the ritual begins
 Swamp,93600,,Speak|Cultist|All present, bear witness to the great power of our God!
