@@ -17,6 +17,7 @@ local gamestate = {
         Doctor = require "src.gamestates.Interior.DoctorGameState",
         Library = require "src.gamestates.Interior.LibraryGameState",
         Motel = require "src.gamestates.Interior.MotelGameState",
+        MotelLobby = require "src.gamestates.Interior.MotelLobbyGameState",
         PostOffice = require "src.gamestates.Interior.PostOfficeGameState",
         School = require "src.gamestates.Interior.SchoolGameState",
         Shop = require "src.gamestates.Interior.ShopGameState"

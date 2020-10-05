@@ -35,6 +35,9 @@ function M.new(graphics)
 			motel = {
 				bg = lg.newImage("assets/images/world/motel/interior.png"),
 			},
+			motel_lobby = {
+				bg = lg.newImage("assets/images/world/motel/interior-lobby.png"),
+			},
 			post_office = {
 				bg = lg.newImage("assets/images/world/post-office/interior.png"),
 			},
@@ -71,6 +74,7 @@ function M.new(graphics)
 				unkown = lg.newImage("assets/images/people/unknown-profile.png"),
 				cultist = lg.newImage("assets/images/people/cultist-profile.png"),
 				mary = lg.newImage("assets/images/people/mary-profile.png"),
+				motel_guy = lg.newImage("assets/images/people/motelguy-profile.png"),
 			},
 		},
 		
@@ -111,6 +115,7 @@ function M.new(graphics)
 			person8 = lg.newImage("assets/images/people/person8.png"),
 			person9 = lg.newImage("assets/images/people/person9.png"),
 			person10 = lg.newImage("assets/images/people/person10.png"),
+			motel_guy = lg.newImage("assets/images/world/motel/motelguy.png"),
 		},
     }, M)
 end
