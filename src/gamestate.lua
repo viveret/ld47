@@ -170,7 +170,7 @@ function gamestate.updateForTimespassed(dt)
 
     gamestate.fracSec = remainder
 
-    return wholeTicks;
+    return wholeTicks * 8
 end
 
 function gamestate.update(dt)
@@ -249,6 +249,10 @@ function gamestate.load()
 
     -- initial flags
     gamestate.setFlag("NotDoneJob")
+    gamestate.setFlag("NotServedcustomerOne")
+    gamestate.setFlag("NotServedcustomerTwo")
+    gamestate.setFlag("NotServedcustomerThree")
+    gamestate.setFlag("NotServedcustomerFour")
 
     -- start at title
     gamestate.warpTo('Title,0,0,x')
@@ -279,7 +283,7 @@ function gamestate.clearFlag(flag)
 
     for ix, setFlag in ipairs(gamestate.flags) do
         if flag == setFlag then
-            gamestate.flags[ix] = nil
+            table.remove(gamestate.flags, ix)
             break
         end
     end
@@ -298,9 +302,7 @@ function gamestate.hasFlag(flag)
 end
 
 function gamestate.recalcTimeline()
-    for _, existing in pairs(gamestate.existingStates) do
-        existing:update(1/60)   -- every step is always the same length
-
+    for key, existing in pairs(gamestate.existingStates) do
         existing:recalcTimeline()
     end
 end

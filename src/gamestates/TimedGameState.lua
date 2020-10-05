@@ -46,8 +46,10 @@ function M:recalcTimeline()
 
     self.nextEvent = timeline.nextEvent(self.timeline, self.gamestate.time, self.gamestate.flags)
 
-    if oldEvent ~= self.nextEvent then
-        print(self.scene.." changed next event: "..self.nextEvent.action.type.." at "..self.nextEvent.time)
+    if self.nextEvent ~= nil then
+        if oldEvent == nil or oldEvent.time ~= self.nextEvent.time then
+            print(self.scene.." changed next event: "..self.nextEvent.action.type.." at "..self.nextEvent.time)
+        end
     end
 end
 

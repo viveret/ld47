@@ -34,11 +34,24 @@ function M.customerServed(gs, customerName, type, param)
 		gs.clearFlag("NotDoneJob")
 	end
 
-	local customerFlag = customerName.."Served"
+	local customerFlag = "Served"..customerName
+	local notCustomerFlag = "Not"..customerFlag
 
 	local served = gs.hasFlag(customerFlag)
 	if not served then
 		gs.setFlag(customerFlag)
+	end
+
+	if gs.hasFlag(notCustomerFlag) then
+		gs.clearFlag(notCustomerFlag)
+	end
+
+	local a =  gs.hasFlag("ServedcustomerOne")
+	local b = gs.hasFlag("ServedcustomerTwo") 
+	local c = gs.hasFlag("ServedcustomerThree")
+
+	if a and b and c then
+		gs.setFlag("ServedAllCustomers")
 	end
 end
 
@@ -56,6 +69,10 @@ end
 
 function M.customerFour(gs, actor, eventType, param)
 	M.customerServed(gs, "customerFour", eventType, param)
+end
+
+function M.customerCultist(gs, actor, eventType, param)
+	-- todo
 end
 
 return M
