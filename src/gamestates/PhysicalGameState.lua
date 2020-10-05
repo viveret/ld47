@@ -36,6 +36,8 @@ function M.new(gamestate, scene, graphics)
     self.sunsetHourStart = 18
     self.sunsetHourEnd = 20
 
+    self.interactProximity = 18
+
     -- hook up warps and what not
     self:addContactListeners()
     self:addProximityListeners()
@@ -199,7 +201,7 @@ end
 
 function M:addProximityListeners()
     self:addProximityListener(
-        15,
+        self.interactProximity,
         function (a, b)
             return a.isInteractable and b.type == 'player'
         end,
@@ -562,7 +564,10 @@ end
 function M:removeActor(name)
     local oldActor = self.actors[name]
 
-    self.actors[name] = nil
+    if oldActor ~= nil then
+        self.actors[name] = nil
+        oldActor:onRemove(self)
+    end
 
     return oldActor ~= nil
 end
