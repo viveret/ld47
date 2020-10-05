@@ -12,8 +12,13 @@ function M.new(gamestate, title)
 
         },
         bg = gamestate.graphics.ui.menu_bg
-	}, M)
+    }, M)
+    
 	return self
+end
+
+function M:activated()
+    self.gamestate.ensureBGMusic("day2")
 end
 
 function M:draw()

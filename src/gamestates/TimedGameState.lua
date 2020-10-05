@@ -37,6 +37,9 @@ function M:switchTo(x, y)
 
 end
 
+function M:activated()
+end
+
 function M:save()
 end
 

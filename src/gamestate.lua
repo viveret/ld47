@@ -144,7 +144,8 @@ function gamestate.push(newGamestate)
     gamestate.markTopmost(newGamestate)
 end
 
-function gamestate.markTopmost(toGamestate) 
+function gamestate.markTopmost(toGamestate)
+    toGamestate:activated()
     for _, state in ipairs(gamestate.stack) do
         state.topmost = toGamestate == state
     end

@@ -32,6 +32,9 @@ end
 
 function M:switchTo(x, y)
     IndoorsGameState.switchTo(self, x, y)
+end
+
+function M:activated()
     self.gamestate.ensureBGMusic("dreamSequence")
 end
 

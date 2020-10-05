@@ -4,7 +4,6 @@ M.__index = M
 
 function M.new(gamestate, name, graphics)
     local self = setmetatable(PhysicalGameState.new(gamestate, name, graphics), M)
-	-- self.field = field
     self:addExteriorWorldBounds()
 	return self
 end
