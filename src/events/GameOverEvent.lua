@@ -7,6 +7,10 @@ function M.new()
 end
 
 function M:fireOn(gs)
+    if gs.hasFlag("ServedAllCustomers") and gs.hasFlag("has-reserved-room") and gs.hasFlag("SawSickCultist") and gs.hasFlag("HearMirror") then
+        gs.setFlag("defeated-cultists")
+    end
+
     gs.gameOver()
 end
 
