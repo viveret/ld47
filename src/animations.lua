@@ -28,7 +28,7 @@ function M.new(images)
 			person8 =  getActorAnimations(images.actors.person8),
 			person9 =  getActorAnimations(images.actors.person9),
 			person10 = getActorAnimations(images.actors.person10),
-			motel_guy = animation.new(images.actors.motel_guy, 64, 64, 0, 6, 0, 1),
+			motel_guy = getActorAnimations(images.actors.motel_guy),
 		},
 		doors = {
 			antiques = animation.new(images.doors.antiques, 80, 72, 0, 6, 0, 1, false),

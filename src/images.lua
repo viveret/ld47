@@ -142,9 +142,9 @@ function M:drawDialogBox(profileName, text, animation)
 	local profile = nil
 
 	if profileName == '???' then
-		profile = self.UnknownProfile
+		profile = self.ui.profiles.unknown
 	else
-		profile = self[profileName.."Profile"]
+		profile = self.ui.profiles[profileName]
 	end
 
 	if profile ~= nil then 

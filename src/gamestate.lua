@@ -241,7 +241,7 @@ function gamestate.update(dt)
 
             -- tick the toast
             if gamestate.toast ~= nil then
-                gamestate.toast.tick()
+                gamestate.toast:tick()
             end
         end 
     else
