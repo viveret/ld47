@@ -29,8 +29,6 @@ function M.customerServed(gs, actorName, customerName, type, param, text)
 		return
 	end
 
-	print('customer served: ' .. customerName)
-
 	local notDoneJob = gs.hasFlag("NotDoneJob")
 	if notDoneJob then
 		gs.clearFlag("NotDoneJob")
@@ -42,14 +40,7 @@ function M.customerServed(gs, actorName, customerName, type, param, text)
 	local served = gs.hasFlag(customerFlag)
 	if not served then
 		gs.setFlag(customerFlag)
-
-		print("showing dialog")
-
-		local currentScene = gs.current().scene
-		print("currentScene "..currentScene)
-
-		local dialog = gs.createStates.DialogGame.new(gs, "Cultist", "Best watch where you are walking.")
-		gs.push(dialog)
+		gs.fire(ActorSpeakEvent.new(gs.current().scene, "Cultist", "Best watch where you are walking."), true)
 	end
 
 	if gs.hasFlag(notCustomerFlag) then

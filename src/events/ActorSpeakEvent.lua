@@ -25,7 +25,7 @@ function M:fireOn(gs)
 	--print("ActorSpeakEvent firing"..currentScene)
 	
 	if currentScene == self.scene then
-		print("ActorSpeakEvent inserting dialog")
+		-- print("ActorSpeakEvent inserting dialog")
 
     	local dialogState = gs.createStates.DialogGame.new(gs, self.name, self.text)
 

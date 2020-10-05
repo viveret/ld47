@@ -3,7 +3,7 @@ local M = {}
 local NPC = require "src.actors.NPC"
 
 function M.fireOn(self, gs) 
-	print("ActorSpawnEvent firing "..self.scene.." "..self.name)
+	-- print("ActorSpawnEvent firing "..self.scene.." "..self.name)
 
 	local scene = gs.existingStates[self.scene]
 

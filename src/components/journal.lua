@@ -14,7 +14,7 @@ function M.new(gamestate)
         itemGap = 8,
         items = {
             {
-                flag = "coffee-served",
+                flag = "ServedAllCustomers",
                 text = "You served coffee. You're a good 'lil worker!"
             }
         }
