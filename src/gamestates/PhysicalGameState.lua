@@ -394,14 +394,14 @@ function M:draw()
     self:drawInWorldView()
     lg.pop()
 
-    local x = self.player.body:getX()
-    local y = self.player.body:getY()
+    -- local x = self.player.body:getX()
+    -- local y = self.player.body:getY()
 
-    local currentVx, currentVy = self.player.body:getLinearVelocity()
-    lg.print("You are at " .. x .. ", " .. y .. " in " .. self.scene, 0, 0)
-    lg.print("Camera is at " .. self:currentCamera().x .. ", " .. self:currentCamera().y, 0, 16)
-    lg.print("Player's velocity is " .. currentVx .. ", " .. currentVy, 0, 32)
-    lg.print("Current time is " .. self.gamestate.time, 0, 48)
+    -- local currentVx, currentVy = self.player.body:getLinearVelocity()
+    -- lg.print("You are at " .. x .. ", " .. y .. " in " .. self.scene, 0, 0)
+    -- lg.print("Camera is at " .. self:currentCamera().x .. ", " .. self:currentCamera().y, 0, 16)
+    -- lg.print("Player's velocity is " .. currentVx .. ", " .. currentVy, 0, 32)
+    -- lg.print("Current time is " .. self.gamestate.time, 0, 48)
 
     TimedGameState.draw(self)
 end
