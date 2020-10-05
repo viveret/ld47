@@ -7,18 +7,17 @@ M.__index = M
         - changes like flipping horizontally once in a while
 ]]
 
-function M.new(world, spritesheet, x, y, frameWidth, frameHeight, frameCount, duration, onInteract)
+function M.new(world, x, y, anim, onInteract)
     local self = setmetatable({
-        spritesheet = spritesheet,
         x = x,
         y = y,
         hasNotInteractedWith = false,
-        onInteract = onInteract
+        onInteract = onInteract,
+        animation = anim,
     }, M)
-
-    self.animation = animation.new(self.spritesheet, frameWidth, frameHeight, 0, frameCount, 0, duration or 1)
+    
     self.body = lp.newBody(world, self.x, self.y, "static")
-    self.shape = lp.newRectangleShape(frameWidth / 8, frameHeight / 8)
+    self.shape = lp.newRectangleShape(self.animation.frameWidth / 8, self.animation.frameHeight / 8)
     self.fixture = lp.newFixture(self.body, self.shape)
 
     return self

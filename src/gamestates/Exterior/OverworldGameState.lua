@@ -48,7 +48,6 @@ function M.new(gamestate)
             w = 70, h = 24
         }
     })
-    self.renderBounds = true
     
     self.doors = {
         antiques = door.new(self.gamestate.animations.doors.antiques, 65, 82.5),
@@ -148,13 +147,11 @@ function M.new(gamestate)
             door = self.doors.store
         }
     }
-    self.renderWarps = true
 
     self.animatedObjects = {
-        schoolFlag = AnimatedObject.new(self.world, self.gamestate.images.decor.school_flag, 184, 70, 88, 160, 3, 3),
-        beerSign = AnimatedObject.new(self.world, self.gamestate.images.decor.beer_sign, 20, 80, 56, 80, 14, 5, awdawdawd)
+        schoolFlag = AnimatedObject.new(self.world, 184, 70, self.gamestate.animations.decor.school_flag),
+        beerSign = AnimatedObject.new(self.world, 20, 80, self.gamestate.animations.decor.beer_sign, awdawdawd)
     }
-    
 
     self.animatedObjects.beerSign.type = 'sign'
     self.animatedObjects.beerSign.isInteractable = true

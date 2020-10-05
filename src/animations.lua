@@ -46,6 +46,11 @@ function M.new(images)
 		},
 		ui = {
 			text_arrow = animation.new(images.ui.text_arrow, 32, 32, 0, 2, 0, 1, false)
+		},
+		decor = {
+			school_flag = animation.new(images.decor.school_flag, 88, 160, 0, 3, 0, 3, false),
+			beer_sign = animation.new(images.decor.beer_sign, 56, 80, 0, 14, 0, 5, false),
+			freezer = animation.new(images.decor.freezer, 96, 96, 0, 3, 0, 10000),
 		}
     }, M)
 end
