@@ -193,6 +193,10 @@ function M:drawDialogBox(actor, title, text, animation)
 		profile = self.ui.portraits[actor]
 	end
 
+	if profile == nill then
+		profile = self.ui.portraits.unknown
+	end
+
 	if profile ~= nil then 
 		local profileX = x + 28
 		local profileY = y + 16
