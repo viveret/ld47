@@ -73,7 +73,7 @@ function M.new(graphics)
 			end_bg = lg.newImage("assets/images/ui/end.png"),
 			clock_bg = lg.newImage("assets/images/ui/clock.png"),
 
-			profiles = {
+			portraits = {
 				player = lg.newImage("assets/images/people/protag-profile.png"),
 				unkown = lg.newImage("assets/images/people/unknown-profile.png"),
 				cultist = lg.newImage("assets/images/people/cultist-profile.png"),
@@ -145,7 +145,7 @@ function M.new(graphics)
     }, M)
 end
 
-function M:drawDialogBox(profileName, text, animation)
+function M:drawDialogBox(actor, title, text, animation)
 	local outerXGutter = 5
 	local innerXGutter = 18
 	local outerYGutter = 5
@@ -166,17 +166,17 @@ function M:drawDialogBox(profileName, text, animation)
 	-- render the profile picture
 	local profile = nil
 
-	if profileName == '???' then
-		profile = self.ui.profiles.unknown
+	if actor == '???' then
+		profile = self.ui.portraits.unknown
 	else
-		profile = self.ui.profiles[profileName]
+		profile = self.ui.portraits[actor]
 	end
 
 	if profile ~= nil then 
 		local profileX = x + 28
 		local profileY = y + 16
 
-		self:drawObject(profile, profileX, profileY, 152, 152)
+		self.graphics:drawObject(profile, profileX, profileY, 152, 152)
 	end
 
 	-- render the dialog box
@@ -187,7 +187,7 @@ function M:drawDialogBox(profileName, text, animation)
 	self.graphics:renderTextInBox(text, x + 180 + innerXGutter, y, maximumTextWidth, maximumTextHeight, self.ui.dialog_font)
 
 	-- render the name
-	self.graphics:renderTextInBox(profileName, x + 40, y + 175, maximumNameWidth, maximumNameHeight, self.ui.dialog_font)
+	self.graphics:renderTextInBox(title, x + 40, y + 175, maximumNameWidth, maximumNameHeight, self.ui.dialog_font)
 
 	if animation ~= nil then
 		local animSize = animation:getFrameSize()

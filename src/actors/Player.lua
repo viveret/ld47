@@ -7,6 +7,7 @@ function M.new(world, name, gamestate, x, y, w, h, anims)
         world, name, gamestate, x, y, w, h, anims, nil), M)
     
     self.type = "player"
+    self.assetName = "player"
     
     return self
 end

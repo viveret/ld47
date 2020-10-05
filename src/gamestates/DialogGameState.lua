@@ -1,9 +1,9 @@
 local M = { }
 M.__index = M
 
-function M.new(gamestate, name, text)
-	if name == nil then
-		error ('name cannot be nil')
+function M.new(gamestate, actor, title, text)
+	if actor == nil then
+		error ('actor cannot be nil')
 	end
 
 	local physicalGamestate = nil
@@ -22,11 +22,11 @@ function M.new(gamestate, name, text)
 
     local self = setmetatable({
         gamestate = gamestate,
-        name = name,
+		actor = actor,
+		title = title,
         text = text,
         lowerGameState = physicalGamestate,
-        nextAnimation = gamestate.animations.ui.text_arrow,
-        scene = name
+		nextAnimation = gamestate.animations.ui.text_arrow,
 	}, M)
 
 	return self
@@ -60,7 +60,7 @@ end
 function M:draw()
 	self.lowerGameState:draw()
 
-	self.gamestate.images:drawDialogBox(self.name, self.text, self.nextAnimation)
+	self.gamestate.images:drawDialogBox(self.actor, self.title, self.text, self.nextAnimation)
 end
 
 function M:getWidth()

@@ -20,14 +20,26 @@ function M:fireOn(gs)
 	-- print('self.scene: ')
 	-- print(self.scene)
 
-	local currentScene = gs.current().scene
+	local scene = gs.current()
+	local currentScene = scene.scene
 
 	--print("ActorSpeakEvent firing"..currentScene)
 	
 	if currentScene == self.scene then
 		-- print("ActorSpeakEvent inserting dialog")
+		local actor = scene:getActor(self.name)
 
-    	local dialogState = gs.createStates.DialogGame.new(gs, self.name, self.text)
+		if actor == nil then
+			print("Actor not found "..self.name)
+			return
+		end
+
+		local assetName = nil
+		if actor ~= nil then
+			assetName = actor.assetName
+		end
+
+    	local dialogState = gs.createStates.DialogGame.new(gs, assetName, self.name, self.text)
 
     	gs.push(dialogState)
     --else

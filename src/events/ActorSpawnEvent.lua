@@ -18,6 +18,7 @@ function M.fireOn(self, gs)
 	end
 	
 	local newActor = NPC.new(scene.world, name, gs, self.x, self.y, 5, 5, anims, self.callback)
+	newActor.assetName = self.assetName
 
 	scene:addActor(self.name, newActor)
 end

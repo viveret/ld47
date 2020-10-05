@@ -22,7 +22,7 @@ function M:draw()
 		return
 	end
 
-	self.gamestate.images:drawDialogBox(self.name, self.text, nil)
+	self.gamestate.images:drawDialogBox(nil, self.name, self.text, nil)
 end
 
 function M:tick()
