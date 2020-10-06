@@ -5,6 +5,7 @@ M.__index = M
 
 function M.new(gamestate)
     local self = setmetatable(PhysicalGameState.new(gamestate, 'Overworld', gamestate.images.places.overworld), M)
+    self.bgMusicName = "chill"
     self:addExteriorWorldBounds()
     self:addWorldBounds({
         { -- Building 1a
@@ -189,10 +190,6 @@ end
 
 function M:switchTo(x, y)
     PhysicalGameState.switchTo(self, x, y)
-end
-
-function M:activated()
-    self.gamestate.ensureBGMusic("chill")
 end
 
 function M:save()

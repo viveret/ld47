@@ -141,7 +141,7 @@ function gamestate.switchTo(toGamestate)
 end
 
 -- push a NEW gamestate here
-function gamestate.push(newGamestate)
+function gamestate.push(newGamestate, deactive)
     if newGamestate ~= nil then
         -- print("pushing "..newGamestate.scene)
         table.insert(gamestate.stack, newGamestate)
@@ -149,6 +149,9 @@ function gamestate.push(newGamestate)
         error('newGamestate must not be nil')
     end
 
+    if deactive ~= true then
+        newGamestate:activated()
+    end
     gamestate.markTopmost(newGamestate)
 
     --print("push, queue "..#gamestate.stack)
@@ -156,7 +159,6 @@ function gamestate.push(newGamestate)
 end
 
 function gamestate.markTopmost(toGamestate)
-    toGamestate:activated()
     for _, state in ipairs(gamestate.stack) do
         state.topmost = toGamestate == state
     end
@@ -168,6 +170,7 @@ function gamestate.pop()
     local current = gamestate:current()
     if current ~= nil then
         gamestate.markTopmost(current)
+        current:activated()
     end
 end
 
@@ -207,7 +210,7 @@ end
 
 function gamestate.update(dt)
     -- handle any fadeouts that are in progress
-    gamestate.advanceBGMusic()
+    gamestate.audio:update(dt)
 
     if #gamestate.events > 0 then
         local tmp = gamestate.events
@@ -256,7 +259,7 @@ function gamestate.load()
     gamestate.graphics = graphics.new()
     gamestate.images = images.new(gamestate.graphics)
     gamestate.animations = animations.new(gamestate.images)
-    gamestate.audio = audio.load()
+    gamestate.audio = audio.new()
 
     -- time is 0 now
     gamestate.time = 0
@@ -274,7 +277,7 @@ function gamestate.load()
         local state = creator.new(gamestate)
         state:load()
         gamestate.existingStates[key] = state
-        gamestate.push(state)
+        gamestate.push(state, true)
     end
 
     -- initialize
@@ -400,79 +403,6 @@ end
 
 function gamestate.gameOver()
     gamestate.warpTo('GameOver,0,0,x')
-end
-
-function gamestate.ensureBGMusic(bgMusicName)
-    print("ensureBGMusic "..bgMusicName)
-
-    local source = gamestate.audio[bgMusicName]:clone()
-
-    source:setVolume(0)
-    source:setLooping(true)
-    source:play()
-
-    table.insert(gamestate.backgroundMusic, source)
-end
-
-function gamestate.advanceBGMusic()
-    local fadeOverSeconds = 5
-    local step =  1 / (60 * fadeOverSeconds)
-
-    local bg = gamestate.backgroundMusic
-
-    local queued = #gamestate.backgroundMusic
-
-    if queued == 0 then
-        return
-    end
-
-    local current = gamestate.backgroundMusic[1]
-
-    local shouldFadeOut = queued > 1
-
-    local curVol = current:getVolume()
-
-    if curVol == 1 and not shouldFadeOut then
-        -- nothing to do
-        return
-    end
-
-    -- update current volume
-    if shouldFadeOut then
-        curVol = curVol - step
-    else 
-        curVol = curVol + step
-    end
-
-    if curVol < 0  then
-        curVol = 0
-    end
-
-    if curVol > 1  then
-        curVol = 1
-    end
-
-    current:setVolume(curVol)
-
-    -- update next volume (if we're also fading it in)
-    if shouldFadeOut then
-        local next = gamestate.backgroundMusic[2]
-
-        local nextVol = next:getVolume()
-        nextVol = nextVol + step
-        if nextVol > 1 then
-            nextVol = 1
-        end
-
-        next:setVolume(nextVol)
-    end
-
-    -- if current is completely faded out, toss it
-    if curVol == 0 then
-        current:stop()
-        current:release()
-        table.remove(gamestate.backgroundMusic, 1)
-    end
 end
 
 return gamestate

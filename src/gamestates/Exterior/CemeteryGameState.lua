@@ -4,6 +4,7 @@ M.__index = M
 
 function M.new(gamestate)
     local self = setmetatable(PhysicalGameState.new(gamestate, 'Cemetery', gamestate.images.places.cemetery), M)
+    self.bgMusicName = "dreamSequence"
     self:addExteriorWorldBounds(8)
     
     self:addWorldBounds({
@@ -73,10 +74,6 @@ end
 
 function M:switchTo(x, y)
     PhysicalGameState.switchTo(self, x, y)
-end
-
-function M:activated()
-    self.gamestate.ensureBGMusic("dreamSequence")
 end
 
 function M:save()

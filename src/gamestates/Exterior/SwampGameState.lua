@@ -4,6 +4,7 @@ M.__index = M
 
 function M.new(gamestate)
     local self = setmetatable(PhysicalGameState.new(gamestate, 'Swamp', gamestate.images.places.swamp), M)
+    self.bgMusicName = "nightSpooky"
     self:addExteriorWorldBounds(4)
     self.renderBounds = false
     
@@ -39,10 +40,6 @@ function M:switchTo(x, y)
 end
 
 function M:save()
-end
-
-function M:activated()
-    self.gamestate.ensureBGMusic("nightSpooky")
 end
 
 return M

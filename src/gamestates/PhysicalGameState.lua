@@ -14,6 +14,7 @@ function M.new(gamestate, scene, graphics)
 
     local self = setmetatable(TimedGameState.new(gamestate, scene), M)
     self.background = graphics.bg
+    self.bgMusicName = "theme"
     self.world = lp.newWorld(0, 0, true)
     self.player = nil
     self.cameras = { }
@@ -492,6 +493,14 @@ function M:switchTo(x, y)
         warp.activated = false
     end
     self.player.activated = false
+end
+
+function M:activated()
+    if self.bgMusicName ~= nil then
+        self.gamestate.audio:play(self.bgMusicName)
+    else
+        self.gamestate.audio:fadeAllOut()
+    end
 end
 
 function M:save()

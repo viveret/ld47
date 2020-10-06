@@ -51,8 +51,6 @@ end
 function M:load()
     -- load relevant timeline
     self.timeline = timeline.lookup(self.gamestate.timeline, self.scene, self.gamestate.time)
-    
-    self:recalcTimeline()
 end
 
 function M:switchTo(x, y)
@@ -60,6 +58,7 @@ function M:switchTo(x, y)
 end
 
 function M:activated()
+    self:recalcTimeline()
 end
 
 function M:save()

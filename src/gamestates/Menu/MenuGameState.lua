@@ -11,7 +11,8 @@ function M.new(gamestate, title)
         uielements = {
 
         },
-        bg = gamestate.images.ui.menu_bg
+        bg = gamestate.images.ui.menu_bg,
+        bgMusicName = "day2",
     }, M)
     
 	return self
@@ -24,7 +25,7 @@ function M:keyreleased( key, scancode )
 end
 
 function M:activated()
-    self.gamestate.ensureBGMusic("day2")
+    self.gamestate.audio:play(self.bgMusicName)
 end
 
 function M:draw()

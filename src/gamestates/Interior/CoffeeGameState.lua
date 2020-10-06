@@ -4,7 +4,8 @@ M.__index = M
 
 function M.new(gamestate)
     local self = setmetatable(IndoorsGameState.new(gamestate, 'Coffee', gamestate.images.places.coffee), M)
-	
+    self.bgMusicName = "chill"
+    
     self.warps = {
         { -- Main door
             x = 45, y = 69.5,
@@ -49,10 +50,6 @@ end
 
 function M:switchTo(x, y)
     IndoorsGameState.switchTo(self, x, y)
-end
-
-function M:activate()
-    self.gamestate.ensureBGMusic("chill")
 end
 
 function M.save()

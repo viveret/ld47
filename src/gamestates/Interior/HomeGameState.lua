@@ -6,7 +6,8 @@ M.__index = M
 
 function M.new(gamestate)
     local self = setmetatable(IndoorsGameState.new(gamestate, 'Home', gamestate.images.places.home), M)
-    
+    self.bgMusicName = "chill"
+
     self:addWorldBounds({
         { -- Left
             x = 15, y = 8,
@@ -53,10 +54,6 @@ end
 
 function M:switchTo(x, y)
     IndoorsGameState.switchTo(self, x, y)
-end
-
-function M:activated()
-    self.gamestate.ensureBGMusic("chill")
 end
 
 function M.save()
