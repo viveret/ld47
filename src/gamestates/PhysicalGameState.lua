@@ -348,10 +348,10 @@ function M:drawInWorldView()
         end
     end
 
-    drawList(self.actors)
     drawList(self.doors)
     drawList(self.animatedObjects)
     drawList(self.staticObjects)
+    drawList(self.actors)
 
     self.player:draw()
 
@@ -572,7 +572,11 @@ function M:addStaticObject(name, staticObject)
 end
 
 function M:getActor(name)
-    return self.actors[name]
+    if name == "player" then
+        return self.player
+    else
+        return self.actors[name]
+    end
 end
 
 function M:removeActor(name)

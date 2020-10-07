@@ -32,46 +32,35 @@ function M:update(dt)
         self.animation = self.animations.right
     end
 
-    local currentVx, currentVy = self.body:getLinearVelocity()
-    local dampingFactor = .1
-
-    if vx ~= 0 then
-        if math.abs(currentVx) < self.maxVelocity then
-            self.body:applyForce(vx * (self.walkForce * .5), 0)
-        end
-    else
-        -- local dampingDir = currentVx < 0 and 1 or -1
-        -- self.body:applyForce(dampingDir * dampingFactor * self.walkForce, 0)
-        --self.body:setLinearVelocity(0, currentVy)
-    end
-
-    if vy ~= 0 then
-        if math.abs(currentVy) < self.maxVelocity then
-            self.body:applyForce(0, (vy * self.walkForce * .5))
-        end
-    else
-        -- local dampingDir = currentVy < 0 and 1 or -1
-        -- self.body:applyForce(0, dampingDir * dampingFactor * self.walkForce)
-        --self.body:setLinearVelocity(currentVx, 0)
-    end
-
     self.y = self.body:getY()
     if self.y < 0 then
-        vy = abs(vy)
+        vy = 1
     end
 
     self.x = self.body:getX()
     if self.x < 0 then
-        vx = abs(vx)
+        vx = 1
     end
 
-    if currentVx == 0 and currentVy == 0 then
-        self.animation = self.animations.still
+    local currentVx, currentVy = self.body:getLinearVelocity()
+
+    if vx ~= 0 then
+        if math.abs(currentVx) < self.maxVelocity then
+            self.body:applyForce(vx * self.walkForce * .5, 0)
+        end
     end
 
-    if self.animation ~= nil then
-        self.animation:update(dt)
+    if vy ~= 0 then
+        if math.abs(currentVy) < self.maxVelocity then
+            self.body:applyForce(0, vy * self.walkForce * .5)
+        end
     end
+
+    AnimatedActor.update(self, dt)
+end
+
+function M:updateMovingTo(dt)
+    return false
 end
 
 return M

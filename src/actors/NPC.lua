@@ -12,13 +12,4 @@ function M.new(world, name, gamestate, x, y, w, h, anims, callback)
     return self
 end
 
-function M:draw() 
-    self.animation:draw(self.body:getX(), self.body:getY())
-    if self.inProximity or self.canInteractWith then
-        lg.setColor(0, 1, 0)
-        lg.rectangle('line', self.body:getX(), self.body:getY(), self.animation.frameWidth / 8, self.animation.frameHeight / 8)
-        lg.setColor(1, 1, 1)
-    end
-end
-
 return M

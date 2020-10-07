@@ -1,5 +1,5 @@
-Home,100,,Speak|Player|Good morning. What a glorious time (8 a.m.) to be alive on this fine Tuesday.
-Home,1000,,Speak|Player|I better get going if I don't want to be late to my job at the local coffee shop.
+Home,100,,Speak|player|Good morning. What a glorious time (8 a.m.) to be alive on this fine Tuesday.
+Home,1000,,Speak|player|I better get going if I don't want to be late to my job at the local coffee shop.
 
 -- Turn sky red
 Overworld,88920,,GlobalAmbientColor|1|0.5|0.5
@@ -85,7 +85,7 @@ Doctor,54000,,Despawn|Mailman
 
 -- mail arrives at home at 3pm
 Home,23400,,PlaySound|doorbell
-Home,23600,,Speak|Player|What's that? Someone at the door? Must be the mailman.
+Home,23600,,Speak|player|What's that? Someone at the door? Must be the mailman.
 Home,23800,,SpawnStaticObject|package|package|84|66|pickupPackage
 
 -- mail arrives at library at 4pm
