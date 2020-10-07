@@ -67,17 +67,6 @@ function gamestate.save(autosave)
 end
 
 function gamestate.keypressed( key, scancode, isrepeat )
-    if not isrepeat then
-        if key == 'p' then
-            gamestate.warpTo('Pause,0,0,x')
-        elseif key == 'space' then
-            local currentPlayer = gamestate.current().player
-            if currentPlayer ~= nil then
-                currentPlayer:doInteraction()
-            end
-        end
-    end
-
     gamestate.current():keypressed( key, scancode, isrepeat )
 end
 

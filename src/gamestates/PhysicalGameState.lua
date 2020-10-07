@@ -108,6 +108,15 @@ function M.new(gamestate, scene, graphics)
 end
 
 function M:keypressed( key, scancode, isrepeat )
+    if not isrepeat then
+        if lume.find({'p', 'escape'}, key) then
+            self.gamestate.warpTo('Pause,0,0,x')
+        elseif key == 'space' then
+            if self.player ~= nil then
+                self.player:doInteraction()
+            end
+        end
+    end
 end
 
 function M:keyreleased( key, scancode )

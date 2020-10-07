@@ -32,12 +32,16 @@ function M:update(dt)
         self.animation = self.animations.right
     end
 
-    self.y = self.body:getY()
+    if lk.isDown('lshift') then
+        vx = vx * 1.75
+        vy = vy * 1.75
+        AnimatedActor.update(self, dt * .75)
+    end
+
     if self.y < 0 then
         vy = 1
     end
 
-    self.x = self.body:getX()
     if self.x < 0 then
         vx = 1
     end
@@ -45,13 +49,13 @@ function M:update(dt)
     local currentVx, currentVy = self.body:getLinearVelocity()
 
     if vx ~= 0 then
-        if math.abs(currentVx) < self.maxVelocity then
+        if math.abs(currentVx) < self.maxVelocity * abs(vx) then
             self.body:applyForce(vx * self.walkForce * .5, 0)
         end
     end
 
     if vy ~= 0 then
-        if math.abs(currentVy) < self.maxVelocity then
+        if math.abs(currentVy) < self.maxVelocity * abs(vy) then
             self.body:applyForce(0, vy * self.walkForce * .5)
         end
     end

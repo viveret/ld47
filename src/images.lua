@@ -84,6 +84,9 @@ function M.new(graphics)
 			end_bg = lg.newImage("assets/images/ui/end.png"),
 			clock_bg = lg.newImage("assets/images/ui/clock.png"),
 
+			success = lg.newImage("assets/images/ui/success.png"),
+			failure = lg.newImage("assets/images/ui/failure.png"),
+
 			portraits = {
 				player = lg.newImage("assets/images/people/protag-profile.png"),
 				unkown = lg.newImage("assets/images/people/unknown-profile.png"),

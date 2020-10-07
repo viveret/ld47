@@ -43,7 +43,7 @@ end
 
 function M:draw()
     lg.push()
-    lg.translate(floor(self.body:getX() - self.width), floor(self.body:getY() - self.height))
+    lg.translate(floor(self.x), floor(self.y))
     self.animation:draw(0, 0)
     if self.inProximity or self.canInteractWith then
         lg.setColor(0, 1, 0)

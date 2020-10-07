@@ -4,14 +4,15 @@ M.__index = M
 function M.new(gamestate)
     local self = setmetatable({
         gamestate = gamestate,
-        scroll = 0,
+        scroll = 0.5,
         scrollVel = 0,
         scrollAccel = 0,
-        pageSize = 10,
+        pageSize = 2,
         itemWidth = 420,
-        itemHeight = 60,
+        itemHeight = 28 * 3,
         itemPad = 8,
         itemGap = 8,
+        iconSize = 32,
         items = {
             {
                 flag = "DoneJob",
@@ -48,9 +49,9 @@ function M.new(gamestate)
         }
     }, M)
 
-    for _,flag in pairs(self.items) do
-        flag.has = gamestate.hasFlag(flag.flag)
-    end
+    -- for _,flag in pairs(self.items) do
+    --     flag.has = gamestate.hasFlag(flag.flag)
+    -- end
 
 	return self
 end
@@ -58,31 +59,45 @@ end
 function M:draw()
     lg.push()
     lg.translate(-self.itemWidth / 4, 0)
-    lg.setColor(0, 1, 1)
-    lg.rectangle('line', 0, 0, self.itemWidth, (self.itemHeight + self.itemGap) * self.pageSize)
-    for _,v in pairs(lume.slice(self.items, floor(self.scroll), self.pageSize + 1)) do
-        self:drawItem(v)
-        lg.translate(0, self.itemHeight + self.itemGap)
+    lg.setColor(1, 1, 1)
+    --lg.rectangle('line', 0, 0, self.itemWidth, (self.itemHeight + self.itemGap) * self.pageSize)
+    
+    local scrolli, scrollf = modf(self.scroll)
+
+    lg.translate(0, (-scrollf) * (self.itemHeight + self.itemGap))
+    for i,v in pairs(self.items) do
+        if i >= self.scroll and i <= self.scroll + self.pageSize + 1 then
+            self:drawItem(v)
+            lg.translate(0, self.itemHeight + self.itemGap)
+        end
     end
     lg.setColor(1, 1, 1)
     lg.pop()
 end
 
 function M:drawItem(el)
+    local icon = nil
     if el.has then
-        lg.setColor(0, 1, 0)
+        icon = self.gamestate.images.ui.success
     else
-        lg.setColor(1, 0, 0)
+        icon = self.gamestate.images.ui.failure
     end
-    lg.rectangle('line', 0, 0, self.itemWidth, self.itemHeight)
-    lg.setColor(1, 1, 1)
-	self.gamestate.graphics:renderTextInBox(el.text, self.itemPad, self.itemPad, self.itemWidth - self.itemPad * 2, self.itemHeight - self.itemPad * 2, self.gamestate.images.ui.dialog_font)
+    
+    self.gamestate.graphics:drawObject(icon, 0, self.itemHeight / 2 - self.iconSize / 2, self.iconSize, self.iconSize)
+	self.gamestate.graphics:renderTextInBox(el.text, self.itemPad + self.iconSize, self.itemPad, self.itemWidth - (self.itemPad + self.iconSize) * 2, self.itemHeight - self.itemPad * 2, self.gamestate.images.ui.dialog_font)
 end
 
 function M:update(dt)
-    self.scrollAccel = self.scrollAccel - self.scrollAccel * 0.9 * dt
+    local scrollMax = #self.items - self.pageSize + .5
     self.scrollVel = self.scrollVel + self.scrollAccel * dt
-    self.scroll = min(max(self.scroll + self.scrollVel * dt, 0), #self.items - self.pageSize)
+    self.scroll = min(max(self.scroll + self.scrollVel * dt, 0.5), scrollMax)
+    if self.scroll == 0.5 and self.scrollVel < 0 then
+        self.scrollVel = 0
+    elseif self.scroll == scrollMax and self.scrollVel > 0 then
+        self.scrollVel = 0
+    else
+        self.scrollVel = self.scrollVel - self.scrollVel * dt
+    end
 end
 
 function M:reset()

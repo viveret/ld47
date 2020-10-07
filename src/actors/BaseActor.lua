@@ -15,10 +15,7 @@ function M.new(world, name, gamestate, x, y, w, h, callback)
         interactWith = {}
 	}, M)
 
-    local trueX = x - self.width / 2
-    local trueY = y - self.height / 2
-
-    self.body = lp.newBody(world, trueX, trueY, "dynamic")
+    self.body = lp.newBody(world, x, y, "dynamic")
     self.shape = lp.newRectangleShape(self.width, self.height)
     self.fixture = lp.newFixture(self.body, self.shape)
     
@@ -42,8 +39,8 @@ end
 
 function M:moveTo(x, y, speed)
     self.movingTo = {
-        x = x - self.width / 2,
-        y = y - self.height / 2,
+        x = x,
+        y = y,
         speed = speed
     }
 end
@@ -69,6 +66,9 @@ function M:interact(player)
 end
 
 function M:update(dt)
+    self.x = self.body:getX() - self.width / 2
+    self.y = self.body:getY() - self.height / 2
+
     if self:updateMovingTo(dt) then
         self.body:setLinearVelocity(0, 0)
     end
@@ -76,16 +76,12 @@ end
 
 function M:updateMovingTo(dt)
     if self.movingTo ~= nil then
-        self.x = self.body:getX() + self.width / 2
-        self.y = self.body:getY() + self.height / 2
-
         local dirX = self.movingTo.x - self.x
         local dirY = self.movingTo.y - self.y
 
         local dist = math.sqrt(dirX*dirX + dirY*dirY)
 
-        if dist < 1 then
-            -- made it, stop it and end the block
+        if dist < 1.1 then
             self.movingTo = nil
             return true
         end
