@@ -24,12 +24,15 @@ function M.new(world, x, y, anim, onInteract)
 end
 
 function M:draw()
-    self.animation:draw(self.body:getX(), self.body:getY())
+    lg.push()
+    lg.translate(floor(self.body:getX()), floor(self.body:getY()))
+    self.animation:draw(0, 0)
     if self.inProximity or self.canInteractWith then
         lg.setColor(0, 1, 0)
-        lg.rectangle('line', self.body:getX(), self.body:getY(), self.animation.frameWidth / 8, self.animation.frameHeight / 8)
+        lg.rectangle('line', 0, 0, self.animation.frameWidth / 8, self.animation.frameHeight / 8)
         lg.setColor(1, 1, 1)
     end
+    lg.pop()
 end
 
 function M:interact(player)
