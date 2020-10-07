@@ -32,7 +32,7 @@ end
 
 function M:updateAnimation(dt)
     local currentVx, currentVy = self.body:getLinearVelocity()
-    if abs(currentVx) + abs(currentVy) < 0.001 then
+    if abs(currentVx) + abs(currentVy) < self.walkForce / 4 then
         self.animation = self.animations.still
     end
 
