@@ -1,20 +1,20 @@
-Home,100,,Speak|player|Good morning. What a glorious time (8 a.m.) to be alive on this fine Tuesday.
-Home,1000,,Speak|player|I better get going if I don't want to be late to my job at the local coffee shop.
+Home,1/1/2000 8:00:0-0,,Speak|player|Good morning. What a glorious time (8 a.m.) to be alive on this fine Tuesday.
+Home,1/1/2000 8:01:0-0,,Speak|player|I better get going if I don't want to be late to my job at the cafe.
 
 -- Turn sky red
-Overworld,88920,,GlobalAmbientColor|1|0.5|0.5
+Overworld,1/1/2000 22:00:0-0,,SetSaveDataEvent|globalAmbientColor|{r=1,g=0.5,b=0.5}
 
 -- Final event
-Overworld,107640,,GameOver|
+Overworld,1/1/2000 23:59:59-999,,GameOver|
 
 -- !!Coffee shop scenario!!
 -- ========================
 --
 -- boss yells at you if you haven't done your job by 9:30
-Overworld,7020,NotDoneJob,Spawn|Boss|person1|110|85
-Overworld,7098,NotDoneJob,Speak|Boss|Where have you been?  There are customers wanting their coffee!
-Overworld,7176,,Despawn|Boss
---
+Overworld,1/1/2000 9:29:0-0,NotDoneJob,Spawn|Boss|person1|110|85
+Overworld,1/1/2000 9:30:0-0,NotDoneJob,Speak|Boss|Where have you been?  There are customers wanting their coffee!
+Overworld,1/1/2000 9:35:0-0,,Despawn|Boss
+--[[
 -- customer one comes in, approaches counter, and can have coffee ordered
 Coffee,5460,,Spawn|Customer 1|person2|62|64
 Coffee,5538,,Move|Customer 1|90|44|10
@@ -57,36 +57,36 @@ Coffee,25401,,Move|Cultist|40|64|10
 Coffee,25001,,Despawn|Cultist
 -- shifts over
 Coffee,25100,CoffeeCultistSpoken,RoomText|You've finished your shift, congrats.  You feel weird about that strangely dressed customer you just left though...
-
+--]]
 
 -- !!mail arriving scenarios!!
 -- ========================
 
 -- mail arrives at coffee at 11am
-Coffee,39600,,Spawn|Mailman|person4|40|64
-Coffee,40000,,Move|Mailman|38|10|10
-Coffee,50000,,SpawnStaticObject|package|package|38|10
-Coffee,50000,,Move|Mailman|38|64|10
-Coffee,54000,,Despawn|Mailman
+Coffee,1/1/2000 11:00:0-0,,Spawn|Mailman|person4|40|64
+Coffee,1/1/2000 11:00:1-0,,Move|Mailman|38|10|10
+Coffee,1/1/2000 11:05:0-0,,SpawnStaticObject|package|package|38|10
+Coffee,1/1/2000 11:05:0-0,,Move|Mailman|38|64|10
+Coffee,1/1/2000 11:07:0-0,,Despawn|Mailman
 
 
 -- mail arrives at doctor at 12pm
-Doctor,18720,,Spawn|Mailman|person4|40|64
-Doctor,40000,,Move|Mailman|38|0|10
-Doctor,40000,,SpawnStaticObject|package|package|38|10|pickupPackage
-Doctor,50000,,Move|Mailman|38|64|10
-Doctor,54000,,Despawn|Mailman
+Doctor,1/1/2000 12:00:0-0,,Spawn|Mailman|person4|40|64
+Doctor,1/1/2000 12:00:1-0,,Move|Mailman|38|0|10
+Doctor,1/1/2000 12:05:0-0,,SpawnStaticObject|package|package|38|10|pickupPackage
+Doctor,1/1/2000 12:05:0-0,,Move|Mailman|38|64|10
+Doctor,1/1/2000 12:07:0-0,,Despawn|Mailman
 
 -- mail arrives at school at 1pm
--- School,23400,,Spawn|Mailman|mailman|40|64
+-- School,1/1/2000 13:00:0-0,,Spawn|Mailman|mailman|40|64
 
 -- mail arrives at antiques at 2pm
--- Antiques,28080,,Spawn|Mailman|mailman|40|64
+-- Antiques,1/1/2000 14:00:0-0,,Spawn|Mailman|mailman|40|64
 
 -- mail arrives at home at 3pm
-Home,23400,,PlaySound|doorbell
-Home,23600,,Speak|player|What's that? Someone at the door? Must be the mailman.
-Home,23800,,SpawnStaticObject|package|package|84|66|pickupPackage
+Home,1/1/2000 15:00:0-0,,PlaySound|doorbell
+Home,1/1/2000 15:00:0-0,,Speak|player|What's that? Someone at the door? Must be the mailman.
+Home,1/1/2000 15:00:0-0,,SpawnStaticObject|package|package|84|66|pickupPackage
 
 -- mail arrives at library at 4pm
 -- Library,37440,,Spawn|Mailman|mailman|40|64
@@ -107,60 +107,60 @@ Home,23800,,SpawnStaticObject|package|package|84|66|pickupPackage
 
 --
 -- cultist arrives to check in at 12 (43200)
-MotelLobby,18721,,Spawn|Cultist|cultist|44|70
-MotelLobby,19721,,Move|Cultist|40|6|10
-MotelLobby,23721,,Move|Cultist|44|70|10
-MotelLobby,24721,,Despawn|Cultist
+MotelLobby,1/1/2000 12:00:0-0,,Spawn|Cultist|cultist|44|70
+MotelLobby,1/1/2000 12:00:1-0,,Move|Cultist|40|6|10
+MotelLobby,1/1/2000 12:01:0-0,,Move|Cultist|44|70|10
+MotelLobby,1/1/2000 12:02:0-0,,Despawn|Cultist
 
 -- cultist arrives to check in at 1
-MotelLobby,38721,,Spawn|Cultist|cultist|44|70
-MotelLobby,39721,,Move|Cultist|40|6|10
-MotelLobby,43721,,Move|Cultist|44|70|10
-MotelLobby,44721,,Despawn|Cultist
+MotelLobby,1/1/2000 13:00:0-0,,Spawn|Cultist|cultist|44|70
+MotelLobby,1/1/2000 13:00:0-0,,Move|Cultist|40|6|10
+MotelLobby,1/1/2000 13:01:0-0,,Move|Cultist|44|70|10
+MotelLobby,1/1/2000 13:02:0-0,,Despawn|Cultist
 
 -- cultist arrives to check in at 2
-MotelLobby,58721,,Spawn|Cultist|cultist|44|70
-MotelLobby,59721,,Move|Cultist|40|6|10
-MotelLobby,63721,,Move|Cultist|44|70|10
-MotelLobby,64721,,Despawn|Cultist
+MotelLobby,1/1/2000 14:00:0-0,,Spawn|Cultist|cultist|44|70
+MotelLobby,1/1/2000 14:00:0-0,,Move|Cultist|40|6|10
+MotelLobby,1/1/2000 14:01:0-0,,Move|Cultist|44|70|10
+MotelLobby,1/1/2000 14:02:0-0,,Despawn|Cultist
 
 -- cultist arrives to check in at 3
-MotelLobby,78721,,Spawn|Cultist|cultist|44|70
-MotelLobby,79721,,Move|Cultist|40|6|10
-MotelLobby,83721,,Move|Cultist|44|70|10
-MotelLobby,84721,,Despawn|Cultist
+MotelLobby,1/1/2000 15:00:0-0,,Spawn|Cultist|cultist|44|70
+MotelLobby,1/1/2000 15:00:0-0,,Move|Cultist|40|6|10
+MotelLobby,1/1/2000 15:01:0-0,,Move|Cultist|44|70|10
+MotelLobby,1/1/2000 15:02:0-0,,Despawn|Cultist
 
 -- cultist arrives to check in at 4
-MotelLobby,98721,,Spawn|Cultist|cultist|44|70
-MotelLobby,99721,,Move|Cultist|40|6|10
-MotelLobby,103721,,Move|Cultist|44|70|10
-MotelLobby,104721,,Despawn|Cultist
+MotelLobby,1/1/2000 16:00:0-0,,Spawn|Cultist|cultist|44|70
+MotelLobby,1/1/2000 16:00:0-0,,Move|Cultist|40|6|10
+MotelLobby,1/1/2000 16:01:0-0,,Move|Cultist|44|70|10
+MotelLobby,1/1/2000 16:02:0-0,,Despawn|Cultist
 
 -- cultist arrives to check in at 5
-MotelLobby,118721,,Spawn|Cultist|cultist|44|70
-MotelLobby,119721,,Move|Cultist|40|6|10
-MotelLobby,123721,,Move|Cultist|44|70|10
-MotelLobby,124721,,Despawn|Cultist
+MotelLobby,1/1/2000 17:00:0-0,,Spawn|Cultist|cultist|44|70
+MotelLobby,1/1/2000 17:00:0-0,,Move|Cultist|40|6|10
+MotelLobby,1/1/2000 17:01:0-0,,Move|Cultist|44|70|10
+MotelLobby,1/1/2000 17:02:0-0,,Despawn|Cultist
 
 -- cultist arrives to check in at 6
-MotelLobby,138721,,Spawn|Cultist|cultist|44|70
-MotelLobby,139721,,Move|Cultist|40|6|10
-MotelLobby,143721,,Move|Cultist|44|70|10
-MotelLobby,144721,,Despawn|Cultist
+MotelLobby,1/1/2000 18:00:0-0,,Spawn|Cultist|cultist|44|70
+MotelLobby,1/1/2000 18:00:0-0,,Move|Cultist|40|6|10
+MotelLobby,1/1/2000 18:01:0-0,,Move|Cultist|44|70|10
+MotelLobby,1/1/2000 18:02:0-0,,Despawn|Cultist
 
 -- cultist arrives to check in at 9 (KEY EVENT)
-MotelLobby,138721,,Spawn|Cultist|cultist|44|70
-MotelLobby,139721,,Move|Cultist|40|6|10
+MotelLobby,1/1/2000 21:00:0-0,,Spawn|Cultist|cultist|44|70
+MotelLobby,1/1/2000 21:00:1-0,,Move|Cultist|40|6|10
 
-MotelLobby,139721,,Speak|Cultist|Hello, I'd like to reserve a room
-MotelLobby,139721,has-reserved-room,Speak|MotelGuy|I'm sorry, but we have no more rooms available
-MotelLobby,139721,has-reserved-room,Speak|Cultist|Darn! No more rooms are available.
+MotelLobby,1/1/2000 21:01:0-0,,Speak|Cultist|Hello, I'd like to reserve a room
+MotelLobby,1/1/2000 21:01:1-0,has-reserved-room,Speak|MotelGuy|I'm sorry, but we have no more rooms available
+MotelLobby,1/1/2000 21:01:2-0,has-reserved-room,Speak|Cultist|Darn! No more rooms are available.
 
-MotelLobby,139721,has-not-reserved-room,Speak|MotelGuy|We have one more room available
-MotelLobby,139721,has-not-reserved-room,Speak|Cultist|Sweet, I got the last room!
+MotelLobby,1/1/2000 21:01:1-0,has-not-reserved-room,Speak|MotelGuy|We have one more room available
+MotelLobby,1/1/2000 21:01:2-0,has-not-reserved-room,Speak|Cultist|Sweet, I got the last room!
 
-MotelLobby,143721,,Move|Cultist|44|70|10
-MotelLobby,144721,,Despawn|Cultist
+MotelLobby,1/1/2000 21:02:0-0,,Move|Cultist|44|70|10
+MotelLobby,1/1/2000 21:03:0-0,,Despawn|Cultist
 
 
 -- !! Motel room cultist sick scenario !!
@@ -168,39 +168,39 @@ MotelLobby,144721,,Despawn|Cultist
 -- 
 -- cultist wandering around room and saying weird shit 5-7pm
 -- cultist dead at 7pm
-Motel,42120,,Spawn|Cultist|cultist|45|40
-Motel,42700,,Move|Cultist|50|40|5
-Motel,43500,,Speak|Cultist|Hello? ... yes... yes...
-Motel,43600,,Move|Cultist|60|50|5
-Motel,44500,,Move|Cultist|30|20|5
-Motel,45000,,Speak|Cultist|It's coming... I can feel it...
-Motel,47500,,Move|Cultist|50|45|5
-Motel,48500,,Speak|Cultist|The swamp... it's here. It's waiting...
-Motel,49500,,Move|Cultist|60|25|5
-Motel,51400,,Speak|Cultist|...Oh. I don't... feel so... good...
-Motel,51410,,ToggleFlag|SawSickCultist
-Motel,51420,,ToggleFlag|NotSeenSickCultist
-Motel,51480,,Despawn|Cultist
+Motel,1/1/2000 18:40:0-0,,Spawn|Cultist|cultist|45|40
+Motel,1/1/2000 18:40:1-0,,Move|Cultist|50|40|5
+Motel,1/1/2000 18:45:0-0,,Speak|Cultist|Hello? ... yes... yes...
+Motel,1/1/2000 18:45:0-0,,Move|Cultist|60|50|5
+Motel,1/1/2000 18:50:0-0,,Move|Cultist|30|20|5
+Motel,1/1/2000 18:50:0-0,,Speak|Cultist|It's coming... I can feel it...
+Motel,1/1/2000 18:55:0-0,,Move|Cultist|50|45|5
+Motel,1/1/2000 18:59:0-0,,Speak|Cultist|The swamp... it's here. It's waiting...
+Motel,1/1/2000 18:59:0-0,,Move|Cultist|60|25|5
+Motel,1/1/2000 19:00:0-0,,Speak|Cultist|...Oh. I don't... feel so... good...
+Motel,1/1/2000 19:00:0-0,,ToggleFlag|SawSickCultist
+Motel,1/1/2000 19:00:0-0,,ToggleFlag|NotSeenSickCultist
+Motel,1/1/2000 19:00:0-0,,Despawn|Cultist
 
 
 -- !! cemetery how much are they scenario !!
 -- ========================
 --
 -- cultist spawns after 11am, walks to graves, asks how much they are
-Cemetery,11120,,Spawn|Cultist|cultist|99|130
-Cemetery,12700,,Move|Cultist|50|40|10
-Cemetery,14000,,Speak|Cultist|Hello? ... yes... yes...
-Cemetery,14500,,Move|Cultist|60|50|5
-Cemetery,15000,,Move|Cultist|30|20|5
-Cemetery,15001,,Speak|Cultist|How much are they?
-Cemetery,16500,,Move|Cultist|50|45|5
-Cemetery,18000,,Speak|Cultist|How ... much ... are ... they ... ?
-Cemetery,19500,,Move|Cultist|60|25|5
-Cemetery,21000,,Speak|Cultist|...Oh, they aren't for sale?
-Cemetery,21010,,ToggleFlag|SawCemeteryCultist
-Cemetery,21020,,ToggleFlag|NotSeenCemeteryCultist
-Cemetery,21200,,Move|Cultist|99|140|30
-Cemetery,23480,,Despawn|Cultist
+Cemetery,1/1/2000 11:00:0-0,,Spawn|Cultist|cultist|99|130
+Cemetery,1/1/2000 11:01:0-0,,Move|Cultist|50|40|10
+Cemetery,1/1/2000 11:05:0-0,,Speak|Cultist|Hello? ... yes... yes...
+Cemetery,1/1/2000 11:10:0-0,,Move|Cultist|60|50|5
+Cemetery,1/1/2000 11:15:0-0,,Move|Cultist|30|20|5
+Cemetery,1/1/2000 11:20:0-0,,Speak|Cultist|How much are they?
+Cemetery,1/1/2000 11:20:0-0,,Move|Cultist|50|45|5
+Cemetery,1/1/2000 11:25:0-0,,Speak|Cultist|How ... much ... are ... they ... ?
+Cemetery,1/1/2000 11:25:0-0,,Move|Cultist|60|25|5
+Cemetery,1/1/2000 11:30:0-0,,Speak|Cultist|...Oh, they aren't for sale?
+Cemetery,1/1/2000 11:30:0-0,,ToggleFlag|SawCemeteryCultist
+Cemetery,1/1/2000 11:30:0-0,,ToggleFlag|NotSeenCemeteryCultist
+Cemetery,1/1/2000 11:30:0-0,,Move|Cultist|99|140|30
+Cemetery,1/1/2000 11:31:0-0,,Despawn|Cultist
 
 
 -- !! antique shop breakin scenario  - KEY EVENT!!
@@ -277,23 +277,23 @@ Cemetery,23480,,Despawn|Cultist
 -- ========================
 --
 -- at 5pm personA begins drinking
-Bar,42140,,Spawn|Person1|person1|50|50
-Bar,42142,,Speak|Person1|Ah, so nice to grab a cold one after a long day at work.
-Bar,43000,,Move|Person1|50|20|10
+Bar,1/1/2000 17:00:0-0,,Spawn|Person1|person1|50|50
+Bar,1/1/2000 17:01:0-0,,Speak|Person1|Ah, so nice to grab a cold one after a long day at work.
+Bar,1/1/2000 17:01:1-0,,Move|Person1|50|20|10
 
 -- at 7pm personB begins drinking
-Bar,51480,,Spawn|Person2|person2|50|50
-Bar,51800,,Speak|Person2|Alriiiiight, Alex is here! Hey, Alex!
-Bar,52000,,Move|Person2|55|20|10
+Bar,1/1/2000 19:00:0-0,,Spawn|Person2|person2|50|50
+Bar,1/1/2000 19:01:0-0,,Speak|Person2|Alriiiiight, Alex is here! Hey, Alex!
+Bar,1/1/2000 19:01:1-0,,Move|Person2|55|20|10
 
 -- at 8pm cultist1 begins drinking
-Bar,56160,,Spawn|Cultist|cultist|50|50
-Bar,56200,,Speak|Cultist|Pay no mind to that utter mirror breaking nonsense and serve me a beverage, barkeep.
-Bar,56600,,Move|Cultist|60|20|10
+Bar,1/1/2000 20:00:0-0,,Spawn|Cultist|cultist|50|50
+Bar,1/1/2000 20:01:0-0,,Speak|Cultist|Pay no mind to that utter mirror breaking nonsense and serve me a beverage, barkeep.
+Bar,1/1/2000 20:01:1-0,,Move|Cultist|60|20|10
 
 -- at 8pm mirror breaks when cultist enters
-Bar,56162,,RoomText|**CRASH** Looks like the mirror just ... broke?
-Bar,56163,,ToggleFlag|HearMirror
+Bar,1/1/2000 20:00:0-0,,RoomText|**CRASH** Looks like the mirror just ... broke?
+Bar,1/1/2000 20:00:0-0,,ToggleFlag|HearMirror
 -- TODO: spawn broken mirror background
 
 -- at 9pm cultist 2 begins drinking
@@ -312,16 +312,16 @@ Bar,56163,,ToggleFlag|HearMirror
 -- ========================
 --
 -- mirrors in each building break at midnight
-School,74800,,RoomText|**CRASH** Looks like the mirror just ... broke?
-Library,74800,,RoomText|**CRASH** Looks like the mirror just ... broke?
-Antiques,74800,,RoomText|**CRASH** Looks like the mirror just ... broke?
-Home,74880,,RoomText|**CRASH** Looks like the mirror just ... broke?
-MotelLobby,74880,,RoomText|**CRASH** Looks like the mirror just ... broke?
-School,74881,,ToggleFlag|HearMirror
-Library,74881,,ToggleFlag|HearMirror
-Antiques,74881,,ToggleFlag|HearMirror
-Home,74881,,ToggleFlag|HearMirror
-MotelLobby,74881,,ToggleFlag|HearMirror
+School,1/1/2000 11:59:59-999,,RoomText|**CRASH** Looks like the mirror just ... broke?
+Library,1/1/2000 11:59:59-999,,RoomText|**CRASH** Looks like the mirror just ... broke?
+Antiques,1/1/2000 11:59:59-999,,RoomText|**CRASH** Looks like the mirror just ... broke?
+Home,1/1/2000 11:59:59-999,,RoomText|**CRASH** Looks like the mirror just ... broke?
+MotelLobby,1/1/2000 11:59:59-999,,RoomText|**CRASH** Looks like the mirror just ... broke?
+School,1/1/2000 11:59:59-999,,ToggleFlag|HearMirror
+Library,1/1/2000 11:59:59-999,,ToggleFlag|HearMirror
+Antiques,1/1/2000 11:59:59-999,,ToggleFlag|HearMirror
+Home,1/1/2000 11:59:59-999,,ToggleFlag|HearMirror
+--MotelLobby,1/1/2000 11:59:59-999,,ToggleFlag|HearMirror
 
 -- TODO: if you are in a room you get dialogue from whoever is present
 
@@ -331,51 +331,51 @@ MotelLobby,74881,,ToggleFlag|HearMirror
 --
 -- at 3am cultists begin gathering in swamp
 -- c1 actions
-Swamp,88920,,Spawn|Cultist|cultist|178|115
-Swamp,89000,,Move|Cultist|175|49|10
-Swamp,90000,,Move|Cultist|47|48|10
+Swamp,1/2/2000 3:00:0-0,,Spawn|Cultist|cultist|178|115
+Swamp,1/2/2000 3:00:0-0,,Move|Cultist|175|49|10
+Swamp,1/2/2000 3:00:0-0,,Move|Cultist|47|48|10
 
 -- c2 actions
-Swamp,89200,,Spawn|Cultist1|cultist1|178|115
-Swamp,89500,,Move|Cultist1|175|49|10
-Swamp,89700,,Move|Cultist1|54|38|10
+Swamp,1/2/2000 3:00:0-0,,Spawn|Cultist1|cultist1|178|115
+Swamp,1/2/2000 3:00:0-0,,Move|Cultist1|175|49|10
+Swamp,1/2/2000 3:00:0-0,,Move|Cultist1|54|38|10
 
 -- c3 actions
-Swamp,89520,,Spawn|Cultist2|cultist2|178|115
-Swamp,89600,,Move|Cultist2|175|49|10
-Swamp,90000,,Move|Cultist2|71|36|10
+Swamp,1/2/2000 3:00:0-0,,Spawn|Cultist2|cultist2|178|115
+Swamp,1/2/2000 3:00:0-0,,Move|Cultist2|175|49|10
+Swamp,1/2/2000 3:00:0-0,,Move|Cultist2|71|36|10
 
 -- c4 actions
-Swamp,89920,,Spawn|Cultist3|cultist3|178|115
-Swamp,90000,,Move|Cultist3|175|49|10
-Swamp,90600,,Move|Cultist3|54|52|10
+Swamp,1/2/2000 3:00:0-0,,Spawn|Cultist3|cultist3|178|115
+Swamp,1/2/2000 3:00:0-0,,Move|Cultist3|175|49|10
+Swamp,1/2/2000 3:00:0-0,,Move|Cultist3|54|52|10
 
 -- c5 actions
-Swamp,90120,,Spawn|Cultist4|cultist4|178|115
-Swamp,90500,,Move|Cultist4|175|49|10
-Swamp,91000,,Move|Cultist4|71|52|10
+Swamp,1/2/2000 3:00:0-0,,Spawn|Cultist4|cultist4|178|115
+Swamp,1/2/2000 3:00:0-0,,Move|Cultist4|175|49|10
+Swamp,1/2/2000 3:00:0-0,,Move|Cultist4|71|52|10
 
 -- c6 actions
-Swamp,90820,,Spawn|Cultist5|cultist5|178|115
-Swamp,91000,,Move|Cultist5|175|49|10
-Swamp,91500,,Move|Cultist5|80|54|10
+Swamp,1/2/2000 3:00:0-0,,Spawn|Cultist5|cultist5|178|115
+Swamp,1/2/2000 3:00:0-0,,Move|Cultist5|175|49|10
+Swamp,1/2/2000 3:00:0-0,,Move|Cultist5|80|54|10
 
--- c7 actions
-Swamp,91320,,Spawn|Cultist6|cultist6|178|115
-Swamp,91600,,Move|Cultist6|175|49|10
-Swamp,92000,,Move|Cultist6|80|40|10
+-- c7 actions  
+Swamp,1/2/2000 3:00:0-0,,Spawn|Cultist6|cultist6|178|115
+Swamp,1/2/2000 3:00:0-0,,Move|Cultist6|175|49|10
+Swamp,1/2/2000 3:00:0-0,,Move|Cultist6|80|40|10
 
 -- TODO: ADD IN THE SUMMONING CIRCLE
 
 -- at 4am the ritual begins
-Swamp,93600,,Speak|Cultist|All present, bear witness to the great power of our God!
-Swamp,95600,,Speak|Cultist1|O, most unholy, please grant us your terrible presence!
-Swamp,97600,,Speak|Cultist2|We beseech thee, rid this foul world of non-believers.
-Swamp,99600,,Speak|Cultist3|And render all power and glory unto you, Great One!
-Swamp,101600,,Speak|Cultist4|Please grant mercy on us, your humble servants!
-Swamp,103600,,Speak|Cultist5|We live to do your bidding!
-Swamp,105600,,Speak|Cultist6|And thus, without interruption, we call on you NOW. All hail!
-Swamp,107600,,Speak|Cultist|ALL HAIL.
+Swamp,1/2/2000 4:00:0-0,,Speak|Cultist|All present, bear witness to the great power of our God!
+Swamp,1/2/2000 4:01:0-0,,Speak|Cultist1|O, most unholy, please grant us your terrible presence!
+Swamp,1/2/2000 4:02:0-0,,Speak|Cultist2|We beseech thee, rid this foul world of non-believers.
+Swamp,1/2/2000 4:03:0-0,,Speak|Cultist3|And render all power and glory unto you, Great One!
+Swamp,1/2/2000 4:04:0-0,,Speak|Cultist4|Please grant mercy on us, your humble servants!
+Swamp,1/2/2000 4:05:0-0,,Speak|Cultist5|We live to do your bidding!
+Swamp,1/2/2000 4:06:0-0,,Speak|Cultist6|And thus, without interruption, we call on you NOW. All hail!
+Swamp,1/2/2000 4:07:0-0,,Speak|Cultist|ALL HAIL.
 
 -- at 8am the ritual completes unless interrupted somehow
 

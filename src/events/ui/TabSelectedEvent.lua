@@ -2,16 +2,14 @@ local BaseEvent = require "src.events.BaseEvent"
 local M = setmetatable({}, { __index = BaseEvent })
 M.__index = M
 
-function M.new(r, g, b)
+function M.new(id, tabGroup)
     local self = setmetatable(BaseEvent.new(), M)
-    self.r = r;
-    self.g = g;
-    self.b = b;
+    self.tabGroup = tabGroup
     return self
 end
 
-function M:fireOn(gs)
-    gs.saveData.globalAmbientColor = self
+function M:fireOn()
+    self.tabGroup:selectTab(self.id)
 end
 
 return M

@@ -1,6 +1,8 @@
-local M = {}
+local BaseEvent = require "src.events.BaseEvent"
+local M = setmetatable({}, { __index = BaseEvent })
+M.__index = M
 
-function M.fireOn(self, gs)
+function M:fireOn(gs)
 	local currentGS = gs:current()
 
     if currentGS.name ~= self.scene then
@@ -20,10 +22,15 @@ function M.fireOn(self, gs)
     currentGS:pushCamera(newCamera)
 end
 
-function M.new(scene, x, y, duration, hold) 
-	local ret = { scene = scene, type = "ManualCameraEvent", x = x, y = y, duration = duration, hold = hold, fireOn = M.fireOn }
-
-	return ret
+function M.new(scene, x, y, duration, hold)
+    local self = setmetatable(BaseEvent.new(), M)
+    self.scene = scene
+    self.type = "ManualCameraEvent"
+    self.x = x
+    self.y = y
+    self.duration = duration
+    self.hold = hold
+	return self
 end
 
 return M

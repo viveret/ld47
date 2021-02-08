@@ -1,18 +1,18 @@
-local M = setmetatable({}, { __index = MenuGameState })
+local super = require "src.gamestates.Menu.MenuGameState"
+local M = setmetatable({}, { __index = super })
 M.__index = M
 
-local journal = require "src.components.journal"
+function M.new()
+    local self = setmetatable(lume.extend(super.new('Game Over'), {
+    }), M)
+    self.bg = game.images.ui.end_bg
 
-function M.new(gamestate)
-    local self = setmetatable(MenuGameState.new(gamestate, 'Game Over'), M)
-    self.bg = self.gamestate.images.ui.end_bg
-
-    if not gamestate.hasFlag('defeated-cultists') then
+    if not game.hasFlag('defeated-cultists') then
         self:addButton('Continue', ContinueGameEvent.new())
     end
     self:addButton('Quit', QuitGameEvent.new())
 
-    self.journal = journal.new(gamestate)
+    self.journal = uiComponents.Journal.new()
     self:addUiElement(self.journal)
 
 	return self

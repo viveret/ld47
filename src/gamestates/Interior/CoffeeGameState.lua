@@ -2,8 +2,8 @@ IndoorsGameState = require "src.gamestates.Interior.IndoorsGameState"
 local M = setmetatable({}, { __index = IndoorsGameState })
 M.__index = M
 
-function M.new(gamestate)
-    local self = setmetatable(IndoorsGameState.new(gamestate, 'Coffee', gamestate.images.places.coffee), M)
+function M.new()
+    local self = setmetatable(IndoorsGameState.new('Coffee', game.images.places.coffee), M)
     self.bgMusicName = "chill"
     
     self.warps = {
@@ -40,11 +40,11 @@ function M:load()
     IndoorsGameState.load(self)
 
     self:addStaticObjects({
-        freezer1 = AnimatedObject.new(self.world, 3.5, 5, self.gamestate.animations.decor.freezer),
-        freezer2 = AnimatedObject.new(self.world, 15.5, 5, self.gamestate.animations.decor.freezer),
-        freezer3 = AnimatedObject.new(self.world, 27.5, 5, self.gamestate.animations.decor.freezer),
-        backcounter = StaticObject.new(self.world, 70, 10, self.gamestate.images.decor.back_counter),
-        counter = StaticObject.new(self.world, 71, 35, self.gamestate.images.decor.counter)
+        freezer1 = AnimatedObject.new(self.world, 3.5, 5, game.animations.decor.freezer),
+        freezer2 = AnimatedObject.new(self.world, 15.5, 5, game.animations.decor.freezer),
+        freezer3 = AnimatedObject.new(self.world, 27.5, 5, game.animations.decor.freezer),
+        backcounter = StaticObject.new(self.world, 70, 10, game.images.decor.back_counter),
+        counter = StaticObject.new(self.world, 71, 35, game.images.decor.counter)
     })
 end
 

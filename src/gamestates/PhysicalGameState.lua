@@ -3,17 +3,15 @@ M.__index = M
 
 local Player = require "src.actors.Player"
 
-function M.new(gamestate, scene, graphics)
-    if gamestate == nil then
-        error ('gamestate must not be nil')
-    elseif scene == nil or scene == '' then
+function M.new(scene, graphics)
+    if scene == nil or scene == '' then
         error ('scene must not be nil or empty')
     elseif graphics == nil then
         error ('graphics must not be nil')
     end
 
-    local self = setmetatable(TimedGameState.new(gamestate, scene), M)
-    self.background = graphics.bg
+    local self = setmetatable(TimedGameState.new(scene), M)
+    self.background = graphics.bg or error ('missing graphics.bg')
     self.bgMusicName = "theme"
     self.world = lp.newWorld(0, 0, true)
     self.player = nil
@@ -24,21 +22,16 @@ function M.new(gamestate, scene, graphics)
     self.bounds = {}
     self.warps = {}
     self.proximityObjects = {}
+    self.animatedObjects = {}
     self.staticObjects = {}
     self.renderBounds = false
     self.renderWarps = false
     self.isPhysicalGameState = true
     self.actors = {}
-    self.colors = {
-        night = { r = 0.5, g = 0.5, b = 0.6 },
-        day = { r = 1, g = 1, b = 1 }
-    }
-    self.sunriseHourStart = 8
-    self.sunriseHourEnd = 9
-    self.sunsetHourStart = 19
-    self.sunsetHourEnd = 20
 
     self.interactProximity = 18
+
+    self.drawDebugUIEnabled = true
 
     -- hook up warps and what not
     self:addContactListeners()
@@ -51,21 +44,21 @@ function M.new(gamestate, scene, graphics)
 
     local contactOnStart = function(a,b)
         if a.callback ~= nil then
-            a.callback(gamestate, a, "collision", b)
+            a.callback(game, a, "collision", b)
         end
 
         if b.callback ~= nil then
-            b.callback(gamestate, b, "collision", a)
+            b.callback(game, b, "collision", a)
         end
     end
 
     local contactOnEnd = function(a,b)
         if a.callback ~= nil then
-            a.callback(gamestate, a, "end collision", b)
+            a.callback(game, a, "end collision", b)
         end
 
         if b.callback ~= nil then
-            b.callback(gamestate, b, "end collision", a)
+            b.callback(game, b, "end collision", a)
         end
     end
 
@@ -109,36 +102,36 @@ end
 
 function M:keypressed( key, scancode, isrepeat )
     if not isrepeat then
-        if lume.find({'p', 'escape'}, key) then
-            self.gamestate.warpTo('Pause,0,0,x')
-        elseif key == 'space' then
-            if self.player ~= nil then
-                self.player:doInteraction()
-            end
+        if lume.find({game.keyBinds.pause, 'escape'}, key) then
+            game.warpTo('pause', game.stackTransitions.Regular)
+            return
+        elseif key == game.keyBinds.notes then
+            game.warpTo('notes', game.stackTransitions.Regular)
+            return
+        elseif key == game.keyBinds.inventory then
+            game.warpTo('inventory', game.stackTransitions.Regular)
+            return
+        elseif key == ',' then
+            game.timeWarpBumpDown()
+            return
+        elseif key == '.' then
+            game.timeWarpBumpUp()
+            return
+        elseif key == 'h' then
+            game.fire(ActorTextEvent.new(game.current().scene, 'player', 'Hello'))
+        elseif key == 'f5' then
+            self.renderBounds = not self.renderBounds
+        elseif key == 'f4' then
+            self.renderWarps = not self.renderWarps
         end
+    end
+
+    if self.player ~= nil then
+        self.player:keypressed(key, scancode, isrepeat)
     end
 end
 
 function M:keyreleased( key, scancode )
-end
-
-function M:getColorRightNow()
-    local ticksPerHour = 60 * 60
-    local ticksOffset = 8 * ticksPerHour
-    local timeOfDay = (self.gamestate.time + ticksOffset) % (ticksPerHour * 24)
-    if timeOfDay < self.sunriseHourStart * ticksPerHour then
-        return self.colors.night
-    elseif timeOfDay < self.sunriseHourEnd * ticksPerHour then
-        local sunriseDuration = self.sunriseHourEnd - self.sunriseHourStart
-        return interpolateValues(self.colors.night, self.colors.day, (timeOfDay - self.sunriseHourStart * ticksPerHour) / (sunriseDuration * ticksPerHour))
-    elseif timeOfDay < self.sunsetHourStart * ticksPerHour then
-        return self.colors.day
-    elseif timeOfDay < self.sunsetHourEnd * ticksPerHour then
-        local sunsetDuration = self.sunsetHourEnd - self.sunsetHourStart
-        return interpolateValues(self.colors.day, self.colors.night, (timeOfDay - self.sunsetHourStart * ticksPerHour) / (sunsetDuration * ticksPerHour))
-    else
-        return self.colors.night
-    end
 end
 
 function M:addContactListener(filterFn, startFn, endFn)
@@ -156,13 +149,11 @@ function M:onContactFireEvent(filterFn, contactEvent)
             return a.activated ~= true and filterFn(a, b)
         end,
         function (a, b)
-            self.gamestate.fire(contactEvent, true)
+            game.fire(contactEvent, true)
 
             a.activated = true
             b.activated = true
-        end,
-        function (a, b)
-        end
+        end, donothing
     )
 end
 
@@ -180,15 +171,13 @@ function M:addContactListeners()
             end
 
             if door ~= nil then
-                door:animateAndWarp(self.gamestate, path)
+                door:animateAndWarp(game, path)
             else
-                self.gamestate.fire(WarpEvent.new(path), true)
+                game.fire(WarpEvent.new(path), true)
             end
             a.activated = true
             b.activated = true
-        end,
-        function (a, b)
-        end
+        end, donothing
     )
 
     self:onContactFireEvent(
@@ -289,34 +278,24 @@ function M:addExteriorWorldBounds(paddingx, paddingy)
         paddingy = paddingx
     end
     
-    table.insert(
-        self.bounds,
+    self:addWorldBounds({
         { -- Top
             x = 0, y = -paddingy,
             w = self:getWidth(), h = paddingy * 2
-        }
-    )
-    table.insert(
-        self.bounds,
+        },
         { -- Bottom
             x = 0, y = self:getHeight() - paddingy * 2,
             w = self:getWidth(), h = paddingy * 2
-        }
-    )
-    table.insert(
-        self.bounds,
+        },
         { -- Left
             x = -paddingx, y = -paddingy * 2,
             w = paddingx * 2, h = self:getHeight() + paddingy * 2
-        }
-    )
-    table.insert(
-        self.bounds,
+        },
         { -- Right
             x = self:getWidth() - paddingx, y = -paddingy * 2,
             w = paddingx * 2, h = self:getHeight() + paddingy * 2
         }
-    )
+    })
 end
 
 function M:addWorldBounds(bounds)
@@ -341,7 +320,7 @@ function M:drawInWorldView()
         self:currentCamera():draw()
     end
 
-    local ambientColor = self.gamestate.saveData.globalAmbientColor
+    local ambientColor = game.saveData.globalAmbientColor
     if ambientColor == nil then
         ambientColor = self:getColorRightNow()
     end
@@ -404,24 +383,52 @@ function M:draw()
     self:drawInWorldView()
     lg.pop()
 
-    -- local x = self.player.body:getX()
-    -- local y = self.player.body:getY()
-
-    -- local currentVx, currentVy = self.player.body:getLinearVelocity()
-    -- lg.print("You are at " .. x .. ", " .. y .. " in " .. self.scene, 0, 0)
-    -- lg.print("Camera is at " .. self:currentCamera().x .. ", " .. self:currentCamera().y, 0, 16)
-    -- lg.print("Player's velocity is " .. currentVx .. ", " .. currentVy, 0, 32)
-    -- lg.print("Current time is " .. self.gamestate.time, 0, 48)
+    self:drawUI()
+    self:drawDebugUI()
 
     TimedGameState.draw(self)
 end
 
-function M:realTimeUpdate(dt)
-    self.world:update(dt)
+function M:drawDebugUI()
+    local x = self.player.body:getX()
+    local y = self.player.body:getY()
+
+    if self.drawDebugUIEnabled then
+        local currentVx, currentVy = self.player.body:getLinearVelocity()
+        lg.print("You are at " .. x .. ", " .. y, 0, 0)
+        lg.print("Camera is at " .. self:currentCamera().x .. ", " .. self:currentCamera().y, 0, 16)
+        lg.print("Player's velocity is " .. currentVx .. ", " .. currentVy, 0, 32)
+        lg.print("Current time is " .. game.time:tostring(), 0, 48)
+    end
+end
+
+function M:drawUI()
+    local x = self.player.body:getX()
+    local y = self.player.body:getY()
+
+    if self.drawDebugUIEnabled then
+        local currentVx, currentVy = self.player.body:getLinearVelocity()
+        lg.print("You are at " .. x .. ", " .. y, 0, 0)
+        lg.print("Camera is at " .. self:currentCamera().x .. ", " .. self:currentCamera().y, 0, 16)
+        lg.print("Player's velocity is " .. currentVx .. ", " .. currentVy, 0, 32)
+        lg.print("Current time is " .. game.time:tostring(), 0, 48)
+    end
+
+    -- Show what scene the user in
+    local sceneWidth = 16 * (#self.scene + 1)
+	game.graphics:drawObject(game.images.ui.clock_bg, lg.getWidth() - sceneWidth, 0, sceneWidth, 64)
+    game.graphics:drawTextInBox(self.scene, lg.getWidth() - sceneWidth, 0, sceneWidth, 64, game.images.ui.dialog_font, nil, true)
+
+    game.ui.interactionTray:draw()
+end
+
+function M:tick(ticks)
+    TimedGameState.tick(self, ticks)
 end
 
 function M:update(dt)
-    TimedGameState.update(self)
+    TimedGameState.update(self, dt)
+    self.world:update(dt)
     self:currentCamera():update(dt)
 
     if self.topmost then
@@ -490,13 +497,14 @@ function M:load()
     self:setupWorldBounds()
     self:setupWarps()
     
-    self.player = Player.new(self.world, 'player', self.gamestate, 0, 0, 4, 4, self.gamestate.animations.actors.player)
-    self:pushCamera(Camera.new(self.gamestate, self.player.body))
+    self.player = Player.new(self.world, 'player', game, 0, 0, 4, 4, game.animations.actors.player)
+    self:pushCamera(Camera.new(self, self.player.body))
 end
 
 function M:switchTo(x, y)
     TimedGameState.switchTo(self, x, y)
     self.player:setPosition(x, y, 0, 0)
+    self:currentCamera():refresh()
 
     for _,warp in pairs(self.warps) do
         warp.activated = false
@@ -506,10 +514,12 @@ end
 
 function M:activated()
     if self.bgMusicName ~= nil then
-        self.gamestate.audio:play(self.bgMusicName)
+        game.audio:play(self.bgMusicName)
     else
-        self.gamestate.audio:fadeAllOut()
+        game.audio:fadeAllOut()
     end
+
+    game.saves:quicksave(true)
 end
 
 function M:save()
@@ -621,6 +631,36 @@ function M:addStaticObjects(list)
             v
         )
     end
+end
+
+function M:CreateDrawableObject(x, y, drawable, animated, onInteract, label)
+    if animated then
+        return AnimatedObject.new(self.world, x, y, drawable, onInteract, label)
+    else
+        return StaticObject.new(self.world, x, y, drawable, onInteract, label)
+    end
+end
+
+function M:CreateAndAddDrawableObject(x, y, drawable, animated, onInteract, label)
+    local obj = self:CreateDrawableObject(x, y, drawable, animated, onInteract, label)
+    if animated then
+        table.insert(self.animatedObjects, obj)
+    else
+        table.insert(self.staticObjects, obj)
+    end
+    return obj
+end
+
+function M:onWait()
+    print('waiting...')
+end
+
+function M:addWaitableObject(x, y, drawable, animated, label)
+    local obj = self:CreateAndAddDrawableObject(x, y, drawable, animated, self.onWait, label)
+    obj.type = 'wait'
+    obj.isInteractable = true
+    table.insert(self.proximityObjects, obj)
+    return obj
 end
 
 return M

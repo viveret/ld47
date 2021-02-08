@@ -1,11 +1,10 @@
 local M = {}
 M.__index = M
 
-function M.new(graphics)
+function M.new()
     lg.setDefaultFilter('linear', 'linear')
 
     return setmetatable({
-		graphics = graphics,
 		places = {
 			overworld = {
 				bg = lg.newImage("assets/images/world/overworld.png"),
@@ -76,16 +75,21 @@ function M.new(graphics)
 
 			button_bg = lg.newImage("assets/images/ui/button_bg.png"),
 			menu_bg = lg.newImage("assets/images/ui/menu_bg.png"),
-			title_fg = lg.newImage("assets/images/ui/title_fg.png"),
 			title = lg.newImage("assets/images/ui/title.png"),
 			start_btn = lg.newImage("assets/images/ui/start-button.png"),
 			quit_btn = lg.newImage("assets/images/ui/quit.png"),
 			continue_btn = lg.newImage("assets/images/ui/start-button.png"),
 			end_bg = lg.newImage("assets/images/ui/end.png"),
+			notes = lg.newImage("assets/images/ui/notes.png"),
+
 			clock_bg = lg.newImage("assets/images/ui/clock.png"),
 
 			success = lg.newImage("assets/images/ui/success.png"),
 			failure = lg.newImage("assets/images/ui/failure.png"),
+
+			icons = {
+				saving = lg.newImage("assets/images/ui/saving.png"),
+			},
 
 			portraits = {
 				player = lg.newImage("assets/images/people/protag-profile.png"),
@@ -135,6 +139,7 @@ function M.new(graphics)
 			table = lg.newImage("assets/images/world/coffee/table.png"),
 			ropes = lg.newImage("assets/images/world/library/ropes.png"),
 			tome = lg.newImage("assets/images/world/library/tome.png"),
+			radio = lg.newImage("assets/images/world/home/radio.png"),
 			construction = lg.newImage("assets/images/world/construction.png")
 		},
 
@@ -165,66 +170,12 @@ function M.new(graphics)
 		timelineObjs = {
 			book = lg.newImage("assets/images/world/library/tome.png"),
 			package = lg.newImage("assets/images/world/home/package.png"),
-		}
+		},
+
+		inventories = {
+
+		},
     }, M)
-end
-
-function M:drawDialogBox(actor, title, text, animation)
-	local outerXGutter = 5
-	local innerXGutter = 18
-	local outerYGutter = 5
-	local innerYGutter = 14
-	local maximumTextWidth = (572 - (innerXGutter * 2))
-	local maximumTextHeight = 200
-	local maximumNameWidth = 125
-	local maximumNameHeight = 30
-
-	-- calculate dialog placement
-	local width, height = self.ui.dialog:getDimensions()
-	
-	local maximumTextHeight = height - (innerYGutter * 2)
-
-	local y = outerYGutter
-	local x = outerXGutter + _renderWidth / 2 - width / 2
-
-	-- render the profile picture
-	local profile = nil
-
-	if actor == '???' then
-		profile = self.ui.portraits.unknown
-	else
-		profile = self.ui.portraits[actor]
-	end
-
-	if profile == nil then
-		profile = self.ui.portraits.unknown
-	end
-
-	if profile ~= nil then 
-		local profileX = x + 28
-		local profileY = y + 16
-
-		self.graphics:drawObject(profile, profileX, profileY, 152, 152)
-	end
-
-	-- render the dialog box
-	
-	self.graphics:drawObject(self.ui.dialog, x, y, width, height)
-	
-	-- render the text
-	self.graphics:renderTextInBox(text, x + 180 + innerXGutter, y, maximumTextWidth, maximumTextHeight, self.ui.dialog_font)
-
-	-- render the name
-	self.graphics:renderTextInBox(title, x + 40, y + 175, maximumNameWidth, maximumNameHeight, self.ui.dialog_font)
-
-	if animation ~= nil then
-		local animSize = animation:getFrameSize()
-
-		local animX = x + width - innerXGutter - animSize.width
-		local animY = y + height - innerYGutter - animSize.height
-
-		animation:draw(animX, animY, true)
-	end
 end
 
 return M

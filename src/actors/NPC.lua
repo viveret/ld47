@@ -2,9 +2,9 @@ local AnimatedActor = require "src.actors.AnimatedActor"
 local M = setmetatable({}, { __index = AnimatedActor })
 M.__index = M
 
-function M.new(world, name, gamestate, x, y, w, h, anims, callback)
+function M.new(world, name, game, x, y, w, h, anims, callback)
     local self = setmetatable(AnimatedActor.new(
-        world, name, gamestate, x, y, w, h, anims, callback
+        world, name, game, x, y, w, h, anims, callback
     ), M)
     
     self.type = "npc"

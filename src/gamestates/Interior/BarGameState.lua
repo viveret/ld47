@@ -2,8 +2,8 @@ IndoorsGameState = require "src.gamestates.Interior.IndoorsGameState"
 local M = setmetatable({}, { __index = IndoorsGameState })
 M.__index = M
 
-function M.new(gamestate)
-    local self = setmetatable(IndoorsGameState.new(gamestate, 'Bar', gamestate.images.places.bar), M)
+function M.new()
+    local self = setmetatable(IndoorsGameState.new('Bar', game.images.places.bar), M)
 	
     self.warps = {
         { -- Main door

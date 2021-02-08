@@ -3,11 +3,16 @@ local M = setmetatable({}, { __index = BaseEvent })
 M.__index = M
 
 function M.new()
-    return setmetatable(BaseEvent.new(), M)
+    local self = setmetatable(BaseEvent.new(), M)
+    self.type = "NewGame"
+    return self
 end
 
 function M:fireOn(gs)
-    gs.newGame()
+    game.saveData = {
+        dirty = true
+    }
+    game.warpTo('start', game.stackTransitions.FadeInOut)
 end
 
 return M

@@ -1,6 +1,8 @@
-local M = {}
+local super = require "src.events.TimeLineEvent"
+local M = setmetatable({ aliases = { "Despawn" } }, { __index = super })
+M.__index = M
 
-function M.fireOn(self, gs) 
+function M:fireOn(gs) 
 	local scene = gs.existingStates[self.scene]
 
 	if not scene.isPhysicalGameState then
@@ -12,7 +14,10 @@ function M.fireOn(self, gs)
 end
 
 function M.new(scene, name)
-	return { scene = scene, type="ActorDespawnEvent", name = name, fireOn = M.fireOn }
+    local self = setmetatable(super.new(scene, "ActorDespawnEvent"), M)
+	--self.scene = tostring(scene) or error ('Scene must not be nil')
+	self.name = name or error ('Name must not be nil')
+	return self
 end
 
 return M

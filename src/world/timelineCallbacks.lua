@@ -1,9 +1,9 @@
 local M = {}
 
 -- each callback is of the form
---   function M.<eventName>(gamestate, actor, type)
+--   function M.<eventName>(game, actor, type)
 --
--- gamestate = gamestate.lua ref
+-- game = game.lua ref
 -- actor = actor.lua ref
 -- eventType = one of "collision" "end collision" "action"
 -- param = some type dependent value

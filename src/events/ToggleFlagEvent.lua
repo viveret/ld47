@@ -1,6 +1,15 @@
-local M = {}
+local BaseEvent = require "src.events.BaseEvent"
+local M = setmetatable({}, { __index = BaseEvent })
+M.__index = M
 
-function M.fireOn(self, gs)
+function M.new(scene, flagName) 
+    local self = setmetatable(BaseEvent.new('ToggleFlag'), M)
+    self.scene = scene
+    self.flagName = flagName
+	return self
+end
+
+function M:fireOn(gs)
     local scene = gs:current().name
 
     if scene ~= self.scene then
@@ -15,12 +24,6 @@ function M.fireOn(self, gs)
     else
     	gs.setFlag(flagName)
     end
-end
-
-function M.new(scene, flagName) 
-	local ret = { scene = scene, type = "ToggleFlagEvent", flagName = flagName, fireOn = M.fireOn }
-
-	return ret
 end
 
 return M

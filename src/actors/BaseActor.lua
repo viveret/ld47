@@ -1,7 +1,7 @@
 local M = {}
 M.__index = M
 
-function M.new(world, name, gamestate, x, y, w, h, callback)
+function M.new(world, name, game, x, y, w, h, callback)
     local self = setmetatable({
         type = "actor",
         x = x,
@@ -9,7 +9,7 @@ function M.new(world, name, gamestate, x, y, w, h, callback)
         width = w,
         height = h,
         name = name,
-        gamestate = gamestate,
+        game = game,
         walkForce = 12,
         maxVelocity = 12,
         interactWith = {}
@@ -49,10 +49,12 @@ function M:setPosition(x, y, vX, vY)
     self.body:setX(x)
     self.body:setY(y)
     self.body:setLinearVelocity(vX, vY)
+    self:update(0)
 end
 
 function M:doInteraction()
-    if #self.interactWith > 0 then
+    local ct = #self.interactWith
+    if ct > 0 then
         for _,v in pairs(self.interactWith) do
             v:interact(self)
         end
@@ -61,7 +63,7 @@ end
 
 function M:interact(player)
     if self.interactionCallback ~= nil then
-        self.interactionCallback(self.gamestate, player, "action")
+        self.interactionCallback(game, player, "action")
     end
 end
 

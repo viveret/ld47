@@ -1,10 +1,10 @@
-local M = {}
+local super = require "src.events.TimeLineEvent"
+local M = setmetatable({ aliases = { "Spawn" } }, { __index = super })
+M.__index = M
 
 local NPC = require "src.actors.NPC"
 
-function M.fireOn(self, gs) 
-	-- print("ActorSpawnEvent firing "..self.scene.." "..self.name)
-
+function M:fireOn(gs) 
 	local scene = gs.existingStates[self.scene]
 
 	if not scene.isPhysicalGameState then
@@ -23,17 +23,25 @@ function M.fireOn(self, gs)
 	scene:addActor(self.name, newActor)
 end
 
-function M.new(scene, name, assetName, x, y, callback) 
-	return { 
-		scene = scene,
-		type="ActorSpawnEvent", 
-		name = name, 
-		assetName = assetName,
-		x = x, 
-		y = y, 
-		callback = callback,
-		fireOn = M.fireOn 
-	}
+function M.new(scene, name, assetName, x, y, callback)
+    local self = setmetatable(super.new(scene, "ActorSpawnEvent"), M)
+	self.name = name
+	self.assetName = assetName
+	self.x = tonumber(x)
+	self.y = tonumber(y)
+	
+	if callback ~= nil then
+		self.callback = timelineCallbacks[callback]
+		if self.callback == nil then
+			error("could find timelineCallbacks." .. callback)
+		end
+	end
+
+	return self
+end
+
+function M:tostring()
+	return '[' .. self.scene .. '] spawn ' .. self.name .. ' with ' .. self.assetName .. ' assets at ' .. self.x .. ', ' .. self.y
 end
 
 return M

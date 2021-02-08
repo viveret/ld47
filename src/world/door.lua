@@ -28,13 +28,13 @@ function M:update(dt)
         self.animation:update(dt)
         if self.animation.loopCount > 0 then
             self.animate = false
-            self.gamestate.fire(WarpEvent.new(self.path), true)
+            game.fire(WarpEvent.new(self.path), true)
         end
     end
 end
 
 function M:animateAndWarp(gs, path)
-    self.gamestate = gs
+    game = gs
     self.path = path
     self.animate = true
 end

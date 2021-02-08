@@ -2,8 +2,8 @@ IndoorsGameState = require "src.gamestates.Interior.IndoorsGameState"
 local M = setmetatable({}, { __index = IndoorsGameState })
 M.__index = M
 
-function M.new(gamestate)
-    local self = setmetatable(IndoorsGameState.new(gamestate, 'Doctor', gamestate.images.places.doctor), M)
+function M.new()
+    local self = setmetatable(IndoorsGameState.new('Doctor', game.images.places.doctor), M)
 	
     self.warps = {
         { -- Main door
@@ -35,7 +35,7 @@ function M:load()
     IndoorsGameState.load(self)
 
     self:addStaticObjects({
-        construction = StaticObject.new(self.world, 40, 40, self.gamestate.images.decor.construction),
+        construction = StaticObject.new(self.world, 40, 40, game.images.decor.construction),
     })
 end
 

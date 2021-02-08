@@ -1,9 +1,9 @@
 local M = {}
 M.__index = M
 
-function M.new(gamestate, attachedState, oldCamera, endX, endY, duration, hold)
+function M.new(game, attachedState, oldCamera, endX, endY, duration, hold)
     local self = setmetatable({
-        gamestate = gamestate,
+        game = game,
         attachedState = attachedState,
         oldCamera = oldCamera,
         x = oldCamera.x,

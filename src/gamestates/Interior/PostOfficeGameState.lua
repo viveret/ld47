@@ -2,10 +2,8 @@ IndoorsGameState = require "src.gamestates.Interior.IndoorsGameState"
 local M = setmetatable({}, { __index = IndoorsGameState })
 M.__index = M
 
--- TODO: viv
-
-function M.new(gamestate)
-    local self = setmetatable(IndoorsGameState.new(gamestate, 'PostOffice', gamestate.images.places.post_office), M)
+function M.new()
+    local self = setmetatable(IndoorsGameState.new('PostOffice', game.images.places.post_office), M)
     
     self:addWorldBounds({
         { -- Divider
@@ -40,7 +38,7 @@ function M:load()
     IndoorsGameState.load(self)
 
     self:addStaticObjects({
-        construction = StaticObject.new(self.world, 40, 40, self.gamestate.images.decor.construction),
+        construction = StaticObject.new(self.world, 40, 40, game.images.decor.construction),
     })
 end
 

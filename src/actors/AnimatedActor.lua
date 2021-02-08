@@ -2,13 +2,13 @@ local BaseActor = require "src.actors.BaseActor"
 local M = setmetatable({}, { __index = BaseActor })
 M.__index = M
 
-function M.new(world, name, gamestate, x, y, w, h, anims, callback)
+function M.new(world, name, game, x, y, w, h, anims, callback)
     if anims == nil then
         error('anims must not be nil')
     end
 
     local self = setmetatable(BaseActor.new(
-        world, name, gamestate, x, y, w, h, callback
+        world, name, game, x, y, w, h, callback
     ), M)
     
     self.animations = anims
@@ -41,9 +41,13 @@ function M:updateAnimation(dt)
     end
 end
 
+function M:drawTranslate()
+    lg.translate(floor(self.x), floor(self.y))
+end
+
 function M:draw()
     lg.push()
-    lg.translate(floor(self.x), floor(self.y))
+    self:drawTranslate()
     self.animation:draw(0, 0)
     if self.inProximity or self.canInteractWith then
         lg.setColor(0, 1, 0)

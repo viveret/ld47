@@ -2,10 +2,8 @@ IndoorsGameState = require "src.gamestates.Interior.IndoorsGameState"
 local M = setmetatable({}, { __index = IndoorsGameState })
 M.__index = M
 
--- TODO: adam
-
-function M.new(gamestate)
-    local self = setmetatable(IndoorsGameState.new(gamestate, 'Library', gamestate.images.places.library), M)
+function M.new()
+    local self = setmetatable(IndoorsGameState.new('Library', game.images.places.library), M)
 	
     self:addWorldBounds({
         { -- Top
@@ -49,8 +47,8 @@ function M:load()
     IndoorsGameState.load(self)
 
     self:addStaticObjects({
-        ropes = StaticObject.new(self.world, 63, 39, self.gamestate.images.decor.ropes),
-        tome = StaticObject.new(self.world, 80, 40, self.gamestate.images.decor.tome)
+        ropes = StaticObject.new(self.world, 63, 39, game.images.decor.ropes),
+        tome = StaticObject.new(self.world, 80, 40, game.images.decor.tome)
     })
 end
 
@@ -59,7 +57,7 @@ function M:switchTo(x, y)
 
     if self.librarian == nil then
         self.librarian = ActorSpawnEvent.new("Library", "Librarian", "librarian", 23, 46)
-        self.gamestate.fire(self.librarian)
+        game.fire(self.librarian)
     end
 end
 

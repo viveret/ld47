@@ -2,10 +2,8 @@ IndoorsGameState = require "src.gamestates.Interior.IndoorsGameState"
 local M = setmetatable({}, { __index = IndoorsGameState })
 M.__index = M
 
--- TODO viv
-
-function M.new(gamestate)
-    local self = setmetatable(IndoorsGameState.new(gamestate, 'Home', gamestate.images.places.home), M)
+function M.new()
+    local self = setmetatable(IndoorsGameState.new('Home', game.images.places.home), M)
     self.bgMusicName = "chill"
 
     self:addWorldBounds({
@@ -34,8 +32,10 @@ function M.new(gamestate)
             path = 'Overworld,175,130,x'
         }
     }
-    -- self.renderWarps = true
-    -- self.renderBounds = true
+
+    self:addWaitableObject(10, 20, game.animations.decor.beer_sign, true, 'Sleep')
+    self:addLightSwitch(30, 10, game.images.decor.tome)
+    self:addInteractDialog(82, 25, game.images.decor.radio, false, 'Listen to Radio', 'Radio', 'Beep boop bop')
 
 	return self
 end

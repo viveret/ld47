@@ -3,7 +3,9 @@ local M = setmetatable({}, { __index = BaseEvent })
 M.__index = M
 
 function M.new()
-    return setmetatable(BaseEvent.new(), M)
+    local self = setmetatable(BaseEvent.new(), M)
+    self.type = "GameOver"
+    return self
 end
 
 function M:fireOn(gs)
@@ -11,7 +13,7 @@ function M:fireOn(gs)
         gs.setFlag("defeated-cultists")
     end
 
-    gs.gameOver()
+    gs.warpTo('gameover')
 end
 
 return M

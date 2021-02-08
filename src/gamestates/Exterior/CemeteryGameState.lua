@@ -2,8 +2,8 @@ PhysicalGameState = require "src.gamestates.PhysicalGameState"
 local M = setmetatable({}, { __index = PhysicalGameState })
 M.__index = M
 
-function M.new(gamestate)
-    local self = setmetatable(PhysicalGameState.new(gamestate, 'Cemetery', gamestate.images.places.cemetery), M)
+function M.new()
+    local self = setmetatable(PhysicalGameState.new('Cemetery', game.images.places.cemetery), M)
     self.bgMusicName = "dreamSequence"
     self:addExteriorWorldBounds(8)
     
@@ -23,12 +23,12 @@ function M.new(gamestate)
     }
 
     -- self:addStaticObjects({
-    --     grave1 = AnimatedObject.new(self.world, 3.5, 5, self.gamestate.animations.decor.freezer),
-    --     grave2 = AnimatedObject.new(self.world, 15.5, 5, self.gamestate.animations.decor.freezer),
-    --     grave3 = AnimatedObject.new(self.world, 27.5, 5, self.gamestate.animations.decor.freezer),
+    --     grave1 = AnimatedObject.new(self.world, 3.5, 5, game.animations.decor.freezer),
+    --     grave2 = AnimatedObject.new(self.world, 15.5, 5, game.animations.decor.freezer),
+    --     grave3 = AnimatedObject.new(self.world, 27.5, 5, game.animations.decor.freezer),
 
-    --     backcounter = StaticObject.new(self.world, 70, 10, self.gamestate.images.decor.back_counter),
-    --     counter = StaticObject.new(self.world, 71, 35, self.gamestate.images.decor.counter)
+    --     backcounter = StaticObject.new(self.world, 70, 10, game.images.decor.back_counter),
+    --     counter = StaticObject.new(self.world, 71, 35, game.images.decor.counter)
     -- })
 
     local rows = 5
@@ -41,14 +41,14 @@ function M.new(gamestate)
             local x = xoff + c * (self:getWidth() - 100) / cols + random(1, 2)
             local y = yoff + r * (self:getHeight() - 70) / rows + random(1, 2)
 
-            table.insert(self.staticObjects, StaticObject.new(self.world, x, y, self.gamestate.images.places.cemetery['grave' .. random(1,8)]))
+            table.insert(self.staticObjects, StaticObject.new(self.world, x, y, game.images.places.cemetery['grave' .. random(1,8)]))
 
             if random() < 0.05 then
-                table.insert(self.staticObjects, StaticObject.new(self.world, x, y + 8, self.gamestate.images.places.cemetery.bones))
+                table.insert(self.staticObjects, StaticObject.new(self.world, x, y + 8, game.images.places.cemetery.bones))
             elseif random() < 0.1 then
-                table.insert(self.staticObjects, StaticObject.new(self.world, x, y + 8, self.gamestate.images.places.cemetery.dugUp))
+                table.insert(self.staticObjects, StaticObject.new(self.world, x, y + 8, game.images.places.cemetery.dugUp))
             elseif random() < 0.1 then
-                table.insert(self.staticObjects, StaticObject.new(self.world, x, y + 8, self.gamestate.images.places.cemetery.fresh))
+                table.insert(self.staticObjects, StaticObject.new(self.world, x, y + 8, game.images.places.cemetery.fresh))
             end
         end
     end

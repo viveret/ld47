@@ -17,8 +17,7 @@ function M.new(gamestate, bodyToFollow)
 	}, M)
     if self.bodyToFollow ~= nil then
         local x, y = self.bodyToFollow:getPosition()
-        self.x = x
-        self.y = y
+        self:setPosition(x, y)
     end
 	return self
 end
@@ -36,11 +35,22 @@ end
 function M:update(dt)
     if self.bodyToFollow ~= nil then
         local x, y = self.bodyToFollow:getPosition()
-        local hw = lg.getWidth() / 16
-        local hh = lg.getHeight() / 16
-        self.x = min(max(self.x + (x - self.x) / 2, hw), self.gamestate:getWidth() - hw)
-        self.y = min(max(self.y + (y - self.y) / 2, hh), self.gamestate:getHeight() - hh)
+        self:setPosition(x, y)
     end
+end
+
+function M:refresh(dt)
+    if self.bodyToFollow ~= nil then
+        local x, y = self.bodyToFollow:getPosition()
+        self:setPosition(x, y)
+    end
+end
+
+function M:setPosition(x, y)
+    local hw = lg.getWidth() / 16
+    local hh = lg.getHeight() / 16
+    self.x = min(max(self.x + (x - self.x) / 2, hw), self.gamestate:getWidth() - hw)
+    self.y = min(max(self.y + (y - self.y) / 2, hh), self.gamestate:getHeight() - hh)
 end
 
 function M:reset()

@@ -2,8 +2,8 @@ IndoorsGameState = require "src.gamestates.Interior.IndoorsGameState"
 local M = setmetatable({}, { __index = IndoorsGameState })
 M.__index = M
 
-function M.new(gamestate)
-    local self = setmetatable(IndoorsGameState.new(gamestate, 'Motel', gamestate.images.places.motel), M)
+function M.new()
+    local self = setmetatable(IndoorsGameState.new('Motel', game.images.places.motel), M)
     
     self:addWorldBounds({
         { -- Left

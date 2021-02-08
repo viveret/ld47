@@ -2,8 +2,8 @@ PhysicalGameState = require "src.gamestates.PhysicalGameState"
 local M = setmetatable({}, { __index = PhysicalGameState })
 M.__index = M
 
-function M.new(gamestate)
-    local self = setmetatable(PhysicalGameState.new(gamestate, 'Swamp', gamestate.images.places.swamp), M)
+function M.new()
+    local self = setmetatable(PhysicalGameState.new('Swamp', game.images.places.swamp), M)
     self.bgMusicName = "nightSpooky"
     self:addExteriorWorldBounds(4)
     self.renderBounds = false

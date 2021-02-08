@@ -1,8 +1,7 @@
 local M = {}
 
-function M:new(o, gamestate)
+function M:new(o)
     o = o or {
-        gamestate = gamestate,
         bgMusicName = "theme"
     }
     setmetatable(o, self)
@@ -25,7 +24,7 @@ function M:save()
 end
 
 function M:activated()
-    self.gamestate.audio:play(self.bgMusicName)
+    game.audio:play(self.bgMusicName)
 end
 
 

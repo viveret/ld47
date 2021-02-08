@@ -3,11 +3,13 @@ local M = setmetatable({}, { __index = BaseEvent })
 M.__index = M
 
 function M.new()
-    return setmetatable(BaseEvent.new(), M)
+    local self = setmetatable(BaseEvent.new(), M)
+    self.type = "QuitGame"
+    return self
 end
 
 function M:fireOn(gs)
-    gs.quitGame()
+    love.event.quit()
 end
 
 return M

@@ -4,7 +4,7 @@ M.__index = M
 function M.new(world, x, y, img, callback, name)
     local self = setmetatable({
         image = img,
-        gamestate = gamestate,
+        game = game,
         x = x,
         y = y,
         name = name
@@ -26,6 +26,10 @@ function M.new(world, x, y, img, callback, name)
     return self
 end
 
+function M:tostring()
+    return self.name
+end
+
 function M:onRemove()
     self.body:destroy()
     self.body = nil
@@ -33,7 +37,7 @@ end
 
 function M:interact(player)
     if self.interactionCallback ~= nil then
-        self.interactionCallback(self.gamestate, player, "action")
+        self.interactionCallback(game, player, "action")
     end
 end
 

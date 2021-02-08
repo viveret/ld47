@@ -1,6 +1,8 @@
-local M = {}
+local super = require "src.events.TimeLineEvent"
+local M = setmetatable({}, { __index = super })
+M.__index = M
 
-function M.fireOn(self, gs)
+function M:fireOn(gs)
 	local currentScene = gs:current().scene
 
 	if currentScene == self.scene then
@@ -9,10 +11,10 @@ function M.fireOn(self, gs)
     end
 end
 
-function M.new(scene, name) 
-	local ret = { scene, type = "PlaySoundEvent", name = name, fireOn = M.fireOn }
-
-	return ret
+function M.new(scene, name)
+    local self = setmetatable(super.new(scene, "PlaySoundEvent"), M)
+	self.name = name
+	return self
 end
 
 return M

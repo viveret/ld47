@@ -2,37 +2,47 @@ local AnimatedActor = require "src.actors.AnimatedActor"
 local M = setmetatable({}, { __index = AnimatedActor })
 M.__index = M
 
-function M.new(world, name, gamestate, x, y, w, h, anims)
+function M.new(world, name, game, x, y, w, h, anims)
     local self = setmetatable(AnimatedActor.new(
-        world, name, gamestate, x, y, w, h, anims, nil), M)
+        world, name, game, x, y, w, h, anims, nil), M)
     
     self.type = "player"
     self.assetName = "player"
-    
+    self.walkForce = 20
+    self.maxVelocity = 20
+
+    self.keyBinds = game.keyBinds
+    self.inventory = Inventory.new('player', game.images.ui)
+    self.inventory:addItem('apple')
+
     return self
+end
+
+function M:drawTranslate()
+    lg.translate(self.x, self.y)
 end
 
 function M:update(dt)
     local vx, vy = 0, 0
 
-    if lk.isDown('w') then
+    if lk.isDown(self.keyBinds.moveUp) then
         vy = -1
         self.animation = self.animations.up
     end
-    if lk.isDown('a') then
+    if lk.isDown(self.keyBinds.moveLeft) then
         vx = -1
         self.animation = self.animations.left
     end
-    if lk.isDown('s') then
+    if lk.isDown(self.keyBinds.moveDown) then
         vy = 1
         self.animation = self.animations.down
     end
-    if lk.isDown('d') then
+    if lk.isDown(self.keyBinds.moveRight) then
         vx = 1
         self.animation = self.animations.right
     end
 
-    if lk.isDown('lshift') then
+    if lk.isDown(self.keyBinds.run) then
         vx = vx * 1.75
         vy = vy * 1.75
         AnimatedActor.update(self, dt * .75)
@@ -61,6 +71,15 @@ function M:update(dt)
     end
 
     AnimatedActor.update(self, dt)
+end
+
+function M:keypressed( key, scancode, isrepeat )
+    if not isrepeat then
+		if game.keyBinds.interact == key then
+            self:doInteraction()
+            return
+		end
+	end
 end
 
 function M:updateMovingTo(dt)

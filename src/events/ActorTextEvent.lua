@@ -1,18 +1,20 @@
-local M = {}
+local super = require "src.events.TimeLineEvent"
+local M = setmetatable({}, { __index = super })
+M.__index = M
 
-local toast = require "src.components.toast"
-
-function M.fireOn(self, gs)
-    local scene = gs:current().scene
+function M:fireOn()
+    local scene = game.current().scene
 
 	if scene == self.scene then
-		gs.toast = toast.new(gs, self.text, self.name)
-		gs.toast:showToast()
+		game.toast((self.name or '???') .. ': ' .. self.text)
     end
 end
 
-function M.new(scene, name, text) 
-	return { type="ActorTextEvent", scene = scene, name = name, text = text, fireOn = M.fireOn }
+function M.new(scene, name, text)
+    local self = setmetatable(super.new(scene, "ActorTextEvent"), M)
+	self.name = name
+	self.text = text
+	return self
 end
 
 return M

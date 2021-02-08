@@ -7,13 +7,14 @@ M.__index = M
         - changes like flipping horizontally once in a while
 ]]
 
-function M.new(world, x, y, anim, onInteract)
+function M.new(world, x, y, anim, onInteract, label)
     local self = setmetatable({
         x = x,
         y = y,
         hasNotInteractedWith = false,
         onInteract = onInteract,
         animation = anim,
+        label = label
     }, M)
     
     self.body = lp.newBody(world, self.x, self.y, "static")
@@ -21,6 +22,10 @@ function M.new(world, x, y, anim, onInteract)
     self.fixture = lp.newFixture(self.body, self.shape)
 
     return self
+end
+
+function M:tostring()
+    return self.label or '???'
 end
 
 function M:draw()

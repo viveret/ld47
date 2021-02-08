@@ -2,8 +2,8 @@ IndoorsGameState = require "src.gamestates.Interior.IndoorsGameState"
 local M = setmetatable({}, { __index = IndoorsGameState })
 M.__index = M
 
-function M.new(gamestate)
-    local self = setmetatable(IndoorsGameState.new(gamestate, 'MotelLobby', gamestate.images.places.motel_lobby), M)
+function M.new()
+    local self = setmetatable(IndoorsGameState.new('MotelLobby', game.images.places.motel_lobby), M)
     
     self:addWorldBounds({
         { -- Left
@@ -66,25 +66,25 @@ function M:switchTo(x, y)
 
     if self.guy == nil then
         local onMotelGuyInteract = function(player)
-            if (self.gamestate.hasFlag('has-not-reserved-room')) then
-                self.gamestate.clearFlag('has-not-reserved-room')
-                self.gamestate.setFlag('has-reserved-room')
-                self.gamestate.fire(self.onReserveRoomEvent, true)
+            if (game.hasFlag('has-not-reserved-room')) then
+                game.clearFlag('has-not-reserved-room')
+                game.setFlag('has-reserved-room')
+                game.fire(self.onReserveRoomEvent, true)
             else
                 -- you have already reserved a room
-                self.gamestate.fire(self.onReReserveRoomEvent, true)
+                game.fire(self.onReReserveRoomEvent, true)
             end
         end
 
         self.guy = ActorSpawnEvent.new("MotelLobby", "MotelGuy", "motel_guy", 37, 31, onMotelGuyInteract)
-        self.gamestate.fire(self.guy)
+        game.fire(self.guy)
     end
 
     self.greeting = ActorSpeakEvent.new("MotelLobby", "MotelGuy", "'sup. Are you here for the convention?")
     self.onReserveRoomEvent = ActorSpeakEvent.new("MotelLobby", "MotelGuy", "Here are the keys to the last room.")
     self.onReReserveRoomEvent = ActorSpeakEvent.new("MotelLobby", "MotelGuy", "You already reservd a room.")
 
-    self.gamestate.fire(self.greeting)
+    game.fire(self.greeting)
 end
 
 function M.save()

@@ -2,8 +2,8 @@ IndoorsGameState = require "src.gamestates.Interior.IndoorsGameState"
 local M = setmetatable({}, { __index = IndoorsGameState })
 M.__index = M
 
-function M.new(gamestate)
-    local self = setmetatable(IndoorsGameState.new(gamestate, 'Antiques', gamestate.images.places.antiques), M)
+function M.new()
+    local self = setmetatable(IndoorsGameState.new('Antiques', game.images.places.antiques), M)
     
     self:addWorldBounds({
         { -- clothing racks
@@ -38,7 +38,7 @@ end
 function M:draw()
     IndoorsGameState.draw(self)
     if self.greeting ~= nil then
-        self.gamestate.fire(self.greeting)
+        game.fire(self.greeting)
         self.greeting = nil
     end
 end
@@ -56,7 +56,7 @@ function M:switchTo(x, y)
 
     if self.shopkeeper == nil then
         self.shopkeeper = ActorSpawnEvent.new("Antiques", "AntiqueSeller", "mary", 28, 20)
-        self.gamestate.fire(self.shopkeeper)
+        game.fire(self.shopkeeper)
     end
 
     -- todo: time of day check

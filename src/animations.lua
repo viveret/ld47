@@ -1,20 +1,21 @@
 local M = {}
 M.__index = M
 
-function M.new(images)
+function M.new()
+	local images = game.images
 	local getActorAnimations = function(img)
 		return {
-			still = animation.new(img, 64, 64, 0, 3, 0, 8),
-			down = animation.new(img, 64, 64, 3, 6, 0, 8),
-			up = animation.new(img, 64, 64, 9, 6, 0, 8),
-			right = animation.new(img, 64, 64, 15, 6, 0, 8),
-			left = animation.new(img, 64, 64, 15, 6, 0, 8, true),
+			still = animation.new(img, 64, 64, 0, 3, 0, 1),
+			down = animation.new(img, 64, 64, 3, 6, 0, 1),
+			up = animation.new(img, 64, 64, 9, 6, 0, 1),
+			right = animation.new(img, 64, 64, 15, 6, 0, 1),
+			left = animation.new(img, 64, 64, 15, 6, 0, 1, true),
 		}
 	end
 	return setmetatable({
 		actors = {
 			mary = {
-				still = animation.new(images.actors.mary, 64, 64, 0, 3, 0, 1),
+				still = animation.new(images.actors.mary, 64, 64, 0, 3, 0, 8),
 			},
 			player =  getActorAnimations(images.actors.player),
 			cultist =  getActorAnimations(images.actors.cultist),
@@ -36,7 +37,7 @@ function M.new(images)
 			person10 = getActorAnimations(images.actors.person10),
 			motel_guy = getActorAnimations(images.actors.motel_guy),
 			librarian = {
-				still = animation.new(images.actors.librarian, 64, 64, 0, 2, 0, 1),
+				still = animation.new(images.actors.librarian, 64, 64, 0, 2, 0, 8),
 			},
 		},
 		doors = {
