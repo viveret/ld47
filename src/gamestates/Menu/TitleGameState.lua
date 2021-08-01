@@ -9,15 +9,15 @@ function M.new()
     
     if #game.saves:getAll() > 0 then
         self:addSpace(190)
-        self:addButton('Continue', ContinueGameEvent.new())
-        self:addButton('Load', WarpEvent.new('loadgame'))
+        self:addButton('Continue', events.game.ContinueGameEvent.new())
+        self:addButton('Load', events.WarpEvent.new('loadgame'))
     else
         self:addSpace(240)
     end
     
-    self:addImageButton(game.images.ui.start_btn, NewGameEvent.new())
+    self:addImageButton(game.images.ui.start_btn, events.game.NewGameEvent.new())
 
-    self:addButton('Options', WarpEvent.new('options'))
+    self:addButton('Options', events.WarpEvent.new('options'))
 
     self.scene = "Title"
 
@@ -27,7 +27,7 @@ end
 function M:keypressed( key, scancode, isrepeat )
     if not isrepeat then
         if lume.find({'space', 'return'}, key) then
-            game.fire(NewGameEvent.new(), true)
+            game.fire(events.game.NewGameEvent.new(), true)
             return
         end
     end

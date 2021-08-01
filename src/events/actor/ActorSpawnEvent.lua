@@ -30,7 +30,7 @@ function M.new(scene, name, assetName, x, y, callback)
 	self.x = tonumber(x)
 	self.y = tonumber(y)
 	
-	if callback ~= nil then
+	if callback ~= nil and type(callback) == 'string' then
 		self.callback = timelineCallbacks[callback]
 		if self.callback == nil then
 			error("could find timelineCallbacks." .. callback)

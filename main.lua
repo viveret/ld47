@@ -9,6 +9,24 @@ lk = love.keyboard
 lp = love.physics
 lfs = love.filesystem
 
+function recursiveRequire(path)
+    local tree = {}
+    for i, f in ipairs(love.filesystem.getDirectoryItems(path)) do
+        local fpath = path .. '/' .. f
+        if love.filesystem.getInfo(fpath, 'directory') then
+            if f ~= '..' and f ~= '.' then
+                tree[f] = recursiveRequire(fpath)
+            end
+        else love.filesystem.getInfo(fpath, 'file')
+            if f:sub(-#'.lua') == '.lua' then
+                local key = f:sub(0, -#'.lua' - 1)
+                tree[key] = require(fpath:sub(0, -#'.lua' - 1):gsub("%^/", "."))
+            end
+        end
+    end
+    return tree
+end
+
 --PROF_CAPTURE = true
 prof = require("lib.jprof.jprof")
 
@@ -26,7 +44,7 @@ Color = require "src.core.Color"
 DateTime = require "src.core.DateTime"
 TimeSpan = require "src.core.TimeSpan"
 
-eventTypes = require "src.eventTypes"
+events = require "src.eventTypes"
 uiComponents = require "src.uiComponents"
 
 Camera = require "src.Camera"

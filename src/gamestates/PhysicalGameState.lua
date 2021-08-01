@@ -173,7 +173,7 @@ function M:addContactListeners()
             if door ~= nil then
                 door:animateAndWarp(game, path)
             else
-                game.fire(WarpEvent.new(path), true)
+                game.fire(events.WarpEvent.new(path), true)
             end
             a.activated = true
             b.activated = true

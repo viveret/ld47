@@ -76,13 +76,13 @@ function M:switchTo(x, y)
             end
         end
 
-        self.guy = ActorSpawnEvent.new("MotelLobby", "MotelGuy", "motel_guy", 37, 31, onMotelGuyInteract)
+        self.guy = events.actor.ActorSpawnEvent.new("MotelLobby", "MotelGuy", "motel_guy", 37, 31, onMotelGuyInteract)
         game.fire(self.guy)
     end
 
-    self.greeting = ActorSpeakEvent.new("MotelLobby", "MotelGuy", "'sup. Are you here for the convention?")
-    self.onReserveRoomEvent = ActorSpeakEvent.new("MotelLobby", "MotelGuy", "Here are the keys to the last room.")
-    self.onReReserveRoomEvent = ActorSpeakEvent.new("MotelLobby", "MotelGuy", "You already reservd a room.")
+    self.greeting = events.actor.ActorSpeakEvent.new("MotelLobby", "MotelGuy", "'sup. Are you here for the convention?")
+    self.onReserveRoomEvent = events.actor.ActorSpeakEvent.new("MotelLobby", "MotelGuy", "Here are the keys to the last room.")
+    self.onReReserveRoomEvent = events.actor.ActorSpeakEvent.new("MotelLobby", "MotelGuy", "You already reservd a room.")
 
     game.fire(self.greeting)
 end

@@ -65,10 +65,10 @@ function parseAction(scene, raw)
 	local typeName = parts[1] or error('Missing event type');
 	parts[1] = scene
 
-	-- local type = eventTypes[typeName] or error('Could not find event type ' .. typeName);
+	-- local type = events[typeName] or error('Could not find event type ' .. typeName);
 	-- return type.new(unpack(parts)) or error('Could not create ' .. typeName)
 
-	local type = eventTypes[typeName] or eventTypes[typeName .. 'Event'] or error('Could not find event type ' .. typeName);
+	local type = events[typeName] or events[typeName .. 'Event'] or error('Could not find event type ' .. typeName);
 	return type.new(unpack(parts)) or error('Could not create ' .. typeName)
 end
 

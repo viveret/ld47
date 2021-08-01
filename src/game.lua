@@ -488,6 +488,18 @@ function game.toast(text)
     game.ui.overlay:addUiElement(uiComponents.Toast.new(text))
 end
 
+function game.switchToExisting(existing, x, y, transitionType)
+    existing:switchTo(x, y)
+    game.switchTo(existing, transitionType)
+end
+
+function game.switchToNew(create, scene, x, y, transitionType)
+    local newState = create.new(game)
+    newState.type = scene
+    newState:load(x, y)
+    game.push(newState, nil, transitionType)
+end
+
 function game.warpTo(path, transitionType)
     if path == nil or path == '' then
         error('path cannot be nil or empty')
@@ -504,20 +516,25 @@ function game.warpTo(path, transitionType)
     end
     
     local scene, x, y, etc = path:match("^%s*(.-),%s*(.-),%s*(.-),%s*(.-)$")
+    x = tonumber(x)
+    y = tonumber(y)
 
     local existing = game.existingStates[scene]
     local create = game.createStates[scene]
+    local switchToResult = false
+    local err = false
 
     if existing ~= nil then
-        existing:switchTo(tonumber(x), tonumber(y))
-        game.switchTo(existing, transitionType)
+        switchToResult, err = pcall(game.switchToExisting, existing, x, y, transitionType)
     elseif create ~= nil then
-        local newState = create.new(game)
-        newState.type = scene
-        newState:load(tonumber(x), tonumber(y))
-        game.push(newState, nil, transitionType)
+        switchToResult, err = pcall(game.switchToNew, create, scene, x, y, transitionType)
     else 
         error ('Invalid stateType ' .. scene)
+    end
+
+    if not switchToResult then
+        print('failed to warp to ' .. path)
+        print(inspect(err))
     end
 end
 

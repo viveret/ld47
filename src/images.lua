@@ -1,6 +1,8 @@
 local M = {}
 M.__index = M
 
+local cache = {}
+
 function M.new()
     lg.setDefaultFilter('linear', 'linear')
 

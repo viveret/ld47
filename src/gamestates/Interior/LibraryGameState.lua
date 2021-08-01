@@ -56,7 +56,7 @@ function M:switchTo(x, y)
     IndoorsGameState.switchTo(self, x, y)
 
     if self.librarian == nil then
-        self.librarian = ActorSpawnEvent.new("Library", "Librarian", "librarian", 23, 46)
+        self.librarian = events.actor.ActorSpawnEvent.new("Library", "Librarian", "librarian", 23, 46)
         game.fire(self.librarian)
     end
 end

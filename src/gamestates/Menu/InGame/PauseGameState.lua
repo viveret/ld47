@@ -11,6 +11,8 @@ function M.new()
     self:addButton('Continue', ContinueGameEvent.new())
     self:addButton('Quick Load', QuickLoadEvent.new())
     self:addButton('Load Previous', LoadGameEvent.new())
+    self:addButton('Settings', GameSettingsEvent.new())
+    self:addButton('Game Stats', GameStatsEvent.new())
     self:addButton('Quit', QuitGameEvent.new())
 
     self:addSpace(110)

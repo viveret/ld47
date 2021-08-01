@@ -55,12 +55,12 @@ function M:switchTo(x, y)
     IndoorsGameState.switchTo(self, x, y)
 
     if self.shopkeeper == nil then
-        self.shopkeeper = ActorSpawnEvent.new("Antiques", "AntiqueSeller", "mary", 28, 20)
+        self.shopkeeper = events.actor.ActorSpawnEvent.new("Antiques", "AntiqueSeller", "mary", 28, 20)
         game.fire(self.shopkeeper)
     end
 
     -- todo: time of day check
-    self.greeting = ActorTextEvent.new("Antiques", "mary", "I've collected many things over the years. Please, browse at your leisure.")
+    self.greeting = events.actor.ActorTextEvent.new("Antiques", "mary", "I've collected many things over the years. Please, browse at your leisure.")
 end
 
 function M.save()

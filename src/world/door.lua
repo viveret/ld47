@@ -28,7 +28,7 @@ function M:update(dt)
         self.animation:update(dt)
         if self.animation.loopCount > 0 then
             self.animate = false
-            game.fire(WarpEvent.new(self.path), true)
+            game.fire(events.WarpEvent.new(self.path), true)
         end
     end
 end

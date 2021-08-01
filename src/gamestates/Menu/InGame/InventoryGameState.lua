@@ -21,7 +21,7 @@ end
 function M:keypressed( key, scancode, isrepeat )
     if not isrepeat then
         if lume.find({'p', 'i', 'escape'}, key) then
-            game.fire(ContinueGameEvent.new(), true)
+            game.fire(events.game.ContinueGameEvent.new(), true)
             return
         elseif key == game.keyBinds.moveRight then
             game.warpTo(self.navigateRight, game.stackTransitions.ToLeft)
