@@ -1,9 +1,11 @@
-local M = {}
+local super = require "src.gamestates.Menu.MenuGameState"
+local M = setmetatable({}, { __index = super })
+M.__index = M
 
-function M:new(o)
-    o = o or {
+function M.new()
+    local self = setmetatable(lume.extend(super.new('start-new', 'Start New'), {
         bgMusicName = "theme"
-    }
+    }), M)
     setmetatable(o, self)
     self.__index = self
 

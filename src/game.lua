@@ -27,38 +27,38 @@ game = {
     timeWarpMax = 1000,
     timeWarpStep = 2,
     objectScale = 1/8,
-    timedGameStateCreators = {
-        -- Exterior
-        Overworld = require "src.gamestates.Exterior.OverworldGameState",
-        Swamp = require "src.gamestates.Exterior.SwampGameState",
-        Cemetery = require "src.gamestates.Exterior.CemeteryGameState",
+    -- timedGameStateCreators = {
+    --     -- Exterior
+    --     Overworld = require "src.gamestates.Exterior.OverworldGameState",
+    --     Swamp = require "src.gamestates.Exterior.SwampGameState",
+    --     Cemetery = require "src.gamestates.Exterior.CemeteryGameState",
 
-        -- Interior
-        Antiques = require "src.gamestates.Interior.AntiquesGameState",
-        Bar = require "src.gamestates.Interior.BarGameState",
-        Coffee = require "src.gamestates.Interior.CoffeeGameState",
-        Home = require "src.gamestates.Interior.HomeGameState",
-        Doctor = require "src.gamestates.Interior.DoctorGameState",
-        Library = require "src.gamestates.Interior.LibraryGameState",
-        Motel = require "src.gamestates.Interior.MotelGameState",
-        MotelLobby = require "src.gamestates.Interior.MotelLobbyGameState",
-        PostOffice = require "src.gamestates.Interior.PostOfficeGameState",
-        School = require "src.gamestates.Interior.SchoolGameState",
-        Shop = require "src.gamestates.Interior.ShopGameState"
-    },
+    --     -- Interior
+    --     Antiques = require "src.gamestates.Interior.AntiquesGameState",
+    --     Bar = require "src.gamestates.Interior.BarGameState",
+    --     Coffee = require "src.gamestates.Interior.CoffeeGameState",
+    --     Home = require "src.gamestates.Interior.HomeGameState",
+    --     Doctor = require "src.gamestates.Interior.DoctorGameState",
+    --     Library = require "src.gamestates.Interior.LibraryGameState",
+    --     Motel = require "src.gamestates.Interior.MotelGameState",
+    --     MotelLobby = require "src.gamestates.Interior.MotelLobbyGameState",
+    --     PostOffice = require "src.gamestates.Interior.PostOfficeGameState",
+    --     School = require "src.gamestates.Interior.SchoolGameState",
+    --     Shop = require "src.gamestates.Interior.ShopGameState"
+    -- },
     existingStates = { },
-    createStates = {
-        -- Other
-        Title = require "src.gamestates.Menu.TitleGameState",
-        Options = require "src.gamestates.Menu.OptionsGameState",
-        LoadGame = require "src.gamestates.Menu.LoadGameState",
-        StartNewGame = require "src.gamestates.StartNewGameState",
-        GameOver = require "src.gamestates.Menu.GameOverGameState",
-        DialogGame = require "src.gamestates.DialogGameState",
-        Pause = require "src.gamestates.Menu.InGame.PauseGameState",
-        Notes = require "src.gamestates.Menu.InGame.NotesGameState",
-        Inventory = require "src.gamestates.Menu.InGame.InventoryGameState",
-    },
+    -- createStates = {
+    --     -- Other
+    --     Title = require "src.gamestates.Menu.TitleGameState",
+    --     Options = require "src.gamestates.Menu.OptionsGameState",
+    --     LoadGame = require "src.gamestates.Menu.LoadGameState",
+    --     StartNewGame = require "src.gamestates.StartNewGameState",
+    --     GameOver = require "src.gamestates.Menu.GameOverGameState",
+    --     DialogGame = require "src.gamestates.DialogGameState",
+    --     Pause = require "src.gamestates.Menu.InGame.PauseGameState",
+    --     Notes = require "src.gamestates.Menu.InGame.NotesGameState",
+    --     Inventory = require "src.gamestates.Menu.InGame.InventoryGameState",
+    -- },
     backgroundMusic = { },
     events = {},
     options = {
@@ -382,12 +382,12 @@ function game.init()
     game.timeline = timeline.new()
 
     -- spin up the TimedGameStates
-    for key, creator in pairs(game.timedGameStateCreators) do
-        local state = creator.new()
-        state:load()
-        game.existingStates[key] = state
-        game.push(state, true)
-    end
+    -- for key, creator in pairs(game.timedGameStateCreators) do
+    --     local state = creator.new()
+    --     state:load()
+    --     game.existingStates[key] = state
+    --     game.push(state, true)
+    -- end
 
     for _, flag in pairs(game.initial.flags) do
         game.setFlag(flag)
@@ -520,7 +520,7 @@ function game.warpTo(path, transitionType)
     y = tonumber(y)
 
     local existing = game.existingStates[scene]
-    local create = game.createStates[scene]
+    local create = gameStateTypes[scene] --game.createStates[scene]
     local switchToResult = false
     local err = false
 

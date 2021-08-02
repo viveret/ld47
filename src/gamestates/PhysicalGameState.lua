@@ -118,11 +118,13 @@ function M:keypressed( key, scancode, isrepeat )
             game.timeWarpBumpUp()
             return
         elseif key == 'h' then
-            game.fire(ActorTextEvent.new(game.current().scene, 'player', 'Hello'))
+            game.fire(events.actor.ActorTextEvent.new(game.current().scene, 'player', 'Hello'))
         elseif key == 'f5' then
             self.renderBounds = not self.renderBounds
         elseif key == 'f4' then
             self.renderWarps = not self.renderWarps
+        elseif key == '`' then
+            game.fire(events.dev.ConsoleEvent.new())
         end
     end
 
