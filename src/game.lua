@@ -27,38 +27,7 @@ game = {
     timeWarpMax = 1000,
     timeWarpStep = 2,
     objectScale = 1/8,
-    -- timedGameStateCreators = {
-    --     -- Exterior
-    --     Overworld = require "src.gamestates.Exterior.OverworldGameState",
-    --     Swamp = require "src.gamestates.Exterior.SwampGameState",
-    --     Cemetery = require "src.gamestates.Exterior.CemeteryGameState",
-
-    --     -- Interior
-    --     Antiques = require "src.gamestates.Interior.AntiquesGameState",
-    --     Bar = require "src.gamestates.Interior.BarGameState",
-    --     Coffee = require "src.gamestates.Interior.CoffeeGameState",
-    --     Home = require "src.gamestates.Interior.HomeGameState",
-    --     Doctor = require "src.gamestates.Interior.DoctorGameState",
-    --     Library = require "src.gamestates.Interior.LibraryGameState",
-    --     Motel = require "src.gamestates.Interior.MotelGameState",
-    --     MotelLobby = require "src.gamestates.Interior.MotelLobbyGameState",
-    --     PostOffice = require "src.gamestates.Interior.PostOfficeGameState",
-    --     School = require "src.gamestates.Interior.SchoolGameState",
-    --     Shop = require "src.gamestates.Interior.ShopGameState"
-    -- },
     existingStates = { },
-    -- createStates = {
-    --     -- Other
-    --     Title = require "src.gamestates.Menu.TitleGameState",
-    --     Options = require "src.gamestates.Menu.OptionsGameState",
-    --     LoadGame = require "src.gamestates.Menu.LoadGameState",
-    --     StartNewGame = require "src.gamestates.StartNewGameState",
-    --     GameOver = require "src.gamestates.Menu.GameOverGameState",
-    --     DialogGame = require "src.gamestates.DialogGameState",
-    --     Pause = require "src.gamestates.Menu.InGame.PauseGameState",
-    --     Notes = require "src.gamestates.Menu.InGame.NotesGameState",
-    --     Inventory = require "src.gamestates.Menu.InGame.InventoryGameState",
-    -- },
     backgroundMusic = { },
     events = {},
     options = {
@@ -83,7 +52,7 @@ game = {
         title = 'Title,0,0,x',
         options = 'Options,0,0,x',
         loadgame = 'LoadGame,0,0,x',
-        start = 'Home,50,50,x',
+        start = 'Home,60,30,x',
         gameover = 'GameOver,0,0,x',
         pause = 'Pause,0,0,x',
         notes = 'Notes,0,0,x',
@@ -520,7 +489,7 @@ function game.warpTo(path, transitionType)
     y = tonumber(y)
 
     local existing = game.existingStates[scene]
-    local create = gameStateTypes[scene] --game.createStates[scene]
+    local create = gameStates[scene]
     local switchToResult = false
     local err = false
 
@@ -529,7 +498,7 @@ function game.warpTo(path, transitionType)
     elseif create ~= nil then
         switchToResult, err = pcall(game.switchToNew, create, scene, x, y, transitionType)
     else 
-        error ('Invalid stateType ' .. scene)
+        error ('Invalid gameState ' .. scene)
     end
 
     if not switchToResult then

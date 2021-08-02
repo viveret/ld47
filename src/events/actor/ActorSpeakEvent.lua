@@ -28,7 +28,7 @@ function M:fireOn()
 
 		game.note((self.name or '???') .. ': ' .. self.text)
 		
-    	local dialogState = game.createStates.DialogGame.new(assetName, self.name, self.text)
+    	local dialogState = gameStates.Dialog.new(assetName, self.name, self.text)
     	game.push(dialogState, nil, game.stackTransitions.DialogIn)
     else
     	print("skipping dialog, not in scene " .. self.scene)

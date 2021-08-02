@@ -1,6 +1,9 @@
-local M = setmetatable({}, { __index = TimedGameState })
+local super = require "src.gamestates.TimedGameState"
+local M = setmetatable({}, { __index = super })
 M.__index = M
 
+
+local AnimatedObject = require "src.world.AnimatedObject"
 local Player = require "src.actors.Player"
 
 function M.new(scene, graphics)
@@ -10,7 +13,7 @@ function M.new(scene, graphics)
         error ('graphics must not be nil')
     end
 
-    local self = setmetatable(TimedGameState.new(scene), M)
+    local self = setmetatable(super.new(scene), M)
     self.background = graphics.bg or error ('missing graphics.bg')
     self.bgMusicName = "theme"
     self.world = lp.newWorld(0, 0, true)
@@ -494,12 +497,12 @@ function M:updateProximityListeners()
     end
 end
 
-function M:load()
+function M:load(x, y)
     TimedGameState.load(self)
     self:setupWorldBounds()
     self:setupWarps()
     
-    self.player = Player.new(self.world, 'player', game, 0, 0, 4, 4, game.animations.actors.player)
+    self.player = Player.new(self.world, 'player', game, x, y, 4, 4, game.animations.actors.player)
     self:pushCamera(Camera.new(self, self.player.body))
 end
 

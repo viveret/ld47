@@ -36,8 +36,8 @@ function M:update(dt)
     IndoorsGameState.update(self, dt)
 end
 
-function M:load()
-    IndoorsGameState.load(self)
+function M:load(x, y)
+    IndoorsGameState.load(self, x, y)
 
     self:addStaticObjects({
         freezer1 = AnimatedObject.new(self.world, 3.5, 5, game.animations.decor.freezer),

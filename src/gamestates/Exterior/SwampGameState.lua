@@ -31,8 +31,8 @@ function M:update(dt)
     PhysicalGameState.update(self, dt)
 end
 
-function M:load()
-    PhysicalGameState.load(self)
+function M:load(x, y)
+    PhysicalGameState.load(self, x, y)
 end
 
 function M:switchTo(x, y)

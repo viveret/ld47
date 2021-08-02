@@ -1,9 +1,9 @@
-PhysicalGameState = require "src.gamestates.PhysicalGameState"
-local M = setmetatable({}, { __index = PhysicalGameState })
+local super = require "src.gamestates.PhysicalGameState"
+local M = setmetatable({}, { __index = super })
 M.__index = M
 
 function M.new(name, graphics)
-    local self = setmetatable(PhysicalGameState.new(name, graphics), M)
+    local self = setmetatable(super.new(name, graphics), M)
     lume.extend(self.colors, {
         lightsOff = {
             night = Color.new({ r = 0.2, g = 0, b = 0 }),
@@ -19,7 +19,7 @@ function M.new(name, graphics)
 end
 
 function M:draw()
-    PhysicalGameState.draw(self)
+    super.draw(self)
 
     if self.objects ~= nil then
         for _, obj in pairs(self.objects) do
@@ -29,15 +29,15 @@ function M:draw()
 end
 
 function M:update(dt)
-    PhysicalGameState.update(self, dt)
+    super.update(self, dt)
 end
 
-function M:load()
-    PhysicalGameState.load(self, x, y)
+function M:load(x, y)
+    super.load(self, x, y)
 end
 
 function M:switchTo(x, y)
-    PhysicalGameState.switchTo(self, x, y)
+    super.switchTo(self, x, y)
     self:assignLightColor()
 end
 

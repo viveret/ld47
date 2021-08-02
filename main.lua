@@ -28,8 +28,8 @@ Color = require "src.core.Color"
 DateTime = require "src.core.DateTime"
 TimeSpan = require "src.core.TimeSpan"
 
-events = require "src.eventTypes"
-gameStateTypes = require "src.gameStateTypes"
+require "src.eventTypes"
+require "src.gameStateTypes"
 uiComponents = require "src.uiComponents"
 
 Camera = require "src.Camera"

@@ -1,10 +1,10 @@
-PhysicalGameState = require "src.gamestates.PhysicalGameState"
-AnimatedObject = require "src.world.AnimatedObject"
-local M = setmetatable({}, { __index = PhysicalGameState })
+local super = require "src.gamestates.PhysicalGameState"
+local AnimatedObject = require "src.world.AnimatedObject"
+local M = setmetatable({}, { __index = super })
 M.__index = M
 
 function M.new()
-    local self = setmetatable(PhysicalGameState.new('Overworld', game.images.places.overworld), M)
+    local self = setmetatable(super.new('Overworld', game.images.places.overworld), M)
     self.bgMusicName = "chill"
     self:addExteriorWorldBounds()
     self:addWorldBounds({
@@ -173,23 +173,23 @@ function awdawdawd(b, player)
 end
 
 function M:draw()
-    PhysicalGameState.draw(self)
+    super.draw(self)
 end
 
 function M:drawInWorldView()
-    PhysicalGameState.drawInWorldView(self)
+    super.drawInWorldView(self)
 end
 
 function M:update(dt)
-    PhysicalGameState.update(self, dt)
+    super.update(self, dt)
 end
 
-function M:load()
-    PhysicalGameState.load(self)
+function M:load(x, y)
+    super.load(self, x, y)
 end
 
 function M:switchTo(x, y)
-    PhysicalGameState.switchTo(self, x, y)
+    super.switchTo(self, x, y)
 end
 
 function M:save()

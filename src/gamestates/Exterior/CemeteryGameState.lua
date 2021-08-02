@@ -1,5 +1,5 @@
-PhysicalGameState = require "src.gamestates.PhysicalGameState"
-local M = setmetatable({}, { __index = PhysicalGameState })
+local super = require "src.gamestates.PhysicalGameState"
+local M = setmetatable({}, { __index = super })
 M.__index = M
 
 function M.new()
@@ -68,8 +68,8 @@ function M:update(dt)
     PhysicalGameState.update(self, dt)
 end
 
-function M:load()
-    PhysicalGameState.load(self)
+function M:load(x, y)
+    PhysicalGameState.load(self, x, y)
 end
 
 function M:switchTo(x, y)

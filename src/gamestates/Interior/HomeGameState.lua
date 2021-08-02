@@ -1,9 +1,9 @@
-IndoorsGameState = require "src.gamestates.Interior.IndoorsGameState"
-local M = setmetatable({}, { __index = IndoorsGameState })
+local super = require "src.gamestates.Interior.IndoorsGameState"
+local M = setmetatable({}, { __index = super })
 M.__index = M
 
 function M.new()
-    local self = setmetatable(IndoorsGameState.new('Home', game.images.places.home), M)
+    local self = setmetatable(super.new('Home', game.images.places.home), M)
     self.bgMusicName = "chill"
 
     self:addWorldBounds({
@@ -48,8 +48,8 @@ function M:update(dt)
     IndoorsGameState.update(self, dt)
 end
 
-function M:load()
-    IndoorsGameState.load(self)
+function M:load(x, y)
+    IndoorsGameState.load(self, x, y)
 end
 
 function M:switchTo(x, y)

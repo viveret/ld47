@@ -1,5 +1,4 @@
 
-
 function recursiveRequire(path)
     local tree = {}
     for i, f in ipairs(love.filesystem.getDirectoryItems(path)) do
@@ -18,13 +17,16 @@ function recursiveRequire(path)
     return tree
 end
 
-
 function recursiveAliasTypes(types, suffix, root)
     for k,t in pairs(types) do
-        if k:match(suffix .. '$') then
-            local key = k:sub(0, -#suffix - 1)
-            root[key] = t
-            types[key] = t
+        if suffix ~= nil then
+            if k:match(suffix .. '$') then
+                local key = k:sub(0, -#suffix - 1)
+                root[key] = t
+                types[key] = t
+            end
+        else
+            root[k] = t
         end
 
         if t.aliases then
@@ -38,6 +40,15 @@ function recursiveAliasTypes(types, suffix, root)
             recursiveAliasTypes(t, suffix, root)
         end
     end    
+end
+
+function requireAll(path)
+    local tree = recursiveRequire(path)
+    local root = {}
+
+    recursiveAliasTypes(tree, nil, root)
+
+    return root
 end
 
 

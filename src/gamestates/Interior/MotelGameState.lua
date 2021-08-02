@@ -43,8 +43,8 @@ function M:update(dt)
     IndoorsGameState.update(self, dt)
 end
 
-function M:load()
-    IndoorsGameState.load(self)
+function M:load(x, y)
+    IndoorsGameState.load(self, x, y)
 end
 
 function M:switchTo(x, y)
