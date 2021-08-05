@@ -101,3 +101,20 @@ function debugtrycatch(isDebuging, tryfn, catchfn, finallyfn)
 
     return ret
 end
+
+
+function simplify(tbl, depth)
+    local ret = {}
+    for k,v in pairs(tbl) do
+        if type(v) ~= 'function' then
+            if type(v) ~= 'table' then
+                ret[k] = v
+            elseif depth == nil then
+                ret[k] = simplify(v, 3)
+            elseif depth > 0 then
+                ret[k] = simplify(v, depth - 1)
+            end
+        end
+    end
+    return ret
+end

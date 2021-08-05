@@ -4,8 +4,6 @@ M.__index = M
 function M.new(world, name, game, x, y, w, h, callback)
     local self = setmetatable({
         type = "actor",
-        x = x,
-        y = y,
         width = w,
         height = h,
         name = name,
@@ -18,6 +16,9 @@ function M.new(world, name, game, x, y, w, h, callback)
     self.body = lp.newBody(world, x, y, "dynamic")
     self.shape = lp.newRectangleShape(self.width, self.height)
     self.fixture = lp.newFixture(self.body, self.shape)
+
+    self.x = self.body:getX() - self.width / 2
+    self.y = self.body:getY() - self.height / 2
     
     self.body:setLinearDamping(self.walkForce / 2)
 

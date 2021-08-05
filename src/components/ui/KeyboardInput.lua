@@ -2,6 +2,8 @@ local super = require "src.components.ui.BaseUIComponent"
 local M = setmetatable({}, { __index = super })
 M.__index = M
 
+local history = {}
+
 function M.new(img, eventToFire)
     local self = setmetatable(lume.extend(super.new('input'), {
         itemPad = 8,
@@ -9,6 +11,8 @@ function M.new(img, eventToFire)
         h = 60,
         text = '',
         cursorIndex = 0,
+		historyIndex = 0,
+        history = history,
         submitListeners = {},
         suggestionSources = {},
         modkeys = {
@@ -31,19 +35,27 @@ end
 
 function M:reset()
     self.text = ''
+    self.suggestionText = nil
     self.cursorIndex = 0
+    self.historyIndex = 0
 end
 
 function M:draw()
+    local charwidth = 15
     self.h = 17 * 2
     lg.setColor(1, 0, 1, 0.8)
-    lg.rectangle('fill', self.cursorIndex * 17, 0, 17, self.h)
+    lg.rectangle('fill', self.cursorIndex * charwidth, 0, charwidth, self.h)
     lg.setColor(1, 1, 1, 1)
     lg.rectangle('line', 0, 0, self.w, self.h)
-    lg.print(self.text, 4, 4, 0, 2, 2)
+
+    for i = 1, #self.text do
+        local c = self.text:sub(i,i)
+        lg.print(c, (i - 1) * charwidth, 4, 0, 2, 2)
+    end
+
     if self.suggestionText ~= nil and #self.suggestionText > 0 then
         lg.setColor(0.7, 0.7, 0.7, 1)
-        lg.print(self.suggestionText, 4 + #self.text * 2 * 17, 4, 0, 2, 2)
+        lg.print(self.suggestionText, #self.text * charwidth, 4, 0, 2, 2)
     end
     lg.setColor(1, 1, 1, 1)
     -- lg.setColor(0.8, 0.8, 0.8)
@@ -88,12 +100,35 @@ function M:keypressed( key, scancode, isrepeat )
             if self.cursorIndex < #self.text then
                 self.cursorIndex = self.cursorIndex + 1
             end
+		elseif 'up' == key then
+            if self.historyIndex < #history then
+                self.historyIndex = self.historyIndex + 1
+                self.text = ''
+                self.suggestionText = history[self.historyIndex]
+                self.cursorIndex = #self.suggestionText
+            end
+		elseif 'down' == key then
+            if self.historyIndex > 1 then
+                self.historyIndex = self.historyIndex - 1
+                self.text = ''
+                self.suggestionText = history[self.historyIndex]
+                self.cursorIndex = #self.suggestionText
+            else
+                self:reset()
+            end
 		elseif 'space' == key then
             self:insertChar(' ')
 		elseif lume.find({'lalt', 'ralt'}, key) ~= nil then
             self.modkeys.alt = true
 		elseif lume.find({'lshift', 'rshift'}, key) ~= nil then
             self.modkeys.shift = true
+		elseif 'tab' == key then
+            if self.suggestionText ~= nil and #self.suggestionText > 0 then
+                self.text = self.text .. self.suggestionText
+                self.suggestionText = nil
+                self.cursorIndex = #self.text
+                self.historyIndex = 0
+            end
         elseif #key > 1 then
             print('Unsure how to handle ' .. key)
         else

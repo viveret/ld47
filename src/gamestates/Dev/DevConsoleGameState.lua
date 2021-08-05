@@ -7,7 +7,7 @@ function M.new()
     local self = setmetatable({
         isTransparent = true,
 		kb = KeyboardInput.new(),
-		content = 'dev console\n'
+		content = 'dev console\n',
 	}, M)
 
 	self.kb:addOnSubmitListener(
@@ -21,9 +21,17 @@ function M.new()
 	self.kb:addSuggestionSource(
 		function()
 			local split = {}
-			for s in self.kb.text:gmatch("(%w+)%.?") do  
+			local restOfString = self.kb.text
+			for s in self.kb.text:gmatch("(%w+)") do
 				table.insert(split, s)
+				restOfString = restOfString:sub(#s + 1)
+				local sep = restOfString:match('(%W+)')
+				if sep ~= nil and sep ~= restOfString then
+					table.insert(split, sep)
+					restOfString = restOfString:sub(#sep + 1)
+				end
 			end
+			-- print('split: ' .. inspect(split))
 
 			local autocompletePath = {}
 
@@ -32,24 +40,17 @@ function M.new()
 					local token = split[i]
 					if token:match("%w") then
 						table.insert(autocompletePath, 1, token)
-					else
-						print('breaking on ' .. token)
+					elseif token ~= '.' then
+						-- print('breaking on ' .. token)
 						break
 					end
 				end
 			else
 				table.insert(autocompletePath, self.kb.text)
 			end
+			-- print('autocompletePath: ' .. inspect(autocompletePath))
 			
-			if #autocompletePath == 1 then
-				for k,v in pairs(_G) do
-					if k:sub(0, #self.kb.text):lower() == self.kb.text:lower() then
-						return k:sub(#self.kb.text + 1)
-					end
-				end
-
-				return ''
-			elseif #autocompletePath > 0 then
+			if #autocompletePath > 0 then
 				local ctx = _G
 				for i = 1, #autocompletePath - 1, 1 do
 					local key = autocompletePath[i]
@@ -81,14 +82,19 @@ function M:executeCommand(cmd)
 	if cmd == 'clear' then
 		self.content = 'dev console\n'
 	else
-		local cmdLoaded = load('return ' .. cmd)
+		table.insert(self.kb.history, cmd)
+		--local cmdLoaded = load('return ' .. cmd)
+		local cmdLoaded = load(cmd)
 		local cmdOutput = nil
 		if cmdLoaded ~= nil then
 			cmdOutput = cmdLoaded()
+			
+			if type(cmdOutput) == 'function' then
+				cmdOutput = cmdOutput()
+			end
+
 			if type(cmdOutput) == 'table' then
 				cmdOutput = inspect(cmdOutput)
-			elseif type(cmdOutput) == 'function' then
-				cmdOutput = cmdOutput()
 			end
 		end
 		
