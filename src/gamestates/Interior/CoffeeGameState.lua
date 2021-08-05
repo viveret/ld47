@@ -1,9 +1,11 @@
-IndoorsGameState = require "src.gamestates.Interior.IndoorsGameState"
+local super = require "src.gamestates.Interior.IndoorsGameState"
 local M = setmetatable({}, { __index = IndoorsGameState })
 M.__index = M
 
+local AnimatedObject = require "src.world.AnimatedObject"
+
 function M.new()
-    local self = setmetatable(IndoorsGameState.new('Coffee', game.images.places.coffee), M)
+    local self = setmetatable(super.new('Coffee', game.images.places.coffee), M)
     self.bgMusicName = "chill"
     
     self.warps = {
@@ -29,15 +31,15 @@ function M.new()
 end
 
 function M:draw()
-    IndoorsGameState.draw(self)
+    super.draw(self)
 end
 
 function M:update(dt)
-    IndoorsGameState.update(self, dt)
+    super.update(self, dt)
 end
 
 function M:load(x, y)
-    IndoorsGameState.load(self, x, y)
+    super.load(self, x, y)
 
     self:addStaticObjects({
         freezer1 = AnimatedObject.new(self.world, 3.5, 5, game.animations.decor.freezer),
@@ -49,7 +51,7 @@ function M:load(x, y)
 end
 
 function M:switchTo(x, y)
-    IndoorsGameState.switchTo(self, x, y)
+    super.switchTo(self, x, y)
 end
 
 function M.save()

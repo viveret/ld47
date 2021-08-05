@@ -3,6 +3,15 @@ local AnimatedObject = require "src.world.AnimatedObject"
 local M = setmetatable({}, { __index = super })
 M.__index = M
 
+
+local awdawdawd = function(b, player)
+    print('Turned off / on beer sign')
+    b.hasInteractedWith = true
+    b.animation.pause = not b.animation.pause
+    b.animation.currentTime = 0
+end
+
+
 function M.new()
     local self = setmetatable(super.new('Overworld', game.images.places.overworld), M)
     self.bgMusicName = "chill"
@@ -163,13 +172,6 @@ function M.new()
     table.insert(self.proximityObjects, self.animatedObjects.schoolFlag)
 
 	return self
-end
-
-function awdawdawd(b, player)
-    print('Turned off / on beer sign')
-    b.hasInteractedWith = true
-    b.animation.pause = not b.animation.pause
-    b.animation.currentTime = 0
 end
 
 function M:draw()

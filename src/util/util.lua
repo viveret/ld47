@@ -66,3 +66,38 @@ function interpolateValues(a, b, v)
     return r
 end
 
+
+
+function trycatch(tryfn, catchfn, finallyfn)
+    local status, ex, ret = xpcall(tryfn, debug.traceback)
+    if not status and catchfn ~= nil then
+        catchfn(ex)
+    end
+    if finallyfn ~= nil then
+        finallyfn(ex)
+    end
+    return ret
+end
+
+
+function debugtrycatch(isDebuging, tryfn, catchfn, finallyfn)
+    local ret = nil
+    if isDebuging then
+        local status, ex, r = xpcall(tryfn, debug.traceback)
+        ret = r
+        if not status then
+            print(ex)
+            if catchfn ~= nil then
+                catchfn(ex)
+            end
+        end
+    else
+        tryfn()
+    end
+
+    if finallyfn ~= nil then
+        finallyfn(ex)
+    end
+
+    return ret
+end

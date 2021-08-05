@@ -34,6 +34,9 @@ game = {
         language = 'en',
         textSpeed = 15, -- chars per second
     },
+    debug = {
+        keys = true,
+    },
     initial = {
         time = DateTime.new("1/1/2000 8:00:0-0"),
         flags = {
@@ -113,13 +116,17 @@ end
 
 function game.keypressed( key, scancode, isrepeat )
     if not game.isTransitioning() then
-        game.current():keypressed( key, scancode, isrepeat )
+        debugtrycatch(game.debug.keys, function()
+            game.current():keypressed( key, scancode, isrepeat )
+        end)
     end
 end
 
 function game.keyreleased( key, scancode )
     if not game.isTransitioning() then
-        game.current():keyreleased( key, scancode )
+        debugtrycatch(game.debug.keys, function()
+            game.current():keyreleased( key, scancode )
+        end)
     end
 end
 
@@ -493,18 +500,21 @@ function game.warpTo(path, transitionType)
     local switchToResult = false
     local err = false
 
-    if existing ~= nil then
-        switchToResult, err = pcall(game.switchToExisting, existing, x, y, transitionType)
-    elseif create ~= nil then
-        switchToResult, err = pcall(game.switchToNew, create, scene, x, y, transitionType)
-    else 
-        error ('Invalid gameState ' .. scene)
-    end
-
-    if not switchToResult then
-        print('failed to warp to ' .. path)
-        print(inspect(err))
-    end
+    trycatch(
+        function()
+            if existing ~= nil then
+                game.switchToExisting(existing, x, y, transitionType)
+            elseif create ~= nil then
+                game.switchToNew(create, scene, x, y, transitionType)
+            else 
+                error ('Invalid gameState ' .. scene)
+            end
+        end,
+        function (ex)
+            print('failed to warp to ' .. path)
+            print(ex)
+        end
+    )
 end
 
 return game

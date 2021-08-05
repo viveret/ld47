@@ -127,7 +127,7 @@ function M:keypressed( key, scancode, isrepeat )
         elseif key == 'f4' then
             self.renderWarps = not self.renderWarps
         elseif key == '`' then
-            game.fire(events.dev.ConsoleEvent.new())
+            game.fire(events.dev.DevConsoleEvent.new())
         end
     end
 
