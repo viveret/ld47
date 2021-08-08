@@ -8,12 +8,12 @@ function M.new()
         navigateRight = 'notes',
     }), M)
 
-    self:addButton('Continue', ContinueGameEvent.new())
-    self:addButton('Quick Load', QuickLoadEvent.new())
-    self:addButton('Load Previous', LoadGameEvent.new())
-    self:addButton('Settings', GameSettingsEvent.new())
-    self:addButton('Game Stats', GameStatsEvent.new())
-    self:addButton('Quit', QuitGameEvent.new())
+    self:addButton('Continue', events.game.ContinueGameEvent.new())
+    self:addButton('Quick Load', events.gamestate.QuickLoadEvent.new())
+    self:addButton('Load Previous', events.gamestate.LoadGameEvent.new())
+    self:addButton('Settings', events.game.GameSettingsEvent.new())
+    self:addButton('Game Stats', events.game.GameStatsEvent.new())
+    self:addButton('Quit', events.system.QuitGameEvent.new())
 
     self:addSpace(110)
 

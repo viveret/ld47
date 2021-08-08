@@ -106,13 +106,13 @@ end
 function M:keypressed( key, scancode, isrepeat )
     if not isrepeat then
         if lume.find({game.keyBinds.pause, 'escape'}, key) then
-            game.warpTo('pause', game.stackTransitions.Regular)
+            game.fire(events.game.PauseEvent.new())
             return
         elseif key == game.keyBinds.notes then
-            game.warpTo('notes', game.stackTransitions.Regular)
+            game.fire(events.game.NotesEvent.new())
             return
         elseif key == game.keyBinds.inventory then
-            game.warpTo('inventory', game.stackTransitions.Regular)
+            game.fire(events.game.InventoryEvent.new())
             return
         elseif key == ',' then
             game.timeWarpBumpDown()
