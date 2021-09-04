@@ -5,14 +5,14 @@ M.__index = M
 local NPC = require "src.actors.NPC"
 
 function M:fireOn(gs) 
-	local scene = gs.existingStates[self.scene]
+	local scene = game.current()
 
 	if not scene.isPhysicalGameState then
 		print("Current state cannot spawn actors")
 		return
 	end
 
-	local anims = gs.animations.actors[self.assetName]
+	local anims = game.animations.actors[self.assetName]
 	if anims == nil then
 		error('could not find ' .. self.assetName .. ' in animations.actors')
 	end
@@ -21,6 +21,10 @@ function M:fireOn(gs)
 	newActor.assetName = self.assetName
 
 	scene:addActor(self.name, newActor)
+end
+
+function M:fireWhenOutOfScene()
+	print("skipping spawn actor " .. self.assetName .. " for name/scene " .. self.name .. '/' .. self.scene)
 end
 
 function M.new(scene, name, assetName, x, y, callback)

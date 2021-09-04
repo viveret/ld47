@@ -2,13 +2,13 @@ local super = require "src.events.TimeLineEvent"
 local M = setmetatable({}, { __index = super })
 M.__index = M
 
-function M:fireOn(gs)
-	local currentScene = gs:current().scene
+function M:fireWhenInScene()
+	local toPlay = game.audio[self.name]
+	love.audio.play(toPlay)
+end
 
-	if currentScene == self.scene then
-		local toPlay = gs.audio[self.name]
-    	love.audio.play(toPlay)
-    end
+function M:fireWhenOutOfScene()
+	print("skipping play sound " .. self.name .. " for scene " .. self.scene)
 end
 
 function M.new(scene, name)

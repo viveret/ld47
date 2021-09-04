@@ -17,12 +17,16 @@ lume = require "lib.lume"
 kuey = require "lib.kuey"
 inspect = require "lib.inspect"
 say = require "lib.say"
+Promise = require "lib.promise.promise"
 
 require('src.languages.en')
 
-lume.extend(_G, math)
-
 require "src.util.util"
+typeReload = require "src.util.typeReload"
+
+mathExtensions = require('src.util.math')
+extendMissingKeysOrError(math, mathExtensions)
+lume.extend(_G, math)
 
 Color = require "src.core.Color"
 DateTime = require "src.core.DateTime"
@@ -30,7 +34,7 @@ TimeSpan = require "src.core.TimeSpan"
 
 require "src.eventTypes"
 require "src.gameStateTypes"
-uiComponents = require "src.uiComponents"
+uiComponents = recursiveRequire("src.components.ui", { suffixToRemove = "View" })
 
 Camera = require "src.Camera"
 ManualCamera = require "src.ManualCamera"
@@ -66,3 +70,14 @@ end
 
 love.keypressed = game.keypressed
 love.keyreleased = game.keyreleased
+
+
+
+
+function reloadPlayer()
+    typeReload.reloadWithinObject(game.currentPhysical().player)
+end
+
+function reloadCurrentScene()
+    typeReload.reloadWithinObject(game.currentPhysical())
+end

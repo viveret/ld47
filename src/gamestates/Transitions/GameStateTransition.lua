@@ -1,19 +1,9 @@
 local M = {}
 M.__index = M
-
-local _easings = {
-    linear = function (v) return v end,
-    square = function (v) return v * v end,
-    easeInCubic = function (v) return v * v * v end,
-    easeOutCubic = function (v) return 1 - pow(1 - v, 3) end,
-    easeInOutCubic = function (v) if v < 0.5 then return 4 * v * v * v else return 1 - pow(-2 * v + 2, 3) / 2 end end,
-    easeInSin = function (v) return 1 - cos((pi * v) / 2) end,
-    easeOutSin = function (v) return sin((pi * v) / 2) end,
-    easeInOutSin = function (v) return -(cos(pi * v) - 1) / 2 end,
-}
+M.__file = __file__()
 
 function M.new(pushOrPop, previousState, futureState, easing, duration)
-    if pushOrPop ~= 'push' and pushOrPop ~= 'pop' then
+    if lume.find({pushOrPop, 'return', 'escape'}, key) ~= nil then
         error ('pushOrPop must be push or pop')
     elseif previousState == nil then
         error ('previousState is nil')
@@ -33,20 +23,25 @@ function M.new(pushOrPop, previousState, futureState, easing, duration)
         pushOrPop = pushOrPop,
         previousState = previousState,
         futureState = futureState,
-        easing = _easings[easing] or error ('Could not find easing ' .. easing),
+        easing = easings[easing] or error ('Could not find easing ' .. easing),
         duration = duration,
-        elapsedTime = 0
+        elapsedTime = 0,
     }, M)
 end
 
 function M:update(dt)
-    self.futureState:update(dt)
     self.elapsedTime = self.elapsedTime + dt
     if self.elapsedTime >= self.duration then
         self.elapsedTime = self.duration
         game.stackTransition = nil
+        
         if self.pushOrPop == 'pop' then
-            game.pop()
+            game.popTop()
+        elseif self.pushOrPop == 'remove' then
+            local indexStart = lume.find(game.stack, self.futureState)
+            local indexEnd = lume.find(game.stack, self.previousState)
+
+            game.remove(indexStart, indexEnd)
         else
             game.push(self.futureState)
         end

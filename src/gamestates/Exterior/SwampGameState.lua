@@ -1,12 +1,12 @@
-PhysicalGameState = require "src.gamestates.PhysicalGameState"
+PhysicalGameState = require "src.gamestates.Physical.PhysicalGameState"
 local M = setmetatable({}, { __index = PhysicalGameState })
 M.__index = M
+M.__file = __file__()
 
 function M.new()
     local self = setmetatable(PhysicalGameState.new('Swamp', game.images.places.swamp), M)
     self.bgMusicName = "nightSpooky"
     self:addExteriorWorldBounds(4)
-    self.renderBounds = false
     
     self.warps = {
         { -- Home
@@ -15,7 +15,6 @@ function M.new()
             path = 'Overworld,18,120,x'
         }
     }
-    self.renderWarps = false
 	return self
 end
 

@@ -6,8 +6,17 @@ function M:fireOn()
 	local scene = game.current().scene
 
 	if scene == self.scene then
-		
+        self:fireWhenInScene()
+    else
+        self:fireWhenOutOfScene()
     end
+    return true
+end
+
+function M:fireWhenInScene()
+end
+
+function M:fireWhenOutOfScene()
 end
 
 function M.new(scene, type)

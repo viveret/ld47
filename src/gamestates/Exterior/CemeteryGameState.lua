@@ -1,6 +1,7 @@
-local super = require "src.gamestates.PhysicalGameState"
+local super = require "src.gamestates.Physical.PhysicalGameState"
 local M = setmetatable({}, { __index = super })
 M.__index = M
+M.__file = __file__()
 
 function M.new()
     local self = setmetatable(PhysicalGameState.new('Cemetery', game.images.places.cemetery), M)
@@ -15,21 +16,12 @@ function M.new()
     })
     
     self.warps = {
-        { -- Home
-            x = 88, y = 130,
-            w = 30, h = 10,
-            path = 'Overworld,90,30,x'
+        { -- Gate to overworld
+            x = 88, y = 133,
+            w = 25, h = 10,
+            path = 'Overworld,100,30,x'
         }
     }
-
-    -- self:addStaticObjects({
-    --     grave1 = AnimatedObject.new(self.world, 3.5, 5, game.animations.decor.freezer),
-    --     grave2 = AnimatedObject.new(self.world, 15.5, 5, game.animations.decor.freezer),
-    --     grave3 = AnimatedObject.new(self.world, 27.5, 5, game.animations.decor.freezer),
-
-    --     backcounter = StaticObject.new(self.world, 70, 10, game.images.decor.back_counter),
-    --     counter = StaticObject.new(self.world, 71, 35, game.images.decor.counter)
-    -- })
 
     local rows = 5
     local cols = 6

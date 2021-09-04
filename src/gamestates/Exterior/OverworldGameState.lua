@@ -1,7 +1,8 @@
-local super = require "src.gamestates.PhysicalGameState"
+local super = require "src.gamestates.Physical.PhysicalGameState"
 local AnimatedObject = require "src.world.AnimatedObject"
 local M = setmetatable({}, { __index = super })
 M.__index = M
+M.__file = __file__()
 
 
 local awdawdawd = function(b, player)
@@ -42,20 +43,20 @@ function M.new()
             w = 45, h = 33
         },
         { -- Bar
-            x = 10, y = 67,
-            w = 33, h = 20
+            x = 10, y = 65,
+            w = 33, h = 22
         },
         { -- Coffee, Library
             x = 57, y = 45,
             w = 85, h = 42
         },
         { -- Post Office
-            x = 109, y = 104,
-            w = 43, h = 33
+            x = 109, y = 101,
+            w = 43, h = 28
         },
         { -- General Store
-            x = 33, y = 105,
-            w = 70, h = 24
+            x = 33, y = 102,
+            w = 70, h = 23
         }
     })
     
@@ -81,25 +82,25 @@ function M.new()
             door = self.doors.home,
         },
         { -- Galaxy Motel Left
-            x = 11, y = 20,
+            x = 11, y = 18,
             w = 9, h = 8,
             path = 'Motel,62,52,x',
             door = self.doors.motelLeft
         },
         { -- Galaxy Motel Center
-            x = 25, y = 20,
+            x = 25, y = 18,
             w = 9, h = 8,
             path = 'Motel,62,52,x',
             door = self.doors.motelMiddle
         },
         { -- Galaxy Motel Right
-            x = 50, y = 26,
+            x = 50, y = 24,
             w = 9, h = 8,
             path = 'MotelLobby,50,63,x',
             door = self.doors.motelRight
         },
         { -- Swamp
-            x = 0, y = 122,
+            x = -4, y = 122,
             w = 8, h = 10,
             path = 'Swamp,176,114,x'
         },
@@ -122,13 +123,13 @@ function M.new()
             door = self.doors.coffee,
         },
         { -- School
-            x = 173, y = 75,
-            w = 9, h = 8,
+            x = 170, y = 72,
+            w = 12, h = 8,
             path = 'School,50,55,x',
             door = self.doors.school,
         },
         { -- Doctor
-            x = 176, y = 25,
+            x = 176, y = 22,
             w = 9, h = 8,
             path = 'Doctor,20,15,x',
             door = self.doors.doctor,
@@ -145,13 +146,13 @@ function M.new()
             door = self.doors.library,
         },
         { -- Post Office
-            x = 126, y = 129,
+            x = 126, y = 121,
             w = 9, h = 8,
             path = 'PostOffice,50,50,x',
             door = self.doors.postoffice
         },
         { -- General Store
-            x = 44, y = 122,
+            x = 44, y = 118,
             w = 9, h = 8,
             path = 'Shop,49,58,x',
             door = self.doors.store

@@ -13,6 +13,7 @@ function M:fireOn(gs)
         dirty = true
     }
     game.warpTo('start', game.stackTransitions.FadeInOut)
+    return true
 end
 
 return M

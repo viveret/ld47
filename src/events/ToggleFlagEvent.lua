@@ -19,11 +19,12 @@ function M:fireOn(gs)
 
 	local flagName = self.flagName
 
-    if gs.hasFlag(flagName) then
-    	gs.clearFlag(flagName)
+    if game.hasFlag(flagName) then
+    	game.clearFlag(flagName)
     else
-    	gs.setFlag(flagName)
+    	game.setFlag(flagName)
     end
+    return true
 end
 
 return M

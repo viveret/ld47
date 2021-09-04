@@ -9,11 +9,12 @@ function M.new()
 end
 
 function M:fireOn(gs)
-    if gs.hasFlag("ServedAllCustomers") and gs.hasFlag("has-reserved-room") and gs.hasFlag("SawSickCultist") and gs.hasFlag("HearMirror") then
-        gs.setFlag("defeated-cultists")
+    if game.hasFlag("ServedAllCustomers") and game.hasFlag("has-reserved-room") and game.hasFlag("SawSickCultist") and game.hasFlag("HearMirror") then
+        game.setFlag("defeated-cultists")
     end
 
-    gs.warpTo('gameover')
+    game.warpTo('gameover')
+    return true
 end
 
 return M

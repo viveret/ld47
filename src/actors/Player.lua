@@ -1,6 +1,7 @@
 local AnimatedActor = require "src.actors.AnimatedActor"
 local M = setmetatable({}, { __index = AnimatedActor })
 M.__index = M
+M.__file = __file__()
 
 function M.new(world, name, game, x, y, w, h, anims)
     local self = setmetatable(AnimatedActor.new(
@@ -11,7 +12,7 @@ function M.new(world, name, game, x, y, w, h, anims)
     self.walkForce = 20
     self.maxVelocity = 20
 
-    self.keyBinds = game.keyBinds
+    self.keyBinds = game.strings.keyBinds
     self.inventory = Inventory.new('player', game.images.ui)
     self.inventory:addItem('apple')
 
@@ -75,7 +76,7 @@ end
 
 function M:keypressed( key, scancode, isrepeat )
     if not isrepeat then
-		if game.keyBinds.interact == key then
+		if self.keyBinds.interact == key then
             self:doInteraction()
             return
 		end

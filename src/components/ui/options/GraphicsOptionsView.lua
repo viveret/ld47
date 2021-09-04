@@ -6,7 +6,7 @@ function M.new(type)
     local self = setmetatable(super.new(type), M)
     self.title = "Graphics"
     self.justify = "left"
-    self:addButton("test", GameOverEvent.new())
+    self:addButton("test", events.game.GameOverEvent.new())
 	return self
 end
 

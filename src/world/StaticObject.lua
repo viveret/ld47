@@ -1,5 +1,6 @@
 local M = {}
 M.__index = M
+M.__file = __file__()
 
 function M.new(world, x, y, img, callback, name)
     local self = setmetatable({
@@ -41,14 +42,33 @@ function M:interact(player)
     end
 end
 
+function M:getHighlightColor()
+    if self.inProximity or self.canInteractWith then
+        return { 0, 1, 0 }
+    elseif game.debug.renderObjects then
+        return { 0, 0, 1 }
+    else
+        return nil
+    end
+end
+
 function M:draw()
     lg.push()
     lg.translate(-self.w / 16, -self.h / 16)
     lg.draw(self.image, self.body:getX(), self.body:getY(), 0, 1 / 8, 1 / 8)
-    if self.inProximity or self.canInteractWith then
-        lg.setColor(0, 1, 0)
+
+    local highlightColor = self:getHighlightColor()
+    if highlightColor then
+        lg.setColor(unpack(highlightColor))
         lg.rectangle('line', self.body:getX(), self.body:getY(), self.w / 8, self.h / 8)
         lg.setColor(1, 1, 1)
+    end
+    if game.debug.renderFilenames then
+        lg.push()
+        lg.scale(1 / 8, 1 / 8)
+        local msg = "<" .. self.__file .. ">\n"
+        lg.print(msg, 0, 0)
+        lg.pop()
     end
     lg.pop()
 end

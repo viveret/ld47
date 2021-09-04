@@ -10,6 +10,7 @@ end
 
 function M:fireOn(gs)
     game.warpTo('notes', game.stackTransitions.Regular)
+    return true
 end
 
 return M

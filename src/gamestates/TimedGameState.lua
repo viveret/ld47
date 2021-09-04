@@ -1,9 +1,10 @@
-local M = {}
+local super = require "src.gamestates.BaseGameState"
+local M = setmetatable({}, { __index = super })
 M.__index = M
+M.__file = __file__()
 
 function M.new(scene)
-    local self = setmetatable({
-        scene = scene,
+    local self = setmetatable(lume.extend({
         fracSec = nil,
         colors = {
             night = Color.new({ r = 0.5, g = 0.5, b = 0.6 }),
@@ -13,25 +14,13 @@ function M.new(scene)
         sunriseHourEnd = 9,
         sunsetHourStart = 19,
         sunsetHourEnd = 20,
-        state = {
-            
-        },
-        states = {},
-	}, M)
+        clock = uiComponents.widgets.Clock.new(),
+	}, super.new(scene)), M)
 	return self
 end
 
 function M:draw()
-    game.ui.clock:draw()
-end
-
-function M:tick(ticks)
-end
-
-function M:update(dt)
-end
-
-function M:save()
+    self.clock:draw()
 end
 
 function M:load()
@@ -41,7 +30,7 @@ end
 
 function M:quicksave()
     self.state.time = game.time
-    table.push(self.states, lume.extend({}, self.state))
+    super.quicksave(self)
 end
 
 function M:quickload(state)
@@ -50,10 +39,6 @@ function M:quickload(state)
     elseif state < 0 then
     else
     end
-end
-
-function M:reload()
-    self:quickload(self.initialState)
 end
 
 function M:switchTo(x, y)

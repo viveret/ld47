@@ -13,8 +13,9 @@ function M:fireOn(gs)
         game.clear()
         game.init()
     else
-        game.pop(game.stackTransitions.Regular)
+        game.popTop(game.stackTransitions.Regular)
     end
+    return true
 end
 
 return M

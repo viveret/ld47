@@ -41,7 +41,7 @@ function M:drawUISideInfo()
     game.graphics:drawTextInBox(self.description, 0, 0, self.sideWidth - self.sidePad * 2, 32, game.images.ui.dialog_font, nil, false)
     -- for i,kb in pairs(self.keyBinds) do
     --     lg.translate(0, 34)
-    --     local str = i .. ' [' .. (game.keyBinds[i] or 'unbound') .. '] - ' .. kb.title
+    --     local str = i .. ' [' .. (game.config.keyBinds[i] or 'unbound') .. '] - ' .. kb.title
     --     game.graphics:drawTextInBox(str, 0, 0, self.sideWidth - self.sidePad * 2, 32, game.images.ui.dialog_font, nil, false)
     -- end
 end

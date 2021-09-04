@@ -15,10 +15,7 @@ function M.new(gamestate, bodyToFollow)
         rotate = 0,
         bodyToFollow = bodyToFollow
 	}, M)
-    if self.bodyToFollow ~= nil then
-        local x, y = self.bodyToFollow:getPosition()
-        self:setPosition(x, y)
-    end
+    self:refresh()
 	return self
 end
 
@@ -34,15 +31,21 @@ end
 
 function M:update(dt)
     if self.bodyToFollow ~= nil then
-        local x, y = self.bodyToFollow:getPosition()
-        self:setPosition(x, y)
+        if self.bodyToFollow.x == nil then
+            print(inspect(self.bodyToFollow))
+            error('hi')
+        end
+        self:setPosition(self.bodyToFollow.x, self.bodyToFollow.y)
     end
 end
 
-function M:refresh(dt)
+function M:refresh()
     if self.bodyToFollow ~= nil then
-        local x, y = self.bodyToFollow:getPosition()
-        self:setPosition(x, y)
+        if self.bodyToFollow.x == nil then
+            print(inspect(self.bodyToFollow))
+            error('hi')
+        end
+        self:setPosition(self.bodyToFollow.x, self.bodyToFollow.y)
     end
 end
 

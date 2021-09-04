@@ -1,7 +1,8 @@
-local KeyboardInput = require "src.components.ui.KeyboardInput"
+local KeyboardInput = require "src.components.ui.inputs.KeyboardInput"
 
 local M = { }
 M.__index = M
+M.__file = __file__()
 
 function M.new()
     local self = setmetatable({
@@ -105,7 +106,7 @@ end
 
 function M:keypressed( key, scancode, isrepeat )
 	if not isrepeat and key == 'escape' then
-		game.pop(game.stackTransitions.DialogOut)
+		game.popTop(game.stackTransitions.DialogOut)
 		return
 	end
 	self.kb:keypressed( key, scancode, isrepeat )

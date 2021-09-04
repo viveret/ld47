@@ -2,15 +2,15 @@ local super = require "src.events.TimeLineEvent"
 local M = setmetatable({}, { __index = super })
 M.__index = M
 
-function M:fireOn(gs)
-	local scene = gs.existingStates[self.scene]
+function M:fireWhenInScene(gs)
+	local scene = game.current()
 
 	if not scene.isPhysicalGameState then
 		print("Current state cannot spawn static objects")
 		return
 	end
 
-	local img = gs.images.timelineObjs[self.assetName]
+	local img = game.images.timelineObjs[self.assetName]
 	if img == nil then
 		error('could not find ' .. self.assetName .. ' in images.timelineObjs')
 	end
@@ -18,6 +18,11 @@ function M:fireOn(gs)
 	local newObj = StaticObject.new(scene.world, self.x, self.y, img, self.callback, name)
 
 	scene:addStaticObject(self.name, newObj)
+    return true
+end
+
+function M:fireWhenOutOfScene()
+	print("skipping spawn static object " .. self.assetName .. " for name/scene " .. self.name .. '/' .. self.scene)
 end
 
 function M.new(scene, name, assetName, x, y, callback)

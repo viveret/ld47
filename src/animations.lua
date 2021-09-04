@@ -1,5 +1,6 @@
 local M = {}
 M.__index = M
+M.__file = __file__()
 
 function M.new()
 	local images = game.images

@@ -1,3 +1,8 @@
 [submodule "lib/jprof"]
     path = lib/jprof
     url = https://github.com/pfirsich/jprof.git
+
+[submodule "lib/promise"]
+    path = lib/promise
+    url = https://github.com/Billiam/promise.lua
+    

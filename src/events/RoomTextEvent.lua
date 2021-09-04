@@ -2,12 +2,13 @@ local super = require "src.events.TimeLineEvent"
 local M = setmetatable({}, { __index = super })
 M.__index = M
 
-function M:fireOn(gs)
-	local scene = gs:current().scene
+function M:fireWhenInScene()
+	game.toast(self.text)
+    return true
+end
 
-	if scene == self.scene then
-		game.toast(self.text)
-    end
+function M:fireWhenOutOfScene()
+	print("skipping room text " .. self.text .. " for scene " .. self.scene)
 end
 
 function M.new(scene, text)

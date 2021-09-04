@@ -1,13 +1,14 @@
-local BaseEvent = require "src.events.BaseEvent"
-local M = setmetatable({}, { __index = BaseEvent })
+local super = require "src.events.BaseEvent"
+local M = setmetatable({}, { __index = super })
 M.__index = M
+M.__file = __file__()
 
 function M.new()
-    return setmetatable(BaseEvent.new("LoadGame"), M)
+    return setmetatable(super.new("LoadGame"), M)
 end
 
 function M:fireOn(gs)
-    gs.warpTo('loadgame')
+    game.warpTo('loadgame')
 end
 
 return M

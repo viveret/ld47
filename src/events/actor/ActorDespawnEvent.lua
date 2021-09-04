@@ -2,8 +2,8 @@ local super = require "src.events.TimeLineEvent"
 local M = setmetatable({ aliases = { "Despawn" } }, { __index = super })
 M.__index = M
 
-function M:fireOn(gs) 
-	local scene = gs.existingStates[self.scene]
+function M:fireOn() 
+	local scene = game.current()
 
 	if not scene.isPhysicalGameState then
 		print("Current state cannot have actors")
@@ -13,9 +13,12 @@ function M:fireOn(gs)
 	scene:removeActor(self.name)
 end
 
+function M:fireWhenOutOfScene()
+	print("skipping despawn actor for name/scene " .. self.name .. '/' .. self.scene)
+end
+
 function M.new(scene, name)
     local self = setmetatable(super.new(scene, "ActorDespawnEvent"), M)
-	--self.scene = tostring(scene) or error ('Scene must not be nil')
 	self.name = name or error ('Name must not be nil')
 	return self
 end

@@ -16,13 +16,10 @@ function M.new(world, name, game, x, y, w, h, callback)
     self.body = lp.newBody(world, x, y, "dynamic")
     self.shape = lp.newRectangleShape(self.width, self.height)
     self.fixture = lp.newFixture(self.body, self.shape)
-
-    self.x = self.body:getX() - self.width / 2
-    self.y = self.body:getY() - self.height / 2
-    
     self.body:setLinearDamping(self.walkForce / 2)
-
     self.fixture:setUserData(self)
+
+    self:pullPositionFromBody()
 
     if callback ~= nil then
         self.interactionCallback = callback
@@ -68,9 +65,13 @@ function M:interact(player)
     end
 end
 
-function M:update(dt)
+function M:pullPositionFromBody()
     self.x = self.body:getX() - self.width / 2
     self.y = self.body:getY() - self.height / 2
+end
+
+function M:update(dt)
+    self:pullPositionFromBody()
 
     if self:updateMovingTo(dt) then
         self.body:setLinearVelocity(0, 0)

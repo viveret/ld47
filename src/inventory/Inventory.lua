@@ -44,69 +44,6 @@ function M:drawWorld(item)
     end
 end
 
-function M:drawUI(item)
-    self:drawUIitems()
-    self:drawUIside()
-end
-
-function M:drawUIitems()
-    lg.push()
-    local h = self.itemHeight
-    local w = self.itemWidth
-    lg.translate(w * self.itemSize / -2, 0)
-    
-    lg.translate(0, self.itemGap)
-    for r = 1,h,1 do
-        lg.push()
-        local maxH = 0
-        for c = 1,w,1 do
-            local i = (r - 1) * w + c
-            local id = self.itemOrder[i]
-            local count = self.items[id]
-            local it = game.items[id]
-            local itemW = 100
-            local itemH = 100
-
-            if it == nil or count == 0 then
-                -- itemW = min(it:getWidth())
-                -- itemH = min(it:getHeight())
-                lg.setColor(0.2, 0.2, 0.2)
-            else
-                lg.setColor(c / w, 0, r / h)
-            end
-
-            lg.rectangle('fill', 0, 0, self.itemSize, self.itemSize)
-
-            if it ~= nil then
-                it:drawUI(count)
-            end
-
-            if self.selectedIndex == i then
-                lg.setColor(0, 1, 0)
-                lg.rectangle('line', 0, 0, self.itemSize, self.itemSize)
-            end
-
-            maxH = max(maxH, itemH)
-            lg.translate(itemW + self.itemGap, 0)
-        end
-        lg.pop()
-        lg.translate(0, maxH + self.itemGap)
-    end
-    lg.pop()
-    lg.setColor(1, 1, 1)
-end
-
-function M:drawUIside()
-    lg.push()
-    lg.translate(self.itemWidth * self.itemSize / -2 - self.sideWidth + self.sidePad, 0)
-    local id = self:selectedItem()
-    if id ~= nil then
-        local selectedItem = game.items[id]
-        selectedItem:drawUISideInfo()
-    end
-    lg.pop()
-end
-
 function M:save()
     game.saveData.inventories = game.saveData.inventories or {}
     game.saveData.inventories[self.id] = lume.extend({}, self.items)

@@ -9,30 +9,28 @@ function M.new(scene, name, text)
     return self
 end
 
-function M:fireOn()
-	local scene = game.current()
-	local currentScene = scene.scene
+function M:fireWhenInScene()
+	local scene = game.currentPhysical()
+	local actor = scene:getActor(self.name)
+
+	if actor == nil then
+		print("Actor not found "..self.name)
+		return
+	end
+
+	local assetName = nil
+	if actor ~= nil then
+		assetName = actor.assetName
+	end
+
+	game.note((self.name or '???') .. ': ' .. self.text)
 	
-	if currentScene == self.scene then
-		local actor = scene:getActor(self.name)
+	local dialogState = gameStates.Dialog.new(assetName, self.name, self.text)
+	game.push(dialogState, nil, game.stackTransitions.DialogIn)
+end
 
-		if actor == nil then
-			print("Actor not found "..self.name)
-			return
-		end
-
-		local assetName = nil
-		if actor ~= nil then
-			assetName = actor.assetName
-		end
-
-		game.note((self.name or '???') .. ': ' .. self.text)
-		
-    	local dialogState = gameStates.Dialog.new(assetName, self.name, self.text)
-    	game.push(dialogState, nil, game.stackTransitions.DialogIn)
-    else
-    	print("skipping dialog, not in scene " .. self.scene)
-    end
+function M:fireWhenOutOfScene()
+	print('skipping dialog "' .. self.text .. '" for actor/scene ' .. self.name .. '/' .. self.scene)
 end
 
 function M:tostring()

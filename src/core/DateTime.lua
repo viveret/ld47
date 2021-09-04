@@ -242,6 +242,18 @@ function M:addMS()
     return ret
 end
 
+function M:normalizedTimeOfDay24()
+    return (self.hour - 1 + (self.minute - 1 + ((self.second - 1) / 60) / 60) / 60) / 24
+end
+
+function M:normalizedTimeOfDay12()
+    local hour = self.hour + 1
+    if hour > 12 then
+        hour = hour - 12
+    end
+    return (hour - 1 + (self.minute - 1 + ((self.second - 1) / 60) / 60) / 60) / 12
+end
+
 function M:isBetween(earliest, latest)
     return self:greaterThanOrEqualTo(earliest) and self:lessThan(latest)
 end

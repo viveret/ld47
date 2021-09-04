@@ -9,6 +9,7 @@ function M.new(type)
 end
 
 function M:fireOn()
+	return true
 end
 
 function M:tostring()

@@ -1,4 +1,4 @@
-IndoorsGameState = require "src.gamestates.Interior.IndoorsGameState"
+IndoorsGameState = require "src.gamestates.Physical.IndoorsGameState"
 local M = setmetatable({}, { __index = IndoorsGameState })
 M.__index = M
 
@@ -7,17 +7,17 @@ function M.new()
 	
     self.warps = {
         { -- Main door
-            x = 45, y = 68,
+            x = 45, y = 75,
             w = 10, h = 10,
             path = 'Overworld,176,94,x'
         }
     }
 
+    local left, right, up, down = self:detectWorldBounds()
+    local bottomLeft, bottomRight = self:splitBoundHorizontal(down, self.warps[1])
     self:addWorldBounds({
-        { -- top
-            x = 0, y = 5,
-            w = self:getWidth(), h = 4
-        },
+        left, right, up,
+        bottomLeft, bottomRight,
     })
 
 	return self

@@ -1,15 +1,25 @@
-IndoorsGameState = require "src.gamestates.Interior.IndoorsGameState"
+IndoorsGameState = require "src.gamestates.Physical.IndoorsGameState"
 local M = setmetatable({}, { __index = IndoorsGameState })
 M.__index = M
+M.__file = __file__()
 
 function M.new()
     local self = setmetatable(IndoorsGameState.new('Library', game.images.places.library), M)
+
+    self.warps = {
+        { -- Main door
+            x = 45, y = 74,
+            w = 10, h = 10,
+            path = 'Overworld,131,97,x'
+        }
+    }
 	
+    local left, right, up, down = self:detectWorldBounds()
+    up.h = 8
+    local bottomLeft, bottomRight = self:splitBoundHorizontal(down, self.warps[1])
     self:addWorldBounds({
-        { -- Top
-            x = 0, y = 17,
-            w = self:getWidth(), h = 4
-        },
+        left, right, up,
+        bottomLeft, bottomRight,
         { -- Room divider top
             x = 60, y = 0,
             w = 5, h = 30
@@ -19,18 +29,10 @@ function M.new()
             w = 5, h = 30
         },
         { -- table
-            x = 11, y = 42,
-            w = 26, h = 10
+            x = 11, y = 39,
+            w = 26, h = 13
         }
     })
-
-    self.warps = {
-        { -- Main door
-            x = 45, y = 70,
-            w = 10, h = 10,
-            path = 'Overworld,131,97,x'
-        }
-    }
 
 	return self
 end

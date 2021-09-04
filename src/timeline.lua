@@ -12,7 +12,7 @@ M.__index = M
 -- a row might look like
 --   Home,1/1/2000 9:35:0-0,Hello|SecondLoop,Something something something something
 function M.new()
-	local lines = lfs.lines(game.paths.timeline)
+	local lines = lfs.lines(game.strings.paths.timeline)
 	local items = {}
 	local lineNo = 1
 	local skippingLines = false

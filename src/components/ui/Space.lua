@@ -1,6 +1,7 @@
 local super = require "src.components.ui.BaseUIComponent"
 local M = setmetatable({}, { __index = super })
 M.__index = M
+M.__file = __file__()
 
 function M.new(distance)
     local self = setmetatable(lume.extend(super.new('space'), {

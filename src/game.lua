@@ -3,21 +3,12 @@ local graphics = require "src.graphics"
 local images = require "src.images"
 local animations = require "src.animations"
 local SaveDataMgr = require "src.components.system.SaveDataMgr"
+local data = recursiveRequire "src.data"
 
-game = {
+game = lume.extend({
     stack = {},
     stackTransition = nil,
-
-    stackTransitions = {
-        Regular = require "src.gamestates.Transitions.GameStateTransition",
-        DialogIn = require "src.gamestates.Transitions.DialogStateTransitionIn",
-        DialogOut = require "src.gamestates.Transitions.DialogStateTransitionOut",
-        FadeInOut = require "src.gamestates.Transitions.FadeInOutStateTransition",
-        ToRight = require "src.gamestates.Transitions.ToRightStateTransition",
-        ToLeft = require "src.gamestates.Transitions.ToLeftStateTransition",
-        ToUp = require "src.gamestates.Transitions.ToUpStateTransition",
-        ToDown = require "src.gamestates.Transitions.ToDownStateTransition",
-    },
+    stackTransitions = recursiveRequire("src.gamestates.Transitions", { suffixToRemove = "StateTransition" }),
 
     timeline = {},
     flags = {},
@@ -27,7 +18,6 @@ game = {
     timeWarpMax = 1000,
     timeWarpStep = 2,
     objectScale = 1/8,
-    existingStates = { },
     backgroundMusic = { },
     events = {},
     options = {
@@ -36,63 +26,27 @@ game = {
     },
     debug = {
         keys = true,
-    },
-    initial = {
-        time = DateTime.new("1/1/2000 8:00:0-0"),
-        flags = {
-            "NotDoneJob",
-            "NotServedcustomerOne",
-            "NotServedcustomerTwo",
-            "NotServedcustomerThree",
-            "NotServedcustomerFour",
-            "has-not-reserved-room",
-            "NotSeenSickCultist",
-            "SawCemeteryCultist",
-            "NotSeenCemeteryCultist",
+        renderActors = false,
+        renderWarps = false,
+        renderBounds = false,
+        renderObjects = false,
+        renderFilenames = true,
+        camera = {
+            x = 0,
+            y = 0,
+            vx = 0,
+            vy = 0,
+            enabled = false,
         }
-    },
-    warps = {
-        title = 'Title,0,0,x',
-        options = 'Options,0,0,x',
-        loadgame = 'LoadGame,0,0,x',
-        start = 'Home,60,30,x',
-        gameover = 'GameOver,0,0,x',
-        pause = 'Pause,0,0,x',
-        notes = 'Notes,0,0,x',
-        inventory = 'Inventory,0,0,x',
-    },
-    keyBinds = {
-        moveLeft = 'a',
-        moveRight = 'd',
-        moveUp = 'w',
-        moveDown = 's',
-        run = 'lshift',
-        interact = 'space',
-        pause = 'p',
-        inventory = 'i',
-        notes = 'n',
-        use = 'enter',
-        quickload = 'r',
-        quicksave = 't',
-    },
-    paths = {
-        timeline = "assets/timeline/timeline.csv"
     },
     ui = {
         overlay = uiComponents.GameOverlay.new(),
-        clock = uiComponents.Clock.new(),
         interactionTray = uiComponents.InGame.InteractionTray.new(),
     },
     saves = SaveDataMgr.new(),
-}
+}, data)
 
-_empty = {
-    draw = donothing,
-    update = donothing,
-    load = donothing,
-    keypressed = donothing,
-    keyreleased = donothing,
-}
+_empty = gameStates.Base.new('_empty')
 
 -- https://github.com/bjornbytes/cargo
 -- assets = cargo.init({
@@ -145,12 +99,48 @@ function game.getHeight()
     return game.current():getHeight()
 end
 
-function game.current()
+function game.findByScene(scene)
     if lume.count(game.stack) > 0 then
-        return lume.last(game.stack)
+        if scene and scene ~= '' then
+            return lume.last(lume.filter(game.stack,
+                function(gs)
+                    return gs.scene == scene
+                end
+            ))
+        else
+            error('scene not a string (was nil or empty)')
+        end
     else
-        return _empty
+        return nil
     end
+end
+
+function game.current(filter)
+    if lume.count(game.stack) > 0 then
+        if filter then
+            return lume.last(lume.filter(game.stack, filter))
+        else
+            return lume.last(game.stack)
+        end
+    else
+        return nil
+    end
+end
+
+function game.currentPhysical(filter)
+    return game.current(
+        function(state)
+            return state.isPhysicalGameState
+        end
+    )
+end
+
+function game.currentMenu(filter)
+    return game.current(
+        function(state)
+            return state.isMenuGameState
+        end
+    )
 end
 
 function game.isTransitioning()
@@ -186,37 +176,70 @@ function game.push(newGamestate, deactive, transitionType)
         if deactive ~= true then
             newGamestate:activated()
         end
-        game.markTopmost(newGamestate)
     else
         game.stackTransition = transitionType.new('push', game.current(), newGamestate)
     end
 end
 
-function game.markTopmost(toGamestate)
-    for _, state in ipairs(game.stack) do
-        state.topmost = toGamestate == state
+function game.remove(indexStart, indexEnd, transitionType)
+    if indexEnd < indexStart then
+        error("indexEnd < indexStart (" .. indexEnd .. " < " .. indexStart .. ")")
     end
-end
 
-function game.pop(transitionType)
     if transitionType == nil then
-        table.remove(game.stack)
+        if indexStart == indexEnd then
+            table.remove(game.stack, indexStart)
+        else
+            local tmp = {}
+            for i = 1, #game.stack do
+                if indexStart < i or i > indexEnd then
+                    table.insert(tmp, game.stack[i])
+                end
+            end
+            game.stack = tmp
+        end
 
-        local current = game:current()
+        local current = game.current()
         if current ~= nil then
-            game.markTopmost(current)
             current:activated()
         end
     else
-        local previous = game.stack[#game.stack]
-        local next = game.stack[#game.stack - 1]
-        game.stackTransition = transitionType.new('pop', previous, next)
+        if 0 >= indexStart then
+            error("indexStart too small (is " .. indexStart .. ")")
+        end
+
+        if #game.stack < indexEnd then
+            error("indexEnd too big (is " .. indexEnd .. ", #game.stack = " .. #game.stack .. ")")
+        end
+
+        local previous = game.stack[indexStart]
+        local next = game.stack[indexEnd]
+        local transitionOp = 'remove'
+        
+        if indexStart == indexEnd then
+            next = game.stack[indexStart - 1]
+            transitionOp = 'pop'
+        end
+
+        game.stackTransition = transitionType.new(transitionOp, previous, next)
     end
+end
+
+function game.popTop(transitionType)
+    game.remove(#game.stack, #game.stack, transitionType)
+end
+
+function game.popToInclusive(marker, transitionType)
+    game.remove(game.find(marker), #game.stack, transitionType)
+end
+
+function game.popToExclusive(marker, transitionType)
+    game.remove(game.find(marker) - 1, #game.stack, transitionType)
 end
 
 function game.replace(newGamestate)
     if newGamestate ~= nil then
-        game.pop()
+        game.popTop()
         game.push(newGamestate)
     else
         error('newGamestate must not be nil')
@@ -256,6 +279,8 @@ function game.updateForTimespassed(dt)
 end
 
 function game.update(dt)
+    Promise.update()
+
     -- handle any fadeouts that are in progress
     game.audio:update(dt)
     game.saves:update(dt)
@@ -264,7 +289,7 @@ function game.update(dt)
         local tmp = game.events
         game.events = {}
         for k, ev in pairs(tmp) do
-            ev:fireOn(game)
+            game.fire(ev.ev, false, ev.args, ev.promise)
         end
     end
 
@@ -272,6 +297,7 @@ function game.update(dt)
         game.stackTransition:update(dt)
     else
         local currentGameState = game.current()
+        -- print('current game state: ' .. inspect(currentGameState.__index.__file))
         currentGameState:update(dt)
     
         -- pump everything if time is passing
@@ -312,6 +338,10 @@ end
 
 function game.queryNextEvents(when)
     local ret = game.timeline:nextEvent(when, game.time:getAtMidnight())
+    if ret == nil then
+        print('No events in near future')
+        return
+    end
     print('Next events to be fired at ' .. when:tostring() ..  ' (' .. #ret .. '):')
     for i,ev in pairs(ret) do
         print('\t' .. i .. '): <' .. ev.action.type .. '> ' .. ev.action:tostring())
@@ -357,14 +387,6 @@ function game.init()
     -- load timeline
     game.timeline = timeline.new()
 
-    -- spin up the TimedGameStates
-    -- for key, creator in pairs(game.timedGameStateCreators) do
-    --     local state = creator.new()
-    --     state:load()
-    --     game.existingStates[key] = state
-    --     game.push(state, true)
-    -- end
-
     for _, flag in pairs(game.initial.flags) do
         game.setFlag(flag)
     end
@@ -373,7 +395,7 @@ function game.init()
 end
 
 function game.reload()
-    local current = game:current()
+    local current = game.current()
     if current ~= nil then
         current:reload()
     end
@@ -381,7 +403,7 @@ end
 
 function game.quickload()
     if game.saveSlot ~= nil then
-        local current = game:current()
+        local current = game.current()
         if current ~= nil then
             current:quickload()
         end
@@ -390,7 +412,7 @@ end
 
 function game.quicksave()
     if game.saveSlot ~= nil then
-        local current = game:current()
+        local current = game.current()
         if current ~= nil then
             current:quicksave()
         end
@@ -398,7 +420,7 @@ function game.quicksave()
 end
 
 function game.setFlag(flag)
-    print("setFlag("..flag..")")
+    -- print("setFlag("..flag..")")
 
     local alreadySet = false
     for _, setFlag in ipairs(game.flags) do
@@ -446,12 +468,31 @@ function game.hasFlags(flags)
     return true
 end
 
-function game.fire(ev, queue)
+function game.fire(ev, queue, args, promise)
+    local promise = promise or Promise.new()
+
     if queue then
-        table.insert(game.events, ev)
+        table.insert(game.events, { ev = ev, args = args, promise = promise })
     else
-        return ev:fireOn(game)
+        trycatch(
+            function()
+                local result
+                if args == nil then
+                    result = ev:fireOn()
+                else
+                    result = ev:fireOn(unpack(args))
+                end
+                promise:resolve(result)
+            end,
+            function(ex)
+                print('could not fire event: ' .. inspect(ev))
+                print(ex)
+                promise:reject(ex)
+            end
+        )
     end
+
+    return promise
 end
 
 function game.note(text)
@@ -461,7 +502,7 @@ end
 
 function game.toast(text)
     game.note(text)
-    game.ui.overlay:addUiElement(uiComponents.Toast.new(text))
+    game.ui.overlay:addUiElement(uiComponents.widgets.Toast.new(text))
 end
 
 function game.switchToExisting(existing, x, y, transitionType)
@@ -492,10 +533,14 @@ function game.warpTo(path, transitionType)
     end
     
     local scene, x, y, etc = path:match("^%s*(.-),%s*(.-),%s*(.-),%s*(.-)$")
+    if scene == nil then
+        scene = path
+    end
+
     x = tonumber(x)
     y = tonumber(y)
 
-    local existing = game.existingStates[scene]
+    local existing = game.findByScene(scene)
     local create = gameStates[scene]
     local switchToResult = false
     local err = false
@@ -506,7 +551,7 @@ function game.warpTo(path, transitionType)
                 game.switchToExisting(existing, x, y, transitionType)
             elseif create ~= nil then
                 game.switchToNew(create, scene, x, y, transitionType)
-            else 
+            else
                 error ('Invalid gameState ' .. scene)
             end
         end,

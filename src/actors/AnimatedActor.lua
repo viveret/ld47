@@ -1,12 +1,15 @@
 local BaseActor = require "src.actors.BaseActor"
 local M = setmetatable({}, { __index = BaseActor })
 M.__index = M
+M.__file = __file__()
 
 function M.new(world, name, game, x, y, w, h, anims, callback)
     if anims == nil then
         error('anims must not be nil')
     end
 
+    w = w or (anims.still.frameWidth / 8 * 0.9)
+    h = h or (anims.still.frameHeight / 8 * 0.9)
     local self = setmetatable(BaseActor.new(
         world, name, game, x, y, w, h, callback
     ), M)
@@ -53,6 +56,20 @@ function M:draw()
         lg.setColor(0, 1, 0)
         lg.rectangle('line', 0, 0, self.animation.frameWidth / 8, self.animation.frameHeight / 8)
         lg.setColor(1, 1, 1)
+    end
+
+    if game.debug.renderActors then
+        lg.setColor(0, 1, 1)
+        lg.rectangle('line', 0, 0, self.width, self.height)
+        lg.setColor(1, 1, 1)
+    end
+
+    if game.debug.renderFilenames then
+        lg.push()
+        lg.scale(1 / 8, 1 / 8)
+        local msg = "<" .. self.__file .. ">\n"
+        lg.print(msg, 0, 0)
+        lg.pop()
     end
     lg.pop()
 end

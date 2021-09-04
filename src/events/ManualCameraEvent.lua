@@ -20,6 +20,7 @@ function M:fireOn(gs)
     local newCamera = ManualCamera.new(gs, currentGS, currentCamera, self.x, self.y, self.duration, self.hold)
 
     currentGS:pushCamera(newCamera)
+    return true
 end
 
 function M.new(scene, x, y, duration, hold)

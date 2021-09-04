@@ -10,6 +10,7 @@ end
 
 function M:fireOn(gs)
     game.warpTo('pause', game.stackTransitions.Regular)
+    return true
 end
 
 return M

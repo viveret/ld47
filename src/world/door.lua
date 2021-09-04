@@ -1,5 +1,6 @@
 local M = {}
 M.__index = M
+M.__file = __file__()
 
 local animation = require "src.animation"
 
@@ -21,6 +22,13 @@ end
 
 function M:draw() 
     self.animation:draw(self.x, self.y)
+    if game.debug.renderFilenames then
+        lg.push()
+        lg.scale(1 / 8, 1 / 8)
+        local msg = "<" .. self.__file .. ">\n"
+        lg.print(msg, 0, 0)
+        lg.pop()
+    end
 end
 
 function M:update(dt)

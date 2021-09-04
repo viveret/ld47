@@ -1,6 +1,7 @@
-local super = require "src.gamestates.Interior.IndoorsGameState"
+local super = require "src.gamestates.Physical.IndoorsGameState"
 local M = setmetatable({}, { __index = IndoorsGameState })
 M.__index = M
+M.__file = __file__()
 
 local AnimatedObject = require "src.world.AnimatedObject"
 
@@ -10,13 +11,17 @@ function M.new()
     
     self.warps = {
         { -- Main door
-            x = 45, y = 69.5,
+            x = 45, y = 75,
             w = 10, h = 10,
             path = 'Overworld,96,97,x'
         }
     }
 
+    local left, right, up, down = self:detectWorldBounds()
+    local bottomLeft, bottomRight = self:splitBoundHorizontal(down, self.warps[1])
     self:addWorldBounds({
+        left, right, up,
+        bottomLeft, bottomRight,
         { -- subrooms
             x = 0, y = 0,
             w = 40, h = 65

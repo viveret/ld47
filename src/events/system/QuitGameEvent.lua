@@ -10,6 +10,7 @@ end
 
 function M:fireOn(gs)
     love.event.quit()
+    return true
 end
 
 return M

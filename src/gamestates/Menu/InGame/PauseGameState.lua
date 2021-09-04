@@ -5,20 +5,17 @@ M.__index = M
 function M.new()
     local self = setmetatable(lume.extend(super.new('pause', 'Pause'), {
         navigateLeft = 'notes',
-        navigateRight = 'notes',
+        navigateRight = 'inventory',
     }), M)
 
-    self:addButton('Continue', events.game.ContinueGameEvent.new())
-    self:addButton('Quick Load', events.gamestate.QuickLoadEvent.new())
-    self:addButton('Load Previous', events.gamestate.LoadGameEvent.new())
-    self:addButton('Settings', events.game.GameSettingsEvent.new())
-    self:addButton('Game Stats', events.game.GameStatsEvent.new())
-    self:addButton('Quit', events.system.QuitGameEvent.new())
+    self.tabs = uiComponents.navs.TabGroup.new()
+    local tgame = self.tabs:addTab('game', uiComponents.pause.Game.new())
+    local tgamemeta = self.tabs:addTab('meta', uiComponents.pause.GameMeta.new())
+    local tsystem = self.tabs:addTab('system', uiComponents.pause.System.new())
 
-    self:addSpace(110)
+    self.root:addUiElement(self.tabs)
 
-    self.journal = uiComponents.Journal.new()
-    self:addUiElement(self.journal)
+    self.root:addReturnButton()
 
 	return self
 end
@@ -26,15 +23,15 @@ end
 function M:keypressed( key, scancode, isrepeat )
     if not isrepeat then
         if lume.find({'p', 'escape'}, key) then
-            game.fire(ContinueGameEvent.new(), true)
+            self.root.returnButton:onClick()
             return
         elseif key == 'q' then
             game.fire(QuitGameEvent.new(), true)
             return
-        elseif key == game.keyBinds.moveRight then
+        elseif key == game.strings.keyBinds.moveRight then
             game.warpTo(self.navigateRight, game.stackTransitions.ToLeft)
             return
-        elseif key == game.keyBinds.moveLeft then
+        elseif key == game.strings.keyBinds.moveLeft then
             game.warpTo(self.navigateLeft, game.stackTransitions.ToRight)
             return
         end
