@@ -19,29 +19,28 @@ function M.new(scene)
 	return self
 end
 
+function M:init()
+    super.init(self)
+    -- self.clock:init()
+end
+
 function M:draw()
     self.clock:draw()
 end
 
-function M:load()
-    -- load relevant timeline
-    --self.timeline = timeline.lookup(game.timeline, self.scene, game.time)
-end
-
-function M:quicksave()
-    self.state.time = game.time
-    super.quicksave(self)
+function M:quicksave(state)
+    --self.state.time = game.time:getSaveState()
+    super.quicksave(self, state)
 end
 
 function M:quickload(state)
-    if state == nil then
-        self.state.time = game.time
-    elseif state < 0 then
-    else
-    end
+    super.quickload(self, state)
 end
 
 function M:switchTo(x, y)
+    super.switchTo(self, x, y)
+    -- load relevant timeline
+    --self.timeline = timeline.lookup(game.timeline, self.scene, game.time)
 end
 
 function M:activated()

@@ -1,10 +1,10 @@
-IndoorsGameState = require "src.gamestates.Physical.IndoorsGameState"
-local M = setmetatable({}, { __index = IndoorsGameState })
+local super = require "src.gamestates.Physical.IndoorsGameState"
+local M = setmetatable({}, { __index = super })
 M.__index = M
 M.__file = __file__()
 
 function M.new()
-    local self = setmetatable(IndoorsGameState.new('Antiques', game.images.places.antiques), M)
+    local self = setmetatable(super.new('Antiques', game.images.places.antiques), M)
     
     self.warps = {
         { -- Main door
@@ -39,13 +39,8 @@ function M.new()
 	return self
 end
 
-function M:load(x, y)
-    IndoorsGameState.load(self, x, y)
-    self:showGreeting()
-end
-
-function M:switchTo(x, y)
-    IndoorsGameState.switchTo(self, x, y)
+function M:setupPhysics()
+    super.setupPhysics(self)
 
     if self.shopkeeper == nil then
         self.shopkeeper = events.actor.ActorSpawnEvent.new("Antiques", "AntiqueSeller", "mary", 28, 20)
@@ -54,8 +49,6 @@ function M:switchTo(x, y)
         self:showGreeting()
     end
 end
-
---function M:
 
 function M:showGreeting()
     -- todo: time of day check
@@ -66,9 +59,5 @@ function M:showGreeting()
         self.greeting = nil
     end
 end
-
-function M.save()
-end
-
 
 return M

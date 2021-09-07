@@ -4,14 +4,12 @@ local M = setmetatable({}, { __index = super })
 M.__index = M
 M.__file = __file__()
 
-
 local awdawdawd = function(b, player)
     print('Turned off / on beer sign')
     b.hasInteractedWith = true
     b.animation.pause = not b.animation.pause
     b.animation.currentTime = 0
 end
-
 
 function M.new()
     local self = setmetatable(super.new('Overworld', game.images.places.overworld), M)
@@ -119,7 +117,7 @@ function M.new()
         { -- Coffee
             x = 95, y = 80,
             w = 9, h = 8,
-            path = 'Coffee,48,64,x',
+            path = 'Coffee,51,50,x',
             door = self.doors.coffee,
         },
         { -- School
@@ -159,6 +157,12 @@ function M.new()
         }
     }
 
+	return self
+end
+
+function M:setupPhysics()
+    super.setupPhysics(self)
+
     self.animatedObjects = {
         schoolFlag = AnimatedObject.new(self.world, 184, 70, game.animations.decor.school_flag, nil, 'School Flag (raise/lower)'),
         beerSign = AnimatedObject.new(self.world, 20, 80, game.animations.decor.beer_sign, awdawdawd, 'Beer Sign (on/off)')
@@ -171,32 +175,6 @@ function M.new()
     self.animatedObjects.schoolFlag.type = 'sign'
     self.animatedObjects.schoolFlag.isInteractable = true
     table.insert(self.proximityObjects, self.animatedObjects.schoolFlag)
-
-	return self
 end
-
-function M:draw()
-    super.draw(self)
-end
-
-function M:drawInWorldView()
-    super.drawInWorldView(self)
-end
-
-function M:update(dt)
-    super.update(self, dt)
-end
-
-function M:load(x, y)
-    super.load(self, x, y)
-end
-
-function M:switchTo(x, y)
-    super.switchTo(self, x, y)
-end
-
-function M:save()
-end
-
 
 return M

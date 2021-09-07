@@ -10,7 +10,7 @@ function M.new()
 end
 
 function M:draw()
-    local player = game.current().player
+    local player = game.stateMgr:current().player
     if player and player.interactWith and #player.interactWith > 0 then
         lg.push()
         --lg.translate(lg.getWidth() - self:getWidth(), 0)

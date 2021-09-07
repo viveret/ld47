@@ -4,17 +4,7 @@ M.__index = M
 M.__file = __file__()
 
 function M.new(scene)
-    local self = setmetatable(lume.extend({}, super.new(scene)), M)
-	return self
-end
-
-function M:quicksave()
-end
-
-function M:quickload(state)
-end
-
-function M:reload()
+    return setmetatable(lume.extend({}, super.new(scene)), M)
 end
 
 return M

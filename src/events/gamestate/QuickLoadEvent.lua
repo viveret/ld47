@@ -8,7 +8,7 @@ function M.new()
 end
 
 function M:fireOn()
-    game.saves:quickload()
+    game.quickload()
 end
 
 return M

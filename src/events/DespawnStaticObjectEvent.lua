@@ -3,7 +3,7 @@ local M = setmetatable({}, { __index = super })
 M.__index = M
 
 function M:fireWhenInScene(gs) 
-	local scene = game.current()
+	local scene = game.stateMgr:current()
 
 	if not scene.isPhysicalGameState then
 		print("Current state cannot have static objects")

@@ -35,16 +35,8 @@ function M.new()
 	return self
 end
 
-function M:draw()
-    super.draw(self)
-end
-
-function M:update(dt)
-    super.update(self, dt)
-end
-
-function M:load(x, y)
-    super.load(self, x, y)
+function M:setupPhysics()
+    super.setupPhysics(self)
 
     self:addStaticObjects({
         freezer1 = AnimatedObject.new(self.world, 3.5, 5, game.animations.decor.freezer),
@@ -54,13 +46,5 @@ function M:load(x, y)
         counter = StaticObject.new(self.world, 71, 35, game.images.decor.counter)
     })
 end
-
-function M:switchTo(x, y)
-    super.switchTo(self, x, y)
-end
-
-function M.save()
-end
-
 
 return M

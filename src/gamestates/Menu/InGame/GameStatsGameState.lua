@@ -8,7 +8,7 @@ function M.new()
     }), M)
 
     self.scroll = uiComponents.navs.Scrollable.new()
-    self.scroll:addInspection(game.current())
+    self.scroll:addInspection(game.stateMgr:current())
     self.root:addUiElement(self.scroll)
 
     self.root:addSpace(25)

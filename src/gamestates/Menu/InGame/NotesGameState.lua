@@ -32,10 +32,10 @@ function M:keypressed( key, scancode, isrepeat )
             self.root.returnButton:onClick()
             return
         elseif key == game.strings.keyBinds.moveRight then
-            game.warpTo(self.navigateRight, game.stackTransitions.ToLeft)
+            game.warpTo(self.navigateRight, gamestateTransitions.ToLeft)
             return
         elseif key == game.strings.keyBinds.moveLeft then
-            game.warpTo(self.navigateLeft, game.stackTransitions.ToRight)
+            game.warpTo(self.navigateLeft, gamestateTransitions.ToRight)
             return
         end
     end

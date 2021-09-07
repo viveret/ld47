@@ -11,11 +11,11 @@ end
 
 function M:fireOn()
     if self.popToInclusive then
-        game.popToInclusive(self.popToInclusive, game.stackTransitions.Game)
+        game.stateMgr:popToInclusive(self.popToInclusive, gamestateTransitions.Game)
     elseif self.popToExclusive then
-        game.popToExclusive(self.popToExclusive, game.stackTransitions.Game)
+        game.stateMgr:popToExclusive(self.popToExclusive, gamestateTransitions.Game)
     else
-        game.popTop(game.stackTransitions.Game)
+        game.stateMgr:popTop(gamestateTransitions.Game)
     end
 end
 

@@ -9,7 +9,7 @@ function M.new()
 end
 
 function M:fireOn(gs)
-    game.warpTo('pause', game.stackTransitions.Regular)
+    game.warpTo('pause', gamestateTransitions.Regular)
     return true
 end
 

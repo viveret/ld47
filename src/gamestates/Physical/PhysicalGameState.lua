@@ -17,7 +17,7 @@ function M.new(scene, graphics)
         isPhysicalGameState = true,
         background = graphics.bg or error ('missing graphics.bg'),
         bgMusicName = "theme",
-        world = lp.newWorld(0, 0, true),
+        world = nil,
         player = nil,
         cameras = {},
         contactListeners = {},
@@ -33,7 +33,16 @@ function M.new(scene, graphics)
 
     self:pushCamera(Camera.new())
 
-    self.drawDebugUIEnabled = true
+	return self
+end
+
+function M:init()
+    super.init(self)
+    self:setupPhysics()
+end
+
+function M:setupPhysics()
+    self.world = lp.newWorld(0, 0, true)
 
     -- hook up warps and what not
     self:addContactListeners()
@@ -42,7 +51,17 @@ function M.new(scene, graphics)
     -- hook up actor collisions
     self:setupCollisionCallbacks()
 
-	return self
+    self:setupWorldBounds()
+    self:setupWarps()
+    self:setupPlayer()
+end
+
+function M:setupPlayer()
+    self.player = Player.new(self.world, 'player', game, x, y, nil, nil, game.animations.actors.player)
+    self:pushCamera(Camera.new(self, self.player))
+    print('added camera attached to player: ' .. inspect({ self:currentCamera().x, self:currentCamera().y }))
+    print('player is at: ' .. inspect({ self.player.x, self.player.y }))
+    self:currentCamera():refresh()
 end
 
 function M:setupCollisionCallbacks()
@@ -107,7 +126,7 @@ function M:keypressed( key, scancode, isrepeat )
             game.timeWarpBumpUp()
             return
         elseif key == 'h' then
-            game.fire(events.actor.ActorTextEvent.new(game.current().scene, 'player', 'Hello'))
+            game.fire(events.actor.ActorTextEvent.new(game.stateMgr:current().scene, 'player', 'Hello'))
         elseif key == 'f4' then
             game.debug.renderWarps = not game.debug.renderWarps
         elseif key == 'f5' then
@@ -399,7 +418,9 @@ function M:drawInWorldView()
     drawList(self.staticObjects)
     drawList(self.actors)
 
-    self.player:draw()
+    if self.player then
+        self.player:draw()
+    end
 
     if game.debug.renderBounds then
         lg.setColor(1, 0, 0)
@@ -443,15 +464,19 @@ function M:draw()
     self:drawUI()
     self:drawDebugUI()
 
-    TimedGameState.draw(self)
+    super.draw(self)
 end
 
 function M:drawDebugUI()
-    local x = self.player.body:getX()
-    local y = self.player.body:getY()
+    if game.debug.renderDebugUIEnabled then
+        local x, y, currentVx, currentVy = 'N/A', 'N/A', 'N/A', 'N/A'
+        
+        if self.player then
+            x = self.player.body:getX()
+            y = self.player.body:getY()
+            currentVx, currentVy = self.player.body:getLinearVelocity()
+        end
 
-    if self.drawDebugUIEnabled then
-        local currentVx, currentVy = self.player.body:getLinearVelocity()
         local msg = ""
         if game.debug.renderFilenames then
             msg = msg .. "<" .. self.__file .. ">\n"
@@ -474,11 +499,11 @@ function M:drawUI()
 end
 
 function M:tick(ticks)
-    TimedGameState.tick(self, ticks)
+    super.tick(self, ticks)
 end
 
 function M:update(dt)
-    TimedGameState.update(self, dt)
+    super.update(self, dt)
     self.world:update(dt)
     self:currentCamera():update(dt)
 
@@ -546,20 +571,9 @@ function M:updateProximityListeners()
     end
 end
 
-function M:load(x, y)
-    TimedGameState.load(self)
-    self:setupWorldBounds()
-    self:setupWarps()
-    
-    self.player = Player.new(self.world, 'player', game, x, y, nil, nil, game.animations.actors.player)
-    self:pushCamera(Camera.new(self, self.player))
-    print('added camera attached to player: ' .. inspect({ self:currentCamera().x, self:currentCamera().y }))
-    print('player is at: ' .. inspect({ self.player.x, self.player.y }))
-    self:currentCamera():refresh()
-end
-
 function M:switchTo(x, y)
-    TimedGameState.switchTo(self, x, y)
+    super.switchTo(self, x, y)
+
     self.player:setPosition(x, y, 0, 0)
     self:currentCamera():refresh()
 
@@ -576,7 +590,6 @@ function M:activated()
         game.audio:fadeAllOut()
     end
 
-    game.saves:quicksave(true)
     self:currentCamera():refresh()
 end
 

@@ -13,7 +13,7 @@ function M.new(path)
 end
 
 function M:fireOn(gs)
-    game.warpTo(self.path, game.stackTransitions.Game)
+    game.warpTo(self.path, gamestateTransitions.Game)
     return true
 end
 

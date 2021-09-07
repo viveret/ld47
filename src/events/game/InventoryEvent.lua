@@ -9,7 +9,7 @@ function M.new()
 end
 
 function M:fireOn(gs)
-    game.warpTo('inventory', game.stackTransitions.Regular)
+    game.warpTo('inventory', gamestateTransitions.Regular)
     return true
 end
 

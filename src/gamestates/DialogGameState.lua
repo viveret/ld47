@@ -25,7 +25,7 @@ function M:keypressed( key, scancode, isrepeat )
     if not isrepeat then
 		if lume.find({game.strings.keyBinds.interact, 'return', 'escape'}, key) ~= nil then
 			if self.charsToShow >= #self.text then
-				game.popTop(game.stackTransitions.DialogOut)
+				game.stateMgr:popTop(gamestateTransitions.DialogOut)
 			else
 				self.charsToShow = #self.text
 			end
@@ -40,12 +40,6 @@ end
 function M:update(dt)
 	self.nextAnimation:update(dt)
 	self.charsToShow = min(self.charsToShow + dt * self.charsPerSecond, #self.text)
-end
-
-function M:load()
-end
-
-function M:save()
 end
 
 function M:draw()

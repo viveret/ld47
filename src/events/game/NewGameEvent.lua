@@ -12,7 +12,7 @@ function M:fireOn(gs)
     game.saveData = {
         dirty = true
     }
-    game.warpTo('start', game.stackTransitions.FadeInOut)
+    game.warpTo('start', gamestateTransitions.FadeInOut)
     return true
 end
 

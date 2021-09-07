@@ -33,18 +33,7 @@ function M:update(dt)
     self.elapsedTime = self.elapsedTime + dt
     if self.elapsedTime >= self.duration then
         self.elapsedTime = self.duration
-        game.stackTransition = nil
-        
-        if self.pushOrPop == 'pop' then
-            game.popTop()
-        elseif self.pushOrPop == 'remove' then
-            local indexStart = lume.find(game.stack, self.futureState)
-            local indexEnd = lume.find(game.stack, self.previousState)
-
-            game.remove(indexStart, indexEnd)
-        else
-            game.push(self.futureState)
-        end
+        game.stateMgr:onTransitionFinished(self)
     end
 end
 

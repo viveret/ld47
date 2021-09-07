@@ -11,9 +11,9 @@ function M.new()
     self.root.padding.t = 125
     self.root.padding.l = 75
     
-    if #game.saves:slotCount() > 0 then
+    if game.saves:slotCount() > 0 then
         self.root:addButton('Continue', events.game.ContinueGameEvent.new())
-        self.root:addButton('Load', events.WarpEvent.new('loadgame'))
+        self.root:addButton('Load', events.WarpEvent.new('Load'))
     end
     
     self.root:addImageButton(game.images.ui.start_btn, events.game.NewGameEvent.new())

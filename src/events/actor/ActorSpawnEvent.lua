@@ -5,7 +5,7 @@ M.__index = M
 local NPC = require "src.actors.NPC"
 
 function M:fireOn(gs) 
-	local scene = game.current()
+	local scene = game.stateMgr:current()
 
 	if not scene.isPhysicalGameState then
 		print("Current state cannot spawn actors")

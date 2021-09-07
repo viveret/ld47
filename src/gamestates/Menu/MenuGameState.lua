@@ -1,6 +1,7 @@
 local super = require "src.gamestates.BaseGameState"
 local M = setmetatable({}, { __index = super })
 M.__index = M
+M.__file = __file__()
 
 local rootViewType = require "src.components.ui.GroupUIComponent"
 
@@ -48,12 +49,6 @@ end
 function M:update(dt)
     self.root:update(dt)
     -- super.update(self)
-end
-
-function M:save()
-end
-
-function M:load()
 end
 
 function M:keypressed( key, scancode, isrepeat )

@@ -13,6 +13,9 @@ function M.new()
 			left = animation.new(img, 64, 64, 15, 6, 0, 1, true),
 		}
 	end
+
+	local doorAnimationDuration = 0.75
+
 	return setmetatable({
 		actors = {
 			mary = {
@@ -42,17 +45,17 @@ function M.new()
 			},
 		},
 		doors = {
-			antiques = animation.new(images.doors.antiques, 80, 72, 0, 6, 0, 1, false),
-			bar = animation.new(images.doors.bar, 80, 72, 0, 6, 0, 1, false),
-			coffee_shop = animation.new(images.doors.coffee_shop, 80, 72, 0, 6, 0, 1, false),
-			doctor = animation.new(images.doors.doctor, 80, 72, 0, 6, 0, 1, false),
-			library = animation.new(images.doors.library, 80, 72, 0, 6, 0, 1, false),
-			motelLeft = animation.new(images.doors.motel, 80, 72, 0, 6, 0, 1, false),
-			motelMiddle = animation.new(images.doors.motel, 80, 72, 0, 6, 0, 1, false),
-			motelRight = animation.new(images.doors.motel, 80, 72, 0, 6, 0, 1, false),
-			post_office = animation.new(images.doors.post_office, 80, 72, 0, 6, 0, 1, false),
-			school = animation.new(images.doors.school, 80, 72, 0, 6, 0, 1, false),
-			store = animation.new(images.doors.store, 80, 72, 0, 6, 0, 1, false),
+			antiques = animation.new(images.doors.antiques, 80, 72, 0, 6, 0, doorAnimationDuration, false, true),
+			bar = animation.new(images.doors.bar, 80, 72, 0, 6, 0, doorAnimationDuration, false, true),
+			coffee_shop = animation.new(images.doors.coffee_shop, 80, 72, 0, 6, 0, doorAnimationDuration, false, true),
+			doctor = animation.new(images.doors.doctor, 80, 72, 0, 6, 0, doorAnimationDuration, false, true),
+			library = animation.new(images.doors.library, 80, 72, 0, 6, 0, doorAnimationDuration, false, true),
+			motelLeft = animation.new(images.doors.motel, 80, 72, 0, 6, 0, doorAnimationDuration, false, true),
+			motelMiddle = animation.new(images.doors.motel, 80, 72, 0, 6, 0, doorAnimationDuration, false, true),
+			motelRight = animation.new(images.doors.motel, 80, 72, 0, 6, 0, doorAnimationDuration, false, true),
+			post_office = animation.new(images.doors.post_office, 80, 72, 0, 6, 0, doorAnimationDuration, false, true),
+			school = animation.new(images.doors.school, 80, 72, 0, 6, 0, doorAnimationDuration, false, true),
+			store = animation.new(images.doors.store, 80, 72, 0, 6, 0, doorAnimationDuration, false, true),
 		},
 		ui = {
 			text_arrow = animation.new(images.ui.text_arrow, 32, 32, 0, 2, 0, 1, false)

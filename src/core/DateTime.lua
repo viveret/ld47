@@ -111,6 +111,10 @@ function M.new(str, ticksInSecondsOrMs)
 	return self
 end
 
+function M:getSaveState()
+    return copy(self)
+end
+
 function M:dateShort()
     return string.format("%d/%d/%s", self.month, self.day, self:yearToString())
 end

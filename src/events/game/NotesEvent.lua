@@ -9,7 +9,7 @@ function M.new()
 end
 
 function M:fireOn(gs)
-    game.warpTo('notes', game.stackTransitions.Regular)
+    game.warpTo('notes', gamestateTransitions.Regular)
     return true
 end
 

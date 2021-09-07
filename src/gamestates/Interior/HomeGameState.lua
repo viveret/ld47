@@ -26,31 +26,15 @@ function M.new()
         },
     })
 
-    self:addWaitableObject(10, 20, game.animations.decor.beer_sign, true, 'Sleep')
-    self:addLightSwitch(30, 10, game.images.decor.tome)
-    self:addInteractDialog(82, 25, game.images.decor.radio, false, 'Listen to Radio', 'Radio', 'Beep boop bop')
-
 	return self
 end
 
-function M:draw()
-    IndoorsGameState.draw(self)
-end
+function M:setupPhysics()
+    super.setupPhysics(self)
 
-function M:update(dt)
-    IndoorsGameState.update(self, dt)
+    self:addWaitableObject(10, 20, game.animations.decor.beer_sign, true, 'Sleep')
+    self:addLightSwitch(30, 10, game.images.decor.tome)
+    self:addInteractDialog(82, 25, game.images.decor.radio, false, 'Listen to Radio', 'Radio', 'Beep boop bop')
 end
-
-function M:load(x, y)
-    IndoorsGameState.load(self, x, y)
-end
-
-function M:switchTo(x, y)
-    IndoorsGameState.switchTo(self, x, y)
-end
-
-function M.save()
-end
-
 
 return M

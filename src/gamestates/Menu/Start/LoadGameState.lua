@@ -6,18 +6,16 @@ function M.new()
     local self = setmetatable(lume.extend(super.new('loadgame', 'LoadGame'), {
     }), M)
     
-    self.slots = game.saves.getAll()
+    self.slots = game.saves:getAll()
+    print("slots: " .. inspect(self.slots))
     if #self.slots > 0 then
         self.slotsView = uiComponents.SaveSlots.new(self.slots)
-        self:addUiElement(self.slotsView)
+        self.root:addUiElement(self.slotsView)
         
-        self:addButton('Clear All', ClearAllSavesEvent.new())
-    else
-        self:addSpace(240)
-        self:addImageButton(game.images.ui.start_btn, NewGameEvent.new())
+        self.root:addButton('Clear All', ClearAllSavesEvent.new())
     end
 
-    self:addBackButton()
+    self.root:addBackButton()
 
 	return self
 end

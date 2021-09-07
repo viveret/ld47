@@ -99,16 +99,16 @@ function M:detectWorldBounds(padding, padding_y)
 
         if not arraysAreEqual(pixel, tpixel) then
             down = {
-                x = 0, y = i * game.objectScale - padding_y * 2,
-                w = width * game.objectScale, h = padding_y * 3
+                x = 0, y = i * game.objectScale - padding_y,
+                w = width * game.objectScale, h = padding_y * 2
             }
             break
         end
     end
     if down == nil then
         down = {
-            x = 0, y = height * game.objectScale - padding_y * 2,
-            w = width * game.objectScale, h = padding_y * 3
+            x = 0, y = height * game.objectScale - padding_y,
+            w = width * game.objectScale, h = padding_y * 2
         }
     end
 
@@ -121,12 +121,12 @@ function M:switchTo(x, y)
 end
 
 function M:onFlipLightSwitch()
-    self.lightsAreOn = self.lightsAreOn ~= nil and not self.lightsAreOn
+    self.state.lightsAreOn = self.state.lightsAreOn ~= nil and not self.state.lightsAreOn
     self:assignLightColor()
 end
 
 function M:assignLightColor()
-    if self.lightsAreOn or self.lightsAreOn == nil then
+    if self.state.lightsAreOn or self.state.lightsAreOn == nil then
         lume.extend(self.colors, self.colors.lightsOn)
     else
         lume.extend(self.colors, self.colors.lightsOff)
@@ -134,7 +134,8 @@ function M:assignLightColor()
 end
 
 function M:addLightSwitch(x, y, image)
-    local obj = self:CreateAndAddDrawableObject(x, y, image, false, function() game.current():onFlipLightSwitch() end, 'Flip Lights')
+    local fn = function() game.stateMgr:current():onFlipLightSwitch() end
+    local obj = self:CreateAndAddDrawableObject(x, y, image, false, fn, 'Flip Lights')
 
     obj.type = 'light-switch'
     obj.isInteractable = true

@@ -3,7 +3,7 @@ local M = setmetatable({}, { __index = super })
 M.__index = M
 
 function M:fireOn()
-	local scene = game.current().scene
+	local scene = game.stateMgr:current().scene
 
 	if scene == self.scene then
         self:fireWhenInScene()

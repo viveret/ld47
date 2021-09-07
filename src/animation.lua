@@ -1,5 +1,6 @@
 local M = {}
 M.__index = M
+M.__file = __file__()
 
 function M.new(img, frameWidth, frameHeight, firstFrameIndex, frameCount, currentTime, duration, flipHorizontal, runOnlyOnce)
     if img == nil then
@@ -11,14 +12,15 @@ function M.new(img, frameWidth, frameHeight, firstFrameIndex, frameCount, curren
         currentTime = currentTime,
         duration = duration,
         quads = {},
-        flipHorizontal = flipHorizontal or false,
+        flipHorizontal = flipHorizontal,
         frameWidth = frameWidth,
         frameHeight = frameHeight,
         runOnlyOnce = runOnlyOnce,
         clipW = 0.5,
         clipH = 0.5,
         pause = false,
-        loopCount = 0
+        loopCount = 0,
+        resetAfterCompletion = false,
     }, M)
 
     if frameCount > 0 then
@@ -38,6 +40,7 @@ function M:draw(x, y, noScale)
     local quad = self.quads[spriteIdx]
 
     if #self.quads == 0 or quad == nil then
+        -- print('spriteIdx/#quads: ' .. spriteIdx .. "/" .. #self.quads)
         return
     end
 
@@ -58,11 +61,15 @@ function M:update(dt)
     end
     
     self.currentTime = self.currentTime + dt
-    if self.currentTime >= self.duration then
+    if self.currentTime > self.duration then
         self.loopCount = self.loopCount + 1
         if self.runOnlyOnce then
             self.pause = true
-            self.currentTime = 0
+            if self.resetAfterCompletion then
+                self.currentTime = 0
+            else
+                self.currentTime = self.duration * (1 - 1 / #self.quads)
+            end
         else
             self.currentTime = self.currentTime - self.duration
         end

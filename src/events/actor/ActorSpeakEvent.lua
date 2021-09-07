@@ -10,7 +10,7 @@ function M.new(scene, name, text)
 end
 
 function M:fireWhenInScene()
-	local scene = game.currentPhysical()
+	local scene = game.stateMgr:currentPhysical()
 	local actor = scene:getActor(self.name)
 
 	if actor == nil then
@@ -26,7 +26,7 @@ function M:fireWhenInScene()
 	game.note((self.name or '???') .. ': ' .. self.text)
 	
 	local dialogState = gameStates.Dialog.new(assetName, self.name, self.text)
-	game.push(dialogState, nil, game.stackTransitions.DialogIn)
+	game.stateMgr:push(dialogState, nil, gamestateTransitions.DialogIn)
 end
 
 function M:fireWhenOutOfScene()

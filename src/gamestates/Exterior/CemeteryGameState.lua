@@ -22,6 +22,12 @@ function M.new()
             path = 'Overworld,100,30,x'
         }
     }
+    
+	return self
+end
+
+function M:setupPhysics()
+    super.setupPhysics(self)
 
     local rows = 5
     local cols = 6
@@ -44,32 +50,6 @@ function M.new()
             end
         end
     end
-    
-	return self
 end
-
-function M:draw()
-    PhysicalGameState.draw(self)
-end
-
-function M:drawInWorldView()
-    PhysicalGameState.drawInWorldView(self)
-end
-
-function M:update(dt)
-    PhysicalGameState.update(self, dt)
-end
-
-function M:load(x, y)
-    PhysicalGameState.load(self, x, y)
-end
-
-function M:switchTo(x, y)
-    PhysicalGameState.switchTo(self, x, y)
-end
-
-function M:save()
-end
-
 
 return M

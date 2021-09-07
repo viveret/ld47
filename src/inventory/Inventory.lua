@@ -44,12 +44,12 @@ function M:drawWorld(item)
     end
 end
 
-function M:save()
+function M:quicksave()
     game.saveData.inventories = game.saveData.inventories or {}
     game.saveData.inventories[self.id] = lume.extend({}, self.items)
 end
 
-function M:load()
+function M:quickload()
     game.saveData.inventories = game.saveData.inventories or {}
     self.items = lume.extend({}, game.saveData.inventories[self.id])
 end

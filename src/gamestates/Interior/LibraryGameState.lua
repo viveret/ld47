@@ -1,10 +1,10 @@
-IndoorsGameState = require "src.gamestates.Physical.IndoorsGameState"
-local M = setmetatable({}, { __index = IndoorsGameState })
+local super = require "src.gamestates.Physical.IndoorsGameState"
+local M = setmetatable({}, { __index = super })
 M.__index = M
 M.__file = __file__()
 
 function M.new()
-    local self = setmetatable(IndoorsGameState.new('Library', game.images.places.library), M)
+    local self = setmetatable(super.new('Library', game.images.places.library), M)
 
     self.warps = {
         { -- Main door
@@ -37,16 +37,8 @@ function M.new()
 	return self
 end
 
-function M:draw()
-    IndoorsGameState.draw(self)
-end
-
-function M:update(dt)
-    IndoorsGameState.update(self, dt)
-end
-
-function M:load(x, y)
-    IndoorsGameState.load(self, x, y)
+function M:setupPhysics()
+    super.load(self)
 
     self:addStaticObjects({
         ropes = StaticObject.new(self.world, 63, 39, game.images.decor.ropes),
@@ -55,15 +47,12 @@ function M:load(x, y)
 end
 
 function M:switchTo(x, y)
-    IndoorsGameState.switchTo(self, x, y)
+    super.switchTo(self, x, y)
 
     if self.librarian == nil then
         self.librarian = events.actor.ActorSpawnEvent.new("Library", "Librarian", "librarian", 23, 46)
         game.fire(self.librarian)
     end
-end
-
-function M.save()
 end
 
 return M

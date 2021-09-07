@@ -8,12 +8,18 @@ function M.new(scene)
     end
     local self = setmetatable({
         scene = scene,
-        state = {
-            
-        },
-        states = {},
+        state = {},
+        initialState = {},
 	}, M)
+    
 	return self
+end
+
+function M:init()
+    local state = game.saves:currentSlotMostRecentSaveState()
+    if state then
+        self:quickload(state)
+    end
 end
 
 function M:onTypeReloaded()
@@ -29,20 +35,16 @@ end
 function M:update(dt)
 end
 
-function M:save()
-end
-
-function M:load()
-end
-
-function M:quicksave()
-    table.push(self.states, lume.extend({}, self.state))
+function M:quicksave(state)
+    state:getEntry("scene-" .. self.scene):save(self.state)
 end
 
 function M:quickload(state)
-    if state == nil then
-    elseif state < 0 then
+    if state then
+        self.state = state:getEntry("scene-" .. self.scene):load() or {}
     else
+        error("state is nil")
+        -- self.state = lume.extend({}, self.initialState)
     end
 end
 
@@ -51,6 +53,20 @@ function M:reload()
 end
 
 function M:switchTo(x, y)
+    -- local currentSlot = game.saves:currentSlot()
+    -- if currentSlot then
+    --     currentSlot:quicksave(true)
+    -- else
+    --     print("could not save - currentSlot is nil")
+    -- end
+    -- game.saves:save("scene-" .. self.scene, self.state)
+    -- table.push(self.states, lume.extend({}, self.state))
+
+    -- self:quickload()
+end
+
+function M:switchAway()
+    game.quicksave()
 end
 
 function M:activated()

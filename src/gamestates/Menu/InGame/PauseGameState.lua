@@ -29,10 +29,10 @@ function M:keypressed( key, scancode, isrepeat )
             game.fire(QuitGameEvent.new(), true)
             return
         elseif key == game.strings.keyBinds.moveRight then
-            game.warpTo(self.navigateRight, game.stackTransitions.ToLeft)
+            game.warpTo(self.navigateRight, gamestateTransitions.ToLeft)
             return
         elseif key == game.strings.keyBinds.moveLeft then
-            game.warpTo(self.navigateLeft, game.stackTransitions.ToRight)
+            game.warpTo(self.navigateLeft, gamestateTransitions.ToRight)
             return
         end
     end

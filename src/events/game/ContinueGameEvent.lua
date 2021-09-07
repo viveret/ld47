@@ -7,13 +7,13 @@ function M.new()
 end
 
 function M:fireOn(gs)
-    local lastType = game.current().type
+    local lastType = game.stateMgr:current().type
     
     if lastType == 'GameOver' then
         game.clear()
         game.init()
     else
-        game.popTop(game.stackTransitions.Regular)
+        game.popTop(gamestateTransitions.Regular)
     end
     return true
 end

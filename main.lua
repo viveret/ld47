@@ -75,9 +75,9 @@ love.keyreleased = game.keyreleased
 
 
 function reloadPlayer()
-    typeReload.reloadWithinObject(game.currentPhysical().player)
+    typeReload.reloadWithinObject(game.stateMgr:currentPhysical().player)
 end
 
 function reloadCurrentScene()
-    typeReload.reloadWithinObject(game.currentPhysical())
+    typeReload.reloadWithinObject(game.stateMgr:currentPhysical())
 end

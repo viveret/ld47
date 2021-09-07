@@ -106,7 +106,7 @@ end
 
 function M:keypressed( key, scancode, isrepeat )
 	if not isrepeat and key == 'escape' then
-		game.popTop(game.stackTransitions.DialogOut)
+		game.stateMgr:popTop(gamestateTransitions.DialogOut)
 		return
 	end
 	self.kb:keypressed( key, scancode, isrepeat )
@@ -120,12 +120,6 @@ function M:activated()
 end
 
 function M:update(dt)
-end
-
-function M:load()
-end
-
-function M:save()
 end
 
 function M:draw()

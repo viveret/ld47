@@ -4,7 +4,7 @@ M.__index = M
 
 function M:fireOn(gs)
 	local consoleWindow = gameStates.DevConsole.new()
-	game.push(consoleWindow, nil, game.stackTransitions.DialogIn)
+	game.stateMgr:push(consoleWindow, nil, gamestateTransitions.DialogIn)
 end
 
 function M.new()

@@ -79,12 +79,6 @@ function M:update(dt)
     end
 end
 
-function M:load()
-end
-
-function M:save()
-end
-
 function M:activated()
 end
 

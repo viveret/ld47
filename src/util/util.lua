@@ -1,3 +1,14 @@
+function copy(src, dest)
+    if dest == nil then
+        dest = {}
+    end
+
+    for k,v in pairs(src) do
+        dest[k] = v
+    end
+
+    return dest
+end
 
 function path2package(path)
     return path:sub(0, -#'.lua' - 1):gsub("%^/", ".")

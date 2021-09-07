@@ -2,91 +2,75 @@ local M = {}
 M.__index = M
 M.__file = __file__()
 
+local GameSaveSlot = require "src.components.system.GameSaveSlot"
+
+-- default location is in user save directory (.local/share/love/ld47/savedata)
+-- https://love2d.org/wiki/love.filesystem
 function M.new()
     local self = setmetatable({
-        currentSlot = 0,
-        saving = false,
+        currentSlotIndex = 0,
         slotPath = 'savedata/',
-        elapsedTime = 0
     }, M)
 
 	return self
 end
 
-function M:update(dt)
-end
-
-function M:clear()
-end
-
-function M:clearAll()
-end
-
-function M:current()
-    if self.currentSlot > 0 then
-        return binser.readFile(self:currentSlotPath())
-    else
-        return nil
+function M:currentSlotMostRecentSaveState()
+    local currentSlot = self:currentSlot()
+    if currentSlot == nil then
+        error("Current slot == nil")
     end
+
+    local state = currentSlot:getMostRecentSaveState()
+    if state == nil then
+    --     error("getMostRecentSaveState() == nil")
+    -- else
+        state = currentSlot:newSaveState()
+        if state == nil then
+            error("currentSlot:newSaveState()")
+        end
+    end
+
+    return state
 end
 
-function M:slotCount()
-    return lfs.getDirectoryItems(self.slotPath)
+function M:currentSlot()
+    local path = self:currentSlotPath()
+
+    if GameSaveSlot.exists(path) then
+        return GameSaveSlot.load(path)
+    else
+        return GameSaveSlot.new("New Game", path, nil, "medium")
+    end
 end
 
 function M:currentSlotPath()
-    return self.slotPath .. self.currentSlot .. '/save.lua'
-end
-
-function M:load(autosave)
-    --local encoded = kuey.encode(lume.serialize(self.saveData), game.getSaveKey()) // https://github.com/bakpakin/binser
-    --local encoded = kuey.encode(binser.serialize(self.saveData), game.getSaveKey())
-    --self.saveData = lume.deserialize(kuey.decode(loadData, game.getSaveKey()))
-    --self.saveData = binser.deserialize(kuey.decode(loadData, game.getSaveKey()))
-end
-
-function M:save()
-    --local encoded = kuey.encode(lume.serialize(self.saveData), game.getSaveKey()) // https://github.com/bakpakin/binser
-    --local encoded = kuey.encode(binser.serialize(self.saveData), game.getSaveKey())
-    --self.saveData = lume.deserialize(kuey.decode(loadData, game.getSaveKey()))
-    --self.saveData = binser.deserialize(kuey.decode(loadData, game.getSaveKey()))
-end
-
-function M:quicksave(autosave)
-    self.saving = true
-    self.saving = false
-    if autosave then
-    else
-    end
-end
-
-function M:quickload()
+    return self.slotPath .. self.currentSlotIndex
 end
 
 function M:getAll(testData)
     if testData == true then
         return {
-            {
-                name = 'Run 1',
-                lastSaveDate = '1/1/2020 at 1:11 pm',
-                difficulty = 'medium',
-            },
-            {
-                name = 'Run 2',
-                lastSaveDate = '1/1/2020 at 1:11 pm',
-                difficulty = 'medium',
-            }
+            GameSaveSlot.newTest(1),
+            GameSaveSlot.newTest(2),
+            GameSaveSlot.newTest(3),
         }
     else
         local filesTable = lfs.getDirectoryItems(self.slotPath)
         return lume.chain(filesTable)
                 :map(function(x) return self.slotPath .. x end)
-                :filter(function(x) return lfs.isDirectory(x) end)
-                :map(function(x) return x .. "save.json" end)
-                :filter(function(x) return lfs.isFile(x) end)
-                :map(function(x) return binser.read(x) end)
+                :filter(function(x) return lfs.getInfo(x, "directory") ~= nil end)
+                :map(function(x) return { parent = x, items = lfs.getDirectoryItems(x) } end)
+                :filter(function(x) return #x.items > 0 end)
+                :map(function(x) return x.parent .. "/" .. lume.last(x.items) .. "/game.save" end)
+                :filter(function(x) return lfs.getInfo(x, "file") ~= nil end)
+                :map(function(x) return GameSaveSlot.load(x) end)
                 :result()
     end
+end
+
+function M:slotCount()
+    return #self:getAll()
 end
 
 return M
