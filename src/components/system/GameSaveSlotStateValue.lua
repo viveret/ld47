@@ -37,7 +37,7 @@ end
 function M:load(default)
     if self:exists() then
         local serializedData = lfs.read(self.path)
-        print("serializedData: " .. inspect(serializedData))
+        -- print("serializedData: " .. inspect(serializedData))
         local deserialized = unpack(binser.deserialize(serializedData))
         print("deserialized: " .. inspect(deserialized))
         return deserialized
@@ -49,8 +49,8 @@ end
 
 function M:exists()
     local r = lfs.getInfo(self.path, "file") ~= nil
-    print("self.path -> " .. self.path)
-    print("lfs.getInfo(self.path, \"file\") ~= nil -> " .. inspect(r))
+    -- print("self.path -> " .. self.path)
+    -- print("lfs.getInfo(self.path, \"file\") ~= nil -> " .. inspect(r))
     return r
 end
 
