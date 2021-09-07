@@ -9,6 +9,7 @@ function M.new(path, id)
         path = path,
         id = id,
     }, M)
+    lfs.createDirectory(path)
     return self
 end
 

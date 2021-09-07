@@ -18,7 +18,12 @@ end
 function M:init()
     local state = game.saves:currentSlotMostRecentSaveState()
     if state then
-        self:quickload(state)
+        local stateEntry = state:getEntry("scene-" .. self.scene)
+        if stateEntry then
+            self.initialState = stateEntry:load() or {}
+            print("init state: " .. inspect(self.initialState))
+            self.state = self.initialState
+        end
     end
 end
 
@@ -62,7 +67,10 @@ function M:switchTo(x, y)
     -- game.saves:save("scene-" .. self.scene, self.state)
     -- table.push(self.states, lume.extend({}, self.state))
 
-    -- self:quickload()
+    local state = game.saves:currentSlotMostRecentSaveState()
+    if state then
+        self:quickload(state)
+    end
 end
 
 function M:switchAway()
