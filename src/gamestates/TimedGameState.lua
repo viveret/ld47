@@ -19,33 +19,14 @@ function M.new(scene)
 	return self
 end
 
-function M:init()
-    super.init(self)
-    -- self.clock:init()
-end
-
 function M:draw()
     self.clock:draw()
 end
 
-function M:quicksave(state)
-    --self.state.time = game.time:getSaveState()
-    super.quicksave(self, state)
-end
-
-function M:quickload(state)
-    super.quickload(self, state)
-end
-
-function M:switchTo(x, y)
-    super.switchTo(self, x, y)
-    -- load relevant timeline
-    --self.timeline = timeline.lookup(game.timeline, self.scene, game.time)
-end
-
-function M:activated()
-    self:performEventsSince(self.lastVisited)
-    self:resolveNextEvents()
+function M:onSwitchTo()
+    super.onSwitchTo(self)
+    -- self:performEventsSince(self.lastVisited)
+    -- self:resolveNextEvents()
 end
 
 function M:getColorRightNow()

@@ -44,7 +44,7 @@ function M:drawUIside()
     lg.pop()
 end
 
-function M:keypressed(key, scancode, isrepeat)
+function M:onKeyPressed(key, scancode, isrepeat)
     if not isrepeat then
         local previouslySelectedItem = self.itemViews[self.inventory.selectedIndex]
         if key == 'space' then
@@ -75,7 +75,7 @@ function M:keypressed(key, scancode, isrepeat)
             return
         end
     end
-    super.keypressed(self, key, scancode, isrepeat)
+    super.onKeyPressed(self, key, scancode, isrepeat)
 end
 
 return M

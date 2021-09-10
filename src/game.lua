@@ -59,12 +59,12 @@ _empty = gameStates.Base.new('_empty')
 --     }
 --   })
 
-function game.keypressed( key, scancode, isrepeat )
-    game.stateMgr:keypressed( key, scancode, isrepeat )
+function game.onKeyPressed( key, scancode, isrepeat )
+    game.stateMgr:onKeyPressed( key, scancode, isrepeat )
 end
 
-function game.keyreleased( key, scancode )
-    game.stateMgr:keyreleased( key, scancode )
+function game.onKeyReleased( key, scancode )
+    game.stateMgr:onKeyReleased( key, scancode )
 end
 
 function game.clear()
@@ -345,6 +345,8 @@ function game.warpTo(path, transitionType)
     x = tonumber(x)
     y = tonumber(y)
 
+    local args = { x = x, y = y, etc = etc }
+
     local existing = game.stateMgr:findByScene(scene)
     local create = gameStates[scene]
     local previous = game.stateMgr:currentPhysical()
@@ -352,9 +354,9 @@ function game.warpTo(path, transitionType)
     trycatch(
         function()
             if existing ~= nil then
-                game.stateMgr:switchToExisting(existing, previous, x, y, transitionType)
+                game.stateMgr:switchToExisting(existing, previous, transitionType, args)
             elseif create ~= nil then
-                game.stateMgr:switchToNew(create, previous, scene, x, y, transitionType)
+                game.stateMgr:switchToNew(create, previous, transitionType, args)
             else
                 error ('Invalid gameState ' .. scene)
             end

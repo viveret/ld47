@@ -31,6 +31,8 @@ function M:draw()
 end
 
 function M:update(dt)
+    super.update(self, dt)
+    
 	self.charsToShow = self.charsToShow + dt * self.charsPerSecond
     if self.charsToShow > 4 then
         self.charsToShow = 0

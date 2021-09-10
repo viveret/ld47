@@ -4,9 +4,7 @@ M.__index = M
 M.__file = __file__()
 
 function M.new(name, graphics)
-    local self = setmetatable(lume.extend(super.new(name, graphics), {
-
-    }), M)
+    local self = setmetatable(super.new(name, graphics), M)
     lume.extend(self.colors, {
         lightsOff = {
             night = Color.new({ r = 0.2, g = 0, b = 0 }),
@@ -115,8 +113,12 @@ function M:detectWorldBounds(padding, padding_y)
     return left, right, up, down
 end
 
-function M:switchTo(x, y)
-    super.switchTo(self, x, y)
+function M:onSwitchTo(args)
+    super.onSwitchTo(self, args)
+end
+
+function M:onLoad()
+    super.onLoad(self)
     self:assignLightColor()
 end
 

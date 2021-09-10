@@ -74,7 +74,7 @@ function M:update(dt)
     AnimatedActor.update(self, dt)
 end
 
-function M:keypressed( key, scancode, isrepeat )
+function M:onKeyPressed( key, scancode, isrepeat )
     if not isrepeat then
 		if self.keyBinds.interact == key then
             self:doInteraction()

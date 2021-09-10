@@ -3,15 +3,8 @@ local M = setmetatable({}, { __index = super })
 M.__index = M
 M.__file = __file__()
 
-function M.new(actor, title, text)
-	if actor == nil then
-		error ('actor cannot be nil')
-	end
-
-    local self = setmetatable(lume.extend(super.new(title), {
-		actor = actor,
-		title = title,
-        text = text,
+function M.new(scene)
+    local self = setmetatable(lume.extend(super.new(scene or "dialog"), {
         isTransparent = true,
 		nextAnimation = game.animations.ui.text_arrow,
 		charsToShow = 0,
@@ -21,7 +14,18 @@ function M.new(actor, title, text)
 	return self
 end
 
-function M:keypressed( key, scancode, isrepeat )
+function M:onCreate(args)
+	super.onCreate(self, args)
+	local actor, title, text = unpack(args)
+	if actor == nil then
+		error ('actor cannot be nil')
+	end
+	self.actor = actor
+	self.title = title
+	self.text = text
+end
+
+function M:onKeyPressed( key, scancode, isrepeat )
     if not isrepeat then
 		if lume.find({game.strings.keyBinds.interact, 'return', 'escape'}, key) ~= nil then
 			if self.charsToShow >= #self.text then
@@ -33,7 +37,7 @@ function M:keypressed( key, scancode, isrepeat )
 	end
 end
 
-function M:keyreleased( key, scancode )
+function M:onKeyReleased( key, scancode )
 	
 end
 

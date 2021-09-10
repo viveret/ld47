@@ -39,8 +39,8 @@ function M.new()
 	return self
 end
 
-function M:setupPhysics()
-    super.setupPhysics(self)
+function M:setupPhysics(args)
+    super.setupPhysics(self, args)
 
     -- todo: time of day check
 

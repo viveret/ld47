@@ -30,15 +30,15 @@ function M.new(type)
 	return self
 end
 
-function M:keypressed( key, scancode, isrepeat )
+function M:onKeyPressed( key, scancode, isrepeat )
     for k,el in pairs(self.uielements) do
-        el:keypressed( key, scancode, isrepeat )
+        el:onKeyPressed( key, scancode, isrepeat )
     end
 end
 
-function M:keyreleased( key, scancode )
+function M:onKeyReleased( key, scancode )
     for k,el in pairs(self.uielements) do
-        el:keyreleased( key, scancode )
+        el:onKeyReleased( key, scancode )
     end
 end
 
@@ -216,6 +216,8 @@ end
 
 -- this isn't totally working with scroll (should make this in root view and call mousemoved)
 function M:update(dt)
+    super.update(self, dt)
+
     local x = love.mouse.getX()
     local y = love.mouse.getY()
     local isClicked = (not self.wasClickedBefore) and love.mouse.isDown(1)

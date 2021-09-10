@@ -12,19 +12,24 @@ function M.new(type, title)
         bgMusicName = "day2",
         root = rootViewType.new(type or 'menu')
     }), M)
+    
+	return self
+end
+
+function M:onCreate(args)
+    super.onCreate(self, args)
 
     self.root.bg = game.images.ui.menu_bg
     self.root.justify = 'center'
     
     self.root:addSpace(60 * 2)
-    
-	return self
 end
 
-function M:activated()
+function M:onSwitchTo(args)
+    super.onSwitchTo(self, args)
+
     game.audio:play(self.bgMusicName)
     self.root:activated()
-    --super.activated(self)
 end
 
 function M:getWidth()
@@ -51,12 +56,12 @@ function M:update(dt)
     -- super.update(self)
 end
 
-function M:keypressed( key, scancode, isrepeat )
-    self.root:keypressed( key, scancode, isrepeat )
+function M:onKeyPressed( key, scancode, isrepeat )
+    self.root:onKeyPressed( key, scancode, isrepeat )
 end
 
-function M:keyreleased( key, scancode )
-    self.root:keyreleased( key, scancode )
+function M:onKeyReleased( key, scancode )
+    self.root:onKeyReleased( key, scancode )
 end
 
 

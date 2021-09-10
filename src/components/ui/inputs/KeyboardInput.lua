@@ -72,7 +72,7 @@ end
 function M:activated()
 end
 
-function M:keypressed( key, scancode, isrepeat )
+function M:onKeyPressed( key, scancode, isrepeat )
     if not isrepeat then
 		if 'return' == key then
             local wasError = false
@@ -209,7 +209,7 @@ function M:insertChar(c)
     end
 end
 
-function M:keyreleased( key, scancode )
+function M:onKeyReleased( key, scancode )
     if not isrepeat then
         if lume.find({'lalt', 'ralt'}, key) ~= nil then
             self.modkeys.alt = false

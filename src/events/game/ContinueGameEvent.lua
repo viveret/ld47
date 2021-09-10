@@ -13,7 +13,7 @@ function M:fireOn(gs)
         game.clear()
         game.init()
     else
-        game.popTop(gamestateTransitions.Regular)
+        game.stateMgr:popTop(gamestateTransitions.Regular)
     end
     return true
 end

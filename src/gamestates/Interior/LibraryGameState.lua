@@ -37,17 +37,13 @@ function M.new()
 	return self
 end
 
-function M:setupPhysics()
-    super.load(self)
+function M:setupPhysics(args)
+    super.setupPhysics(self, args)
 
     self:addStaticObjects({
         ropes = StaticObject.new(self.world, 63, 39, game.images.decor.ropes),
         tome = StaticObject.new(self.world, 80, 40, game.images.decor.tome)
     })
-end
-
-function M:switchTo(x, y)
-    super.switchTo(self, x, y)
 
     if self.librarian == nil then
         self.librarian = events.actor.ActorSpawnEvent.new("Library", "Librarian", "librarian", 23, 46)

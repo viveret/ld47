@@ -86,10 +86,10 @@ function M:tostring()
     return self.type
 end
 
-function M:keypressed( key, scancode, isrepeat )
+function M:onKeyPressed( key, scancode, isrepeat )
 end
 
-function M:keyreleased( key, scancode )
+function M:onKeyReleased( key, scancode )
 end
 
 function M:mousemoved(isClicked, x, y, elx, ely)

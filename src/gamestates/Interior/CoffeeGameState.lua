@@ -1,5 +1,5 @@
 local super = require "src.gamestates.Physical.IndoorsGameState"
-local M = setmetatable({}, { __index = IndoorsGameState })
+local M = setmetatable({}, { __index = super })
 M.__index = M
 M.__file = __file__()
 
@@ -35,8 +35,8 @@ function M.new()
 	return self
 end
 
-function M:setupPhysics()
-    super.setupPhysics(self)
+function M:setupPhysics(args)
+    super.setupPhysics(self, args)
 
     self:addStaticObjects({
         freezer1 = AnimatedObject.new(self.world, 3.5, 5, game.animations.decor.freezer),

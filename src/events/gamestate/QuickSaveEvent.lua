@@ -10,7 +10,7 @@ end
 function M:fireOn()
     local saving = uiComponents.widgets.Saving.new()
     game.ui.overlay:addUiElement(saving)
-    local promise = game.saves:quicksave(self.autosave or false)
+    local promise = game.quicksave() -- self.autosave or false
     if promise then
         promise:next(
                     function()

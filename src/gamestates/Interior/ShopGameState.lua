@@ -1,4 +1,4 @@
-super = require "src.gamestates.Physical.IndoorsGameState"
+local super = require "src.gamestates.Physical.IndoorsGameState"
 local M = setmetatable({}, { __index = super })
 M.__index = M
 M.__file = __file__()
@@ -24,8 +24,8 @@ function M.new()
 	return self
 end
 
-function M:setupPhysics()
-    super.setupPhysics(self)
+function M:setupPhysics(args)
+    super.setupPhysics(self, args)
 
     self:addStaticObjects({
         construction = StaticObject.new(self.world, 40, 40, game.images.decor.construction),

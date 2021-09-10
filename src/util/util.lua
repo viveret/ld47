@@ -1,10 +1,14 @@
-function copy(src, dest)
+function copy(src, dest, recursive)
     if dest == nil then
         dest = {}
     end
 
     for k,v in pairs(src) do
-        dest[k] = v
+        if recursive and type(v) == "table" then
+            dest[k] = copy(v, {}, recursive)
+        else
+            dest[k] = v
+        end
     end
 
     return dest

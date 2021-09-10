@@ -1,15 +1,17 @@
-local KeyboardInput = require "src.components.ui.inputs.KeyboardInput"
-
-local M = { }
+local super = require "src.gamestates.BaseGameState"
+local M = setmetatable({}, { __index = super })
 M.__index = M
 M.__file = __file__()
 
+local KeyboardInput = require "src.components.ui.inputs.KeyboardInput"
+
+
 function M.new()
-    local self = setmetatable({
+    local self = setmetatable(lume.extend(super.new("dev-console"), {
         isTransparent = true,
 		kb = KeyboardInput.new(),
 		content = 'dev console\n',
-	}, M)
+	}), M)
 
 	self.kb:addOnSubmitListener(
 		function()
@@ -104,22 +106,16 @@ function M:executeCommand(cmd)
 	end
 end
 
-function M:keypressed( key, scancode, isrepeat )
+function M:onKeyPressed( key, scancode, isrepeat )
 	if not isrepeat and key == 'escape' then
 		game.stateMgr:popTop(gamestateTransitions.DialogOut)
 		return
 	end
-	self.kb:keypressed( key, scancode, isrepeat )
+	self.kb:onKeyPressed( key, scancode, isrepeat )
 end
 
-function M:keyreleased( key, scancode )
-	self.kb:keyreleased( key, scancode )
-end
-
-function M:activated()
-end
-
-function M:update(dt)
+function M:onKeyReleased( key, scancode )
+	self.kb:onKeyReleased( key, scancode )
 end
 
 function M:draw()

@@ -25,18 +25,18 @@ end
 --     }
 --   })
 
-function M:keypressed( key, scancode, isrepeat )
+function M:onKeyPressed( key, scancode, isrepeat )
     if not self:isTransitioning() then
         debugtrycatch(game.debug.keys, function()
-            self:current():keypressed( key, scancode, isrepeat )
+            self:current():onKeyPressed( key, scancode, isrepeat )
         end)
     end
 end
 
-function M:keyreleased( key, scancode )
+function M:onKeyReleased( key, scancode )
     if not self:isTransitioning() then
         debugtrycatch(game.debug.keys, function()
-            self:current():keyreleased( key, scancode )
+            self:current():onKeyReleased( key, scancode )
         end)
     end
 end
@@ -106,40 +106,44 @@ function M:switchTo(toGamestate, transitionType)
         end
     end
 
-    self:push(toGamestate, nil, transitionType)
+    self:push(toGamestate, transitionType)
 end
 
-function M:switchToExisting(existing, previous, x, y, transitionType)
+function M:switchToExisting(existing, previous, transitionType, args)
     if previous then
-        previous:switchAway()
+        previous:onSwitchAway()
     end
-    existing:switchTo(x, y)
+    existing:onSwitchTo(args)
     self:switchTo(existing, transitionType)
 end
 
-function M:switchToNew(create, previous, scene, x, y, transitionType)
+function M:switchToNew(create, previous, transitionType, args)
     if previous then
-        previous:switchAway()
+        -- print("switching away from " .. previous.__file)
+        previous:onSwitchAway()
     end
+    
     local newState = create.new()
-    newState.type = scene
-    newState:init()
-    newState:switchTo(x, y)
-    self:push(newState, nil, transitionType)
+
+    newState:onCreate(args)
+
+    self:push(newState, transitionType)
 end
 
 -- push a NEW game here
-function M:push(newGamestate, deactive, transitionType)
+function M:push(newGamestate, transitionType)
+    if newGamestate.loaded ~= true then
+        newGamestate:onLoad()
+    end
+
     if transitionType == nil then
         if newGamestate ~= nil then
             -- print("pushing "..newGamestate.scene)
             table.insert(self.stack, newGamestate)
+            newGamestate:onAttach()
+            newGamestate:onSwitchTo()
         else
             error('newGamestate must not be nil')
-        end
-    
-        if deactive ~= true then
-            newGamestate:activated()
         end
     else
         self.stackTransition = transitionType.new('push', self:current(), newGamestate)
@@ -152,21 +156,32 @@ function M:remove(indexStart, indexEnd, transitionType)
     end
 
     if transitionType == nil then
+        local old = self:current()
+
         if indexStart == indexEnd then
+            self.stack[indexStart]:onDetach()
             table.remove(self.stack, indexStart)
         else
             local tmp = {}
             for i = 1, #self.stack do
                 if indexStart < i or i > indexEnd then
                     table.insert(tmp, self.stack[i])
+                else
+                    self.stack[i]:onDetach()
                 end
             end
             self.stack = tmp
         end
 
         local current = self:current()
-        if current ~= nil then
-            current:activated()
+
+        if current ~= old then
+            if current ~= nil then
+                if current.loaded ~= true then
+                    current:onLoad()
+                end
+                current:onSwitchTo()
+            end
         end
     else
         if 0 >= indexStart then
@@ -204,6 +219,7 @@ end
 
 function M:replace(newGamestate)
     if newGamestate ~= nil then
+        print('todo: fix this to not call extra functions')
         self:popTop()
         self:push(newGamestate)
     else

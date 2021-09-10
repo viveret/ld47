@@ -1,6 +1,7 @@
 local BaseEvent = require "src.events.BaseEvent"
 local M = setmetatable({}, { __index = BaseEvent })
 M.__index = M
+M.__file = __file__()
 
 function M:fireOn(gs)
 	local currentGS = gs:current()

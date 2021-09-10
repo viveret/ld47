@@ -1,6 +1,7 @@
 local super = require "src.events.TimeLineEvent"
 local M = setmetatable({ aliases = { "Speak" } }, { __index = super })
 M.__index = M
+M.__file = __file__()
 
 function M.new(scene, name, text)
     local self = setmetatable(super.new(scene, "ActorSpeakEvent"), M)
@@ -24,9 +25,8 @@ function M:fireWhenInScene()
 	end
 
 	game.note((self.name or '???') .. ': ' .. self.text)
-	
-	local dialogState = gameStates.Dialog.new(assetName, self.name, self.text)
-	game.stateMgr:push(dialogState, nil, gamestateTransitions.DialogIn)
+	local args = { assetName, self.name, self.text }
+	game.stateMgr:switchToNew(gameStates.Dialog, nil, gamestateTransitions.DialogIn, args)
 end
 
 function M:fireWhenOutOfScene()

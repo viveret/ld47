@@ -1,15 +1,14 @@
 local super = require "src.events.BaseEvent"
 local M = setmetatable({}, { __index = super })
 M.__index = M
+M.__file = __file__()
 
 function M:fireOn(gs)
-	local consoleWindow = gameStates.DevConsole.new()
-	game.stateMgr:push(consoleWindow, nil, gamestateTransitions.DialogIn)
+	game.stateMgr:switchToNew(gameStates.DevConsole, nil, gamestateTransitions.DialogIn)
 end
 
 function M.new()
-    local self = setmetatable(super.new("DevConsoleEvent"), M)
-	return self
+    return setmetatable(super.new("DevConsoleEvent"), M)
 end
 
 return M

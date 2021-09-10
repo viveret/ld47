@@ -37,7 +37,7 @@ function M:update(dt)
     super.update(self, dt)
 end
 
-function M:keypressed( key, scancode, isrepeat )
+function M:onKeyPressed( key, scancode, isrepeat )
     if not isrepeat then
         if key == 'w' then
             self.scrollAccel.y = -self.scrollForce
@@ -53,10 +53,10 @@ function M:keypressed( key, scancode, isrepeat )
             return
         end
     end
-    super.keypressed(self, key, scancode, isrepeat)
+    super.onKeyPressed(self, key, scancode, isrepeat)
 end
 
-function M:keyreleased( key, scancode )
+function M:onKeyReleased( key, scancode )
     if key == 'w' or key == 's' then
         self.scrollAccel.y = 0
         return
@@ -64,7 +64,7 @@ function M:keyreleased( key, scancode )
         self.scrollAccel.x = 0
         return
     end
-    super.keyreleased(self, key, scancode)
+    super.onKeyReleased(self, key, scancode)
 end
 
 return M

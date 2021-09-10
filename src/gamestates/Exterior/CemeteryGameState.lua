@@ -4,7 +4,7 @@ M.__index = M
 M.__file = __file__()
 
 function M.new()
-    local self = setmetatable(PhysicalGameState.new('Cemetery', game.images.places.cemetery), M)
+    local self = setmetatable(super.new('Cemetery', game.images.places.cemetery), M)
     self.bgMusicName = "dreamSequence"
     self:addExteriorWorldBounds(8)
     
@@ -26,8 +26,8 @@ function M.new()
 	return self
 end
 
-function M:setupPhysics()
-    super.setupPhysics(self)
+function M:setupPhysics(args)
+    super.setupPhysics(self, args)
 
     local rows = 5
     local cols = 6

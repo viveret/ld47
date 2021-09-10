@@ -29,8 +29,8 @@ function M.new()
 	return self
 end
 
-function M:setupPhysics()
-    super.setupPhysics(self)
+function M:setupPhysics(args)
+    super.setupPhysics(self, args)
 
     self:addWaitableObject(10, 20, game.animations.decor.beer_sign, true, 'Sleep')
     self:addLightSwitch(30, 10, game.images.decor.tome)

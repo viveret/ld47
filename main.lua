@@ -68,8 +68,8 @@ function love.quit()
     prof.write("prof.mpack")
 end
 
-love.keypressed = game.keypressed
-love.keyreleased = game.keyreleased
+love.keypressed = game.onKeyPressed
+love.keyreleased = game.onKeyReleased
 
 
 

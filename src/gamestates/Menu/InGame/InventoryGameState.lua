@@ -25,7 +25,7 @@ function M.new()
 	return self
 end
 
-function M:keypressed( key, scancode, isrepeat )
+function M:onKeyPressed( key, scancode, isrepeat )
     if not isrepeat then
         if lume.find({'p', 'i', 'escape'}, key) then
             self.root.returnButton:onClick()
@@ -38,11 +38,11 @@ function M:keypressed( key, scancode, isrepeat )
             return
         end
     end
-    super.keypressed(self, key, scancode, isrepeat)
+    super.onKeyPressed(self, key, scancode, isrepeat)
 end
 
-function M:keyreleased( key, scancode )
-    super.keyreleased(self, key, scancode)
+function M:onKeyReleased( key, scancode )
+    super.onKeyReleased(self, key, scancode)
 end
 
 return M

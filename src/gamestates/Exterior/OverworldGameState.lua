@@ -160,8 +160,8 @@ function M.new()
 	return self
 end
 
-function M:setupPhysics()
-    super.setupPhysics(self)
+function M:setupPhysics(args)
+    super.setupPhysics(self, args)
 
     self.animatedObjects = {
         schoolFlag = AnimatedObject.new(self.world, 184, 70, game.animations.decor.school_flag, nil, 'School Flag (raise/lower)'),

@@ -12,7 +12,14 @@ function M.new(easingFunc, args, promise)
 end
 
 function M:update(dt)
-    print('hi')
+    if self.completed ~= true then
+        self.elapsedTime = self.elapsedTime + dt
+        if self.elapsedTime >= self.duration then
+            self.elapsedTime = self.duration
+            self.completed = true
+            self.promise:resolve(self)
+        end
+    end
 end
 
 return M

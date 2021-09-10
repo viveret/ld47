@@ -42,7 +42,7 @@ function M:load(default)
         print("deserialized: " .. inspect(deserialized))
         return deserialized
     else
-        print("load " .. self.path .. ": nil")
+        -- print("load " .. self.path .. ": nil")
         return default or nil
     end
 end

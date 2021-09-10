@@ -36,12 +36,12 @@ function M.new(scene, graphics)
 	return self
 end
 
-function M:init()
-    super.init(self)
-    self:setupPhysics()
+function M:onCreate(args)
+    super.onCreate(self, args)
+    self:setupPhysics(args)
 end
 
-function M:setupPhysics()
+function M:setupPhysics(args)
     self.world = lp.newWorld(0, 0, true)
 
     -- hook up warps and what not
@@ -53,14 +53,20 @@ function M:setupPhysics()
 
     self:setupWorldBounds()
     self:setupWarps()
-    self:setupPlayer()
+    self:setupPlayer(args)
 end
 
-function M:setupPlayer()
+function M:setupPlayer(args)
+    local x, y = 0, 0
+    
+    if args and args.x and args.y then
+        x, y = args.x, args.y
+    end
+
     self.player = Player.new(self.world, 'player', game, x, y, nil, nil, game.animations.actors.player)
     self:pushCamera(Camera.new(self, self.player))
-    print('added camera attached to player: ' .. inspect({ self:currentCamera().x, self:currentCamera().y }))
-    print('player is at: ' .. inspect({ self.player.x, self.player.y }))
+    -- print('added camera attached to player: ' .. inspect({ self:currentCamera().x, self:currentCamera().y }))
+    -- print('player is at: ' .. inspect({ self.player.x, self.player.y }))
     self:currentCamera():refresh()
 end
 
@@ -108,7 +114,7 @@ function M:setupCollisionCallbacks()
     self.world:setCallbacks(physBeginContact, physEndContact, physPreSolve, physPostSolve)
 end
 
-function M:keypressed( key, scancode, isrepeat )
+function M:onKeyPressed( key, scancode, isrepeat )
     if not isrepeat then
         if lume.find({game.strings.keyBinds.pause, 'escape'}, key) then
             game.fire(events.game.PauseEvent.new(), true)
@@ -159,11 +165,11 @@ function M:keypressed( key, scancode, isrepeat )
     end
 
     if self.player ~= nil then
-        self.player:keypressed(key, scancode, isrepeat)
+        self.player:onKeyPressed(key, scancode, isrepeat)
     end
 end
 
-function M:keyreleased( key, scancode )
+function M:onKeyReleased( key, scancode )
     if game.debug.camera.enabled then
         if key == 'j' or key == 'l' then
             game.debug.camera.vx = 0
@@ -571,19 +577,20 @@ function M:updateProximityListeners()
     end
 end
 
-function M:switchTo(x, y)
-    super.switchTo(self, x, y)
+function M:onSwitchTo(args)
+    super.onSwitchTo(self, args)
 
-    self.player:setPosition(x, y, 0, 0)
+    if args and args.x and args.y then
+        self.player:setPosition(args.x, args.y, 0, 0)
+    end
+
     self:currentCamera():refresh()
 
     for _,warp in pairs(self.warps) do
         warp.activated = false
     end
     self.player.activated = false
-end
 
-function M:activated()
     if self.bgMusicName ~= nil then
         game.audio:play(self.bgMusicName)
     else
